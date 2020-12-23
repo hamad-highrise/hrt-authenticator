@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 
-const App = () => {
+const QRScan = () => {
   const [barcode, setBarcode] = useState({});
   const barcodeRecognized = (barcode) => {
     setBarcode(barcode);
@@ -40,13 +40,18 @@ const App = () => {
   return (
     <>
       <QRCodeReader
-        style={{ flex: 1, width: '100%' }}
-        // onBarCodeRead={barcodeRecognized}
-        onGoogleVisionBarcodesDetected={barcodeRecognized}>
-        {barcode.type && renderBarcode(barcode)}
-      </QRCodeReader>
+        style={styles.container}
+        onBarCodeRead={barcodeRecognized}
+      />
     </>
   );
 };
 
-export default App;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    width: '100%'
+  }
+});
+
+export default QRScan;
