@@ -1,10 +1,11 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { Button, IconButton } from '../../components';
 import { SearchBar } from './components';
 import { Navigation } from 'react-native-navigation';
 import { Biometrics } from '../../util';
 // import PropTypes from 'prop-types';
+import ListItem from './components/ListItem/ListItem';
 
 const Main = (props) => {
     const onPressHandler = () => {
@@ -34,25 +35,37 @@ const Main = (props) => {
             alert('Error!');
         }
     };
+
+    const [items, setItems] = useState([
+        {id: '786', text: 'HBL pim'},
+        {id: '591', text: 'HBL sam'},
+    ]);
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
+                <View>
+                    <IconButton onPress={() => alert('Device Info Section')}>
+                        <Image source={require('../../assets/icons/settings2.png')} style={{width:37,height:37,marginLeft:5, marginTop:2}} />
+                    </IconButton>
+                </View>
+
                 <View style={styles.title}>
                     <Text style={styles.titleText}>Accounts</Text>
                 </View>
                 <View>
                     <IconButton onPress={onPressHandler}>
-                        <Image source={require('../../assets/icons/add.png')} />
+                        <Image source={require('../../assets/icons/add.png')} style={{marginLeft:-10,marginTop:-3}} />
                     </IconButton>
                 </View>
             </View>
-            <View>
-                <SearchBar />
-                <Button
-                    title="Open Biometric Prompt"
-                    onPress={biometricPrompt}
-                />
-            </View>
+
+            <View style={{ margin: 5 }} />
+            <FlatList
+                data={items}
+                renderItem={({item})=> <ListItem item={item} />}
+            />
+
         </View>
     );
 };
