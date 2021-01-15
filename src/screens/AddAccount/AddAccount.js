@@ -1,13 +1,13 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import {
-    Button,
     Dimensions,
     Image,
     StyleSheet,
     Text,
     View
 } from 'react-native';
+import { Button } from '../../components';
 
 const AddScreen = (props) => {
     const onQrScanClick = () => {
@@ -26,21 +26,22 @@ const AddScreen = (props) => {
     };
     return (
         <View style={styles.container}>
-            {/* <Image
-                style={styles.image}
-                resizeMode="cover"
-                source={require('../../assets/images/qr_photo.jpeg')}
-            /> */}
             <View
                 style={{
                     width: Dimensions.get('window').width * 0.4
                 }}>
-                <Button title="Scan QR Code" onPress={onQrScanClick} />
-                <View style={{ margin: 5 }} />
+                <View title="select mode of connection"></View>
+                <Image 
+                    source={require('../../assets/images/addacc1.png')}
+                    style ={styles.image} />
+                <Button title="Scan QR Code" style={styles.btn} onPress={onQrScanClick} />
+                <View style={{ margin: 10 }} />
                 <Button
                     title="Add Manually"
                     onPress={() => alert('Add Account Manually')}
+                    style={styles.btnInvert}
                 />
+                <View style={{ margin: 20 }} />
             </View>
         </View>
     );
@@ -58,5 +59,34 @@ const styles = StyleSheet.create({
     image: {
         width: Dimensions.get('window').width * 0.5,
         height: Dimensions.get('window').height * 0.5
-    }
+    },
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width:Dimensions.get('window').width * 0.7,
+    },
+    btnInvert: {
+        backgroundColor: 'white',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+
+        fontSize: 14,
+        color: '#a24e12',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width:Dimensions.get('window').width * 0.7,
+    },
 });
