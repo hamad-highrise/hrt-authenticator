@@ -59,6 +59,7 @@ const displaySimplePrompt = async (message = 'Sample Message') => {
             return Promise.resolve(success);
         } else return Promise.reject(new Error('SENSOR_NOT_AVAILABLE'));
     } catch (error) {
+        console.warn(error);
         return Promise.reject(error);
     }
 };

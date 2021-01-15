@@ -1,22 +1,26 @@
 package com.verify;
 
 import android.os.Build;
-import androidx.annotation.NonNull;
+
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 
-public class DeviceInfo extends ReactContextBaseJavaModule {
+public class MyInfo extends ReactContextBaseJavaModule {
 
-    DeviceInfo(ReactApplicationContext context) {
+    MyInfo(ReactApplicationContext context) {
         super(context);
     }
 
     @ReactMethod
-    public String getDeviceName() {
-        return Build.MODEL;
+    public void getDeviceName(Promise promise) {
+        try {
+            promise.resolve(Build.MODEL);
+        } catch (Exception e) {
+            promise.reject("Error:", e);
+        }
     }
 
     @ReactMethod
@@ -29,9 +33,8 @@ public class DeviceInfo extends ReactContextBaseJavaModule {
     }
 
 
-    @NonNull
     @Override
     public String getName() {
-        return "DeviceInfo";
+        return "MyInfo";
     }
 }
