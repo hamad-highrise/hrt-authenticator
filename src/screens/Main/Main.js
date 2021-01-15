@@ -1,11 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
-import { Button, IconButton } from '../../components';
-import { SearchBar } from './components';
+import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
-import { Biometrics } from '../../util';
-import Database from '../../util/sqlite';
-// import PropTypes from 'prop-types';
 import ListItem from './components/ListItem/ListItem';
 
 const Main = (props) => {
