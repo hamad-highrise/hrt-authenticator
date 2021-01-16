@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import { MainScreen, QRScanScreen, AddAccountScreen } from './src/screens';
+import { MainScreen, QRScanScreen, AddAccountScreen, AccessCodeScreen } from './src/screens';
 
 // import App from './App';
 
@@ -9,7 +9,7 @@ Navigation.registerComponent(
     'authenticator.AddAccountScreen',
     () => AddAccountScreen
 );
-
+Navigation.registerComponent('authenticator.AccessCodeScreen', () => AccessCodeScreen);
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
         root: {
