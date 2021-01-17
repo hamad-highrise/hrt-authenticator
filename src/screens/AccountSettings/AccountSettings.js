@@ -1,21 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TextInput } from 'react-native';
 import { IconButton } from '../../components';
-import  {Navigation} from 'react-native-navigation';
+import { Button } from '../../components';
 
-const AccessCode = (props) => {
-    const onPressHandlerAccountSettings = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccountSettingsScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
+const AccountSettings = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -34,10 +22,10 @@ const AccessCode = (props) => {
                 </View>
 
                 <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Access Code</Text>
+                    <Text style={styles.titleMainText}>Account Settings</Text>
                 </View>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={onPressHandlerAccountSettings}>
+                    <IconButton onPress={() => alert('account settings')}>
                         <Image
                             source={require('../../assets/icons/settings2invert.png')}
                             style={[
@@ -63,21 +51,22 @@ const AccessCode = (props) => {
             </View>
             <View style={styles.middle}>
                 <View style={styles.title}>
-                    <Text style={styles.titleCodeText}> 02 34 56</Text>
+                    <TextInput placeholder=" acc name" style={styles.titleCodeText} />
                 </View>
+               
             </View>
+
+
             <View style={styles.bottom}>
-                <View style={styles.title}>
-                    <Text style={styles.titleTimerText}> 00:05</Text>
-                    {/* <Text style={styles.titleTimerNameText}>seconds</Text> */}
-                </View>
+            <Button title="Remove Account" style={styles.btn} onPress={()=> alert("remove account successfully")} />
+                <View style={{ margin: 10 }} />
             </View>
             <View style={{ margin: 5 }}></View>
         </View>
     );
 };
 
-AccessCode.options = {};
+AccountSettings.options = {};
 
 const styles = StyleSheet.create({
     container: {
@@ -130,12 +119,12 @@ const styles = StyleSheet.create({
     },
     titleCodeText: {
         color: 'maroon',
-        fontSize: 48,
-        fontWeight: 'bold',
+        fontSize: 28,
+        // fontWeight: 'bold',
         borderBottomColor: 'orange',
         borderBottomWidth: 4,
-        marginLeft: Dimensions.get('window').width * 0.11,
-        marginRight: Dimensions.get('window').width * 0.18
+        marginLeft: Dimensions.get('window').width * 0.04,
+        marginRight: Dimensions.get('window').width * 0.08
     },
     bottom: {
         flex: 0.3
@@ -158,7 +147,21 @@ const styles = StyleSheet.create({
         fontSize: 12,
         marginLeft: Dimensions.get('window').width * 0.2,
         marginRight: Dimensions.get('window').width * 0.2
-    }
+    },
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width:Dimensions.get('window').width * 0.7,
+    },
 });
 
-export default AccessCode;
+export default AccountSettings;
