@@ -1,10 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
-const ListItem = ({ item }) => {
+import PropTypes from 'prop-types';
+
+const ListItem = ({ item, onPress,param }) => {
+    const onListPress = () => {
+        onPress(param);
+    };
     return (
-        <TouchableOpacity
-            style={styles.listitem}
-            onPress={() => alert('See token')}>
+        <TouchableOpacity style={styles.listitem} onPress={onListPress}>
             <View style={styles.listitemView}>
                 <Text style={styles.listitemText}> {item.text} </Text>
                 <Text style={styles.listitemID}> {item.id} </Text>
@@ -21,13 +24,16 @@ const ListItem = ({ item }) => {
         </TouchableOpacity>
     );
 };
+ListItem.propTypes = {
+    onPress: PropTypes.any,
+};
 
 const styles = StyleSheet.create({
     listitem: {
         padding: 15,
         backgroundColor: '#f8f8f8',
         borderBottomWidth: 2,
-        borderColor: '#eee'
+        borderColor: '#eee',
     },
     listitemView: {
         flexDirection: 'row',

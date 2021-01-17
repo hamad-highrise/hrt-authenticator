@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { IconButton } from '../../components';
-import { Navigation } from 'react-native-navigation';
+import  {Navigation} from 'react-native-navigation';
 import ListItem from './components/ListItem/ListItem';
 
 const Main = (props) => {
@@ -19,17 +19,29 @@ const Main = (props) => {
             }
         });
     };
-
+    const onPressHandlerAccessCode = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.AccessCodeScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     const [items, setItems] = useState([
-        { id: '786', text: 'HBL pim' },
-        { id: '591', text: 'HBL sam' }
+        { id: 'test.isd', text: 'HBL pim' },
+        { id: 'hbl.support', text: 'HBL sam' }
     ]);
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View>
-                    <IconButton onPress={() => alert('Device Info Section')}>
+                    {/* <IconButton onPress={() => alert('Device Info Sectionn')}> */}
+                    <IconButton onPress={()=> alert("device info")} >
                         <Image
                             source={require('../../assets/icons/settings2.png')}
                             style={[
@@ -56,10 +68,11 @@ const Main = (props) => {
                 </View>
             </View>
 
-            <View style={{ margin: 5 }} />
+            <View style={{ marginLeft: 5, marginRight: 5 }} />
             <FlatList
+                style={{ margin: 5 }}
                 data={items}
-                renderItem={({ item }) => <ListItem item={item} />}
+                renderItem={({ item }) => <ListItem item={item} onPress={onPressHandlerAccessCode} />}
             />
         </View>
     );
@@ -90,7 +103,7 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
-    }
+    },
 });
 
 export default Main;
