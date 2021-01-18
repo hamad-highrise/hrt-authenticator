@@ -16,7 +16,7 @@ import Database from './src/util/sqlite';
         await database.setUpDatabase();
         await NativeModules.Utilities.addSecureFlag();
     } catch (error) {
-        alert('Error at app startup!!');
+        alert(JSON.stringify(error));
     }
 })();
 
