@@ -9,7 +9,7 @@ function Database() {
     this.db = null;
 }
 
-Database.prototype.getInstance = async function () {
+Database.prototype.init = async function () {
     if (this.db) return Promise.resolve(this.db);
     else {
         try {
