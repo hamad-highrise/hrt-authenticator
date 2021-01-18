@@ -2,16 +2,15 @@ import React from 'react';
 import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
-
 const AndroidButton = ({ title, onPress, style, param }) => {
-
     const onButtonPress = () => {
         onPress(param);
     };
 
     return (
-
-        <TouchableOpacity onPress={onButtonPress}  style={{...styles.container,...style}}>
+        <TouchableOpacity
+            onPress={onButtonPress}
+            style={{ ...styles.container, ...style }}>
             <Text style={styles.label}>{title}</Text>
         </TouchableOpacity>
     );
@@ -43,7 +42,8 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        color: '#e57f01',
+        // color: '#e57f01',
+        color: 'white',
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase'

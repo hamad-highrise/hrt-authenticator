@@ -10,19 +10,16 @@ function Database() {
 }
 
 Database.prototype.init = async function () {
-    if (this.db) return Promise.resolve(this.db);
-    else {
-        try {
-            this.db = await SQLite.openDatabase(
-                this.name,
-                this.version,
-                this.displayName,
-                this.size
-            );
-            return Promise.resolve(this.db);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+    try {
+        this.db = await SQLite.openDatabase(
+            this.name,
+            this.version,
+            this.displayName,
+            this.size
+        );
+        return Promise.resolve();
+    } catch (error) {
+        return Promise.reject(error);
     }
 };
 
@@ -71,7 +68,6 @@ Database.prototype.setUpDatabase = async function () {
 Database.prototype.exequteQuery = async function (query, params = []) {
     try {
         const result = await this.db.executeSql(query, params);
-        console.warn(result);
         return Promise.resolve(result);
     } catch (error) {
         console.warn(error);

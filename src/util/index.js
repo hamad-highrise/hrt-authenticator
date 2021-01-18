@@ -4,7 +4,7 @@
  * @returns Object with two keys {valid, value}
  */
 
-const tryParser = (str) => {
+const tryJSONParser = (str) => {
     if (typeof str !== 'string') return { valid: false, value: str };
     try {
         const value = JSON.parse(str);
@@ -16,4 +16,4 @@ const tryParser = (str) => {
 
 export { default as Biometrics } from './biometrics';
 export { default as uRIParser } from './ui-parser';
-export { tryParser };
+export { tryJSONParser };

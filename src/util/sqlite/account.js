@@ -2,12 +2,19 @@ import Database from '../sqlite';
 
 const database = new Database();
 
-const create = async ({ name, issuer, type = 'TOTPOnly' }) => {
+const create = async ({ name, issuer, type = 'TOTPOnly', secret }) => {
     const query = `INSERT INTO accounts (account_name, issuer, type) VALUES (?, ?, ?);`;
     const params = [name, issuer, type];
+    const secretQuery = `INSERT INTO secrets (secret, account_id) VALUES (?,?);`;
     try {
         await database.init();
         await database.exequteQuery(query, params);
+        const result = await getRecentAccountId();
+        let id;
+        for (let i = 0; i < result[0].rows.length; i++) {
+            id = result[0].rows.item(i);
+        }
+        await database.exequteQuery(secretQuery, [secret, id]);
         database.closeConn();
         return Promise.resolve();
     } catch (error) {
@@ -29,7 +36,7 @@ const _delete = async (id) => {
 };
 
 const getRecentAccountId = async () => {
-    const query = `SELECT account_id FROM accounts ORDER BY DESC LIMIT 1`;
+    const query = `SELECT account_id FROM accounts ORDER BY account_id DESC LIMIT 1`;
     try {
         await database.init();
         const result = await database.exequteQuery(query);
@@ -40,9 +47,23 @@ const getRecentAccountId = async () => {
     }
 };
 
+const getAccount = async (id) => {
+    const query = `SELECT accounts.account_name, accounts.issuer, secrets.secret FROM accounts 
+    INNER JOIN secrets ON accounts.account_id = secrets.account_id WHERE accounts.account_id = ?;`;
+    const params = [id];
+    try {
+        await database.init();
+        const result = await database.exequteQuery(query, params);
+        database.closeConn();
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
 const getAllAccounts = async () => {
     const query = `
-    SELECT account_name, issuer, type FROM ACCOUNTS;`;
+    SELECT account_id, account_name, issuer, type FROM ACCOUNTS;`;
     try {
         await database.init();
         const result = await database.exequteQuery(query);
@@ -69,4 +90,4 @@ const getSecret = async (id) => {
     }
 };
 
-export default { create, _delete, getAllAccounts, getSecret };
+export default { create, _delete, getAllAccounts, getSecret, getAccount };

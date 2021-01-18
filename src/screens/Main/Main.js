@@ -1,14 +1,36 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { IconButton } from '../../components';
-import  {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
 import ListItem from './components/ListItem/ListItem';
+import account from '../../util/sqlite/account';
 
 const Main = (props) => {
+    const [accounts, setAccounts] = useState([]);
+
+    const getAllAccounts = async () => {
+        try {
+            const results = await account.getAllAccounts();
+            let mAccounts = [];
+            for (let i = 0; i < results[0].rows.length; i++) {
+                mAccounts.push(results[0].rows.item(i));
+            }
+            setAccounts(mAccounts);
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
+    useEffect(() => {
+        getAllAccounts();
+    }, []);
     const onPressHandler = () => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AddAccountScreen',
+                passProps: {
+                    referesh: getAllAccounts
+                },
                 options: {
                     topBar: {
                         title: {
@@ -19,10 +41,13 @@ const Main = (props) => {
             }
         });
     };
-    const onPressHandlerAccessCode = () => {
+    const onPressHandlerAccessCode = (id) => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AccessCodeScreen',
+                passProps: {
+                    id: id
+                },
                 options: {
                     topBar: {
                         visible: false
@@ -31,17 +56,12 @@ const Main = (props) => {
             }
         });
     };
-    const [items, setItems] = useState([
-        { id: 'test.isd', text: 'HBL pim' },
-        { id: 'hbl.support', text: 'HBL sam' }
-    ]);
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View>
-                    {/* <IconButton onPress={() => alert('Device Info Sectionn')}> */}
-                    <IconButton onPress={()=> alert("device info")} >
+                    <IconButton onPress={() => alert('device info')}>
                         <Image
                             source={require('../../assets/icons/settings2.png')}
                             style={[
@@ -71,8 +91,14 @@ const Main = (props) => {
             <View style={{ marginLeft: 5, marginRight: 5 }} />
             <FlatList
                 style={{ margin: 5 }}
-                data={items}
-                renderItem={({ item }) => <ListItem item={item} onPress={onPressHandlerAccessCode} />}
+                data={accounts}
+                renderItem={({ item: accounts }) => (
+                    <ListItem
+                        item={accounts}
+                        onPress={onPressHandlerAccessCode}
+                    />
+                )}
+                keyExtractor={(item) => item['account_id']}
             />
         </View>
     );
@@ -103,7 +129,7 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
-    },
+    }
 });
 
 export default Main;

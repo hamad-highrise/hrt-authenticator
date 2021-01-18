@@ -59,12 +59,12 @@ const AccountSettings = (props) => {
                 </View>
             </View>
             <View style={styles.middle}>
-                <KeyboardAvoidingView style={styles.title}>
+                {/* <KeyboardAvoidingView style={styles.title}>
                     <TextInput
                         placeholder=" acc name"
                         style={styles.titleCodeText}
                     />
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingView> */}
                 {/* <View style={styles.title}>
                     <TextInput
                         placeholder=" acc name"

@@ -2,15 +2,20 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
 
-const ListItem = ({ item, onPress,param }) => {
+const ListItem = ({ item, onPress }) => {
     const onListPress = () => {
-        onPress(param);
+        onPress();
     };
     return (
         <TouchableOpacity style={styles.listitem} onPress={onListPress}>
             <View style={styles.listitemView}>
-                <Text style={styles.listitemText}> {item.text} </Text>
-                <Text style={styles.listitemID}> {item.id} </Text>
+                <View>
+                    <Text style={styles.listitemText}>
+                        {item['account_name']}
+                    </Text>
+                    <Text style={styles.listitemID}> {item['issuer']} </Text>
+                </View>
+
                 <Image
                     source={require('../../../../assets/icons/plane.png')}
                     style={{
@@ -25,7 +30,7 @@ const ListItem = ({ item, onPress,param }) => {
     );
 };
 ListItem.propTypes = {
-    onPress: PropTypes.any,
+    onPress: PropTypes.any
 };
 
 const styles = StyleSheet.create({
@@ -33,7 +38,7 @@ const styles = StyleSheet.create({
         padding: 15,
         backgroundColor: '#f8f8f8',
         borderBottomWidth: 2,
-        borderColor: '#eee',
+        borderColor: '#eee'
     },
     listitemView: {
         flexDirection: 'row',

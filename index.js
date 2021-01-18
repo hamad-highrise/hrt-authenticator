@@ -4,7 +4,8 @@ import {
     QRScanScreen,
     AddAccountScreen,
     AccessCodeScreen,
-    AccountSettingsScreen
+    AccountSettingsScreen,
+    AddAccountForm
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
@@ -14,6 +15,7 @@ import Database from './src/util/sqlite';
         const database = new Database();
         await database.init();
         await database.setUpDatabase();
+        database.closeConn();
         await NativeModules.Utilities.addSecureFlag();
     } catch (error) {
         alert(JSON.stringify(error));
@@ -22,6 +24,7 @@ import Database from './src/util/sqlite';
 
 Navigation.registerComponent('authenticator.MainScreen', () => MainScreen);
 Navigation.registerComponent('authenticator.QRScanScreen', () => QRScanScreen);
+Navigation.registerComponent('authenticator.AccountForm', () => AddAccountForm);
 Navigation.registerComponent(
     'authenticator.AddAccountScreen',
     () => AddAccountScreen

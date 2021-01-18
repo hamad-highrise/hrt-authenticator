@@ -3,19 +3,29 @@ import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
 import TOTPGenerator from '../../util/totp-generator';
+import accountQ from '../../util/sqlite/account';
+import secret from '../../util/sqlite/secret';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
+    const [account, setAccount] = useState({
+        name: 'Test Prop',
+        issuer: 'Server Prop'
+    });
     const [otp, setOTP] = useState('######');
     useEffect(() => {
         const x = setInterval(timer, 1000);
         updateOtp();
         return () => clearInterval(x);
     }, []);
+
     const onPressHandlerAccountSettings = () => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AccountSettingsScreen',
+                passProps: {
+                    id: props.id
+                },
                 options: {
                     topBar: {
                         visible: false
@@ -24,8 +34,9 @@ const AccessCode = (props) => {
             }
         });
     };
-    const updateOtp = () => {
-        setOTP(TOTPGenerator(props.secret.trim()));
+    const updateOtp = async () => {
+        // setOTP(TOTPGenerator(await accountQ.getSecret(props.id)));
+        setOTP(TOTPGenerator('JHASDJBXJASHLDJH'));
     };
     const timer = () => {
         let epoch = Math.round(new Date().getTime() / 1000.0);
@@ -74,8 +85,8 @@ const AccessCode = (props) => {
             <View style={{ margin: 0 }}></View>
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{props.issuer}</Text>
-                    <Text style={styles.titleIDText}>{props.accName}</Text>
+                    <Text style={styles.titleText}>{account.issuer}</Text>
+                    <Text style={styles.titleIDText}>{account.accName}</Text>
                 </View>
             </View>
             <View style={styles.middle}>
