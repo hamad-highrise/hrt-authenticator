@@ -8,8 +8,7 @@ import JsSHA from 'jssha';
  * @returns OTP valid for a specific period
  */
 
-const getTokenGenerator = (options, secret) => () => {
-    options = options || {};
+const getTokenGenerator = (secret, options = {}) => {
     let epoch, time, shaObj, hmac, offset, otp;
     //unpacking the options
     options.period = options.period || 30;

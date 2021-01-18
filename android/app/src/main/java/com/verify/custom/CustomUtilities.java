@@ -24,7 +24,7 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void toggleSecureFlag() {
+    public void addSecureFlag() {
 
         UiThreadUtil.runOnUiThread(new Runnable() {
             @Override

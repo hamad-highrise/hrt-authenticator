@@ -58,23 +58,18 @@ Database.prototype.setUpDatabase = async function () {
     `;
     const defaultMethodsValues = ['user_appearence', 'totp', 'biometric'];
     try {
-        // const transaction = await this.db.transaction();
         await this.db.executeSql(accountTableQuery);
-        // const result = await this.db.executeSql('SELECT * FROM accounts');
-        // console.warn(result);
         await this.db.executeSql(accountSecretTableQUery);
-        await this.db.executeSql(methodTableQuery);
-        await this.db.executeSql(populateMethodTable, defaultMethodsValues);
+        // await this.db.executeSql(methodTableQuery);
+        // await this.db.executeSql(populateMethodTable, defaultMethodsValues);
         return Promise.resolve(true);
     } catch (error) {
-        // console.warn(error);
         return Promise.reject(error);
     }
 };
 
 Database.prototype.exequteQuery = async function (query, params = []) {
     try {
-        // const transaction = await this.db.transaction();
         const result = await this.db.executeSql(query, params);
         console.warn(result);
         return Promise.resolve(result);
