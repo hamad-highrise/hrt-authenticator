@@ -35,6 +35,7 @@ function parseOTPAuthUri(uri) {
         acc[key] = value;
         return acc;
     }, {});
+    console.warn(JSON.stringify({ type: type.toLowerCase(), label, query }));
     return { type: type.toLowerCase(), label, query };
 }
 

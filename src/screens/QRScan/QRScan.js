@@ -8,9 +8,21 @@ const QRScan = (props) => {
     const [barcode, setBarcode] = useState({});
     const barcodeRecognized = (_barcode) => {
         setBarcode(uRIParser(_barcode.data));
-        Navigation.pop(props.componentId);
+        //Navigation.pop(props.componentId);
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.AccessCodeScreen',
+                passProps: {
+                    secret: barcode.query.secret,
+                    issuer: barcode.label.issuer,
+                    accName: barcode.label.account
+                }
+            }
+        });
     };
-    useEffect(() => alert(JSON.stringify(barcode)), [JSON.stringify(barcode)]);
+    // useEffect(() => {
+
+    // }, [barcode.secret]);
 
     return (
         <>

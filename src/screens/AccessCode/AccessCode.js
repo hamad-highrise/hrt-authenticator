@@ -1,9 +1,17 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { IconButton } from '../../components';
-import  {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
+import TOTPGenerator from '../../util/totp-generator';
 
 const AccessCode = (props) => {
+    const [counter, setCounter] = useState(0);
+    const [otp, setOTP] = useState('######');
+    useEffect(() => {
+        const x = setInterval(timer, 1000);
+        updateOtp();
+        return () => clearInterval(x);
+    }, []);
     const onPressHandlerAccountSettings = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -16,6 +24,15 @@ const AccessCode = (props) => {
             }
         });
     };
+    const updateOtp = () => {
+        setOTP(TOTPGenerator(props.secret.trim()));
+    };
+    const timer = () => {
+        let epoch = Math.round(new Date().getTime() / 1000.0);
+        setCounter(30 - (epoch % 30));
+        if (epoch % 30 == 0) updateOtp();
+    };
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -57,19 +74,18 @@ const AccessCode = (props) => {
             <View style={{ margin: 0 }}></View>
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>Server Name</Text>
-                    <Text style={styles.titleIDText}>test.isd</Text>
+                    <Text style={styles.titleText}>{props.issuer}</Text>
+                    <Text style={styles.titleIDText}>{props.accName}</Text>
                 </View>
             </View>
             <View style={styles.middle}>
                 <View style={styles.title}>
-                    <Text style={styles.titleCodeText}> 02 34 56</Text>
+                    <Text style={styles.titleCodeText}>{otp}</Text>
                 </View>
             </View>
             <View style={styles.bottom}>
                 <View style={styles.title}>
-                    <Text style={styles.titleTimerText}> 00:05</Text>
-                    {/* <Text style={styles.titleTimerNameText}>seconds</Text> */}
+                    <Text style={styles.titleTimerText}>{counter}</Text>
                 </View>
             </View>
             <View style={{ margin: 5 }}></View>
@@ -152,7 +168,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#424c58',
         width: 150,
         height: 140,
-        borderRadius: 100 / 2
+        borderRadius: 100 / 2,
+        textAlign: 'center'
     },
     titleTimerNameText: {
         fontSize: 12,
