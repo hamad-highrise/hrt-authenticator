@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 import { Navigation } from 'react-native-navigation';
+import { uRIParser } from '../../util';
 
 const QRScan = (props) => {
     const [barcode, setBarcode] = useState({});
-    const barcodeRecognized = (barcode) => {
-        setBarcode(barcode);
-        alert(barcode.data);
+    const barcodeRecognized = (_barcode) => {
+        setBarcode(uRIParser(_barcode.data));
         Navigation.pop(props.componentId);
     };
+    useEffect(() => alert(JSON.stringify(barcode)), [JSON.stringify(barcode)]);
 
     return (
         <>

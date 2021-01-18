@@ -4,6 +4,8 @@
  * @returns Object
  */
 
+import 'react-native-url-polyfill/auto';
+
 function parseOTPAuthUri(uri) {
     if (typeof uri !== 'string' || uri.length < 7) {
         return null;
@@ -18,13 +20,17 @@ function parseOTPAuthUri(uri) {
     if (!type || !fullLabel) {
         return null;
     }
+
     const decodedLabel = decodeURIComponent(fullLabel);
+
     const labelParts = decodedLabel.split(/: ?/);
+
     const label =
         labelParts && labelParts.length === 2
             ? { issuer: labelParts[0], account: labelParts[1] }
             : { issuer: '', account: decodedLabel };
     const queryString = parts[3] ? new URLSearchParams(parts[3]) : [];
+    console.warn(queryString);
     const query = [...queryString].reduce((acc, [key, value]) => {
         acc[key] = value;
         return acc;
@@ -32,4 +38,4 @@ function parseOTPAuthUri(uri) {
     return { type: type.toLowerCase(), label, query };
 }
 
-module.exports = parseOTPAuthUri;
+export default parseOTPAuthUri;

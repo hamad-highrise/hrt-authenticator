@@ -1,5 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TextInput } from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Dimensions,
+    TextInput,
+    SafeAreaView,
+    KeyboardAvoidingView
+} from 'react-native';
 import { IconButton } from '../../components';
 import { Button } from '../../components';
 
@@ -50,15 +59,26 @@ const AccountSettings = (props) => {
                 </View>
             </View>
             <View style={styles.middle}>
-                <View style={styles.title}>
-                    <TextInput placeholder=" acc name" style={styles.titleCodeText} />
-                </View>
-               
+                <KeyboardAvoidingView style={styles.title}>
+                    <TextInput
+                        placeholder=" acc name"
+                        style={styles.titleCodeText}
+                    />
+                </KeyboardAvoidingView>
+                {/* <View style={styles.title}>
+                    <TextInput
+                        placeholder=" acc name"
+                        style={styles.titleCodeText}
+                    />
+                </View> */}
             </View>
 
-
             <View style={styles.bottom}>
-            <Button title="Remove Account" style={styles.btn} onPress={()=> alert("remove account successfully")} />
+                <Button
+                    title="Remove Account"
+                    style={styles.btn}
+                    onPress={() => alert('remove account successfully')}
+                />
                 <View style={{ margin: 10 }} />
             </View>
             <View style={{ margin: 5 }}></View>
@@ -160,8 +180,8 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textTransform: 'uppercase',
 
-        width:Dimensions.get('window').width * 0.7,
-    },
+        width: Dimensions.get('window').width * 0.7
+    }
 });
 
 export default AccountSettings;

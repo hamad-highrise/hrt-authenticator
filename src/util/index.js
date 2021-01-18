@@ -15,4 +15,5 @@ const tryParser = (str) => {
 };
 
 export { default as Biometrics } from './biometrics';
+export { default as uRIParser } from './ui-parser';
 export { tryParser };
