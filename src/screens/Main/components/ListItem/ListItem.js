@@ -1,10 +1,27 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import PropTypes from 'prop-types';
+import secret from '../../../../util/sqlite/secret';
 
 const ListItem = ({ item, onPress }) => {
-    const onListPress = () => {
-        onPress();
+    const onListPress = async () => {
+        let mSecret;
+        try {
+            const result = await secret.getSecretByAccountId(
+                item['account_id']
+            );
+            for (let i = 0; i < result[0].rows.length; i++) {
+                mSecret = result[0].rows.item(i).secret;
+            }
+        } catch (error) {
+            alert(error);
+        }
+        onPress(
+            item['account_id'],
+            item['account_name'],
+            item['issuer'],
+            mSecret
+        );
     };
     return (
         <TouchableOpacity style={styles.listitem} onPress={onListPress}>

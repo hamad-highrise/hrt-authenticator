@@ -34,7 +34,8 @@ Database.prototype.setUpDatabase = async function () {
     `;
     const accountSecretTableQUery = `
     CREATE TABLE IF NOT EXISTS "secrets"(
-        "secret" TEXT NOT NULL PRIMARY KEY UNIQUE,
+        "secret_id" INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+        "secret" TEXT NOT NULL,
         "account_id" INTEGER NOT NULL,
             FOREIGN KEY("account_id") 
                 REFERENCES "accounts" ("account_id")
@@ -70,15 +71,16 @@ Database.prototype.exequteQuery = async function (query, params = []) {
         const result = await this.db.executeSql(query, params);
         return Promise.resolve(result);
     } catch (error) {
-        console.warn(error);
+        return Promise.reject(error);
     }
 };
 
-Database.prototype.closeConn = function () {
+Database.prototype.closeConn = async function () {
     try {
-        this.db.close();
+        await this.db.close();
+        return Promise.resolve();
     } catch (error) {
-        console.warn(error);
+        return Promise.reject(error);
     }
 };
 

@@ -9,24 +9,25 @@ const QRScan = (props) => {
     const [isRead, setIsRead] = useState(false);
     const barcodeRecognized = async (_barcode) => {
         if (!isRead) {
+            setIsRead(true);
             if (tryJSONParser(_barcode.data).valid) {
                 alert('SAM Account is not supported yet!!');
             } else {
                 const parsedData = uRIParser(_barcode.data);
                 try {
-                    await account.create({
+                    account.create({
                         name: parsedData.label.account,
                         issuer: parsedData.label.issuer,
                         type: parsedData.type,
                         secret: parsedData.query.secret
                     });
-                    setIsRead(true);
-                    props.referesh();
-                    Navigation.pop(props.componentId);
+
+                    Navigation.popToRoot(props.componentId);
                 } catch (error) {
                     alert(JSON.stringify(error));
                 }
             }
+            // Navigation.popToRoot(props.componentId);
         }
 
         // Navigation.push(props.componentId, {

@@ -16,7 +16,8 @@ const AccountForm = () => {
             try {
                 await accountQ.create({
                     name: account.name,
-                    issuer: account.issuer
+                    issuer: account.issuer,
+                    secret: account.secret
                 });
                 alert('account added');
             } catch (error) {

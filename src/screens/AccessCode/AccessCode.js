@@ -1,30 +1,51 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import React, { useEffect, useRef, useState } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    Dimensions,
+    AppState
+} from 'react-native';
 import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
 import TOTPGenerator from '../../util/totp-generator';
-import accountQ from '../../util/sqlite/account';
 import secret from '../../util/sqlite/secret';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
-    const [account, setAccount] = useState({
-        name: 'Test Prop',
-        issuer: 'Server Prop'
-    });
+    const appState = useRef(AppState.currentState);
     const [otp, setOTP] = useState('######');
     useEffect(() => {
+        AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
         updateOtp();
-        return () => clearInterval(x);
+        return () => {
+            AppState.removeEventListener('change', handleAppStateChange);
+            clearInterval(x);
+        };
     }, []);
+    const onBackPres = () => {
+        Navigation.pop(props.componentId);
+    };
+
+    const handleAppStateChange = (nextAppState) => {
+        if (
+            appState.current.match(/inactive|background/) &&
+            nextAppState === 'active'
+        ) {
+            updateOtp();
+        }
+        appState.current = nextAppState;
+    };
 
     const onPressHandlerAccountSettings = () => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AccountSettingsScreen',
                 passProps: {
-                    id: props.id
+                    id: props.id,
+                    refresh: props.refresh
                 },
                 options: {
                     topBar: {
@@ -34,9 +55,8 @@ const AccessCode = (props) => {
             }
         });
     };
-    const updateOtp = async () => {
-        // setOTP(TOTPGenerator(await accountQ.getSecret(props.id)));
-        setOTP(TOTPGenerator('JHASDJBXJASHLDJH'));
+    const updateOtp = () => {
+        setOTP(TOTPGenerator(props.secret));
     };
     const timer = () => {
         let epoch = Math.round(new Date().getTime() / 1000.0);
@@ -48,7 +68,7 @@ const AccessCode = (props) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Main screen')}>
+                    <IconButton onPress={onBackPres}>
                         <Image
                             source={require('../../assets/icons/backarrowinvert.png')}
                             style={{
@@ -85,8 +105,8 @@ const AccessCode = (props) => {
             <View style={{ margin: 0 }}></View>
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{account.issuer}</Text>
-                    <Text style={styles.titleIDText}>{account.accName}</Text>
+                    <Text style={styles.titleText}>{props.name}</Text>
+                    <Text style={styles.titleIDText}>{props.issuer}</Text>
                 </View>
             </View>
             <View style={styles.middle}>

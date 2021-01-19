@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
 import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
+import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import ListItem from './components/ListItem/ListItem';
 import account from '../../util/sqlite/account';
 
@@ -21,6 +22,13 @@ const Main = (props) => {
         }
     };
 
+    useNavigationComponentDidAppear(
+        () => {
+            getAllAccounts();
+        },
+        { componentId: props.componentId }
+    );
+
     useEffect(() => {
         getAllAccounts();
     }, []);
@@ -28,9 +36,6 @@ const Main = (props) => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AddAccountScreen',
-                passProps: {
-                    referesh: getAllAccounts
-                },
                 options: {
                     topBar: {
                         title: {
@@ -41,12 +46,15 @@ const Main = (props) => {
             }
         });
     };
-    const onPressHandlerAccessCode = (id) => {
+    const onPressHandlerAccessCode = (id, name, issuer, secret) => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.AccessCodeScreen',
                 passProps: {
-                    id: id
+                    id: id,
+                    name: name,
+                    issuer: issuer,
+                    secret: secret
                 },
                 options: {
                     topBar: {
@@ -98,7 +106,7 @@ const Main = (props) => {
                         onPress={onPressHandlerAccessCode}
                     />
                 )}
-                keyExtractor={(item) => item['account_id']}
+                keyExtractor={(item) => '' + item['account_id']}
             />
         </View>
     );
