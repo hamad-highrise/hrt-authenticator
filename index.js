@@ -6,16 +6,19 @@ import {
     AccessCodeScreen,
     AccountSettingsScreen,
     CodeAccountScreen
+
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
+import secret from './src/util/sqlite/secret';
 
 (async () => {
     try {
         const database = new Database();
         await database.init();
         await database.setUpDatabase();
-        await NativeModules.Utilities.addSecureFlag();
+        database.closeConn();
+        NativeModules.Utilities.addSecureFlag();
     } catch (error) {
         alert(JSON.stringify(error));
     }
@@ -23,6 +26,7 @@ import Database from './src/util/sqlite';
 
 Navigation.registerComponent('authenticator.MainScreen', () => MainScreen);
 Navigation.registerComponent('authenticator.QRScanScreen', () => QRScanScreen);
+Navigation.registerComponent('authenticator.AccountForm', () => AddAccountForm);
 Navigation.registerComponent(
     'authenticator.AddAccountScreen',
     () => AddAccountScreen

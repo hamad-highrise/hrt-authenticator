@@ -30,12 +30,10 @@ function parseOTPAuthUri(uri) {
             ? { issuer: labelParts[0], account: labelParts[1] }
             : { issuer: '', account: decodedLabel };
     const queryString = parts[3] ? new URLSearchParams(parts[3]) : [];
-    console.warn(queryString);
     const query = [...queryString].reduce((acc, [key, value]) => {
         acc[key] = value;
         return acc;
     }, {});
-    console.warn(JSON.stringify({ type: type.toLowerCase(), label, query }));
     return { type: type.toLowerCase(), label, query };
 }
 
