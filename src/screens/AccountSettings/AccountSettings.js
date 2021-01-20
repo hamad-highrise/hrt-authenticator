@@ -4,15 +4,25 @@ import {
     Text,
     StyleSheet,
     Image,
-    Dimensions,
-    TextInput,
-    SafeAreaView,
-    KeyboardAvoidingView
+    Dimensions
+    // TextInput,
+    // SafeAreaView,
+    // KeyboardAvoidingView
 } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 import { IconButton } from '../../components';
 import { Button } from '../../components';
+import account from '../../util/sqlite/account';
 
 const AccountSettings = (props) => {
+    const { id, refresh, componentId } = props;
+
+    const onRemovePress = async () => {
+        try {
+            await account._delete(id);
+            Navigation.popToRoot(componentId);
+        } catch (error) {}
+    };
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -59,12 +69,12 @@ const AccountSettings = (props) => {
                 </View>
             </View>
             <View style={styles.middle}>
-                <KeyboardAvoidingView style={styles.title}>
+                {/* <KeyboardAvoidingView style={styles.title}>
                     <TextInput
                         placeholder=" acc name"
                         style={styles.titleCodeText}
                     />
-                </KeyboardAvoidingView>
+                </KeyboardAvoidingView> */}
                 {/* <View style={styles.title}>
                     <TextInput
                         placeholder=" acc name"
@@ -77,7 +87,7 @@ const AccountSettings = (props) => {
                 <Button
                     title="Remove Account"
                     style={styles.btn}
-                    onPress={() => alert('remove account successfully')}
+                    onPress={onRemovePress}
                 />
                 <View style={{ margin: 10 }} />
             </View>

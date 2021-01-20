@@ -10,19 +10,16 @@ function Database() {
 }
 
 Database.prototype.init = async function () {
-    if (this.db) return Promise.resolve(this.db);
-    else {
-        try {
-            this.db = await SQLite.openDatabase(
-                this.name,
-                this.version,
-                this.displayName,
-                this.size
-            );
-            return Promise.resolve(this.db);
-        } catch (error) {
-            return Promise.reject(error);
-        }
+    try {
+        this.db = await SQLite.openDatabase(
+            this.name,
+            this.version,
+            this.displayName,
+            this.size
+        );
+        return Promise.resolve();
+    } catch (error) {
+        return Promise.reject(error);
     }
 };
 
@@ -37,7 +34,8 @@ Database.prototype.setUpDatabase = async function () {
     `;
     const accountSecretTableQUery = `
     CREATE TABLE IF NOT EXISTS "secrets"(
-        "secret" TEXT NOT NULL PRIMARY KEY UNIQUE,
+        "secret_id" INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
+        "secret" TEXT NOT NULL,
         "account_id" INTEGER NOT NULL,
             FOREIGN KEY("account_id") 
                 REFERENCES "accounts" ("account_id")
@@ -71,18 +69,18 @@ Database.prototype.setUpDatabase = async function () {
 Database.prototype.exequteQuery = async function (query, params = []) {
     try {
         const result = await this.db.executeSql(query, params);
-        console.warn(result);
         return Promise.resolve(result);
     } catch (error) {
-        console.warn(error);
+        return Promise.reject(error);
     }
 };
 
-Database.prototype.closeConn = function () {
+Database.prototype.closeConn = async function () {
     try {
-        this.db.close();
+        await this.db.close();
+        return Promise.resolve();
     } catch (error) {
-        console.warn(error);
+        return Promise.reject(error);
     }
 };
 

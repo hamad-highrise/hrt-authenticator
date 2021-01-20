@@ -1,28 +1,45 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 import { Navigation } from 'react-native-navigation';
-import { uRIParser } from '../../util';
+import { tryJSONParser, uRIParser } from '../../util';
+import account from '../../util/sqlite/account';
 
 const QRScan = (props) => {
-    const [barcode, setBarcode] = useState({});
-    const barcodeRecognized = (_barcode) => {
-        setBarcode(uRIParser(_barcode.data));
-        //Navigation.pop(props.componentId);
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccessCodeScreen',
-                passProps: {
-                    secret: barcode.query.secret,
-                    issuer: barcode.label.issuer,
-                    accName: barcode.label.account
+    const [isRead, setIsRead] = useState(false);
+    const barcodeRecognized = async (_barcode) => {
+        if (!isRead) {
+            setIsRead(true);
+            if (tryJSONParser(_barcode.data).valid) {
+                alert('SAM Account is not supported yet!!');
+            } else {
+                const parsedData = uRIParser(_barcode.data);
+                try {
+                    account.create({
+                        name: parsedData.label.account,
+                        issuer: parsedData.label.issuer,
+                        secret: parsedData.query.secret
+                    });
+
+                    Navigation.popToRoot(props.componentId);
+                } catch (error) {
+                    alert(JSON.stringify(error));
                 }
             }
-        });
-    };
-    // useEffect(() => {
+            // Navigation.popToRoot(props.componentId);
+        }
 
-    // }, [barcode.secret]);
+        // Navigation.push(props.componentId, {
+        //     component: {
+        //         name: 'authenticator.AccessCodeScreen',
+        //         passProps: {
+        //             secret: barcode.query.secret,
+        //             issuer: barcode.label.issuer,
+        //             accName: barcode.label.account
+        //         }
+        //     }
+        // });
+    };
 
     return (
         <>

@@ -41,4 +41,31 @@ const getSecretByAccountId = async (accId) => {
     }
 };
 
-export default { create, _delete, getSecretByAccountId };
+const getAll = async () => {
+    const query = `SELECT secret FROM secrets;`;
+    // const params = [accId];
+    try {
+        await database.init();
+        const result = await database.exequteQuery(query);
+        database.closeConn();
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+const isUnique = async (secret) => {
+    const query = `SELECT secret FROM secrets WHERE secret = ?;`;
+    const params = [secret];
+    try {
+        await database.init();
+        const result = await database.exequteQuery(query, params);
+        database.closeConn();
+        if (result[0].rows.length === 0) return Promise.resolve(true);
+        else return Promise.resolve(false);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+export default { create, _delete, getSecretByAccountId, isUnique, getAll };
