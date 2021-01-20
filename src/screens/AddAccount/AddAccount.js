@@ -18,10 +18,11 @@ const AddScreen = (props) => {
             }
         });
     };
-    const onManualClick = () => {
+
+    const onManualCodeClick = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.AccountForm',
+                name: 'authenticator.CodeAccountScreen',
                 options: {
                     topBar: {
                         visible: false
@@ -49,7 +50,9 @@ const AddScreen = (props) => {
                 <View style={{ margin: 10 }} />
                 <Button
                     title="Add Manually"
-                    onPress={onManualClick}
+
+                    onPress={onManualCodeClick}
+
                     style={styles.btnInvert}
                 />
                 <View style={{ margin: 20 }} />

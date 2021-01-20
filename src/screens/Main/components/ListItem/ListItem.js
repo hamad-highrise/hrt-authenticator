@@ -34,12 +34,13 @@ const ListItem = ({ item, onPress }) => {
                 </View>
 
                 <Image
-                    source={require('../../../../assets/icons/plane.png')}
+                    source={require('../../../../assets/icons/backarrowinvert.png')}
                     style={{
-                        width: 30,
-                        height: 20,
-                        marginLeft: -10,
-                        marginTop: -3
+                        width: 32,
+                        height: 30,
+                        transform:[{rotate:'180deg'}],
+                        backgroundColor:'#e57f01',
+                        borderRadius:10,
                     }}
                 />
             </View>

@@ -5,7 +5,8 @@ import {
     AddAccountScreen,
     AccessCodeScreen,
     AccountSettingsScreen,
-    AddAccountForm
+    CodeAccountScreen
+
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
@@ -37,6 +38,10 @@ Navigation.registerComponent(
 Navigation.registerComponent(
     'authenticator.AccountSettingsScreen',
     () => AccountSettingsScreen
+);
+Navigation.registerComponent(
+    'authenticator.CodeAccountScreen',
+    () => CodeAccountScreen
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
