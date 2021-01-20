@@ -2,7 +2,7 @@ import Database from '../sqlite';
 
 const database = new Database();
 
-const create = async ({ name, issuer, type = 'TOTPOnly', secret }) => {
+const create = async ({ name, issuer, secret, type = 'TOTPOnly' }) => {
     const query = `INSERT INTO accounts (account_name, issuer, type) VALUES (?, ?, ?);`;
     const params = [name, issuer, type];
     const secretQuery = `INSERT INTO secrets (secret, account_id) VALUES (?,?);`;

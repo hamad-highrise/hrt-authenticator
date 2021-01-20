@@ -90,9 +90,7 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         paddingVertical: 25,
         paddingHorizontal: 12,
-
         fontSize: 14,
-        color: '#a24e12',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',

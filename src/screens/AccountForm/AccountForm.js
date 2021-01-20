@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { View, TextInput, Text, StyleSheet } from 'react-native';
+import { Navigation } from 'react-native-navigation';
 import { Button } from '../../components';
 import accountQ from '../../util/sqlite/account';
-import secret from '../../util/sqlite/secret';
 
-const AccountForm = () => {
+const AccountForm = (props) => {
     const [account, setAccount] = useState({
         name: '',
         issuer: '',
@@ -14,12 +14,12 @@ const AccountForm = () => {
     const onAddClick = async () => {
         if (account.issuer && account.name && account.secret) {
             try {
-                await accountQ.create({
+                accountQ.create({
                     name: account.name,
                     issuer: account.issuer,
                     secret: account.secret
                 });
-                alert('account added');
+                Navigation.popToRoot(props.componentId);
             } catch (error) {
                 alert(error);
             }

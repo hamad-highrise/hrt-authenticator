@@ -18,7 +18,6 @@ const QRScan = (props) => {
                     account.create({
                         name: parsedData.label.account,
                         issuer: parsedData.label.issuer,
-                        type: parsedData.type,
                         secret: parsedData.query.secret
                     });
 
