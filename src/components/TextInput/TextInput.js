@@ -1,9 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text, KeyboardAvoidingView,TextInput, Dimensions } from 'react-native';
+import { StyleSheet, KeyboardAvoidingView,TextInput, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
 
-const AndroidTextInput = ({placeholder,secureTextEntry, title, style, param }) => {
+const AndroidTextInput = ({placeholder,secureTextEntry, value,onChangeText }) => {
 
     return (
 
@@ -18,21 +18,17 @@ const AndroidTextInput = ({placeholder,secureTextEntry, title, style, param }) =
 };
 
 AndroidTextInput.propTypes = {
-    // onPress: PropTypes.func.isRequired,
     placeholder: PropTypes.string,
-    title: PropTypes.string,
     secureTextEntry: PropTypes.bool,
     param: PropTypes.any,
-    size: PropTypes.string,
-    style: PropTypes.any
+    style: PropTypes.any,
+    value: PropTypes.string,
+    onChangeText: PropTypes.any,
 };
 
 AndroidTextInput.defaultProps = {
-    // onPress: () => alert('BUTTON_PRESS_HANDLER_NOT_PROVIDED'),
     placeholder: 'input some text',
     secureTextEntry: false,
-    title: 'BUTTON',
-    size: 'small'
 };
 
 export default AndroidTextInput;
