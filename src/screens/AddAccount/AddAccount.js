@@ -8,7 +8,7 @@ import {
     View
 } from 'react-native';
 import { Button } from '../../components';
-
+import { IconButton } from '../../components';
 const AddScreen = (props) => {
     const onQrScanClick = () => {
         Navigation.push(props.componentId, {
@@ -36,8 +36,57 @@ const AddScreen = (props) => {
             }
         });
     };
+    const onPressHandlerAccountSettings = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.AccountSettingsScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     return (
         <View style={styles.container}>
+            {/* TOPBAR */}
+            <View style={styles.header}>
+                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
+                    <IconButton onPress={() => alert('Go to Main screen')}>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={{
+                                width: 25,
+                                height: 35,
+                                marginLeft: 6,
+                                marginTop: 10
+                            }}
+                        />
+                    </IconButton>
+                </View>
+
+                <View style={styles.title}>
+                    <Text style={styles.titleMainText}>Add Account</Text>
+                </View>
+                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
+                    <IconButton onPress={onPressHandlerAccountSettings}>
+                        <Image
+                            source={require('../../assets/icons/settings2invert.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 9,
+                                    marginTop: 12,
+                                    width: 25,
+                                    height: 30
+                                }
+                            ]}
+                        />
+                    </IconButton>
+                </View>
+            </View>
+            {/* end TOPBAR */}
             <View
                 style={{
                     width: Dimensions.get('window').width * 0.4
@@ -64,9 +113,9 @@ export default AddScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
+        // flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'space-between'
     },
     image: {
         width: Dimensions.get('window').width * 0.5,
@@ -100,5 +149,25 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
 
         width:Dimensions.get('window').width * 0.7,
+    },
+    header: {
+        flexDirection: 'row',
+        height: 53,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        borderBottomColor: '#525961',
+        borderBottomWidth: 1,
+        backgroundColor: '#424c58',
+        padding: -50,
+        margin: -30
+    },
+    titleMainText: {
+        color: 'white',
+        justifyContent: 'center',
+        fontSize: 18,
+        fontWeight: 'bold'
+    },
+    title: {
+        marginLeft: 20
     },
 });

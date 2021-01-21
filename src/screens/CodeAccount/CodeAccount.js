@@ -3,19 +3,20 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
+    // Image,
     Dimensions,
-    // TextInput,
-    KeyboardAvoidingView
 } from 'react-native';
-import { IconButton } from '../../components';
+// import { IconButton } from '../../components';
 import { Button } from '../../components';
 import { TextInput } from '../../components';
+import { TopNavbar } from '../../components';
 
 const CodeAccount = (props) => {
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
+            <TopNavbar></TopNavbar>
+
+            {/* <View style={styles.header}>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
                     <IconButton onPress={() => alert('Go to Main screen')}>
                         <Image
@@ -36,7 +37,7 @@ const CodeAccount = (props) => {
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
 
                 </View>
-            </View>
+            </View> */}
 
             <View style={{ margin: 9 }}></View>
             <View style={styles.top}>
@@ -45,12 +46,10 @@ const CodeAccount = (props) => {
                 </View>
             </View>
             <View style={styles.middle}>
-                <KeyboardAvoidingView>
-                    <TextInput
-                        placeholder="Account name"
-                        style={styles.titleCodeText}
-                    />
-                </KeyboardAvoidingView>
+                <TextInput
+                    placeholder="Account name"
+                    style={styles.titleCodeText}
+                />
             </View>
             <View style={styles.middle}>
                 <TextInput
