@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
-import { tryJSONParser, uRIParser } from '../../util';
-import navigator from '../../navigation';
-import account from '../../util/sqlite/account';
+import { tryJSONParser, uRIParser } from '../../../util';
+import navigator from '../../../navigation';
+import account from '../../../util/sqlite/account';
 
 const QRScan = (props) => {
     const [isRead, setIsRead] = useState(false);
