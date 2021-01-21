@@ -5,12 +5,9 @@ import {
     StyleSheet,
     Image,
     Dimensions,
-    // TextInput,
     KeyboardAvoidingView
 } from 'react-native';
-import { IconButton } from '../../components';
-import { Button } from '../../components';
-import { TextInput } from '../../components';
+import { IconButton, Button, TextInput } from '../../components';
 
 const CodeAccount = (props) => {
     return (
@@ -84,7 +81,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        // backgroundColor:'lightgrey',
         padding: 20,
         margin: 10
     },
