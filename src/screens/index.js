@@ -5,3 +5,4 @@ export * from './AccessCode';
 export * from './AccountSettings';
 export * from './CodeAccount';
 export * from './DeviceInfo';
+export * from './AccountForm';

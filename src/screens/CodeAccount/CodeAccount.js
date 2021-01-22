@@ -5,8 +5,8 @@ import {
     StyleSheet,
     // Image,
     Dimensions,
+     KeyboardAvoidingView
 } from 'react-native';
-// import { IconButton } from '../../components';
 import { Button } from '../../components';
 import { TextInput } from '../../components';
 import { TopNavbar } from '../../components';
@@ -83,7 +83,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        // backgroundColor:'lightgrey',
         padding: 20,
         margin: 10
     },

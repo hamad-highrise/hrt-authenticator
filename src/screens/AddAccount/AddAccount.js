@@ -1,12 +1,6 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import {
-    Dimensions,
-    Image,
-    StyleSheet,
-    Text,
-    View
-} from 'react-native';
+import { Dimensions, Image, StyleSheet, View } from 'react-native';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
 const AddScreen = (props) => {
@@ -24,6 +18,7 @@ const AddScreen = (props) => {
             }
         });
     };
+
     const onManualCodeClick = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -92,14 +87,21 @@ const AddScreen = (props) => {
                     width: Dimensions.get('window').width * 0.4
                 }}>
                 <View title="select mode of connection"></View>
-                <Image 
+                <Image
                     source={require('../../assets/images/addacc1.png')}
-                    style ={styles.image} />
-                <Button title="Scan QR Code" style={styles.btn} onPress={onQrScanClick} />
+                    style={styles.image}
+                />
+                <Button
+                    title="Scan QR Code"
+                    style={styles.btn}
+                    onPress={onQrScanClick}
+                />
                 <View style={{ margin: 10 }} />
                 <Button
                     title="Add Manually"
+
                     onPress={onManualCodeClick}
+
                     style={styles.btnInvert}
                 />
                 <View style={{ margin: 20 }} />
@@ -133,21 +135,18 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textTransform: 'uppercase',
 
-        width:Dimensions.get('window').width * 0.7,
+        width: Dimensions.get('window').width * 0.7
     },
-    btnInvert: {
+    btnInvert: {. 
         backgroundColor: 'white',
         borderRadius: 2,
         paddingVertical: 25,
         paddingHorizontal: 12,
-
         fontSize: 14,
-        color: '#a24e12',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase',
-
         width:Dimensions.get('window').width * 0.7,
     },
     header: {
@@ -170,4 +169,8 @@ const styles = StyleSheet.create({
     title: {
         marginLeft: 20
     },
+
+   //     width: Dimensions.get('window').width * 0.7
+    //}
+
 });

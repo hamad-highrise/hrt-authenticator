@@ -7,9 +7,11 @@ import {
     AccountSettingsScreen,
     CodeAccountScreen,
     DeviceInfoScreen
+
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
+import secret from './src/util/sqlite/secret';
 
 (async () => {
     try {
@@ -17,6 +19,10 @@ import Database from './src/util/sqlite';
         await database.init();
         await database.setUpDatabase();
         // await NativeModules.Utilities.addSecureFlag();
+
+        database.closeConn();
+       
+
     } catch (error) {
         alert(JSON.stringify(error));
     }
@@ -24,6 +30,7 @@ import Database from './src/util/sqlite';
 
 Navigation.registerComponent('authenticator.MainScreen', () => MainScreen);
 Navigation.registerComponent('authenticator.QRScanScreen', () => QRScanScreen);
+Navigation.registerComponent('authenticator.AccountForm', () => AddAccountForm);
 Navigation.registerComponent(
     'authenticator.AddAccountScreen',
     () => AddAccountScreen
