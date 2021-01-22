@@ -38,9 +38,7 @@ const Main = (props) => {
                 name: 'authenticator.AddAccountScreen',
                 options: {
                     topBar: {
-                        title: {
-                            text: 'Add Account'
-                        }
+                        visible: false
                     }
                 }
             }
@@ -65,11 +63,30 @@ const Main = (props) => {
         });
     };
 
+    const onPressHandlerDeviceInfo = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.DeviceInfoScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
+    const [items, setItems] = useState([
+        { id: 'test.isd', text: 'HBL pim' },
+        { id: 'hbl.support', text: 'HBL sam' }
+    ]);
+
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View>
-                    <IconButton onPress={() => alert('device info')}>
+                    {/* <IconButton onPress={() => alert('Device Info Sectionn')}> */}
+                    <IconButton onPress={onPressHandlerDeviceInfo}>
                         <Image
                             source={require('../../assets/icons/settings2.png')}
                             style={[

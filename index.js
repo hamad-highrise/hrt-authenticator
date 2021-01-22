@@ -5,7 +5,8 @@ import {
     AddAccountScreen,
     AccessCodeScreen,
     AccountSettingsScreen,
-    CodeAccountScreen
+    CodeAccountScreen,
+    DeviceInfoScreen
 
 } from './src/screens';
 import { NativeModules } from 'react-native';
@@ -17,8 +18,11 @@ import secret from './src/util/sqlite/secret';
         const database = new Database();
         await database.init();
         await database.setUpDatabase();
+        // await NativeModules.Utilities.addSecureFlag();
+
         database.closeConn();
-        NativeModules.Utilities.addSecureFlag();
+       
+
     } catch (error) {
         alert(JSON.stringify(error));
     }
@@ -42,6 +46,10 @@ Navigation.registerComponent(
 Navigation.registerComponent(
     'authenticator.CodeAccountScreen',
     () => CodeAccountScreen
+);
+Navigation.registerComponent(
+    'authenticator.DeviceInfoScreen',
+    () => DeviceInfoScreen
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({
