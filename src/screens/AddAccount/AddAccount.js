@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
 const AddScreen = (props) => {
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
 
         width: Dimensions.get('window').width * 0.7
     },
-    btnInvert: {. 
+    btnInvert: {
         backgroundColor: 'white',
         borderRadius: 2,
         paddingVertical: 25,
