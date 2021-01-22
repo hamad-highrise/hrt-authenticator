@@ -3,17 +3,14 @@ import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
 
-const myTopNavbar = ({ imageUrlBack, imageUrlRight, title, param, ...styles }) => {
-
+const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,    param}) => {
     return (
-
-  
+        <View style={styles.container}>
             <View style={styles.header}>
-
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Back screen')}>
+                <View style={{ backgroundColor: '#2b2d32', height: 65, marginLeft:18}}>
+                    <IconButton onPress={imageBackOnPress}>
                         <Image
-                            source={{uri: imageUrlBack}}
+                            source={{ uri: imageUrlBack }}
                             style={{
                                 width: 25,
                                 height: 35,
@@ -24,14 +21,14 @@ const myTopNavbar = ({ imageUrlBack, imageUrlRight, title, param, ...styles }) =
                     </IconButton>
                 </View>
 
-                <View style={styles.title}>
+                <View>
                     <Text style={styles.titleMainText}> {title} </Text>
                 </View>
-                
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Back screen')}>
+
+                <View style={{ backgroundColor: '#2b2d32', height: 65, marginRight:18 }}>
+                    <IconButton onPress={imageBackOnPress}>
                         <Image
-                            source={{uri: imageUrlRight}}
+                            source={{ uri: imageUrlRight }}
                             style={[
                                 styles.iconBtn,
                                 {
@@ -44,32 +41,34 @@ const myTopNavbar = ({ imageUrlBack, imageUrlRight, title, param, ...styles }) =
                         />
                     </IconButton>
                 </View>
-
             </View>
-
+        </View>
     );
 };
 
-myTopNavbar.propTypes = {
+TopNavbar.propTypes = {
     imageUrlBack: PropTypes.string,
     imageUrlRight: PropTypes.string,
+    imageBackOnPress: PropTypes.func,
     title: PropTypes.string,
     param: PropTypes.any,
     styles: PropTypes.any
 };
 
-myTopNavbar.defaultProps = {
+TopNavbar.defaultProps = {
     imageUrlBack: '../../../../assets/icons/backarrowinvert.png',
-    imageUrlRight: '../../../../assets/icons/backarrowinvert.png',
-    title: 'hrt authenticator'
+    imageUrlRight: '../../../../assets/icons/settings2invert.png',
+    // imageBackOnPress: '',
+    title: 'HRT'
 };
 
-export default myTopNavbar;
+export default TopNavbar;
 
 const styles = StyleSheet.create({
     container: {
+        // flex:1,
         elevation: 8,
-        backgroundColor: '#009688',
+        backgroundColor: 'pink',
         borderRadius: 2,
         paddingVertical: 10,
         paddingHorizontal: 12
@@ -84,26 +83,28 @@ const styles = StyleSheet.create({
     large: {},
     small: {},
     header: {
+        elevation: 8,
         flexDirection: 'row',
-        height: 53,
+        height: 65,
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottomColor: '#525961',
         borderBottomWidth: 1,
         backgroundColor: '#424c58',
         padding: -50,
-        margin: -30
+        margin: -30,
     },
     title: {
-        marginLeft: 20,
+        marginLeft: 20
     },
-    titleCodeText: {
-        color: 'maroon',
+    titleMainText: {
+        color: 'white',
+        justifyContent: 'center',
         fontSize: 18,
-        fontWeight: 'bold',
-        borderBottomColor: 'orange',
-        borderBottomWidth: 4,
-        marginLeft: Dimensions.get('window').width * 0.03,
-        marginRight: Dimensions.get('window').width * 0.07
-    }
+        fontWeight: 'bold'
+    },
+    iconBtn: {
+        width: 37,
+        height: 37
+    },
 });

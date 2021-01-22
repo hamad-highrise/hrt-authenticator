@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
-import { IconButton } from '../../components';
+import { View, Text, StyleSheet,TouchableOpacity, Image, FlatList } from 'react-native';
+import { TopNavbar } from '../../components';
 import  {Navigation} from 'react-native-navigation';
 import ListItem from '../Main/components/ListItem/ListItem';
 
-const Main = (props) => {
+const DeviceInfo = ({props, ...style}) => {
     const onPressHandler = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -17,84 +17,126 @@ const Main = (props) => {
             }
         });
     };
-
-    const [items, setItems] = useState([
-        { id: '2.4.4', text: 'Version', },
-        { id: '2.1.2', text: 'IBM Security Verify SDK version' },
-        { id: '03', text: 'IBM Security Verify User Guide' },
-        { id: '04', text: 'Terms and Conditions' },
-        { id: '05', text: 'Privacy Policy' },
-        { id: '06', text: 'Third Party Notices' },
-        { id: '07', text: 'Security Assessment' }
-    ]);
-
     return (
+        
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View>
-                    <IconButton onPress={onPressHandler} >
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 5,
-                                    marginTop: 2
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
+            <TopNavbar style={[style.container,style.header]} title="Device Info" onPress={()=>alert("zxcvb")}></TopNavbar>
 
-                <View style={styles.title}>
-                    <Text style={styles.titleText}>Device Info</Text>
+            <View style={{ margin: 30}} />
+            
+            {/* li */}
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>Version</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
                 </View>
-                {/* <View>
-                    <IconButton onPress={()=> alert("device info")}>
-                        <Image
-                            source={require('../../assets/icons/add.png')}
-                            style={{ marginLeft: -10, marginTop: -3 }}
-                        />
-                    </IconButton>
-                </View> */}
-            </View>
-
-            <View style={{ marginLeft: 5, marginRight: 5 }} />
-            <FlatList
-                style={{ margin: 5 }}
-                data={items}
-                renderItem={({ item }) => <ListItem item={item} onPress={() => alert("more info at browser")} />}
-            />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>IBM Security Verify SDK version</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>IBM Security Verify User Guide</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>Terms and Conditions</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>Privacy Policy</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>Third Party Notices</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>Security Assessment</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            {/* end li */}
         </View>
     );
 };
 
-Main.options = {};
+DeviceInfo.options = {};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
-    },
-    header: {
-        flexDirection: 'row',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
+        flex: 1,
     },
     title: {
         marginLeft: 20
     },
+    
     titleText: {
         color: 'black',
         fontSize: 18,
         fontWeight: 'bold'
     },
-    iconBtn: {
-        width: 37,
-        height: 37
+
+    listitem: {
+        padding: 15,
+        backgroundColor: '#f8f8f8',
+        borderBottomWidth: 2,
+        borderColor: '#eee',
+        justifyContent:'space-between'
+    },
+    listitemView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    listitemText: {
+        fontSize: 18,
+        fontWeight:'bold',
+        color:'#424c58',
+    },
+    listitemID: {
+        fontSize: 12,
+        flex: 1
+    },
+    img:{
+        width: 32,
+        height: 30,
+        transform:[{rotate:'180deg'}],
+        backgroundColor:'#e57f01',
+        borderRadius:10,
     },
 });
 
-export default Main;
+export default DeviceInfo;

@@ -3,7 +3,8 @@ import { Navigation } from 'react-native-navigation';
 import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const AddScreen = (props) => {
+import { TopNavbar } from '../../components';
+const AddScreen = ({props}) => {
     const onQrScanClick = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -44,9 +45,10 @@ const AddScreen = (props) => {
         });
     };
     return (
-        <View style={styles.container}>
+        <View>
+            <TopNavbar style={{marginLeft:40}}></TopNavbar>
             {/* TOPBAR */}
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
                     <IconButton onPress={() => alert('Go to Main screen')}>
                         <Image
@@ -80,31 +82,31 @@ const AddScreen = (props) => {
                         />
                     </IconButton>
                 </View>
-            </View>
-            {/* end TOPBAR */}
-            <View
-                style={{
-                    width: Dimensions.get('window').width * 0.4
-                }}>
-                <View title="select mode of connection"></View>
-                <Image
-                    source={require('../../assets/images/addacc1.png')}
-                    style={styles.image}
-                />
-                <Button
-                    title="Scan QR Code"
-                    style={styles.btn}
-                    onPress={onQrScanClick}
-                />
-                <View style={{ margin: 10 }} />
-                <Button
-                    title="Add Manually"
-
-                    onPress={onManualCodeClick}
-
-                    style={styles.btnInvert}
-                />
-                <View style={{ margin: 20 }} />
+            </View>*/}
+            {/* end TOPBAR  */}
+            <View style={styles.container}>
+                <View
+                    style={{
+                        width: Dimensions.get('window').width * 0.4
+                    }}>
+                    <View title="select mode of connection"></View>
+                    <Image
+                        source={require('../../assets/images/addacc1.png')}
+                        style={styles.image}
+                    />
+                    <Button
+                        title="Scan QR Code"
+                        style={styles.btn}
+                        onPress={onQrScanClick}
+                    />
+                    <View style={{ margin: 10 }} />
+                    <Button
+                        title="Add Manually"
+                        onPress={onManualCodeClick}
+                        style={styles.btnInvert}
+                    />
+                    <View style={{ margin: 20 }} />
+                </View>
             </View>
         </View>
     );
@@ -115,7 +117,7 @@ export default AddScreen;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        // flexDirection: 'column',
+        flexDirection: 'column',
         alignItems: 'center',
         justifyContent: 'space-between'
     },
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase',
-        width:Dimensions.get('window').width * 0.7,
+        width: Dimensions.get('window').width * 0.7
     },
     header: {
         flexDirection: 'row',
@@ -168,9 +170,8 @@ const styles = StyleSheet.create({
     },
     title: {
         marginLeft: 20
-    },
+    }
 
-   //     width: Dimensions.get('window').width * 0.7
+    //     width: Dimensions.get('window').width * 0.7
     //}
-
 });
