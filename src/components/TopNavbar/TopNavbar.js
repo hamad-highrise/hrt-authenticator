@@ -7,16 +7,17 @@ const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,  
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={{ backgroundColor: '#2b2d32', height: 65, marginLeft:18}}>
+                <View style={styles.iconBtnContainer}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
-                            source={{ uri: imageUrlBack }}
-                            style={{
-                                width: 25,
-                                height: 35,
-                                marginLeft: 6,
-                                marginTop: 10
-                            }}
+                            // source={{ uri: imageUrlBack }}
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 4,
+                                }
+                            ]}
                         />
                     </IconButton>
                 </View>
@@ -25,17 +26,15 @@ const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,  
                     <Text style={styles.titleMainText}> {title} </Text>
                 </View>
 
-                <View style={{ backgroundColor: '#2b2d32', height: 65, marginRight:18 }}>
+                <View style={{ backgroundColor: '#2b2d32', height: 55, marginRight:18 }}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
-                            source={{ uri: imageUrlRight }}
+                            // source={{ uri: {imageUrlRight} }}
+                            source={require('../../assets/icons/settings2invert.png')}
                             style={[
                                 styles.iconBtn,
                                 {
-                                    marginLeft: 9,
-                                    marginTop: 12,
-                                    width: 25,
-                                    height: 30
+                                    marginLeft:5,
                                 }
                             ]}
                         />
@@ -56,9 +55,9 @@ TopNavbar.propTypes = {
 };
 
 TopNavbar.defaultProps = {
-    imageUrlBack: '../../../../assets/icons/backarrowinvert.png',
-    imageUrlRight: '../../../../assets/icons/settings2invert.png',
-    // imageBackOnPress: '',
+    // imageUrlBack: "https://cdn.iconscout.com/icon/free/png-512/settings-410-461751.png",
+    imageUrlBack: '../../assets/icons/addinvert.png',
+    imageUrlRight: '../../assets/icons/settings2invert.png',
     title: 'HRT'
 };
 
@@ -66,11 +65,9 @@ export default TopNavbar;
 
 const styles = StyleSheet.create({
     container: {
-        // flex:1,
         elevation: 8,
-        backgroundColor: 'pink',
         borderRadius: 2,
-        paddingVertical: 10,
+        paddingVertical: 18,
         paddingHorizontal: 12
     },
     label: {
@@ -91,7 +88,7 @@ const styles = StyleSheet.create({
         borderBottomColor: '#525961',
         borderBottomWidth: 1,
         backgroundColor: '#424c58',
-        padding: -50,
+        paddingTop:10,
         margin: -30,
     },
     title: {
@@ -100,11 +97,18 @@ const styles = StyleSheet.create({
     titleMainText: {
         color: 'white',
         justifyContent: 'center',
-        fontSize: 18,
+        fontSize: 16,
         fontWeight: 'bold'
     },
+    iconBtnContainer:{
+         backgroundColor: '#2b2d32',
+         height: 55,
+         marginLeft:18
+    },
     iconBtn: {
-        width: 37,
-        height: 37
+        
+        width: 30,
+        height: 30,
+        marginTop: 14,
     },
 });
