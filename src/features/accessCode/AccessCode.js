@@ -4,17 +4,21 @@ import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import TOTPGenerator from '../../util/totp-generator';
+import TOTPGenerator from './totp';
+
+//TODO: Get account information e.g. secret, account info, options, etc. from redux state
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const appState = useRef(AppState.currentState);
     useEffect(() => {
+        //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
         updateOtp();
         return () => {
+            //Here listeners are being removed on component unmount
             AppState.removeEventListener('change', handleAppStateChange);
             clearInterval(x);
         };
@@ -25,6 +29,7 @@ const AccessCode = (props) => {
 
     const handleAppStateChange = (nextAppState) => {
         if (
+            //inactive of iOS and background for android
             appState.current.match(/inactive|background/) &&
             nextAppState === 'active'
         ) {
@@ -39,10 +44,11 @@ const AccessCode = (props) => {
     const updateOtp = () => {
         setOTP(TOTPGenerator(props.secret));
     };
-    const timer = () => {
+    const timer = (TOTP_PERIOD = 30) => {
+        //function executes every second and checks if specific time period is passed and updates the otp.
         let epoch = Math.round(new Date().getTime() / 1000.0);
-        setCounter(30 - (epoch % 30));
-        if (epoch % 30 == 0) updateOtp();
+        setCounter(TOTP_PERIOD - (epoch % TOTP_PERIOD));
+        if (epoch % TOTP_PERIOD == 0) updateOtp();
     };
 
     return (

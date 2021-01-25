@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
-import { tryJSONParser, uRIParser } from '../../../util';
+import parser from './parser';
 import navigator from '../../../navigation';
 import account from '../../../util/sqlite/account';
 
 const QRScan = (props) => {
+    const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const barcodeRecognized = async (_barcode) => {
         //Barcode can't be read multiple time
@@ -15,7 +16,7 @@ const QRScan = (props) => {
                 //Start SAM Account flow here
                 alert('SAM Account is not supported yet!!');
             } else {
-                const parsedData = uRIParser(_barcode.data);
+                const parsedData = uriParser(_barcode.data);
                 try {
                     account.create({
                         name: parsedData.label.account,
