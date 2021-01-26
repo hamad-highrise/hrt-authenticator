@@ -6,7 +6,9 @@ import {
     AccessCodeScreen,
     AccountSettingsScreen,
     CodeAccountScreen,
-    DeviceInfoScreen
+    DeviceInfoScreen,
+    NotifyAccountConnection,
+    NotifyRemoveAccount
 
 } from './src/screens';
 import { NativeModules } from 'react-native';
@@ -50,6 +52,18 @@ Navigation.registerComponent(
 Navigation.registerComponent(
     'authenticator.DeviceInfoScreen',
     () => DeviceInfoScreen
+);
+Navigation.registerComponent(
+    'authenticator.NotifyAccountConnection',
+    () => NotifyAccountConnection
+);
+Navigation.registerComponent(
+    'authenticator.NotifyProcessComplete',
+    () => NotifyProcessComplete
+);
+Navigation.registerComponent(
+    'authenticator.NotifyRemoveAccount',
+    () => NotifyRemoveAccount
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

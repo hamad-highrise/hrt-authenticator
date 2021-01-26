@@ -17,6 +17,31 @@ const DeviceInfo = ({props, ...style}) => {
             }
         });
     };
+    // NOIFICATION SCREEEN WORK
+    const AccountAddedSuccess = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.NotifyAccountConnection',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
+    const ProcessComplete = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.NotifyAccountConnection',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     return (
         
         <View style={styles.container}>
@@ -25,7 +50,7 @@ const DeviceInfo = ({props, ...style}) => {
             <View style={{ margin: 30}} />
             
             {/* li */}
-            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+            <TouchableOpacity style={styles.listitem} onPress={AccountAddedSuccess}>
                 <View style={styles.listitemView}>
                     <Text style={styles.listitemText}>Version</Text>
                     <Image
@@ -34,7 +59,7 @@ const DeviceInfo = ({props, ...style}) => {
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+            <TouchableOpacity style={styles.listitem} onPress={ProcessComplete}>
                 <View style={styles.listitemView}>
                     <Text style={styles.listitemText}>IBM Security Verify SDK version</Text>
                     <Image

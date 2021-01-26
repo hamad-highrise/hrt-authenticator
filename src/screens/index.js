@@ -6,3 +6,6 @@ export * from './AccountSettings';
 export * from './CodeAccount';
 export * from './DeviceInfo';
 export * from './AccountForm';
+export * from './NotifyAccountConnection';
+export * from './NotifyProcessComplete';
+export * from './NotifyRemoveAccount';

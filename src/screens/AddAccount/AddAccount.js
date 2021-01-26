@@ -46,44 +46,8 @@ const AddScreen = ({props}) => {
     };
     return (
         <View>
-            <TopNavbar style={{marginLeft:40}}></TopNavbar>
-            {/* TOPBAR */}
-            {/* <View style={styles.header}>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Main screen')}>
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={{
-                                width: 25,
-                                height: 35,
-                                marginLeft: 6,
-                                marginTop: 10
-                            }}
-                        />
-                    </IconButton>
-                </View>
+            <TopNavbar title="Add Account" onPress={()=>alert("Add Account")}></TopNavbar>
 
-                <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Add Account</Text>
-                </View>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={onPressHandlerAccountSettings}>
-                        <Image
-                            source={require('../../assets/icons/settings2invert.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 9,
-                                    marginTop: 12,
-                                    width: 25,
-                                    height: 30
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
-            </View>*/}
-            {/* end TOPBAR  */}
             <View style={styles.container}>
                 <View
                     style={{
