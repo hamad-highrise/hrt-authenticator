@@ -8,8 +8,9 @@ import {
     CodeAccountScreen,
     DeviceInfoScreen,
     NotifyAccountConnection,
-    NotifyRemoveAccount
-
+    NotifyRemoveAccount,
+    NotifyProcessComplete,
+    NotifyError
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';

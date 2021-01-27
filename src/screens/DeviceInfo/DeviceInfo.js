@@ -33,7 +33,7 @@ const DeviceInfo = (props) => {
     const ProcessComplete = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.NotifyAccountConnection',
+                name: 'authenticator.NotifyProcessComplete',
                 options: {
                     topBar: {
                         visible: false
