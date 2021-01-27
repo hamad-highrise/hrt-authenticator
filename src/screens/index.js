@@ -9,3 +9,4 @@ export * from './AccountForm';
 export * from './NotifyAccountConnection';
 export * from './NotifyProcessComplete';
 export * from './NotifyRemoveAccount';
+export * from './NotifyError';

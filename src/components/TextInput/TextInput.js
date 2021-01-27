@@ -7,7 +7,7 @@ const AndroidTextInput = ({placeholder,secureTextEntry, value,onChangeText }) =>
 
     return (
 
-        <KeyboardAvoidingView style={styles.title}>
+        <KeyboardAvoidingView style={styles.title} keyboardVerticalOffset={40}>
             <TextInput
                 secureTextEntry={secureTextEntry}
                 placeholder={placeholder}
@@ -24,11 +24,13 @@ AndroidTextInput.propTypes = {
     style: PropTypes.any,
     value: PropTypes.string,
     onChangeText: PropTypes.any,
+    keyboardVerticalOffset: PropTypes.number,
 };
 
 AndroidTextInput.defaultProps = {
     placeholder: 'input some text',
     secureTextEntry: false,
+    keyboardVerticalOffset: 0,
 };
 
 export default AndroidTextInput;

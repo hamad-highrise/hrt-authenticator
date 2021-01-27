@@ -4,7 +4,7 @@ import { TopNavbar } from '../../components';
 import  {Navigation} from 'react-native-navigation';
 import ListItem from '../Main/components/ListItem/ListItem';
 
-const DeviceInfo = ({props, ...style}) => {
+const DeviceInfo = (props) => {
     const onPressHandler = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -45,7 +45,7 @@ const DeviceInfo = ({props, ...style}) => {
     return (
         
         <View style={styles.container}>
-            <TopNavbar style={[style.container,style.header]} title="Device Info" onPress={()=>alert("zxcvb")}></TopNavbar>
+            <TopNavbar title="Device Info" onPress={()=>alert("zxcvb")}></TopNavbar>
 
             <View style={{ margin: 30}} />
             

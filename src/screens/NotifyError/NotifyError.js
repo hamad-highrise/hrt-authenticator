@@ -4,7 +4,7 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const NotifyProcessComplete = (title) => {
+const NotifyError = (title) => {
 
     return (
         <View>
@@ -14,7 +14,7 @@ const NotifyProcessComplete = (title) => {
                     style={{
                         width: Dimensions.get('window').width * 0.4
                     }}>
-                    <View title="select mode of connection"></View>
+                    <View title={title}></View>
                     <Image
                         source={require('../../assets/images/addacc1.png')}
                         style={styles.image}
@@ -31,16 +31,16 @@ const NotifyProcessComplete = (title) => {
         </View>
     );
 };
-NotifyProcessComplete.propTypes = {
+NotifyError.propTypes = {
     title: PropTypes.string,
     styles: PropTypes.any
 };
 
-NotifyProcessComplete.defaultProps = {
-    title: 'HBL SAM'
+NotifyError.defaultProps = {
+    title: 'Something went wrong..!'
 };
 
-export default NotifyProcessComplete;
+export default NotifyError;
 
 const styles = StyleSheet.create({
     container: {

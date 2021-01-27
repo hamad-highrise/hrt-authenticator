@@ -48,5 +48,5 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase'
     },
     large: {},
-    small: {}
+    small: {},
 });

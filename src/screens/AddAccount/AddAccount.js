@@ -4,7 +4,7 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
 import { TopNavbar } from '../../components';
-const AddScreen = ({props}) => {
+const AddScreen = (props) => {
     const onQrScanClick = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -46,7 +46,7 @@ const AddScreen = ({props}) => {
     };
     return (
         <View>
-            <TopNavbar title="Add Account" onPress={()=>alert("Add Account")}></TopNavbar>
+            <TopNavbar title="Add Account"></TopNavbar>
 
             <View style={styles.container}>
                 <View
@@ -80,14 +80,15 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between'
+        padding: 20,
+        margin: 10,
     },
     image: {
-        width: Dimensions.get('window').width * 0.5,
-        height: Dimensions.get('window').height * 0.5
+        width: Dimensions.get('window').width * 0.6,
+        height: Dimensions.get('window').height * 0.5,
+        marginLeft:-25,
+        marginRight:25,
     },
     btn: {
         backgroundColor: '#a24e12',
@@ -114,17 +115,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.7
-    },
-    header: {
-        flexDirection: 'row',
-        height: 53,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomColor: '#525961',
-        borderBottomWidth: 1,
-        backgroundColor: '#424c58',
-        padding: -50,
-        margin: -30
     },
     titleMainText: {
         color: 'white',

@@ -4,7 +4,6 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-import { TopNavbar } from '../../components';
 const NotifyAccountConnection = ({props,title}) => {
 
     return (

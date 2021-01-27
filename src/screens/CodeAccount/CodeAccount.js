@@ -13,65 +13,46 @@ import { TopNavbar } from '../../components';
 
 const CodeAccount = (props) => {
     return (
-        <View style={styles.container}>
-            <TopNavbar></TopNavbar>
+        <View style={{flex:1,justifyContent:'space-between'}}>
+            <TopNavbar title="Account By Code"></TopNavbar>
 
-            {/* <View style={styles.header}>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Main screen')}>
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={{
-                                width: 25,
-                                height: 35,
-                                marginLeft: 6,
-                                marginTop: 10
-                            }}
-                        />
-                    </IconButton>
+            <View style={styles.container}>
+
+                {/* <View style={{ margin: 10 }}></View> */}
+                <View style={styles.top}>
+                    <View style={styles.title}>
+                        <Text style={styles.titleText}>Manually connect your account</Text>
+                    </View>
+                </View>
+                <View style={styles.middle}>
+                    <TextInput
+                        placeholder="Account name"
+                        style={styles.titleCodeText}
+                    />
+                </View>
+                <View style={styles.middle}>
+                    <TextInput
+                        placeholder="Company name"
+                        style={styles.titleCodeText}
+                    />
+                </View>
+                <View style={styles.middle}>
+                    <TextInput
+                        secureTextEntry={true}
+                        placeholder="Secret Code"
+                        style={styles.titleCodeText}
+                    />
                 </View>
 
-                <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Account Settings</Text>
+                <View style={styles.bottom}>
+                    <View style={{ margin: 35 }} />
+                    <Button
+                        title="Remove Account"
+                        style={styles.btn}
+                        onPress={() => alert('remove account successfully')}
+                    />
+                    <View style={{ marginBottom: 40 }} />
                 </View>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-
-                </View>
-            </View> */}
-
-            <View style={{ margin: 9 }}></View>
-            <View style={styles.top}>
-                <View style={styles.title}>
-                    <Text style={styles.titleText}>Manually connect your account</Text>
-                </View>
-            </View>
-            <View style={styles.middle}>
-                <TextInput
-                    placeholder="Account name"
-                    style={styles.titleCodeText}
-                />
-            </View>
-            <View style={styles.middle}>
-                <TextInput
-                    placeholder="Company name"
-                    style={styles.titleCodeText}
-                />
-            </View>
-            <View style={styles.middle}>
-                <TextInput
-                    secureTextEntry={true}
-                    placeholder="Secret Code"
-                    style={styles.titleCodeText}
-                />
-            </View>
-
-            <View style={styles.bottom}>
-                <View style={{ margin: 25 }} />
-                <Button
-                    title="Remove Account"
-                    style={styles.btn}
-                    onPress={() => alert('remove account successfully')}
-                />
             </View>
         </View>
     );
@@ -81,21 +62,8 @@ CodeAccount.options = {};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
-        justifyContent: 'space-between',
         padding: 20,
         margin: 10
-    },
-    header: {
-        flexDirection: 'row',
-        height: 53,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomColor: '#525961',
-        borderBottomWidth: 1,
-        backgroundColor: '#424c58',
-        padding: -50,
-        margin: -30
     },
     titleMainText: {
         color: 'white',
@@ -109,7 +77,7 @@ const styles = StyleSheet.create({
     },
     titleText: {
         color: '#424c58',
-        fontSize: 28,
+        fontSize: 30,
         fontWeight: 'bold'
     },
     iconBtn: {
@@ -117,44 +85,27 @@ const styles = StyleSheet.create({
         height: 37
     },
     top: {
-        flex: 0.19,
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
+       paddingBottom: 40,
+       marginBottom: 40,
     },
     middle: {
-        flex: 0.1
+        // flex: 1
+        margin: 7,
     },
-    // titleCodeText: {
-    //     color: 'maroon',
-    //     fontSize: 28,
-    //     // fontWeight: 'bold',
-    //     borderBottomColor: 'orange',
-    //     borderBottomWidth: 4,
-    //     marginLeft: Dimensions.get('window').width * 0.04,
-    //     marginRight: Dimensions.get('window').width * 0.08
+    titleCodeText: {
+        color: 'maroon',
+        fontSize: 28,
+        // fontWeight: 'bold',
+        borderBottomColor: 'orange',
+        borderBottomWidth: 4,
+        marginLeft: Dimensions.get('window').width * 0.04,
+        marginRight: Dimensions.get('window').width * 0.08
+    },
+    // bottom: {
+    //     flex: 0.3
     // },
-    bottom: {
-        flex: 0.3
-    },
-    titleTimerText: {
-        color: 'lightgrey',
-        fontSize: 36,
-        borderColor: 'darkgrey',
-        borderBottomWidth: 5,
-        marginLeft: Dimensions.get('window').width * 0.2,
-        marginRight: Dimensions.get('window').width * 0.2,
-        paddingTop: 40,
-        paddingLeft: 20,
-        backgroundColor: '#424c58',
-        width: 150,
-        height: 140,
-        borderRadius: 100 / 2
-    },
-    titleTimerNameText: {
-        fontSize: 12,
-        marginLeft: Dimensions.get('window').width * 0.2,
-        marginRight: Dimensions.get('window').width * 0.2
-    },
     btn: {
         backgroundColor: '#a24e12',
         borderRadius: 2,

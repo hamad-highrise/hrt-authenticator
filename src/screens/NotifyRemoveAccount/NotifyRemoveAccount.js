@@ -4,7 +4,7 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const NotifyProcessComplete = ({props,title}) => {
+const NotifyRemoveAccount = (title) => {
 
     return (
         <View>
@@ -36,16 +36,16 @@ const NotifyProcessComplete = ({props,title}) => {
         </View>
     );
 };
-NotifyProcessComplete.propTypes = {
+NotifyRemoveAccount.propTypes = {
     title: PropTypes.string,
     styles: PropTypes.any
 };
 
-NotifyProcessComplete.defaultProps = {
+NotifyRemoveAccount.defaultProps = {
     title: 'HBL SAM'
 };
 
-export default NotifyProcessComplete;
+export default NotifyRemoveAccount;
 
 const styles = StyleSheet.create({
     container: {
