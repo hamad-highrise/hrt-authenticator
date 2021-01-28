@@ -63,8 +63,12 @@ Navigation.registerComponent(
     () => NotifyProcessComplete
 );
 Navigation.registerComponent(
-    'authenticator.NotifyRemoveAccount',
-    () => NotifyRemoveAccount
+    'authenticator.NotifyAccountConnection',
+    () => NotifyAccountConnection
+);
+Navigation.registerComponent(
+    'authenticator.NotifyError',
+    () => NotifyError
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

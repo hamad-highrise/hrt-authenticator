@@ -3,15 +3,15 @@ import {
     View,
     Text,
     StyleSheet,
-    Image,
-    Dimensions
-    // TextInput,
+    Dimensions,
+    Alert,
     // SafeAreaView,
     // KeyboardAvoidingView
 } from 'react-native';
 import { Navigation } from 'react-native-navigation';
-import { IconButton } from '../../components';
 import { Button } from '../../components';
+import { TextInput } from '../../components';
+import { TopNavbar } from '../../components';
 import account from '../../util/sqlite/account';
 
 const AccountSettings = (props) => {
@@ -23,43 +23,24 @@ const AccountSettings = (props) => {
             Navigation.popToRoot(componentId);
         } catch (error) {}
     };
+    const createTwoButtonAlert = () =>
+        Alert.alert(
+        "Warning!",
+        "This action is not revertable. Deleting accoutn will prevent you from Authentication. Are you sure?",
+        [
+            {
+            text: "Cancel",
+            onPress: () => console.log("Cancel Pressed"),
+            style: 'cancel',
+            },
+            { text: "OK", onPress: onRemovePress }
+        ],
+        { cancelable: false }
+    );
     return (
-        <View style={styles.container}>
-            <View style={styles.header}>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('Go to Main screen')}>
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={{
-                                width: 25,
-                                height: 35,
-                                marginLeft: 6,
-                                marginTop: 10
-                            }}
-                        />
-                    </IconButton>
-                </View>
-
-                <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Account Settings</Text>
-                </View>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={() => alert('account settings')}>
-                        <Image
-                            source={require('../../assets/icons/settings2invert.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 9,
-                                    marginTop: 12,
-                                    width: 25,
-                                    height: 30
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
-            </View>
+        <View style={{flex:1,justifyContent:'space-between'}}>
+            <TopNavbar title="Account Settings"></TopNavbar>
+            <View style={styles.container}>
 
             <View style={{ margin: 0 }}></View>
             <View style={styles.top}>
@@ -81,19 +62,25 @@ const AccountSettings = (props) => {
                         style={styles.titleCodeText}
                     />
                 </View> */}
+                <TextInput
+                    placeholder="Account Name/Id"
+                    style={styles.titleCodeText}
+                />
             </View>
 
             <View style={styles.bottom}>
                 <Button
                     title="Remove Account"
                     style={styles.btn}
-                    onPress={onRemovePress}
+                    onPress={createTwoButtonAlert}
                 />
                 <View style={{ margin: 10 }} />
             </View>
             <View style={{ margin: 5 }}></View>
         </View>
-    );
+
+       </View>
+        );
 };
 
 AccountSettings.options = {};

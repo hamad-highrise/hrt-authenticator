@@ -3,9 +3,9 @@ import {
     View,
     Text,
     StyleSheet,
-    // Image,
+    Alert,
     Dimensions,
-     KeyboardAvoidingView
+    KeyboardAvoidingView
 } from 'react-native';
 import { Button } from '../../components';
 import { TextInput } from '../../components';
@@ -47,9 +47,9 @@ const CodeAccount = (props) => {
                 <View style={styles.bottom}>
                     <View style={{ margin: 35 }} />
                     <Button
-                        title="Remove Account"
+                        title="Add Account"
                         style={styles.btn}
-                        onPress={() => alert('remove account successfully')}
+                        onPress={()=> alert('account added successfully')}
                     />
                     <View style={{ marginBottom: 40 }} />
                 </View>

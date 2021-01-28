@@ -63,7 +63,7 @@ const AddScreen = (props) => {
                         style={styles.btn}
                         onPress={onQrScanClick}
                     />
-                    <View style={{ margin: 10 }} />
+                    <View style={{ margin: 12 }} />
                     <Button
                         title="Add Manually"
                         onPress={onManualCodeClick}
