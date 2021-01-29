@@ -5,6 +5,7 @@ import { Navigation } from 'react-native-navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import ListItem from './components/ListItem/ListItem';
 import account from '../../util/sqlite/account';
+import { SplashScreen } from '../SplashScreen/SplashScreen';
 
 const Main = (props) => {
     const [accounts, setAccounts] = useState([]);

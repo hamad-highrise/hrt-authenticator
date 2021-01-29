@@ -89,6 +89,31 @@ const DeviceInfo = (props) => {
             }
         });
     };
+    const onPressHandlerSplashScreen = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.SplashScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
+    const onPressHandlerEmptyState = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.EmptyStateScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
+
     return (
         
         <View style={styles.container}>
@@ -142,18 +167,18 @@ const DeviceInfo = (props) => {
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerSplashScreen}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>Third Party Notices</Text>
+                    <Text style={styles.listitemText}>{/*Third Party Notices*/}SplashScreen</Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={() => alert("more info at browser")}>
+            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerEmptyState}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>Security Assessment</Text>
+                    <Text style={styles.listitemText}>{/*Security Assessment*/}EmptyState</Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
