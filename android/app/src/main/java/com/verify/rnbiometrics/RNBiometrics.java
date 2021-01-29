@@ -28,7 +28,7 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
     @NonNull
     @Override
     public String getName() {
-        return "AndroidBiometric";
+        return "BiometricAndroid";
     }
 
 
@@ -68,14 +68,14 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showSimpleBiometricPrompt(final ReadableMap params, final Promise promise) {
+    public void showSimpleBiometricPrompt(final Promise promise) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             UiThreadUtil.runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
                     try {
                         String cancelButtonText = params.getString("cancelButtonText");
-                        String promptMessage = params.getString("message");
+                        String promptMessage = params.getString("promptMessage");
                         FragmentActivity activity = (FragmentActivity) getCurrentActivity();
                         BiometricPrompt.AuthenticationCallback authCallback = new AuthCallback(promise);
                         Executor executor = Executors.newSingleThreadExecutor();
@@ -87,12 +87,12 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
                                 .build();
                         prompt.authenticate(promptInfo);
                     } catch (Exception e) {
-                            promise.reject("error", e.getMessage());
+                        promise.reject("error", e.getMessage());
                     }
                 }
             });
         } else {
-                promise.reject("NOT_SUPPORTED", "ANDROID_VERSION_NOT_SUPPORTED");
+            promise.reject("NOT_SUPPORTED", "ANDROID_VERSION_NOT_SUPPORTED");
         }
     }
 }
