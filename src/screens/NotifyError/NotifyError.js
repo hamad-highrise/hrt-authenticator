@@ -4,7 +4,7 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const NotifyError = (title) => {
+const NotifyError = (props) => {
 
     return (
         <View>
@@ -14,12 +14,12 @@ const NotifyError = (title) => {
                     style={{
                         width: Dimensions.get('window').width * 0.4
                     }}>
-                    <View title={title}></View>
+                    <View title="Something WEnt WRONG"></View>
                     <Image
                         source={require('../../assets/images/addacc1.png')}
                         style={styles.image}
                     />
-    <Text>This Device and your account {title} has been connected</Text>
+    <Text>This Device and your account "HBL XYZ" has been connected</Text>
                     <View style={{ margin: 20 }} />
                     <Button
                         title="Done"

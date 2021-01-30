@@ -113,7 +113,18 @@ const DeviceInfo = (props) => {
             }
         });
     };
-
+    const onPressHandlerError = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.NotifyError',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     return (
         
         <View style={styles.container}>
@@ -150,6 +161,15 @@ const DeviceInfo = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity style={styles.listitem} onPress={onPressHandlerAccessCode}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>{/*Remove this record*/}Access Code</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerError}>
                 <View style={styles.listitemView}>
                     <Text style={styles.listitemText}>{/*Terms and Conditions*/}Notify Error</Text>
                     <Image

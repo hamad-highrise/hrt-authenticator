@@ -7,22 +7,11 @@ import { IconButton } from '../../components';
 const NotifyAccountConnection = ({props,title}) => {
 
     return (
-        <View>
-           
-            <View style={styles.container}>
-                <View
-                    style={{
-                        width: Dimensions.get('window').width * 0.4
-                    }}>
-                    <View title="select mode of connection"></View>
-                    <Image
-                        source={require('../../assets/images/addacc1.png')}
-                        style={styles.image}
-                    />
-    <Text>This Device and your account {title} has been connected</Text>
-                    <View style={{ margin: 20 }} />
-                </View>
-            </View>
+        <View style={styles.container}>
+            <Image style={styles.image} source={require('../../assets/images/connection.png')}></Image>
+            <Text style={styles.welcome}>Account Added !</Text>
+            <Text style={styles.instructions}>This device and your {title} account are now conencted. </Text>
+            {/* <Text style={styles.instructions}>{instructions}</Text> */}
         </View>
     );
 };
@@ -40,34 +29,26 @@ export default NotifyAccountConnection;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    image: {
-        width: Dimensions.get('window').width * 0.5,
-        height: Dimensions.get('window').height * 0.5
-    },
-
-    header: {
-        flexDirection: 'row',
-        height: 53,
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        borderBottomColor: '#525961',
-        borderBottomWidth: 1,
-        backgroundColor: '#424c58',
-        padding: -50,
-        margin: -30
-    },
-    titleMainText: {
-        color: 'white',
         justifyContent: 'center',
-        fontSize: 18,
-        fontWeight: 'bold'
+        alignItems: 'center',
+        backgroundColor: '#fff'
     },
-    title: {
-        marginLeft: 20
+    welcome: {
+        fontSize: 20,
+        textAlign: 'center',
+        margin: 10,
+        color: 'black'
+    },
+    instructions: {
+        textAlign: 'center',
+        color: 'maroon',
+        marginBottom: 5,
+        fontSize:20,
+        paddingRight:25,
+        paddingLeft:25,
+    },
+    image:{
+        width:157,
+        height:157,
     }
-
 });
