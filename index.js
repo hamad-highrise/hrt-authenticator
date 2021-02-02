@@ -7,7 +7,7 @@ import {
     AccountSettingsScreen,
     CodeAccountScreen,
     DeviceInfoScreen,
-    NotifyAccountConnection,
+    BiometricOption,
     NotifyProcessComplete,
     NotifyError,
     SplashScreen,
@@ -56,16 +56,16 @@ Navigation.registerComponent(
     () => DeviceInfoScreen
 );
 Navigation.registerComponent(
-    'authenticator.NotifyAccountConnection',
-    () => NotifyAccountConnection
+    'authenticator.BiometricOption',
+    () => BiometricOption
 );
 Navigation.registerComponent(
     'authenticator.NotifyProcessComplete',
     () => NotifyProcessComplete
 );
 Navigation.registerComponent(
-    'authenticator.NotifyAccountConnection',
-    () => NotifyAccountConnection
+    'authenticator.BiometricOption',
+    () => BiometricOption
 );
 Navigation.registerComponent(
     'authenticator.NotifyError',

@@ -13,7 +13,7 @@ import { Button } from '../../components';
 import { TextInput } from '../../components';
 import { TopNavbar } from '../../components';
 import account from '../../util/sqlite/account';
-
+import { Modal } from '../../components';
 const AccountSettings = (props) => {
     const { id, refresh, componentId } = props;
 
@@ -26,7 +26,7 @@ const AccountSettings = (props) => {
     const createTwoButtonAlert = () =>
         Alert.alert(
         "Warning!",
-        "This action is not revertable. Deleting accoutn will prevent you from Authentication. Are you sure?",
+        "This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?",
         [
             {
             text: "Cancel",
@@ -74,6 +74,7 @@ const AccountSettings = (props) => {
                     style={styles.btn}
                     onPress={createTwoButtonAlert}
                 />
+                <Modal style={styles.btn}>          </Modal>
                 <View style={{ margin: 10 }} />
             </View>
             <View style={{ margin: 5 }}></View>
@@ -178,7 +179,7 @@ const styles = StyleSheet.create({
         textTransform: 'uppercase',
 
         width: Dimensions.get('window').width * 0.7
-    }
+    },
 });
 
 export default AccountSettings;

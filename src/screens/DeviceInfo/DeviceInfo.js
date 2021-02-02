@@ -22,7 +22,7 @@ const DeviceInfo = (props) => {
     const AccountAddedSuccess = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.NotifyAccountConnection',
+                name: 'authenticator.BiometricOption',
                 options: {
                     topBar: {
                         visible: false
@@ -46,7 +46,7 @@ const DeviceInfo = (props) => {
     const AccountConnection = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.NotifyAccountConnection',
+                name: 'authenticator.BiometricOption',
                 options: {
                     topBar: {
                         visible: false
@@ -153,7 +153,7 @@ const DeviceInfo = (props) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.listitem} onPress={AccountConnection}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*IBM Security Verify User Guide*/}Notify Account Connection</Text>
+                    <Text style={styles.listitemText}>{/*IBM Security Verify User Guide*/}Biometric Option</Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}

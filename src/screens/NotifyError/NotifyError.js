@@ -4,30 +4,41 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const NotifyError = (props) => {
 
+const instructions = Platform.select({
+    ios: 'Press Cmd+R to reload,\n' + 'Cmd+D or shake for dev menu',
+    android:
+        'IO Error,\n \n' +
+        'java.net.SocketTimeoutException: timeout'
+});
+
+const NotifyError = (props) => {
+    const onPressBackToAccounts = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.MainScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     return (
-        <View>
-           
-            <View style={styles.container}>
-                <View
-                    style={{
-                        width: Dimensions.get('window').width * 0.4
-                    }}>
-                    <View title="Something WEnt WRONG"></View>
-                    <Image
-                        source={require('../../assets/images/addacc1.png')}
-                        style={styles.image}
-                    />
-    <Text>This Device and your account "HBL XYZ" has been connected</Text>
-                    <View style={{ margin: 20 }} />
-                    <Button
-                        title="Done"
-                        style={{alignItems:'left'}}
-                        onPress={()=>alert("Hide this notifiction")}
-                    />
-                </View>
+        <View style={styles.container}>
+            <View style={{marginTop:20}}></View>
+            <Image style={styles.image} source={require('../../assets/images/ErrorScreen.png')}></Image>
+            <View>
+                <Text style={styles.welcome}>Oops! Somthing went wrong here</Text>
+                <Text style={styles.instructions}>{instructions}</Text>
             </View>
+            <Button
+                title="Back to account"
+                onPress={onPressBackToAccounts}
+                style={styles.btn}
+            />
+            <View style={{marginBottom:20}}></View>
         </View>
     );
 };
@@ -37,7 +48,7 @@ NotifyError.propTypes = {
 };
 
 NotifyError.defaultProps = {
-    title: 'Something went wrong..!'
+    title: 'HBL SAM'
 };
 
 export default NotifyError;
@@ -45,34 +56,46 @@ export default NotifyError;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    image: {
-        width: Dimensions.get('window').width * 0.5,
-        height: Dimensions.get('window').height * 0.5
-    },
-
-    header: {
-        flexDirection: 'row',
-        height: 53,
-        alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: '#525961',
-        borderBottomWidth: 1,
-        backgroundColor: '#424c58',
-        padding: -50,
-        margin: -30
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingRight:25,
+        paddingLeft:25,
     },
-    titleMainText: {
-        color: 'white',
-        justifyContent: 'center',
-        fontSize: 18,
-        fontWeight: 'bold'
+    welcome: {
+        fontSize: 32,
+        // textAlign: 'center',
+        marginLeft:20,
+        margin: 10,
+        color: 'black',
+        fontWeight:'bold',
     },
-    title: {
-        marginLeft: 20
-    }
+    instructions: {
+        // textAlign: 'center',
+        marginLeft:20,
+        color: 'black',
+        marginBottom: 5,
+        fontSize:16,
+        // paddingRight:25,
+        // paddingLeft:25,
+    },
+    image:{
+        width:240,
+        height:200,
 
+    },
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
+    },
 });

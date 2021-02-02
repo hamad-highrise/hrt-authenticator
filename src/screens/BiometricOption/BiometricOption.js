@@ -4,27 +4,39 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const NotifyAccountConnection = ({props,title}) => {
+const BiometricOption = ({props,title}) => {
 
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={require('../../assets/images/connection.png')}></Image>
-            <Text style={styles.welcome}>Account Added !</Text>
-            <Text style={styles.instructions}>This device and your {title} account are now conencted. </Text>
-            {/* <Text style={styles.instructions}>{instructions}</Text> */}
+            <Image style={styles.image} source={require('../../assets/images/handqrcode.png')}></Image>
+            <Text style={styles.welcome}>Biometric</Text>
+            <Text style={styles.instructions}>Use biometric as a verification methid to keep your accout safe.</Text>
+            <View>
+                <Button
+                    title="Use Biometric"
+                    style={styles.btn}
+                    onPress={()=>alert("Use biometric")}
+                />
+                <View style={{ margin: 12 }} />
+                <Button
+                    title="No, Thanks"
+                    onPress={()=>alert("No, Thanks")}
+                    style={styles.btnInvert}
+                />
+            </View>
         </View>
     );
 };
-NotifyAccountConnection.propTypes = {
+BiometricOption.propTypes = {
     title: PropTypes.string,
     styles: PropTypes.any
 };
 
-NotifyAccountConnection.defaultProps = {
-    title: 'HBL SAM'
+BiometricOption.defaultProps = {
+    title: 'HBL PIM'
 };
 
-export default NotifyAccountConnection;
+export default BiometricOption;
 
 const styles = StyleSheet.create({
     container: {

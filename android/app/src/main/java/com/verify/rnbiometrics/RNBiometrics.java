@@ -74,18 +74,18 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
                 @Override
                 public void run() {
                     try {
-                        String cancelButtonText = params.getString("cancelButtonText");
-                        String promptMessage = params.getString("promptMessage");
-                        FragmentActivity activity = (FragmentActivity) getCurrentActivity();
-                        BiometricPrompt.AuthenticationCallback authCallback = new AuthCallback(promise);
-                        Executor executor = Executors.newSingleThreadExecutor();
-                        BiometricPrompt prompt = new BiometricPrompt(activity, executor, authCallback);
-                        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                                .setDeviceCredentialAllowed(false)
-                                .setNegativeButtonText(cancelButtonText)
-                                .setTitle(promptMessage)
-                                .build();
-                        prompt.authenticate(promptInfo);
+                        // String cancelButtonText = params.getString("cancelButtonText");
+                        // String promptMessage = params.getString("promptMessage");
+                        // FragmentActivity activity = (FragmentActivity) getCurrentActivity();
+                        // BiometricPrompt.AuthenticationCallback authCallback = new AuthCallback(promise);
+                        // Executor executor = Executors.newSingleThreadExecutor();
+                        // BiometricPrompt prompt = new BiometricPrompt(activity, executor, authCallback);
+                        // BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                        //         .setDeviceCredentialAllowed(false)
+                        //         .setNegativeButtonText(cancelButtonText)
+                        //         .setTitle(promptMessage)
+                        //         .build();
+                        // prompt.authenticate(promptInfo);
                     } catch (Exception e) {
                         promise.reject("error", e.getMessage());
                     }
