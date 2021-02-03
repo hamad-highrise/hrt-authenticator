@@ -68,7 +68,7 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    public void showSimpleBiometricPrompt(final Promise promise) {
+    public void showSimpleBiometricPrompt(final ReadableMap params, final Promise promise) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             UiThreadUtil.runOnUiThread(new Runnable() {
                 @Override

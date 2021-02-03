@@ -1,27 +1,19 @@
 import React from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    // Image,
-    Dimensions,
-     KeyboardAvoidingView
-} from 'react-native';
-import { Button } from '../../components';
-import { TextInput } from '../../components';
-import { TopNavbar } from '../../components';
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Button, TextInput, TopNavbar } from '../../components';
 
 const CodeAccount = (props) => {
     return (
-        <View style={{flex:1,justifyContent:'space-between'}}>
-            <TopNavbar title="Account By Code"></TopNavbar>
+        <View style={{ flex: 1, justifyContent: 'space-between' }}>
+            <TopNavbar title="Account By Code" />
 
             <View style={styles.container}>
-
                 {/* <View style={{ margin: 10 }}></View> */}
                 <View style={styles.top}>
                     <View style={styles.title}>
-                        <Text style={styles.titleText}>Manually connect your account</Text>
+                        <Text style={styles.titleText}>
+                            Manually connect your account
+                        </Text>
                     </View>
                 </View>
                 <View style={styles.middle}>
@@ -87,12 +79,12 @@ const styles = StyleSheet.create({
     top: {
         borderBottomColor: 'grey',
         borderBottomWidth: 1,
-       paddingBottom: 40,
-       marginBottom: 40,
+        paddingBottom: 40,
+        marginBottom: 40
     },
     middle: {
         // flex: 1
-        margin: 7,
+        margin: 7
     },
     titleCodeText: {
         color: 'maroon',

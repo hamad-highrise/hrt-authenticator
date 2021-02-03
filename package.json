@@ -20,7 +20,8 @@
     "react-native-polyfill": "^1.2.1",
     "react-native-sqlite-storage": "^5.0.0",
     "react-native-url-polyfill": "^1.2.0",
-    "react-refresh": "^0.9.0"
+    "react-refresh": "^0.9.0",
+    "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",
