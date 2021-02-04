@@ -54,16 +54,16 @@ const styles = StyleSheet.create({
     large: {},
     small: {},
     title: {
-        marginLeft: 20,
+        marginLeft: 30,
     },
     titleCodeText: {
+        backgroundColor:'#d8e0e9',
+        padding:10,
         color: 'maroon',
         fontSize: 18,
         fontWeight: 'bold',
-        borderBottomColor: 'orange',
+        borderBottomColor: '#2ac6dc',
         borderBottomWidth: 4,
-        // marginLeft: Dimensions.get('window').width * 0.03,
-        // marginRight: Dimensions.get('window').width * 0.07
-        width:Dimensions.get('window').width * 0.67,
+        width:Dimensions.get('window').width * 0.7,
     }
 });

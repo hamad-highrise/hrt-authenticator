@@ -62,5 +62,31 @@ const styles = StyleSheet.create({
     image:{
         width:157,
         height:157,
-    }
+    },
+    btn: {
+        backgroundColor: '#ff8544',
+        borderRadius: 4,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'white',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
+    },
+    btnInvert: {
+        backgroundColor: '#1c9db2',
+        borderRadius: 4,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+        width: Dimensions.get('window').width * 0.7
+    },
 });

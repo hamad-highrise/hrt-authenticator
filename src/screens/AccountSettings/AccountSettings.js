@@ -72,17 +72,21 @@ const AccountSettings = (props) => {
                     style={styles.titleCodeText}
                 />
             </View>
-
+            <View style={styles.middle}>
+                <TextInput
+                        placeholder="Biometric"
+                        style={styles.titleCodeText}
+                    />
+            </View>
             <View style={styles.bottom}>
-                {/* <Button
+                <Button
                     title="Remove Account"
                     style={styles.btn}
                     onPress={createTwoButtonAlert}
-                /> */}
-                <Modal style={styles.btn} />
-                <View style={{ margin: 10 }} />
+                />
+                {/* <Modal style={styles.btn} /> */}
             </View>
-            <View style={{ margin: 5 }}></View>
+            {/* <View style={{ margin: 5 }}></View> */}
         </View>
 
        </View>
@@ -172,12 +176,12 @@ const styles = StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.2
     },
     btn: {
-        backgroundColor: '#a24e12',
-        borderRadius: 2,
+        backgroundColor: '#ff8544',
+        borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'black',
+        color: 'white',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',

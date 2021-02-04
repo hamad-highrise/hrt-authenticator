@@ -22,7 +22,7 @@ const DeviceInfo = (props) => {
     const AccountAddedSuccess = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.BiometricOption',
+                name: 'authenticator.',
                 options: {
                     topBar: {
                         visible: false
