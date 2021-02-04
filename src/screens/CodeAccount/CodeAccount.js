@@ -1,24 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     View,
     Text,
     StyleSheet,
     Alert,
     Dimensions,
-    KeyboardAvoidingView
+    KeyboardAvoidingView,
+    // TextInput
 } from 'react-native';
 import { Button } from '../../components';
 import { TextInput } from '../../components';
 import { TopNavbar } from '../../components';
 
 const CodeAccount = (props) => {
+    const [text, setText] = useState('');
+    const [textC, setTextC] = useState('');
+
     return (
         <View style={{flex:1,justifyContent:'space-between'}}>
             <TopNavbar title="Account By Code"></TopNavbar>
-
+            
             <View style={styles.container}>
-
-                {/* <View style={{ margin: 10 }}></View> */}
                 <View style={styles.top}>
                     <View style={styles.title}>
                         <Text style={styles.titleText}>Manually connect your account</Text>
@@ -28,14 +30,23 @@ const CodeAccount = (props) => {
                     <TextInput
                         placeholder="Account name"
                         style={styles.titleCodeText}
+                        onChangeText={text => setText(text)}
                     />
+                    <Text style={{paddingLeft: 10, fontSize:12, paddingTop:20 }}>
+                        {(text.length > 8 || text.length == 0 ) ? '✖️' : '✔️'}
+                    </Text>
                 </View>
                 <View style={styles.middle}>
                     <TextInput
                         placeholder="Company name"
                         style={styles.titleCodeText}
+                        onChangeText={text => setTextC(text)}
                     />
+                    <Text style={{paddingLeft: 0, fontSize:12, paddingTop:20}}>
+                        {(textC.length > 8 || textC.length == 0 ) ? '✖️' : '✔️'}
+                    </Text>
                 </View>
+
                 <View style={styles.middle}>
                     <TextInput
                         secureTextEntry={true}
@@ -91,8 +102,12 @@ const styles = StyleSheet.create({
        marginBottom: 40,
     },
     middle: {
-        // flex: 1
         margin: 7,
+        flexDirection: 'row',
+        width: Dimensions.get('window').width* 0.8,
+        // backgroundColor:'blue',
+        justifyContent:'center'
+
     },
     titleCodeText: {
         color: 'maroon',
@@ -100,8 +115,13 @@ const styles = StyleSheet.create({
         // fontWeight: 'bold',
         borderBottomColor: 'orange',
         borderBottomWidth: 4,
-        marginLeft: Dimensions.get('window').width * 0.04,
-        marginRight: Dimensions.get('window').width * 0.08
+        // marginLeft: Dimensions.get('window').width * 0.03,
+        // marginRight: Dimensions.get('window').width * 0.07,
+        // alignSelf: 'flex-end',
+        // alignItems: 'flex-end',
+        // width: 210,
+        // height: 50,
+
     },
     // bottom: {
     //     flex: 0.3

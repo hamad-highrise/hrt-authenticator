@@ -12,6 +12,7 @@ const AndroidTextInput = ({placeholder,secureTextEntry, value,onChangeText }) =>
                 secureTextEntry={secureTextEntry}
                 placeholder={placeholder}
                 style={styles.titleCodeText}
+                onChangeText={onChangeText}
             />
         </KeyboardAvoidingView>
     );
@@ -61,7 +62,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         borderBottomColor: 'orange',
         borderBottomWidth: 4,
-        marginLeft: Dimensions.get('window').width * 0.03,
-        marginRight: Dimensions.get('window').width * 0.07
+        // marginLeft: Dimensions.get('window').width * 0.03,
+        // marginRight: Dimensions.get('window').width * 0.07
+        width:Dimensions.get('window').width * 0.67,
     }
 });
