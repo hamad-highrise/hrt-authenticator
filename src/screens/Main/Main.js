@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList,   SafeAreaView, SectionList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList,   SafeAreaView, SectionList ,TouchableOpacity} from 'react-native';
 import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
@@ -63,7 +63,18 @@ const Main = (props) => {
             }
         });
     };
-
+    const onPressMMFAcc = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.AccessCodeScreen',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     const onPressHandlerDeviceInfo = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -83,19 +94,17 @@ const Main = (props) => {
 
     const DATA = [
         {
-          title: "MMFA Acconts",
-          data: ["HBL SAM", "HBL PIM", "HBL Support"]
+          title: "MMFA Accounts",
+          data: ["HBL SAM", "HBL PIM", "HBL Support", "HBL Example"]
         },
-        {
-          title: "Sides",
-          data: ["French Fries", "Onion Rings", "Fried Shrimps"]
-        },
+ 
       ];
       
     const Item = ({ title }) => (
         <View style={styles.SListitem}>
           <Text style={styles.SListtitle}>{title}</Text>
-            <Image
+          <TouchableOpacity onPress={onPressMMFAcc}>
+          <Image
                 source={require('../../assets/icons/backarrowinvert.png')}
                 style={{
                     width: 32,
@@ -105,6 +114,8 @@ const Main = (props) => {
                     borderRadius:10,
                 }}
             />
+        </TouchableOpacity>
+   
         </View>
       );
 
