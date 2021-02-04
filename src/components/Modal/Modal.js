@@ -8,7 +8,7 @@ import {
     View,
     Dimensions
 } from 'react-native';
-
+import { Button } from '../../components';
 const myModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
@@ -24,32 +24,43 @@ const myModal = () => {
                     <View style={styles.modalView}>
                         <Text style={styles.modalMainText}>WARNING</Text>
                         <Text style={styles.modalText}>This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?</Text>
-                        <TouchableHighlight
-                            style={styles.btnM}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <Text style={styles.textStyle}>Yes</Text>
-                        </TouchableHighlight>
+                        <View style={{flexDirection:'row-reverse'}}>
+                            <TouchableHighlight
+                                style={styles.btnM}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}>
+                                <Text style={styles.textStyle}>Yes</Text>
+                            </TouchableHighlight>
 
-                        <TouchableHighlight
-                            style={styles.btnMInvert}
-                            onPress={() => {
-                                setModalVisible(!modalVisible);
-                            }}>
-                            <Text style={styles.textStyleInvert} >No</Text>
-                        </TouchableHighlight>
+                            <TouchableHighlight
+                                style={styles.btnMInvert}
+                                onPress={() => {
+                                    setModalVisible(!modalVisible);
+                                }}>
+                                <Text style={styles.textStyleInvert}>No</Text>
+                            </TouchableHighlight>
+                        </View>
                     </View>
                 </View>
             </Modal>
 
-            <TouchableHighlight
+            {/* <TouchableHighlight
                 style={styles.openButton}
                 onPress={() => {
                     setModalVisible(true);
                 }}>
                 <Text style={styles.btnMInvert}>Show Modal</Text>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
+
+            <Button
+                title="Show Modal"
+                style={styles.openButton}
+                onPress={() => {
+                    setModalVisible(true);
+                }}
+            />
+
         </View>
     );
 };
@@ -81,10 +92,23 @@ const styles = StyleSheet.create({
         borderBottomWidth:5,
     },
     openButton: {
-        backgroundColor: '#F194FF',
+        // backgroundColor: '#F19444',
         // borderRadius: 20,
-        padding: 10,
-        elevation: 2
+        // padding: 10,
+        elevation: 2,
+
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
     },
     textStyle: {
         color: 'white',
@@ -116,11 +140,13 @@ const styles = StyleSheet.create({
         color: 'black',
         borderWidth: 0,
         fontWeight: 'bold',
-        alignSelf: 'flex-end',
+        // alignSelf: 'flex-end',
         textTransform: 'uppercase',
 
         width: Dimensions.get('window').width * 0.2,
         // alignItems: 'flex-start',
+        borderColor:'#a24e12',
+        borderWidth:2,
     },
     btnMInvert: {
         backgroundColor: 'white',
@@ -130,11 +156,12 @@ const styles = StyleSheet.create({
         fontSize: 14,
         borderWidth: 0,
         fontWeight: 'bold',
-        alignSelf: 'center',
+        // alignSelf: 'flex-end',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.2,
         borderColor:'orange',
-        borderWidth:3,
+        borderBottomWidth:2,
+        elevation:2,
     }
 });
 

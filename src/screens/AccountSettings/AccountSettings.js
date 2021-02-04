@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {
     View,
     Text,
@@ -37,6 +37,11 @@ const AccountSettings = (props) => {
         ],
         { cancelable: false }
     );
+
+    // contolled input
+    const [firstName,setFirstName]= useState("");
+    // end
+    
     return (
         <View style={{flex:1,justifyContent:'space-between'}}>
             <TopNavbar title="Account Settings"></TopNavbar>
@@ -69,12 +74,12 @@ const AccountSettings = (props) => {
             </View>
 
             <View style={styles.bottom}>
-                <Button
+                {/* <Button
                     title="Remove Account"
                     style={styles.btn}
                     onPress={createTwoButtonAlert}
-                />
-                <Modal style={styles.btn}>          </Modal>
+                /> */}
+                <Modal style={styles.btn} />
                 <View style={{ margin: 10 }} />
             </View>
             <View style={{ margin: 5 }}></View>
