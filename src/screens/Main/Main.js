@@ -94,7 +94,7 @@ const Main = (props) => {
 
     const DATA = [
         {
-          title: "MMFA Accounts",
+          title: "MULTI FACTOR AUTH ACCOUNTS",
           data: ["HBL SAM", "HBL PIM", "HBL Support", "HBL Example"]
         },
  
@@ -126,7 +126,7 @@ const Main = (props) => {
                     {/* <IconButton onPress={() => alert('Device Info Sectionn')}> */}
                     <IconButton onPress={onPressHandlerDeviceInfo}>
                         <Image
-                            source={require('../../assets/icons/settings2.png')}
+                            source={require('../../assets/icons/settings2invert.png')}
                             style={[
                                 styles.iconBtn,
                                 {
@@ -144,8 +144,8 @@ const Main = (props) => {
                 <View>
                     <IconButton onPress={onPressHandler}>
                         <Image
-                            source={require('../../assets/icons/add.png')}
-                            style={{ marginLeft: -10, marginTop: -3 }}
+                            source={require('../../assets/icons/addinvert.png')}
+                            style={{ marginLeft: -10, marginTop: -3, }}
                         />
                     </IconButton>
                 </View>
@@ -167,7 +167,7 @@ const Main = (props) => {
             {/*  */}
             <SafeAreaView style={styles.container}>
                 <SectionList
-                    style={{backgroundColor:'#adb6c6'}}
+                    style={{backgroundColor:'#424c58'}}
                     sections={DATA}
                     keyExtractor={(item, index) => item + index}
                     renderItem={({ item }) => <Item title={item} />}
@@ -193,13 +193,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'space-between',
         borderBottomColor: 'black',
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
+        backgroundColor:'black',
+        elevation:8,
     },
     title: {
         marginLeft: 20
     },
     titleText: {
-        color: 'black',
+        color:'white',
         fontSize: 18,
         fontWeight: 'bold'
     },
@@ -209,20 +211,25 @@ const styles = StyleSheet.create({
     },
     SListitem: {
         backgroundColor: "white",
-        padding: 23,
-        marginVertical: 0.5,
+        padding: 20,
+        marginVertical: 0.12,
         flexDirection: 'row',
         justifyContent: 'space-between',
         paddingRight:28,
     },
     SListheader: {
-        fontSize: 26,
-        padding: 10,
-        backgroundColor: "#adb6c6"
+        fontSize: 20,
+        padding: 9,
+        backgroundColor: "#424c58",
+        color:'#b5b6bd',
+        fontWeight: 'bold',
+        alignSelf:'center',
+        lineHeight:25,
       },
     SListtitle: {
-        fontSize: 24,
-        color: '#b5b6bd'
+        fontSize: 20,
+        color: '#424c58',
+        fontWeight: 'bold',
       }
 });
 
