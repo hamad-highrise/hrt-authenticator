@@ -103,7 +103,7 @@ const Main = (props) => {
     const Item = ({ title }) => (
         <View style={styles.SListitem}>
           <Text style={styles.SListtitle}>{title}</Text>
-          <TouchableOpacity onPress={onPressMMFAcc}>
+          <TouchableOpacity onPress={()=>alert("Go to Access Code Screen")}>
           <Image
                 source={require('../../assets/icons/backarrowinvert.png')}
                 style={{

@@ -15,11 +15,12 @@ import { TopNavbar } from '../../components';
 const CodeAccount = (props) => {
     const [text, setText] = useState('');
     const [textC, setTextC] = useState('');
+    const [textS, setTextS] = useState('');
 
     return (
         <View style={{flex:1,justifyContent:'space-between'}}>
             <TopNavbar title="Account By Code"></TopNavbar>
-            
+
             <View style={styles.container}>
                 <View style={styles.top}>
                     <View style={styles.title}>
@@ -32,7 +33,7 @@ const CodeAccount = (props) => {
                         style={styles.titleCodeText}
                         onChangeText={text => setText(text)}
                     />
-                    <Text style={{paddingLeft: 10, fontSize:12, paddingTop:20 }}>
+                    <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20 }}>
                         {(text.length > 8 || text.length == 0 ) ? '✖️' : '✔️'}
                     </Text>
                 </View>
@@ -42,7 +43,7 @@ const CodeAccount = (props) => {
                         style={styles.titleCodeText}
                         onChangeText={text => setTextC(text)}
                     />
-                    <Text style={{paddingLeft: 0, fontSize:12, paddingTop:20}}>
+                    <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20}}>
                         {(textC.length > 8 || textC.length == 0 ) ? '✖️' : '✔️'}
                     </Text>
                 </View>
@@ -52,7 +53,11 @@ const CodeAccount = (props) => {
                         secureTextEntry={true}
                         placeholder="Secret Code"
                         style={styles.titleCodeText}
+                        onChangeText={text => setTextS(text)}
                     />
+                    <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20}}>
+                        {(textS.length > 8 || textS.length == 0 ) ? '✖️' : '✔️'}
+                    </Text>
                 </View>
 
                 <View style={styles.bottom}>
