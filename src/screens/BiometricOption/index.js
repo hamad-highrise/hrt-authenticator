@@ -1,0 +1,1 @@
+export {default as BiometricOption} from './BiometricOption';

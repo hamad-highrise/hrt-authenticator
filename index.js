@@ -7,10 +7,11 @@ import {
     AccountSettingsScreen,
     CodeAccountScreen,
     DeviceInfoScreen,
-    NotifyAccountConnection,
-    NotifyRemoveAccount,
+    BiometricOption,
     NotifyProcessComplete,
-    NotifyError
+    NotifyError,
+    SplashScreen,
+    EmptyStateScreen
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
@@ -55,16 +56,28 @@ Navigation.registerComponent(
     () => DeviceInfoScreen
 );
 Navigation.registerComponent(
-    'authenticator.NotifyAccountConnection',
-    () => NotifyAccountConnection
+    'authenticator.BiometricOption',
+    () => BiometricOption
 );
 Navigation.registerComponent(
     'authenticator.NotifyProcessComplete',
     () => NotifyProcessComplete
 );
 Navigation.registerComponent(
-    'authenticator.NotifyRemoveAccount',
-    () => NotifyRemoveAccount
+    'authenticator.BiometricOption',
+    () => BiometricOption
+);
+Navigation.registerComponent(
+    'authenticator.NotifyError',
+    () => NotifyError
+);
+Navigation.registerComponent(
+    'authenticator.SplashScreen',
+    () => SplashScreen
+);
+Navigation.registerComponent(
+    'authenticator.EmptyStateScreen',
+    () => EmptyStateScreen
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

@@ -49,27 +49,27 @@ const AddScreen = (props) => {
             <TopNavbar title="Add Account"></TopNavbar>
 
             <View style={styles.container}>
-                <View
-                    style={{
-                        width: Dimensions.get('window').width * 0.4
-                    }}>
-                    <View title="select mode of connection"></View>
+                <View style={{ margin: 25 }} />
+                <View>
+
                     <Image
-                        source={require('../../assets/images/addacc1.png')}
+                        source={require('../../assets/images/add3.png')}
                         style={styles.image}
                     />
+                </View>
+                    <View style={{ margin: 35 }} />
+                <View>
                     <Button
                         title="Scan QR Code"
                         style={styles.btn}
                         onPress={onQrScanClick}
                     />
-                    <View style={{ margin: 10 }} />
+                    <View style={{ margin: 12 }} />
                     <Button
                         title="Add Manually"
                         onPress={onManualCodeClick}
                         style={styles.btnInvert}
                     />
-                    <View style={{ margin: 20 }} />
                 </View>
             </View>
         </View>
@@ -80,15 +80,12 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
-        padding: 20,
-        margin: 10,
+        alignItems:'center',
     },
     image: {
-        width: Dimensions.get('window').width * 0.6,
-        height: Dimensions.get('window').height * 0.5,
-        marginLeft:-25,
-        marginRight:25,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').height * 0.4,
+        alignItems:'center',
     },
     btn: {
         backgroundColor: '#a24e12',
@@ -125,7 +122,4 @@ const styles = StyleSheet.create({
     title: {
         marginLeft: 20
     }
-
-    //     width: Dimensions.get('window').width * 0.7
-    //}
 });

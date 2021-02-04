@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image, FlatList } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList,   SafeAreaView, SectionList } from 'react-native';
 import { IconButton } from '../../components';
 import { Navigation } from 'react-native-navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import ListItem from './components/ListItem/ListItem';
 import account from '../../util/sqlite/account';
+import { SplashScreen } from '../SplashScreen/SplashScreen';
 
 const Main = (props) => {
     const [accounts, setAccounts] = useState([]);
@@ -80,6 +81,32 @@ const Main = (props) => {
         { id: 'hbl.support', text: 'HBL sam' }
     ]);
 
+    const DATA = [
+        {
+          title: "MMFA Acconts",
+          data: ["HBL SAM", "HBL PIM", "HBL Support"]
+        },
+        {
+          title: "Sides",
+          data: ["French Fries", "Onion Rings", "Fried Shrimps"]
+        },
+      ];
+      
+    const Item = ({ title }) => (
+        <View style={styles.SListitem}>
+          <Text style={styles.SListtitle}>{title}</Text>
+            <Image
+                source={require('../../assets/icons/backarrowinvert.png')}
+                style={{
+                    width: 32,
+                    height: 30,
+                    transform:[{rotate:'180deg'}],
+                    backgroundColor:'#e57f01',
+                    borderRadius:10,
+                }}
+            />
+        </View>
+      );
 
     return (
         <View style={styles.container}>
@@ -125,6 +152,20 @@ const Main = (props) => {
                 )}
                 keyExtractor={(item) => '' + item['account_id']}
             />
+
+            {/*  */}
+            <SafeAreaView style={styles.container}>
+                <SectionList
+                    style={{backgroundColor:'#adb6c6'}}
+                    sections={DATA}
+                    keyExtractor={(item, index) => item + index}
+                    renderItem={({ item }) => <Item title={item} />}
+                    renderSectionHeader={({ section: { title } }) => (
+                        <Text style={styles.SListheader}>{title}</Text>
+                    )}
+                />
+            </SafeAreaView>
+            {/*  */}
         </View>
     );
 };
@@ -154,7 +195,24 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
-    }
+    },
+    SListitem: {
+        backgroundColor: "white",
+        padding: 23,
+        marginVertical: 0.5,
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        paddingRight:28,
+    },
+    SListheader: {
+        fontSize: 26,
+        padding: 10,
+        backgroundColor: "#adb6c6"
+      },
+    SListtitle: {
+        fontSize: 24,
+        color: '#b5b6bd'
+      }
 });
 
 export default Main;
