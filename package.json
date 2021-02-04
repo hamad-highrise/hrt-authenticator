@@ -14,17 +14,13 @@
     "prop-types": "^15.7.2",
     "react": "16.13.1",
     "react-native": "0.63.4",
-    "react-native-biometrics": "^2.1.4",
     "react-native-camera": "^3.40.0",
     "react-native-navigation": "^7.6.0",
     "react-native-navigation-hooks": "^6.2.0",
     "react-native-polyfill": "^1.2.1",
     "react-native-sqlite-storage": "^5.0.0",
     "react-native-url-polyfill": "^1.2.0",
-    "react-redux": "^7.2.2",
-    "react-refresh": "^0.9.0",
-    "redux": "^4.0.5",
-    "redux-thunk": "^2.3.0"
+    "react-refresh": "^0.9.0"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

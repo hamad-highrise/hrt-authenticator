@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text,Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
 const AndroidButton = ({ title, onPress, style, param }) => {
@@ -49,4 +49,30 @@ const styles = StyleSheet.create({
     },
     large: {},
     small: {},
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
+    },
+    btnInvert: {
+        backgroundColor: 'white',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+        width: Dimensions.get('window').width * 0.7
+    },
 });

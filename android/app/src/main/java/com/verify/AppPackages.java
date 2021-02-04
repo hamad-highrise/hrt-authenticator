@@ -6,6 +6,7 @@ import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.verify.custom.CustomUtilities;
+import com.verify.rnbiometrics.RNBiometrics;
 import com.verify.secure.SecureModule;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class AppPackages implements ReactPackage {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new CustomUtilities(reactContext));
         modules.add(new SecureModule(reactContext));
+        modules.add(new RNBiometrics(reactContext));
         return modules;
     }
 
