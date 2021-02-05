@@ -4,26 +4,33 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
 import { IconButton } from '../../components';
-const BiometricOption = ({props,title}) => {
-
+const BiometricOption = ({ props, title }) => {
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={require('../../assets/images/handqrcode.png')}></Image>
-            <Text style={styles.welcome}>Biometric</Text>
-            <Text style={styles.instructions}>Use biometric as a verification methid to keep your accout safe.</Text>
+            <View style={{ marginTop: 20 }}></View>
+            <Image
+                style={styles.image}
+                source={require('../../assets/images/bio2.png')}></Image>
             <View>
-                <Button
-                    title="Use Biometric"
-                    style={styles.btn}
-                    onPress={()=>alert("Use biometric")}
-                />
-                <View style={{ margin: 12 }} />
-                <Button
-                    title="No, Thanks"
-                    onPress={()=>alert("No, Thanks")}
-                    style={styles.btnInvert}
-                />
+                <Text style={styles.welcome}>Biometric</Text>
+                <Text style={styles.instructions}>
+                    Use biometric as a verification methid to keep your accout
+                    safe.
+                </Text>
             </View>
+            <View style={{ margin:40 }} />
+            <Button
+                title="Use Biometric"
+                style={styles.btn}
+                onPress={() => alert('Use biometric')}
+            />
+            {/* <View style={{ margin:-40 }} /> */}
+            <Button
+                title="No, Thanks"
+                onPress={() => alert('No, Thanks')}
+                style={styles.btnInvert}
+            />
+            <View style={{ marginBottom: 20 }}></View>
         </View>
     );
 };
@@ -41,27 +48,32 @@ export default BiometricOption;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        justifyContent: 'space-between',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        paddingRight: 25,
+        paddingLeft: 25
     },
     welcome: {
-        fontSize: 20,
-        textAlign: 'center',
+        fontSize: 38,
+        // textAlign: 'center',
+        marginLeft: 20,
         margin: 10,
-        color: 'black'
+        color: 'black',
+        // fontWeight: 'bold'
     },
     instructions: {
-        textAlign: 'center',
-        color: 'maroon',
+        // textAlign: 'center',
+        marginLeft: 20,
+        color: 'black',
         marginBottom: 5,
-        fontSize:20,
-        paddingRight:25,
-        paddingLeft:25,
+        fontSize: 16
+        // paddingRight:25,
+        // paddingLeft:25,
     },
-    image:{
-        width:157,
-        height:157,
+    image: {
+        width: 150,
+        height: 150
     },
     btn: {
         backgroundColor: '#ff8544',
@@ -88,5 +100,5 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.7
-    },
+    }
 });

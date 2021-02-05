@@ -11,3 +11,4 @@ export * from './NotifyProcessComplete';
 export * from './NotifyError';
 export * from './SplashScreen';
 export * from './EmptyState';
+export * from './NotifyAccountConnected';

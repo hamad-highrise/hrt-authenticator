@@ -11,7 +11,8 @@ import {
     NotifyProcessComplete,
     NotifyError,
     SplashScreen,
-    EmptyStateScreen
+    EmptyStateScreen,
+    NotifyAccountConnected
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
@@ -56,8 +57,8 @@ Navigation.registerComponent(
     () => DeviceInfoScreen
 );
 Navigation.registerComponent(
-    'authenticator.BiometricOption',
-    () => BiometricOption
+    'authenticator.NotifyAccountConnected',
+    () => NotifyAccountConnected
 );
 Navigation.registerComponent(
     'authenticator.NotifyProcessComplete',

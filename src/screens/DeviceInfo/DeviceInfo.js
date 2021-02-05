@@ -4,6 +4,7 @@ import { TopNavbar } from '../../components';
 import { Button } from '../../components';
 import  {Navigation} from 'react-native-navigation';
 import ListItem from '../Main/components/ListItem/ListItem';
+import { BiometricOption } from '../BiometricOption';
 
 const DeviceInfo = (props) => {
     const onPressHandler = () => {
@@ -19,10 +20,10 @@ const DeviceInfo = (props) => {
         });
     };
     // NOIFICATION SCREEEN WORK
-    const AccountAddedSuccess = () => {
+    const AccountConnected = () => {
         Navigation.push(props.componentId, {
             component: {
-                name: 'authenticator.',
+                name: 'authenticator.NotifyAccountConnected',
                 options: {
                     topBar: {
                         visible: false
@@ -43,7 +44,7 @@ const DeviceInfo = (props) => {
             }
         });
     };
-    const AccountConnection = () => {
+    const BiometricOption = () => {
         Navigation.push(props.componentId, {
             component: {
                 name: 'authenticator.BiometricOption',
@@ -133,9 +134,9 @@ const DeviceInfo = (props) => {
             <View style={{ margin: 30}} />
             
             {/* li */}
-            <TouchableOpacity style={styles.listitem} onPress={AccountAddedSuccess}>
+            <TouchableOpacity style={styles.listitem} onPress={AccountConnected}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Version*/}Notify Account Added Successfully</Text>
+                    <Text style={styles.listitemText}>{/*Version*/}Notify Account Connected</Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
@@ -151,7 +152,7 @@ const DeviceInfo = (props) => {
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={AccountConnection}>
+            <TouchableOpacity style={styles.listitem} onPress={BiometricOption}>
                 <View style={styles.listitemView}>
                     <Text style={styles.listitemText}>{/*IBM Security Verify User Guide*/}Biometric Option</Text>
                     <Image
