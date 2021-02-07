@@ -14,7 +14,7 @@ const mainRoot = {
     }
 };
 
-const onBoardingRoot = {
+const emptyStateRoot = {
     root: {
         stack: {
             children: [
@@ -28,7 +28,22 @@ const onBoardingRoot = {
     }
 };
 
+const onBoardingRoot = {
+    root: {
+        stack: {
+            children: [
+                {
+                    component: {
+                        name: screensId.welcome
+                    }
+                }
+            ]
+        }
+    }
+};
+
 const getMainRoot = () => mainRoot;
 const getOnBoardingRoot = () => onBoardingRoot;
+const getEmptyStateRoot = () => emptyStateRoot;
 
-export { getOnBoardingRoot, getMainRoot };
+export { getOnBoardingRoot, getMainRoot, getEmptyStateRoot };

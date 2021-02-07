@@ -73,6 +73,12 @@ const AddScreen = (props) => {
     );
 };
 
+AddScreen.options = {
+    topBar: {
+        visible: false
+    }
+};
+
 export default AddScreen;
 
 const styles = StyleSheet.create({

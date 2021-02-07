@@ -1,5 +1,5 @@
 import { Navigation } from 'react-native-navigation';
-import { getOnBoardingRoot, getMainRoot } from './root';
+import { getOnBoardingRoot, getMainRoot, getEmptyStateRoot } from './root';
 import registerScreens from './registerScreens';
 import screenIds from './screensId';
 
@@ -7,11 +7,12 @@ const goBack = (componentId) => {
     Navigation.pop(componentId);
 };
 
-const goTo = (componentId, destinationName) => {
+const goTo = (componentId, destinationName, props = {}) => {
     if (Object.values(screenIds).includes(destinationName))
         Navigation.push(componentId, {
             component: {
-                name: destinationName
+                name: destinationName,
+                passProps: props
             }
         });
     else {
@@ -25,6 +26,24 @@ const goToRoot = (componentId) => {
     Navigation.popToRoot(componentId);
 };
 
+const setRoot = () => {
+    Navigation.events().registerAppLaunchedListener(() => {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    children: [
+                        {
+                            component: {
+                                name: screenIds.welcome
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+    });
+};
+
 const navigator = {
     goBack,
     goTo,
@@ -32,7 +51,8 @@ const navigator = {
     registerScreens,
     screenIds,
     getOnBoardingRoot,
-    getMainRoot
+    getMainRoot,
+    setRoot
 };
 
 export default navigator;
