@@ -4,16 +4,12 @@ import {
     WelcomeScreen,
     EmptyStateScreen,
     MainScreen,
-    AddAccountScreen
+    AddAccountScreen,
+    QRScanScreen,
+    ManualAccountScreen as ManualScreen,
+    AccountSettingScreen as Setting,
+    CodeScreen
 } from '../features';
-// import {
-//     MainScreen,
-//     AccessCodeScreen,
-//     AddAccountForm,
-//     AccountSettingsScreen as AccSettings,
-//     QRScanScreen,
-//     AddAccountScreen
-// } from '../screens';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -29,11 +25,10 @@ function registerScreens() {
     Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => MainScreen);
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
-    // Navigation.registerComponent(screensId.main, () => MainScreen);
-    // Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
-    // Navigation.registerComponent(screensId.accountSettings, () => AccSettings);
-    // Navigation.registerComponent(screensId.accessCode, () => AccessCodeScreen);
-    // Navigation.registerComponent(screensId.accountForm, () => AddAccountForm);
+    Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
+    Navigation.registerComponent(screensId.accountSettings, () => Setting);
+    Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
+    Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
 }
 
 export default registerScreens;

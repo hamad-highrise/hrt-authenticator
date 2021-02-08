@@ -1,16 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    SafeAreaView,
-    SectionList
-} from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import navigation from '../../navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
-import Item from './Item';
 import accountQueries from './queries';
+import { IconButton } from '../../components';
+import AccountList from './sectionList';
 
 const Main = (props) => {
     const [accounts, setAccounts] = useState([]);
@@ -43,35 +38,9 @@ const Main = (props) => {
     }, []);
 
     const onPressHandler = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AddAccountScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
+        navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
-    const onPressHandlerAccessCode = (id, name, issuer, secret) => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccessCodeScreen',
-                passProps: {
-                    id: id,
-                    name: name,
-                    issuer: issuer,
-                    secret: secret
-                },
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
+    const onPressHandlerAccessCode = (id, name, issuer, secret) => {};
 
     const onPressHandlerDeviceInfo = () => {
         Navigation.push(props.componentId, {
@@ -86,56 +55,65 @@ const Main = (props) => {
         });
     };
 
-    const sample = [
+    const sampleAccountData = [
+        { account_id: 0, account_name: 'local', issuer: 'server', type: 'SAM' },
         {
-            title: 'MMFA Acconts',
-            data: ['HBL SAM', 'HBL PIM', 'HBL Support']
+            account_id: 1,
+            account_name: 'local',
+            issuer: 'server',
+            type: 'TOTP'
         },
         {
-            title: 'Sides',
-            data: ['French Fries', 'Onion Rings', 'Fried Shrimps']
-        }
+            account_id: 2,
+            account_name: 'local',
+            issuer: 'server',
+            type: 'TOTP'
+        },
+        { account_id: 3, account_name: 'hamad', issuer: 'server', type: 'SAM' },
+        { account_id: 4, account_name: 'local', issuer: 'server', type: 'SAM' }
     ];
-
-    // const DATA = accounts.reduce(
-    //     ([mmfa, totp], account) => {
-    //         account.type === 'SAM'
-    //             ? mmfa.data.push(account)
-    //             : totp.data.push(account);
-    //     },
-    //     [
-    //         { title: 'MMFA Accounts', data: [] },
-    //         { title: 'TOTP Accounts', data: [] }
-    //     ]
-    // );
-
-    // const DATA = accounts.reduce((prev, account) => {
-    //     let [mmfa, totp] = prev;
-    //     account.type === 'SAM'
-    //         ? mmfa.data.push(account)
-    //         : totp.data.push(account);
-    //     return [mmfa, totp];
-    // }, []);
 
     return (
         <View style={styles.container}>
-            {/* <View style={{ marginLeft: 5, marginRight: 5 }} /> */}
-            <SafeAreaView style={styles.container}>
-                <SectionList
-                    style={{ backgroundColor: '#adb6c6' }}
-                    sections={sample}
-                    keyExtractor={(item, index) => item + index}
-                    renderItem={({ item }) => <Item title={item} />}
-                    renderSectionHeader={({ section: { title } }) => (
-                        <Text style={styles.SListheader}>{title}</Text>
-                    )}
-                />
-            </SafeAreaView>
+            <View style={styles.header}>
+                <View>
+                    <IconButton onPress={onPressHandlerDeviceInfo}>
+                        <Image
+                            source={require('../../assets/icons/settings2.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 5,
+                                    marginTop: 2
+                                }
+                            ]}
+                        />
+                    </IconButton>
+                </View>
+
+                <View style={styles.title}>
+                    <Text style={styles.titleText}>Accounts</Text>
+                </View>
+                <View>
+                    <IconButton onPress={onPressHandler}>
+                        <Image
+                            source={require('../../assets/icons/add.png')}
+                            style={{ marginLeft: -10, marginTop: -3 }}
+                        />
+                    </IconButton>
+                </View>
+            </View>
+            <View style={{ marginLeft: 5, marginRight: 5 }} />
+            <AccountList accounts={accounts} />
         </View>
     );
 };
 
-Main.options = {};
+Main.options = {
+    topBar: {
+        visible: false
+    }
+};
 
 const styles = StyleSheet.create({
     container: {
