@@ -3,7 +3,7 @@ import { RNCamera as QRCodeReader } from 'react-native-camera';
 import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar } from '../../../components';
-import addAccount from '../offline/queries';
+import { isUnique, addAccount } from '../offline/queries';
 
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
@@ -17,21 +17,17 @@ const QRScan = (props) => {
                 alert('SAM Account is not supported yet!!');
             } else {
                 const parsedData = uriParser(_barcode.data);
-
-                addAccount({
+                const account = {
                     name: parsedData.label.account,
                     issuer: parsedData.label.issuer,
                     secret: parsedData.query.secret
-                })
-                    .then((added) => {
-                        if (!added) {
-                            alert('Duplicate Account');
-                        }
-                    })
-                    .catch((err) => {
-                        alert(err);
-                    })
-                    .finally(() => navigator.goToRoot(props.componentId));
+                };
+                if (await isUnique(account)) {
+                    addAccount(account);
+                } else {
+                    alert('Duplicate Account');
+                }
+                navigator.goToRoot(props.componentId);
             }
         }
     };

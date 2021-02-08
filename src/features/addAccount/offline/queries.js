@@ -4,13 +4,10 @@ const database = new Database();
 
 const addAccount = async (account) => {
     try {
-        if (await isUnique(account)) {
-            const accId = await create(account);
-            await addSecret(account.secret, accId);
-            return Promise.resolve();
-        } else {
-            return Promise.resolve(false);
-        }
+        const accId = await create(account);
+        alert(accId);
+        await addSecret(account.secret, accId);
+        return Promise.resolve();
     } catch (error) {
         return Promise.reject();
     }
@@ -28,7 +25,7 @@ async function create({ name, issuer, type = 'TOTP' }) {
 }
 
 async function addSecret(secret, accId) {
-    const query = `INSERT INTO "secrets" ("secret", "account_id") VALUES (?, ?, ?);`;
+    const query = `INSERT INTO "secrets" ("secret", "account_id") VALUES (?, ?);`;
     const params = [secret, accId];
     try {
         await database.executeQuery(query, params);
@@ -59,4 +56,4 @@ async function addOptions({
     ignoreSSL = 1
 }) {}
 
-export default addAccount;
+export { addAccount, isUnique };

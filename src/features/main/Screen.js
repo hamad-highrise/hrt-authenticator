@@ -16,10 +16,11 @@ const Main = (props) => {
             if (mAccounts.length > 0) {
                 setAccounts(mAccounts);
             } else {
-                navigation.goTo(
-                    props.componentId,
-                    navigation.screenIds.emptyState
-                );
+                // navigation.goTo(
+                //     props.componentId,
+                //     navigation.screenIds.emptyState
+                // );
+                alert('No Accounts');
             }
         } catch (error) {
             console.warn(error);
@@ -40,7 +41,13 @@ const Main = (props) => {
     const onPressHandler = () => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
-    const onPressHandlerAccessCode = (id, name, issuer, secret) => {};
+    const onItemPress = (name, issuer, secret) => {
+        navigation.goTo(props.componentId, navigation.screenIds.accessCode, {
+            name,
+            issuer,
+            secret
+        });
+    };
 
     const onPressHandlerDeviceInfo = () => {
         Navigation.push(props.componentId, {
@@ -104,7 +111,7 @@ const Main = (props) => {
                 </View>
             </View>
             <View style={{ marginLeft: 5, marginRight: 5 }} />
-            <AccountList accounts={accounts} />
+            <AccountList accounts={accounts} onListItemPress={onItemPress} />
         </View>
     );
 };

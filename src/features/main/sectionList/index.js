@@ -30,7 +30,9 @@ const AccountList = ({ accounts, onListItemPress }) => {
                 sections={memoizedAccounts}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
                 keyExtractor={(item, index) => item['account_id'] + index}
-                renderItem={({ item }) => <ListItem account={item} />}
+                renderItem={({ item }) => (
+                    <ListItem account={item} onPress={onListItemPress} />
+                )}
                 renderSectionHeader={({ section: { title } }) => (
                     <SectionHeader title={title} />
                 )}

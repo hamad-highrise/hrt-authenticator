@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
 
-//TODO: Get account information e.g. secret, account info, options, etc. from redux state
-
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
