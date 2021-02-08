@@ -37,7 +37,11 @@ const AccessCode = (props) => {
     };
 
     const onPressHandlerAccountSettings = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.accountSettings);
+        navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
+            id: props.id,
+            name: props.name,
+            issuer: props.issuer
+        });
     };
     const updateOtp = () => {
         setOTP(TOTPGenerator(props.secret));

@@ -41,8 +41,9 @@ const Main = (props) => {
     const onPressHandler = () => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
-    const onItemPress = (name, issuer, secret) => {
+    const onItemPress = (id, name, issuer, secret) => {
         navigation.goTo(props.componentId, navigation.screenIds.accessCode, {
+            id,
             name,
             issuer,
             secret

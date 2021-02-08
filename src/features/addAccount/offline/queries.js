@@ -5,7 +5,6 @@ const database = new Database();
 const addAccount = async (account) => {
     try {
         const accId = await create(account);
-        alert(accId);
         await addSecret(account.secret, accId);
         return Promise.resolve();
     } catch (error) {
