@@ -3,7 +3,13 @@ import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
 
-const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,    param}) => {
+const TopNavbar = ({
+    imageUrlBack,
+    imageUrlRight,
+    imageBackOnPress,
+    title,
+    param
+}) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -15,7 +21,7 @@ const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,  
                             style={[
                                 styles.iconBtn,
                                 {
-                                    marginLeft: 4,
+                                    marginLeft: 4
                                 }
                             ]}
                         />
@@ -26,7 +32,12 @@ const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,  
                     <Text style={styles.titleMainText}> {title} </Text>
                 </View>
 
-                <View style={{ backgroundColor: '#2b2d32', height: 55, marginRight:18 }}>
+                <View
+                    style={{
+                        backgroundColor: '#2b2d32',
+                        height: 55,
+                        marginRight: 18
+                    }}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
                             // source={{ uri: {imageUrlRight} }}
@@ -34,7 +45,7 @@ const TopNavbar = ({imageUrlBack,    imageUrlRight,imageBackOnPress,    title,  
                             style={[
                                 styles.iconBtn,
                                 {
-                                    marginLeft:5,
+                                    marginLeft: 5
                                 }
                             ]}
                         />
@@ -58,7 +69,8 @@ TopNavbar.defaultProps = {
     // imageUrlBack: "https://cdn.iconscout.com/icon/free/png-512/settings-410-461751.png",
     imageUrlBack: '../../assets/icons/addinvert.png',
     imageUrlRight: '../../assets/icons/settings2invert.png',
-    title: 'HRT'
+    title: 'HRT',
+    imageBackOnPress: () => alert('Back')
 };
 
 export default TopNavbar;
@@ -88,8 +100,8 @@ const styles = StyleSheet.create({
         borderBottomColor: '#525961',
         borderBottomWidth: 1,
         backgroundColor: '#424c58',
-        paddingTop:10,
-        margin: -30,
+        paddingTop: 10,
+        margin: -30
     },
     title: {
         marginLeft: 20
@@ -100,15 +112,14 @@ const styles = StyleSheet.create({
         fontSize: 16,
         fontWeight: 'bold'
     },
-    iconBtnContainer:{
-         backgroundColor: '#2b2d32',
-         height: 55,
-         marginLeft:18
+    iconBtnContainer: {
+        backgroundColor: '#2b2d32',
+        height: 55,
+        marginLeft: 18
     },
     iconBtn: {
-        
         width: 30,
         height: 30,
-        marginTop: 14,
-    },
+        marginTop: 14
+    }
 });

@@ -1,17 +1,26 @@
 import React from 'react';
-import { StyleSheet, KeyboardAvoidingView,TextInput, Dimensions } from 'react-native';
+import {
+    StyleSheet,
+    KeyboardAvoidingView,
+    TextInput,
+    Dimensions
+} from 'react-native';
 import PropTypes from 'prop-types';
 
-
-const AndroidTextInput = ({placeholder,secureTextEntry, value,onChangeText }) => {
-
+const AndroidTextInput = ({
+    placeholder,
+    secureTextEntry,
+    value,
+    onChangeText
+}) => {
     return (
-
         <KeyboardAvoidingView style={styles.title} keyboardVerticalOffset={40}>
             <TextInput
                 secureTextEntry={secureTextEntry}
                 placeholder={placeholder}
                 style={styles.titleCodeText}
+                value={value}
+                onChangeText={onChangeText}
             />
         </KeyboardAvoidingView>
     );
@@ -24,13 +33,13 @@ AndroidTextInput.propTypes = {
     style: PropTypes.any,
     value: PropTypes.string,
     onChangeText: PropTypes.any,
-    keyboardVerticalOffset: PropTypes.number,
+    keyboardVerticalOffset: PropTypes.number
 };
 
 AndroidTextInput.defaultProps = {
     placeholder: 'input some text',
     secureTextEntry: false,
-    keyboardVerticalOffset: 0,
+    keyboardVerticalOffset: 0
 };
 
 export default AndroidTextInput;
@@ -53,7 +62,7 @@ const styles = StyleSheet.create({
     large: {},
     small: {},
     title: {
-        marginLeft: 20,
+        marginLeft: 20
     },
     titleCodeText: {
         color: 'maroon',

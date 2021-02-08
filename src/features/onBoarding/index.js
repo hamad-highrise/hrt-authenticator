@@ -1,1 +1,2 @@
-export { default as EmptyStateScreen } from './EmptyState';
+export { default as EmptyStateScreen } from './EmptyStateScreen';
+export { default as WelcomeScreen } from './WelcomeScreen';

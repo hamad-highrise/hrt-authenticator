@@ -6,8 +6,6 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
 
-//TODO: Get account information e.g. secret, account info, options, etc. from redux state
-
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
@@ -39,7 +37,11 @@ const AccessCode = (props) => {
     };
 
     const onPressHandlerAccountSettings = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.accountSettings);
+        navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
+            id: props.id,
+            name: props.name,
+            issuer: props.issuer
+        });
     };
     const updateOtp = () => {
         setOTP(TOTPGenerator(props.secret));

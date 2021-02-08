@@ -1,1 +1,1 @@
-//In this folder, account removal and account name changes will be handeled
+export { default as AccountSettingScreen } from './Screen';

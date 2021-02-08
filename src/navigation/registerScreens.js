@@ -1,13 +1,15 @@
 import { Navigation } from 'react-native-navigation';
 import screensId from './screensId';
 import {
+    WelcomeScreen,
+    EmptyStateScreen,
     MainScreen,
-    AccessCodeScreen,
-    AddAccountForm,
-    AccountSettingsScreen as AccSettings,
+    AddAccountScreen,
     QRScanScreen,
-    AddAccountScreen
-} from '../screens';
+    ManualAccountScreen as ManualScreen,
+    AccountSettingScreen as Setting,
+    CodeScreen
+} from '../features';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -19,12 +21,14 @@ import {
 function registerScreens() {
     //Before registering a screen, add it's identifier in ./screensId.js
     //Register the screens here
+    Navigation.registerComponent(screensId.emptyState, () => EmptyStateScreen);
+    Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => MainScreen);
-    Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
-    Navigation.registerComponent(screensId.accountSettings, () => AccSettings);
-    Navigation.registerComponent(screensId.accessCode, () => AccessCodeScreen);
-    Navigation.registerComponent(screensId.accountForm, () => AddAccountForm);
+    Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
+    Navigation.registerComponent(screensId.accountSettings, () => Setting);
+    Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
+    Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
 }
 
 export default registerScreens;

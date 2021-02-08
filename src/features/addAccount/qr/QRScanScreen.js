@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 import parser from './parser';
 import navigator from '../../../navigation';
-import account from '../../../util/sqlite/account';
+import { TopNavbar } from '../../../components';
+import { isUnique, addAccount } from '../offline/queries';
 
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
@@ -17,37 +17,40 @@ const QRScan = (props) => {
                 alert('SAM Account is not supported yet!!');
             } else {
                 const parsedData = uriParser(_barcode.data);
-                try {
-                    account.create({
-                        name: parsedData.label.account,
-                        issuer: parsedData.label.issuer,
-                        secret: parsedData.query.secret
-                    });
-
-                    navigator.goToRoot(props.componentId);
-                } catch (error) {
-                    alert(JSON.stringify(error));
+                const account = {
+                    name: parsedData.label.account,
+                    issuer: parsedData.label.issuer,
+                    secret: parsedData.query.secret
+                };
+                if (await isUnique(account)) {
+                    addAccount(account);
+                } else {
+                    alert('Duplicate Account');
                 }
+                navigator.goToRoot(props.componentId);
             }
         }
     };
 
     return (
         <>
+            <TopNavbar title="Scan QR" />
             <QRCodeReader
                 captureAudio={false}
-                style={styles.container}
+                style={{
+                    flex: 1,
+                    width: '100%'
+                }}
                 onBarCodeRead={barcodeRecognized}
             />
         </>
     );
 };
 
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        width: '100%'
+QRScan.options = {
+    topBar: {
+        visible: false
     }
-});
+};
 
 export default QRScan;

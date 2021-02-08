@@ -48,7 +48,6 @@ Database.prototype.setUpDatabase = async function () {
         "method_id" INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
         "method_name" TEXT NOT NULL UNIQUE,
         "enrolled" INTEGER DEFAULT 0
-
     );
     `;
     const populateMethodTable = `
