@@ -2,7 +2,8 @@
 import getInsecureFetch from '../RNFetch';
 import { NativeModules, Platform } from 'react-native';
 import convertToFormEncoded from './formData';
-import { saveToken } from './queries';
+import { addAccount, isUnique } from './queries';
+import parser from '../qr/parser';
 
 async function initiate(scanned) {
     const { Utilities, BiometricAndroid } = NativeModules;
@@ -38,14 +39,35 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
         }
+        const tokenObj = await tokenResult.json();
         const totpResult = await registerTotp(
             detailsResult.json()['totp_shared_secret_endpoint'],
-            tokenResult.json()['access_token']
+            tokenObj['access_token']
         );
         if (!totpResult.respInfo.status === 200) {
             resultObj.message == 'ERROR_REGISTERING_TOTP';
         }
-        // await saveToken();
+        const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
+        const account = {
+            name: parsedData.label.account,
+            issuer: parsedData.label.issuer,
+            secret: parsedData.query.secret,
+            type: 'SAM',
+            transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
+            authId: tokenObj['authenticator_id']
+        };
+        const token = {
+            token: tokenObj['access_token'],
+            refreshToken: tokenObj['refresh_token'],
+            expiry: tokenObj['expires_in'],
+            tokenEndpoint: detailsResult.json()['token_endpoint']
+        };
+        if (await isUnique(account)) {
+            addAccount(account, token);
+        } else {
+            resultObj.message = 'DUPLICATE_ACCOUNT';
+            //here start remove account flow
+        }
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);
