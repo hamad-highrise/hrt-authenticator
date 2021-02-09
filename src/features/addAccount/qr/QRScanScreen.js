@@ -4,6 +4,7 @@ import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar } from '../../../components';
 import { isUnique, addAccount } from '../offline/queries';
+import initiateSamAccount from '../mmfa/initiate';
 
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
@@ -12,9 +13,14 @@ const QRScan = (props) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
-            if (tryJSONParser(_barcode.data).valid) {
-                //Start SAM Account flow here
-                alert('SAM Account is not supported yet!!');
+            const { value, valid } = tryJSONParser(_barcode.data);
+            if (valid) {
+                try {
+                    const result = await initiateSamAccount(value);
+                    alert(JSON.stringify(result) + 'Okay');
+                } catch (error) {
+                    alert(JSON.stringify(error + 'Not Okay'));
+                }
             } else {
                 const parsedData = uriParser(_barcode.data);
                 const account = {

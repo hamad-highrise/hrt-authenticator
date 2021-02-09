@@ -58,9 +58,10 @@ const authenticatorIdTableQuery = `
 //TODO: add composite key
 const tokenTableQuery = `
     CREATE TABLE IF NOT EXISTS "tokens" (
-        "token" TEXT NOT NULL UNIQUE,
-        "referesh_token" TEXT NOT NULL UNIQUE,
+        "token" TEXT NOT NULL UNIQUE PRIMARY KEY,
+        "refresh_token" TEXT NOT NULL UNIQUE,
         "expires_at" INTEGER NOT NULL,
+        "endpoint" TEXT NOT NULL,
         "account_id" INTEGER NOT NULL,
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
