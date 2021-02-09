@@ -7,6 +7,8 @@ import parser from '../qr/parser';
 
 async function initiate(scanned) {
     const { Utilities, BiometricAndroid } = NativeModules;
+
+    const biometriKeyHandle = 'Account.' + Date.now() + '.FingerPrintMethod';
     const resultObj = { message: 'OKAY' };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
@@ -46,6 +48,7 @@ async function initiate(scanned) {
         );
         if (!totpResult.respInfo.status === 200) {
             resultObj.message == 'ERROR_REGISTERING_TOTP';
+            return resultObj;
         }
         const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
         const account = {
@@ -54,6 +57,7 @@ async function initiate(scanned) {
             secret: parsedData.query.secret,
             type: 'SAM',
             transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
+            enrollmentEndpoint: detailsResult.json()['enrollment_endpoint'],
             authId: tokenObj['authenticator_id']
         };
         const token = {
@@ -62,6 +66,24 @@ async function initiate(scanned) {
             expiry: tokenObj['expires_in'],
             tokenEndpoint: detailsResult.json()['token_endpoint']
         };
+        const presenceResult = await registerUserPresence(
+            account.enrollmentEndpoint,
+            token.token
+        );
+        console.warn(presenceResult.data);
+        const biometricResult = await registerBiometric(
+            account.enrollmentEndpoint,
+            token.token
+        );
+        if (!biometricResult.respInfo.status === 200) {
+            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
+            return resultObj;
+        }
+        console.warn(biometricResult.data);
+        if (!presenceResult.respInfo.status === 200) {
+            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
+            return resultObj;
+        }
         if (await isUnique(account)) {
             addAccount(account, token);
         } else {
@@ -74,14 +96,101 @@ async function initiate(scanned) {
     }
 }
 
-function getMethods(mechanisims) {}
-
 async function getDetails(endpoint) {
     const insecureFetch = getInsecureFetch();
     try {
         const result = await insecureFetch('GET', endpoint, {
             Accept: 'application/json'
         });
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function registerUserPresence(endpoint, token) {
+    const insecureFetch = getInsecureFetch();
+    const userPresenceKeyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const url =
+        endpoint +
+        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods`;
+    const { CustomKeyGen } = NativeModules;
+    try {
+        const { publicKey: userPresenceKey } = await CustomKeyGen.createKeys(
+            userPresenceKeyHandle
+        );
+        const body = JSON.stringify({
+            schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+            Operations: [
+                {
+                    op: 'add',
+                    path:
+                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods',
+                    value: [
+                        {
+                            keyHandle: userPresenceKeyHandle,
+                            algorithm: 'SHA256withRSA',
+                            publicKey: userPresenceKey,
+                            enabled: true
+                        }
+                    ]
+                }
+            ]
+        });
+        const result = await insecureFetch(
+            'PATCH',
+            url,
+            {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body
+        );
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function registerBiometric(endpoint, token) {
+    const insecureFetch = getInsecureFetch();
+    const biometricKeyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const url =
+        endpoint +
+        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods`;
+    try {
+        const { publicKey: biometicKey } = await CustomKeyGen.createKeys(
+            userPresenceKeyHandle
+        );
+        const body = JSON.stringify({
+            schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+            Operations: [
+                {
+                    op: 'add',
+                    path:
+                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods',
+                    value: [
+                        {
+                            keyHandle: biometricKeyHandle,
+                            algorithm: 'SHA256withRSA',
+                            publicKey: biometicKey,
+                            enabled: true
+                        }
+                    ]
+                }
+            ]
+        });
+        const result = await insecureFetch(
+            'PATCH',
+            endpoint,
+            {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body
+        );
         return Promise.resolve(result);
     } catch (error) {
         return Promise.reject(error);

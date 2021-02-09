@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { View, Text, Alert } from 'react-native';
 import styles from './styles';
 import navigation from '../../navigation';
-import { removeAccount } from './queries';
+import {
+    removeAccount,
+    getAuthIdByAccount,
+    getTokenByAccount,
+    getEnrollmentEndpoint
+} from './queries';
 import { TopNavbar, Button } from '../../components';
+import { removeSamAccount } from './api';
 
 const AccountSettings = (props) => {
     const { id, name, issuer, componentId } = props;
 
     const onRemovePress = async () => {
         try {
+            // const authId = await getAuthIdByAccount(id);
+            // const token = await getTokenByAccount(id);
+            // const endpoint = await getEnrollmentEndpoint(id);
+            // const result = await removeSamAccount(endpoint, authId, token);
+            // if (result.respInfo.status === 200) {
             await removeAccount(id);
+            // }
+            // alert(JSON.stringify(result.data));
             navigation.goToRoot(componentId);
         } catch (error) {
             alert(error);

@@ -14,9 +14,21 @@ async function addAccount(account, token) {
     }
 }
 
-async function create({ name, issuer, type = 'TOTP', transactionEndpoint }) {
-    const query = `INSERT INTO accounts ( account_name, issuer, type, transaction_endpoint ) VALUES (?, ?, ?, ?);`;
-    const params = [name, issuer, type, transactionEndpoint];
+async function create({
+    name,
+    issuer,
+    type = 'TOTP',
+    transactionEndpoint,
+    enrollmentEndpoint
+}) {
+    const query = `INSERT INTO accounts ( account_name, issuer, type, transaction_endpoint, enrollment_endpoint ) VALUES (?, ?, ?, ?, ?);`;
+    const params = [
+        name,
+        issuer,
+        type,
+        transactionEndpoint,
+        enrollmentEndpoint
+    ];
     try {
         const [result] = await database.executeQuery(query, params);
         return Promise.resolve(result.insertId);
