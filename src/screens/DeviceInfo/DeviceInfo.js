@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet,TouchableOpacity, Image, FlatList,Alert,Modal, TouchableHighlight} from 'react-native';
 import { TopNavbar } from '../../components';
-import { Button } from '../../components';
 import  {Navigation} from 'react-native-navigation';
-import ListItem from '../Main/components/ListItem/ListItem';
-import { BiometricOption } from '../BiometricOption';
 
 const DeviceInfo = (props) => {
     const onPressHandler = () => {
@@ -126,6 +123,18 @@ const DeviceInfo = (props) => {
             }
         });
     };
+    const onPressHandlerGetStarted = () => {
+        Navigation.push(props.componentId, {
+            component: {
+                name: 'authenticator.GetStarted',
+                options: {
+                    topBar: {
+                        visible: false
+                    }
+                }
+            }
+        });
+    };
     return (
         
         <View style={styles.container}>
@@ -206,6 +215,15 @@ const DeviceInfo = (props) => {
                     />
                 </View>
             </TouchableOpacity>
+            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerGetStarted}>
+                <View style={styles.listitemView}>
+                    <Text style={styles.listitemText}>GetStarted</Text>
+                    <Image
+                        source={require('../../assets/icons/backarrowinvert.png')}
+                        style={styles.img}
+                    />
+                </View>
+            </TouchableOpacity>
             {/* end li */}
      
         </View>
@@ -256,43 +274,6 @@ const styles = StyleSheet.create({
         backgroundColor:'#e57f01',
         borderRadius:10,
     },
-    // Modal
-    centeredView: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: 22
-      },
-      modalView: {
-        margin: 20,
-        backgroundColor: "white",
-        borderRadius: 20,
-        padding: 35,
-        alignItems: "center",
-        shadowColor: "#000",
-        shadowOffset: {
-          width: 0,
-          height: 2
-        },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-        elevation: 5
-      },
-      openButton: {
-        backgroundColor: "#F194FF",
-        borderRadius: 20,
-        padding: 10,
-        elevation: 2
-      },
-      textStyle: {
-        color: "white",
-        fontWeight: "bold",
-        textAlign: "center"
-      },
-      modalText: {
-        marginBottom: 15,
-        textAlign: "center"
-      }
 });
 
 export default DeviceInfo;

@@ -12,3 +12,5 @@ export * from './NotifyError';
 export * from './SplashScreen';
 export * from './EmptyState';
 export * from './NotifyAccountConnected';
+export * from './BiometricEdits';
+export * from './GetStarted';

@@ -58,7 +58,7 @@ TopNavbar.defaultProps = {
     // imageUrlBack: "https://cdn.iconscout.com/icon/free/png-512/settings-410-461751.png",
     imageUrlBack: '../../assets/icons/addinvert.png',
     imageUrlRight: '../../assets/icons/settings2invert.png',
-    title: 'HRT'
+    title: 'HRT Verify'
 };
 
 export default TopNavbar;
@@ -69,13 +69,6 @@ const styles = StyleSheet.create({
         borderRadius: 2,
         paddingVertical: 18,
         paddingHorizontal: 12
-    },
-    label: {
-        fontSize: 14,
-        color: '#e57f01',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase'
     },
     large: {},
     small: {},

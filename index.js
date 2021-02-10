@@ -12,7 +12,9 @@ import {
     NotifyError,
     SplashScreen,
     EmptyStateScreen,
-    NotifyAccountConnected
+    NotifyAccountConnected,
+    BiometricEdits,
+    GetStarted
 } from './src/screens';
 import { NativeModules } from 'react-native';
 import Database from './src/util/sqlite';
@@ -79,6 +81,14 @@ Navigation.registerComponent(
 Navigation.registerComponent(
     'authenticator.EmptyStateScreen',
     () => EmptyStateScreen
+);
+Navigation.registerComponent(
+    'authenticator.BiometricEdits',
+    () => BiometricEdits
+);
+Navigation.registerComponent(
+    'authenticator.GetStarted',
+    () => GetStarted
 );
 Navigation.events().registerAppLaunchedListener(() => {
     Navigation.setRoot({

@@ -30,7 +30,6 @@ const CodeAccount = (props) => {
                 <View style={styles.middle}>
                     <TextInput
                         placeholder="Account name"
-                        style={styles.titleCodeText}
                         onChangeText={text => setText(text)}
                     />
                     <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20 }}>
@@ -40,7 +39,6 @@ const CodeAccount = (props) => {
                 <View style={styles.middle}>
                     <TextInput
                         placeholder="Company name"
-                        style={styles.titleCodeText}
                         onChangeText={text => setTextC(text)}
                     />
                     <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20}}>
@@ -52,10 +50,9 @@ const CodeAccount = (props) => {
                     <TextInput
                         secureTextEntry={true}
                         placeholder="Secret Code"
-                        style={styles.titleCodeText}
                         onChangeText={text => setTextS(text)}
                     />
-                    <Text style={{paddingLeft: 10, fontSize:13, paddingTop:20}}>
+                    <Text style={{ paddingLeft: 10, fontSize:13, paddingTop:20}}>
                         {(textS.length > 8 || textS.length == 0 ) ? '✖️' : '✔️'}
                     </Text>
                 </View>
@@ -111,21 +108,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         width: Dimensions.get('window').width* 0.8,
         // backgroundColor:'blue',
-        justifyContent:'center'
-
-    },
-    titleCodeText: {
-        color: 'maroon',
-        fontSize: 28,
-        // fontWeight: 'bold',
-        borderBottomColor: 'orange',
-        borderBottomWidth: 4,
-        // marginLeft: Dimensions.get('window').width * 0.03,
-        // marginRight: Dimensions.get('window').width * 0.07,
-        // alignSelf: 'flex-end',
-        // alignItems: 'flex-end',
-        // width: 210,
-        // height: 50,
+        justifyContent:'center',
 
     },
     // bottom: {

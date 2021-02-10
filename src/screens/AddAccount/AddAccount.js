@@ -46,12 +46,13 @@ const AddScreen = (props) => {
     };
     return (
         <View>
-            <TopNavbar title="Add Account"></TopNavbar>
+            <TopNavbar title="Connect an account"></TopNavbar>
 
             <View style={styles.container}>
-                <View style={{ margin: 25 }} />
                 <View>
-
+                    <Text style={styles.heading}>Scan the QR code on your computer</Text>
+                </View>
+                <View>
                     <Image
                         source={require('../../assets/images/add3.png')}
                         style={styles.image}
@@ -64,7 +65,7 @@ const AddScreen = (props) => {
                         style={styles.btn}
                         onPress={onQrScanClick}
                     />
-                    <View style={{ margin: 12 }} />
+                    <View style={{ margin: 10 }} />
                     <Button
                         title="Add Manually"
                         onPress={onManualCodeClick}
@@ -82,9 +83,12 @@ const styles = StyleSheet.create({
     container: {
         alignItems:'center',
     },
+    heading: {
+        fontSize:32,margin:30,lineHeight:45,
+    },
     image: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').height * 0.4,
+        width: Dimensions.get('window').width * 0.6,
+        height: Dimensions.get('window').height * 0.3,
         alignItems:'center',
     },
     btn: {
@@ -112,12 +116,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.7
-    },
-    titleMainText: {
-        color: 'white',
-        justifyContent: 'center',
-        fontSize: 18,
-        fontWeight: 'bold'
     },
     title: {
         marginLeft: 20

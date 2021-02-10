@@ -9,8 +9,11 @@ import {
     Dimensions
 } from 'react-native';
 import { Button } from '../../components';
-const myModal = () => {
+const myModal = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
+    let ModalHeading = (props.title.length < 0) ? 'Alert' : props.title;
+    let ModalContent = (props.subtitle.length < 0) ? 'Alert' : props.subtitle;
+
     return (
         <View style={styles.centeredView}>
             <Modal
@@ -22,23 +25,25 @@ const myModal = () => {
                 }}>
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
-                        <Text style={styles.modalMainText}>WARNING</Text>
-                        <Text style={styles.modalText}>This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?</Text>
-                        <View style={{flexDirection:'row-reverse'}}>
+                        <Text style={styles.modalMainText}>{ModalHeading}</Text>
+                        <Text style={styles.modalText}>{ModalContent}</Text>
+                        <View style={{flexDirection:'row-reverse',alignSelf:'flex-end'}}>
                             <TouchableHighlight
-                                style={styles.btnM}
+                                // style={styles.btnMn}
+                                style={{paddingLeft:20}}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
                                 }}>
-                                <Text style={styles.textStyle}>Yes</Text>
+                                <Text style={styles.textStyle}>YES</Text>
                             </TouchableHighlight>
 
                             <TouchableHighlight
-                                style={styles.btnMInvert}
+                                // style={styles.btnMInvert}
+                                style={{paddingLeft:20}}
                                 onPress={() => {
                                     setModalVisible(!modalVisible);
                                 }}>
-                                <Text style={styles.textStyleInvert}>No</Text>
+                                <Text style={styles.textStyleInvert}>NO</Text>
                             </TouchableHighlight>
                         </View>
                     </View>
@@ -88,7 +93,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        borderBottomColor:'maroon',
+        borderBottomColor:'#1c9db2',
         borderBottomWidth:5,
     },
     openButton: {
@@ -111,28 +116,46 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.7
     },
     textStyle: {
-        color: 'white',
+        color: '#1c9db2',
         fontWeight: 'bold',
-        textAlign: 'center'
+        textAlign: 'center',
+        fontSize:16,
     },
     textStyleInvert: {
       color: 'black',
       fontWeight: 'bold',
-      textAlign: 'center'
-  },
+      textAlign: 'center',
+      fontSize:16,
+    },
     modalMainText: {
         marginBottom: 15,
         // textAlign: 'center',
-        fontSize:20
+        fontSize:18
     },
     modalText: {
-      marginBottom: 15,
+      marginBottom: 10,
       // textAlign: 'center'
-      fontSize:18
+      fontSize:16
     },
     btnM: {
-      
         backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 12,
+        // paddingHorizontal: 5,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        // alignSelf: 'flex-end',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.2,
+        // alignItems: 'flex-start',
+        borderColor:'#a24e12',
+        borderWidth:2,
+    },
+    btnMn: {
+        backgroundColor: 'white',
         borderRadius: 2,
         paddingVertical: 12,
         // paddingHorizontal: 5,
