@@ -1,14 +1,13 @@
-//TODO: Check if valid object
 import getInsecureFetch from '../RNFetch';
 import { NativeModules, Platform } from 'react-native';
 import convertToFormEncoded from './formData';
 import { addAccount, isUnique } from './queries';
 import parser from '../qr/parser';
 
+
 async function initiate(scanned) {
     const { Utilities, BiometricAndroid } = NativeModules;
 
-    const biometriKeyHandle = 'Account.' + Date.now() + '.FingerPrintMethod';
     const resultObj = { message: 'OKAY' };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
@@ -75,11 +74,14 @@ async function initiate(scanned) {
             account.enrollmentEndpoint,
             token.token
         );
-        if (!biometricResult.respInfo.status === 200) {
-            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
-            return resultObj;
-        }
-        console.warn(biometricResult.data);
+        if (biometricResult) {
+            if (!biometricResult.respInfo.status === 200) {
+                resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
+                return resultObj;
+            }
+            console.warn(biometricResult.data);
+        } else alert('INVALID_BIOMETRIC');
+
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
             return resultObj;
@@ -156,42 +158,50 @@ async function registerUserPresence(endpoint, token) {
 async function registerBiometric(endpoint, token) {
     const insecureFetch = getInsecureFetch();
     const biometricKeyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const { CustomKeyGen, BiometricAndroid } = NativeModules;
     const url =
         endpoint +
         `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods`;
     try {
-        const { publicKey: biometicKey } = await CustomKeyGen.createKeys(
-            userPresenceKeyHandle
-        );
-        const body = JSON.stringify({
-            schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
-            Operations: [
-                {
-                    op: 'add',
-                    path:
-                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods',
-                    value: [
-                        {
-                            keyHandle: biometricKeyHandle,
-                            algorithm: 'SHA256withRSA',
-                            publicKey: biometicKey,
-                            enabled: true
-                        }
-                    ]
-                }
-            ]
+        const { success } = await BiometricAndroid.showSimpleBiometricPrompt({
+            promptMessage: 'Please verify you fingerprint',
+            cancelButtonText: 'Cancel'
         });
-        const result = await insecureFetch(
-            'PATCH',
-            endpoint,
-            {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            },
-            body
-        );
-        return Promise.resolve(result);
+        if (success) {
+            const { publicKey: biometicKey } = await CustomKeyGen.createKeys(
+                biometricKeyHandle
+            );
+            const body = JSON.stringify({
+                schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+                Operations: [
+                    {
+                        op: 'add',
+                        path:
+                            'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods',
+                        value: [
+                            {
+                                keyHandle: biometricKeyHandle,
+                                algorithm: 'SHA256withRSA',
+                                publicKey: biometicKey,
+                                enabled: true
+                            }
+                        ]
+                    }
+                ]
+            });
+            const result = await insecureFetch(
+                'PATCH',
+                url,
+                {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body
+            );
+            return Promise.resolve(result);
+        }
+        return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
     }
