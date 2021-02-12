@@ -29,10 +29,16 @@ const AccessCode = (props) => {
 
     const getTran = async () => {
         try {
-            const transaction = await services.getTransactions(props.id);
-            if (transaction) {
-                alert(transaction.displayMessage);
-            } else alert('No pending transaction!');
+            const result = await services.getTransactions(props.id);
+            if (result.success) {
+                if (result.transaction) {
+                    alert(result.transaction.displayMessage);
+                } else alert('No Pending transaction');
+            } else if (result.message === 'SERVER_NO_DEVICE') {
+                alert('Device has been removed');
+            } else {
+                alert('UNKNOWN');
+            }
         } catch (error) {
             alert(error);
         }

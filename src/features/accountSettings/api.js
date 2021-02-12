@@ -9,10 +9,9 @@ async function removeSamAccount(endpoint, authId, token) {
             '?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:authenticators';
 
         const path =
-            'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:authenticators[id.eq.' +
+            'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:authenticators[id eq ' +
             authId +
             ']';
-        console.warn(path);
         const body = JSON.stringify({
             schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
             Operations: [
@@ -38,5 +37,34 @@ async function removeSamAccount(endpoint, authId, token) {
     }
 }
 
-export default { removeSamAccount };
-export { removeSamAccount };
+async function unregisterTotp(endpoint, token) {
+    const body = JSON.stringify({
+        schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+        Operations: [
+            {
+                op: 'remove',
+                path:
+                    'urn:ietf:params:scim:schemas:extension:isam:1.0:OTP:totpEnrolled'
+            }
+        ]
+    });
+    const insecureFetch = getInsecureFetch();
+    try {
+        const result = await insecureFetch(
+            'PATCH',
+            endpoint,
+            {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body
+        );
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export default { removeSamAccount, unregisterTotp };
+export { removeSamAccount, unregisterTotp };

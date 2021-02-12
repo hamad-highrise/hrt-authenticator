@@ -2,28 +2,17 @@ import React from 'react';
 import { View, Text, Alert } from 'react-native';
 import styles from './styles';
 import navigation from '../../navigation';
-import {
-    removeAccount,
-    getAuthIdByAccount,
-    getTokenByAccount,
-    getEnrollmentEndpoint
-} from './queries';
 import { TopNavbar, Button } from '../../components';
-import { removeSamAccount } from './api';
+import { removeAccount } from './services';
 
 const AccountSettings = (props) => {
     const { id, name, issuer, componentId } = props;
 
     const onRemovePress = async () => {
         try {
-            // const authId = await getAuthIdByAccount(id);
-            // const token = await getTokenByAccount(id);
-            // const endpoint = await getEnrollmentEndpoint(id);
-            // const result = await removeSamAccount(endpoint, authId, token);
-            // if (result.respInfo.status === 200) {
-            await removeAccount(id);
-            // }
-            // alert(JSON.stringify(result.data));
+            const { accountRemoved } = await removeAccount(id);
+            if (accountRemoved) alert('Removed');
+            else alert('Error');
             navigation.goToRoot(componentId);
         } catch (error) {
             alert(error);
@@ -39,10 +28,6 @@ const AccountSettings = (props) => {
             ],
             { cancelable: false }
         );
-
-    // contolled input
-    // const [firstName, setFirstName] = useState('');
-    // end
 
     return (
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
