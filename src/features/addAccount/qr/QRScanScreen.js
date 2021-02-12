@@ -21,6 +21,7 @@ const QRScan = (props) => {
                 } catch (error) {
                     alert(JSON.stringify(error + 'Not Okay'));
                 }
+                navigator.goToRoot(props.componentId);
             } else {
                 const parsedData = uriParser(_barcode.data);
                 const account = {

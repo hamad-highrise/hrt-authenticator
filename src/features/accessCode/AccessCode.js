@@ -5,6 +5,7 @@ import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
+import services from './services';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
@@ -14,6 +15,7 @@ const AccessCode = (props) => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
+        getTran();
         updateOtp();
         return () => {
             //Here listeners are being removed on component unmount
@@ -23,6 +25,23 @@ const AccessCode = (props) => {
     }, []);
     const onBackPress = () => {
         navigator.goBack(props.componentId);
+    };
+
+    const getTran = async () => {
+        try {
+            const result = await services.getTransactions(props.id);
+            if (result.success) {
+                if (result.transaction) {
+                    alert(result.transaction.displayMessage);
+                } else alert('No Pending transaction');
+            } else if (result.message === 'SERVER_NO_DEVICE') {
+                alert('Device has been removed');
+            } else {
+                alert('UNKNOWN');
+            }
+        } catch (error) {
+            alert(error);
+        }
     };
 
     const handleAppStateChange = (nextAppState) => {

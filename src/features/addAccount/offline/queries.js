@@ -8,7 +8,7 @@ const addAccount = async (account) => {
         await addSecret(account.secret, accId);
         return Promise.resolve();
     } catch (error) {
-        return Promise.reject();
+        return Promise.reject(error);
     }
 };
 

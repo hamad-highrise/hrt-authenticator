@@ -12,8 +12,9 @@ CREATE TABLE IF NOT EXISTS "accounts"(
     "account_id" INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
     "account_name" TEXT NOT NULL,
     "issuer" TEXT NOT NULL,
-    "type" TEXT NOT NULL DEFAULT "TOTP_Only",
-    "transaction_endpoint" TEXT
+    "type" TEXT NOT NULL DEFAULT "TOTP",
+    "transaction_endpoint" TEXT,
+    "enrollment_endpoint" TEXT
     );
 `;
 
