@@ -49,7 +49,9 @@ const Main = (props) => {
             secret
         });
     };
-
+    const onPressHandlerAccessCode = () => {
+        navigation.goTo(props.componentId, navigation.screenIds.accessCode);
+    };
     const onPressHandlerDeviceInfo = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -85,7 +87,7 @@ const Main = (props) => {
         <View style={styles.container}>
             <View style={styles.header}>
                 <View>
-                    <IconButton onPress={onPressHandlerDeviceInfo}>
+                    <IconButton onPress={onPressHandlerAccessCode}>
                         <Image
                             source={require('../../assets/icons/settings2.png')}
                             style={[
