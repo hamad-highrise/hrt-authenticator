@@ -104,5 +104,19 @@ export default StyleSheet.create({
         fontSize:16,
         fontWeight: 'bold',
         textAlign: 'center',
+    },
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
     }
 });
