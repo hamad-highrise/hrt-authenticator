@@ -20,7 +20,7 @@ const Main = (props) => {
                 //     props.componentId,
                 //     navigation.screenIds.emptyState
                 // );
-                alert('No Accounts');
+                // alert('No Accounts');
             }
         } catch (error) {
             console.warn(error);

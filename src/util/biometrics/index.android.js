@@ -12,7 +12,7 @@ const isSensorAvailable = async () => {
 };
 
 const displaySimplePrompt = async ({
-    promptMessage = 'Please verify your fingerprint',
+    promptMessage = 'Please Verify',
     cancelButtonText = 'Cancel'
 }) => {
     try {
@@ -27,7 +27,39 @@ const displaySimplePrompt = async ({
     }
 };
 
+const createBiomerticKey = async (keyHandle = 'biometricKeyHandle') => {
+    try {
+        const { publicKey } = await BiometricAndroid.createBiomerticKey(
+            keyHandle
+        );
+        return Promise.resolve({ publicKey });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
+const signChallengeWithBiometric = async ({
+    promptMessage = 'Please Verify',
+    cancelButtonText = 'Cancel',
+    keyHandle = 'biomerticKeyHandle',
+    payload
+}) => {
+    try {
+        const { success, signature } = await BiometricAndroid.signPayLoad({
+            promptMessage,
+            cancelButtonText,
+            keyHandle,
+            payload
+        });
+        return Promise.resolve({ success, signature });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+};
+
 export default {
     isSensorAvailable,
-    displaySimplePrompt
+    displaySimplePrompt,
+    createBiomerticKey,
+    signChallengeWithBiometric
 };

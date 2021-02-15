@@ -1,11 +1,13 @@
-//TODO: Check if valid object
 import getInsecureFetch from '../RNFetch';
 import { NativeModules, Platform } from 'react-native';
 import convertToFormEncoded from './formData';
-import { saveToken } from './queries';
+import { addAccount, isUnique } from './queries';
+import parser from '../qr/parser';
+
 
 async function initiate(scanned) {
     const { Utilities, BiometricAndroid } = NativeModules;
+
     const resultObj = { message: 'OKAY' };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
@@ -38,21 +40,63 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
         }
+        const tokenObj = await tokenResult.json();
         const totpResult = await registerTotp(
             detailsResult.json()['totp_shared_secret_endpoint'],
-            tokenResult.json()['access_token']
+            tokenObj['access_token']
         );
         if (!totpResult.respInfo.status === 200) {
             resultObj.message == 'ERROR_REGISTERING_TOTP';
+            return resultObj;
         }
-        // await saveToken();
+        const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
+        const account = {
+            name: parsedData.label.account,
+            issuer: parsedData.label.issuer,
+            secret: parsedData.query.secret,
+            type: 'SAM',
+            transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
+            enrollmentEndpoint: detailsResult.json()['enrollment_endpoint'],
+            authId: tokenObj['authenticator_id']
+        };
+        const token = {
+            token: tokenObj['access_token'],
+            refreshToken: tokenObj['refresh_token'],
+            expiry: tokenObj['expires_in'],
+            tokenEndpoint: detailsResult.json()['token_endpoint']
+        };
+        const presenceResult = await registerUserPresence(
+            account.enrollmentEndpoint,
+            token.token
+        );
+        console.warn(presenceResult.data);
+        const biometricResult = await registerBiometric(
+            account.enrollmentEndpoint,
+            token.token
+        );
+        if (biometricResult) {
+            if (!biometricResult.respInfo.status === 200) {
+                resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
+                return resultObj;
+            }
+            console.warn(biometricResult.data);
+        } else alert('INVALID_BIOMETRIC');
+
+        if (!presenceResult.respInfo.status === 200) {
+            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
+            return resultObj;
+        }
+        if (await isUnique(account)) {
+            addAccount(account, token);
+        } else {
+            resultObj.message = 'DUPLICATE_ACCOUNT';
+            //here start remove account flow
+        }
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);
     }
 }
-
-function getMethods(mechanisims) {}
 
 async function getDetails(endpoint) {
     const insecureFetch = getInsecureFetch();
@@ -61,6 +105,103 @@ async function getDetails(endpoint) {
             Accept: 'application/json'
         });
         return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function registerUserPresence(endpoint, token) {
+    const insecureFetch = getInsecureFetch();
+    const userPresenceKeyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const url =
+        endpoint +
+        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods`;
+    const { CustomKeyGen } = NativeModules;
+    try {
+        const { publicKey: userPresenceKey } = await CustomKeyGen.createKeys(
+            userPresenceKeyHandle
+        );
+        const body = JSON.stringify({
+            schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+            Operations: [
+                {
+                    op: 'add',
+                    path:
+                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods',
+                    value: [
+                        {
+                            keyHandle: userPresenceKeyHandle,
+                            algorithm: 'SHA256withRSA',
+                            publicKey: userPresenceKey,
+                            enabled: true
+                        }
+                    ]
+                }
+            ]
+        });
+        const result = await insecureFetch(
+            'PATCH',
+            url,
+            {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + token
+            },
+            body
+        );
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function registerBiometric(endpoint, token) {
+    const insecureFetch = getInsecureFetch();
+    const biometricKeyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const { CustomKeyGen, BiometricAndroid } = NativeModules;
+    const url =
+        endpoint +
+        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods`;
+    try {
+        const { success } = await BiometricAndroid.showSimpleBiometricPrompt({
+            promptMessage: 'Please verify you fingerprint',
+            cancelButtonText: 'Cancel'
+        });
+        if (success) {
+            const { publicKey: biometicKey } = await CustomKeyGen.createKeys(
+                biometricKeyHandle
+            );
+            const body = JSON.stringify({
+                schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
+                Operations: [
+                    {
+                        op: 'add',
+                        path:
+                            'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods',
+                        value: [
+                            {
+                                keyHandle: biometricKeyHandle,
+                                algorithm: 'SHA256withRSA',
+                                publicKey: biometicKey,
+                                enabled: true
+                            }
+                        ]
+                    }
+                ]
+            });
+            const result = await insecureFetch(
+                'PATCH',
+                url,
+                {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + token
+                },
+                body
+            );
+            return Promise.resolve(result);
+        }
+        return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
     }
