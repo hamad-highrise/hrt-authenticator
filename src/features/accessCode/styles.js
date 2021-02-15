@@ -40,8 +40,8 @@ export default StyleSheet.create({
     },
     top: {
         flex: 0.2,
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1
+        // borderBottomColor: 'grey',
+        // borderBottomWidth: 1
     },
     titleIDText: {
         fontSize: 24
@@ -80,5 +80,43 @@ export default StyleSheet.create({
         fontSize: 12,
         marginLeft: Dimensions.get('window').width * 0.2,
         marginRight: Dimensions.get('window').width * 0.2
+    },
+    selectorStyleInvert:{
+        backgroundColor:'lightgrey',
+        paddingLeft:20, paddingTop:13,paddingBottom:13,paddingRight:20,
+        borderTopRightRadius:10,borderBottomRightRadius:10,
+        width:Dimensions.get('window').width * 0.4,
+    },
+    selectorStyle:{
+        backgroundColor:'#1c9db2',
+        paddingLeft:20, paddingTop:13,paddingBottom:13,paddingRight:20,
+        borderTopLeftRadius:10,borderBottomLeftRadius:10,
+        width:Dimensions.get('window').width * 0.4,   
+    },
+    textStyle:{
+        color:'lightgrey',
+        fontSize:16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    textStyleInvert:{
+        color:'#1c9db2',
+        fontSize:16,
+        fontWeight: 'bold',
+        textAlign: 'center',
+    },
+    btn: {
+        backgroundColor: '#a24e12',
+        borderRadius: 2,
+        paddingVertical: 25,
+        paddingHorizontal: 12,
+        fontSize: 14,
+        color: 'black',
+        borderWidth: 0,
+        fontWeight: 'bold',
+        alignSelf: 'center',
+        textTransform: 'uppercase',
+
+        width: Dimensions.get('window').width * 0.7
     }
 });

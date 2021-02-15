@@ -71,6 +71,7 @@ const styles = StyleSheet.create({
         borderBottomColor: 'orange',
         borderBottomWidth: 4,
         marginLeft: Dimensions.get('window').width * 0.03,
-        marginRight: Dimensions.get('window').width * 0.07
+        marginRight: Dimensions.get('window').width * 0.07,
+        width: 200,
     }
 });
