@@ -3,3 +3,4 @@ export * from './main';
 export * from './addAccount';
 export * from './accountSettings';
 export * from './accessCode';
+export { default as AuthScreen } from './authTransaction';

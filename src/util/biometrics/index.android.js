@@ -45,7 +45,7 @@ const signChallengeWithBiometric = async ({
     payload
 }) => {
     try {
-        const { success, signature } = await BiometricAndroid.signPayLoad({
+        const { success, signature } = await BiometricAndroid.signPayload({
             promptMessage,
             cancelButtonText,
             keyHandle,
@@ -58,6 +58,13 @@ const signChallengeWithBiometric = async ({
 };
 
 export default {
+    isSensorAvailable,
+    displaySimplePrompt,
+    createBiomerticKey,
+    signChallengeWithBiometric
+};
+
+export {
     isSensorAvailable,
     displaySimplePrompt,
     createBiomerticKey,

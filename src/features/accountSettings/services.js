@@ -11,7 +11,6 @@ async function removeAccount(accId) {
         const token = await getTokenByAccount(accId);
         const endpoint = await getEnrollmentEndpoint(accId);
         const result = await removeAccountSAM(endpoint, authId, token);
-        console.warn(result.json());
         if (result.respInfo.status === 200) {
             const unregisterTotpResult = await unregisterTotp(endpoint, token);
             if (unregisterTotpResult.respInfo.status === 200) {

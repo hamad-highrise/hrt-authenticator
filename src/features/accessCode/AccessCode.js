@@ -36,6 +36,16 @@ const AccessCode = (props) => {
             const result = await services.getTransactions(props.id);
             if (result.success) {
                 if (result.transaction) {
+                    const { displayMessage, requestUrl } = result.transaction;
+                    navigator.goTo(
+                        props.componentId,
+                        navigator.screenIds.authTransaction,
+                        {
+                            id: props.id,
+                            message: displayMessage,
+                            endpoint: requestUrl
+                        }
+                    );
                     alert(result.transaction.displayMessage);
                 } else alert('No Pending transaction');
             } else if (result.message === 'SERVER_NO_DEVICE') {
@@ -63,7 +73,7 @@ const AccessCode = (props) => {
         appState.current = nextAppState;
     };
 
-    const onPressHandlerAccountSettings = () => {
+    const onSettings = () => {
         navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
             id: props.id,
             name: props.name,
@@ -103,9 +113,9 @@ const AccessCode = (props) => {
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={onRefereshClick}>
+                    <IconButton onPress={onSettings}>
                         <Image
-                            source={require('../../assets/icons/refresh.png')}
+                            source={require('../../assets/icons/settings2invert.png')}
                             style={[
                                 styles.iconBtn,
                                 {
