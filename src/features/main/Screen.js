@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
-import { Navigation } from 'react-native-navigation';
 import navigation from '../../navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import accountQueries from './queries';
@@ -51,18 +50,6 @@ const Main = (props) => {
     };
     const onPressHandlerAccessCode = () => {
         navigation.goTo(props.componentId, navigation.screenIds.accessCode);
-    };
-    const onPressHandlerDeviceInfo = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.DeviceInfoScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
     };
 
     const sampleAccountData = [
