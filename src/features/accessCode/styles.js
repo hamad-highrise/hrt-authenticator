@@ -4,7 +4,6 @@ export default StyleSheet.create({
     container: {
         flex: 1,
         justifyContent: 'space-between',
-        // backgroundColor:'lightgrey',
         padding: 20,
         margin: 10
     },
@@ -40,70 +39,73 @@ export default StyleSheet.create({
     },
     top: {
         flex: 0.2,
-        // borderBottomColor: 'grey',
-        // borderBottomWidth: 1
+        borderBottomColor: 'grey',
+        borderBottomWidth: 1
     },
     titleIDText: {
         fontSize: 24
     },
     middle: {
-        flex: 0.1
-    },
-    titleCodeText: {
-        color: 'maroon',
-        fontSize: 48,
-        fontWeight: 'bold',
-        borderBottomColor: 'orange',
-        borderBottomWidth: 4,
-        marginLeft: Dimensions.get('window').width * 0.11,
-        marginRight: Dimensions.get('window').width * 0.18
+        flex: 0.1,
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     bottom: {
         flex: 0.3
     },
-    titleTimerText: {
-        color: 'lightgrey',
-        fontSize: 36,
-        borderColor: 'darkgrey',
-        borderBottomWidth: 5,
-        marginLeft: Dimensions.get('window').width * 0.2,
-        marginRight: Dimensions.get('window').width * 0.2,
-        paddingTop: 40,
+
+
+    slectorContainer: {
+        width: Dimensions.get('window').width * 0.4,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'white'
+    },
+
+    selector: {
         paddingLeft: 20,
-        backgroundColor: '#424c58',
-        width: 150,
-        height: 140,
-        borderRadius: 100 / 2,
-        textAlign: 'center'
+        paddingTop: 13,
+        paddingBottom: 13,
+        paddingRight: 20,
+        width: 130,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
-    titleTimerNameText: {
-        fontSize: 12,
-        marginLeft: Dimensions.get('window').width * 0.2,
-        marginRight: Dimensions.get('window').width * 0.2
+    selectorSeparator: {
+        width: 2,
+        backgroundColor: 'black'
     },
-    selectorStyleInvert:{
-        backgroundColor:'lightgrey',
-        paddingLeft:20, paddingTop:13,paddingBottom:13,paddingRight:20,
-        borderTopRightRadius:10,borderBottomRightRadius:10,
-        width:Dimensions.get('window').width * 0.4,
+    selected: {
+        backgroundColor: '#1c9db2'
     },
-    selectorStyle:{
-        backgroundColor:'#1c9db2',
-        paddingLeft:20, paddingTop:13,paddingBottom:13,paddingRight:20,
-        borderTopLeftRadius:10,borderBottomLeftRadius:10,
-        width:Dimensions.get('window').width * 0.4,   
+    selectedLeft: {
+        borderTopLeftRadius: 10,
+        borderBottomLeftRadius: 10
     },
-    textStyle:{
-        color:'lightgrey',
-        fontSize:16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+    selectedRight: {
+        borderTopRightRadius: 10,
+        borderBottomRightRadius: 10
     },
-    textStyleInvert:{
-        color:'#1c9db2',
-        fontSize:16,
-        fontWeight: 'bold',
-        textAlign: 'center',
+    selectedInvert: {
+        backgroundColor: 'lightgrey'
+    },
+    selectedInvertLeft: {
+        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 10
+    },
+    selectedInvertRight: {
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
+    },
+
+    selectorText: {
+        fontSize: 15,
+        color: '#1c9db2',
+        fontWeight: 'bold'
+    },
+    selectedText: {
+        color: 'white'
     },
     btn: {
         backgroundColor: '#a24e12',
@@ -116,7 +118,6 @@ export default StyleSheet.create({
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase',
-
         width: Dimensions.get('window').width * 0.7
     }
 });

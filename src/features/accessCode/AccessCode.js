@@ -1,27 +1,18 @@
 import React, { useEffect, useRef, useState } from 'react';
-import {
-    View,
-    Text,
-    Image,
-    AppState,
-    TouchableHighlight,
-    Animated
-} from 'react-native';
+import { View, Text, Image, AppState, TouchableOpacity } from 'react-native';
 import { IconButton } from '../../components';
 
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
-
-import { PercentageCircle } from '../../components';
-import { Button } from '../../components';
 import services from './services';
+import { AccessCodeFragment, SettingsFragment } from './components';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
-    const [fragment, setFragment] = useState('code');
+    const [fragment, setFragment] = useState('CODE');
 
     const appState = useRef(AppState.currentState);
     useEffect(() => {
@@ -45,6 +36,16 @@ const AccessCode = (props) => {
             const result = await services.getTransactions(props.id);
             if (result.success) {
                 if (result.transaction) {
+                    const { displayMessage, requestUrl } = result.transaction;
+                    navigator.goTo(
+                        props.componentId,
+                        navigator.screenIds.authTransaction,
+                        {
+                            id: props.id,
+                            message: displayMessage,
+                            endpoint: requestUrl
+                        }
+                    );
                     alert(result.transaction.displayMessage);
                 } else alert('No Pending transaction');
             } else if (result.message === 'SERVER_NO_DEVICE') {
@@ -72,7 +73,7 @@ const AccessCode = (props) => {
         appState.current = nextAppState;
     };
 
-    const onPressHandlerAccountSettings = () => {
+    const onSettings = () => {
         navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
             id: props.id,
             name: props.name,
@@ -88,29 +89,8 @@ const AccessCode = (props) => {
         setCounter(TOTP_PERIOD - (epoch % TOTP_PERIOD));
         if (epoch % TOTP_PERIOD == 0) updateOtp();
     };
-    //
-
-    const codeFragment = (
-        <View style={{ justifyContent: 'center', alignItems: 'center' }}>
-            <PercentageCircle
-                borderWidth={12}
-                radius={130}
-                percent={(counter / 30) * 100}
-                color="#1c9db2">
-                <Text style={{ fontWeight: 'bold', fontSize: 35 }}>
-                    {otp.split('').join(' ')}
-                </Text>
-                <Text>{counter} seconds</Text>
-            </PercentageCircle>
-        </View>
-    );
-    const settings = (
-        <Button
-            title="Remove Account"
-            style={styles.btn}
-            onPress={() => alert('Ye Account Hatao bhae')}
-        />
-    );
+    const onCodeSelect = () => setFragment('CODE');
+    const onSettingsSelect = () => setFragment('SETTINGS');
 
     return (
         <View style={styles.container}>
@@ -133,9 +113,9 @@ const AccessCode = (props) => {
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
-                    <IconButton onPress={onRefereshClick}>
+                    <IconButton onPress={onSettings}>
                         <Image
-                            source={require('../../assets/icons/refresh.png')}
+                            source={require('../../assets/icons/settings2invert.png')}
                             style={[
                                 styles.iconBtn,
                                 {
@@ -158,26 +138,57 @@ const AccessCode = (props) => {
                 </View>
             </View>
             <View style={styles.middle}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        justifyContent: 'center',
-                        alignContent: 'stretch'
-                    }}>
-                    <TouchableHighlight
-                        style={styles.selectorStyle}
-                        onPress={() => setFragment('code')}>
-                        <Text style={styles.textStyle}>Access Code</Text>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style={styles.selectorStyleInvert}
-                        onPress={() => setFragment('settings')}>
-                        <Text style={styles.textStyleInvert}>Settings</Text>
-                    </TouchableHighlight>
+                <View style={styles.slectorContainer}>
+                    <TouchableOpacity
+                        onPress={onCodeSelect}
+                        style={[
+                            styles.selector,
+                            fragment === 'CODE'
+                                ? { ...styles.selected, ...styles.selectedLeft }
+                                : {
+                                      ...styles.selectedInvert,
+                                      ...styles.selectedInvertLeft
+                                  }
+                        ]}>
+                        <Text
+                            style={[
+                                styles.selectorText,
+                                fragment === 'CODE' && styles.selectedText
+                            ]}>
+                            Access Code
+                        </Text>
+                    </TouchableOpacity>
+                    <View style={styles.selectorSeparator} />
+                    <TouchableOpacity
+                        onPress={onSettingsSelect}
+                        style={[
+                            styles.selector,
+                            fragment === 'SETTINGS'
+                                ? {
+                                      ...styles.selected,
+                                      ...styles.selectedRight
+                                  }
+                                : {
+                                      ...styles.selectedInvert,
+                                      ...styles.selectedInvertRight
+                                  }
+                        ]}>
+                        <Text
+                            style={[
+                                styles.selectorText,
+                                fragment === 'SETTINGS' && styles.selectedText
+                            ]}>
+                            Settings
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </View>
             <View style={styles.bottom}>
-                {fragment == 'code' ? codeFragment : settings}
+                {fragment == 'CODE' ? (
+                    <AccessCodeFragment otp={otp} counter={counter} />
+                ) : (
+                    <SettingsFragment />
+                )}
             </View>
 
             <View style={{ margin: 10 }}></View>

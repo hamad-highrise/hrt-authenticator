@@ -8,7 +8,8 @@ import {
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
     AccountSettingScreen as Setting,
-    CodeScreen
+    CodeScreen,
+    AuthScreen
 } from '../features';
 
 /**
@@ -29,6 +30,7 @@ function registerScreens() {
     Navigation.registerComponent(screensId.accountSettings, () => Setting);
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
     Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
+    Navigation.registerComponent(screensId.authTransaction, () => AuthScreen);
 }
 
 export default registerScreens;

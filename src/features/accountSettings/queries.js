@@ -5,7 +5,6 @@ const database = new Database();
 async function remove(accId) {
     const query = `DELETE FROM accounts WHERE account_id = ?;`;
     const params = [accId];
-    // const database = new Database();
     try {
         await database.executeQuery(query, params);
         return Promise.resolve();

@@ -7,7 +7,8 @@ const screensIdentifiers = Object.freeze({
     accountForm: 'authenticator.AccountForm',
     accountSettings: 'authenticator.AccountSettings',
     emptyState: 'atuhenticator.EmptyState',
-    welcome: 'authenticator.Welcome'
+    welcome: 'authenticator.Welcome',
+    authTransaction: 'authenticator.Transaction'
 });
 
 export default screensIdentifiers;
