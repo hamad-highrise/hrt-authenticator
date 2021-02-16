@@ -27,7 +27,6 @@ async function getTransactions(accId) {
         if (result) {
             if (result?.operation === 'login') {
                 const { message } = await updateToken(accId);
-
                 if (message === 'SUCCESS') {
                     const processedTransaction = processTransaction(
                         result[
@@ -127,53 +126,3 @@ function translateMethod(policyURI) {
 }
 
 export default { getTransactions };
-
-// async function getTransactions(accId) {
-//     try {
-//         const endpoint = await getTransactionEndpoint(accId);
-//         const { token } = await getTokenByAccount(accId);
-//         const transactionsResult = await getPendingTransactions(
-//             endpoint,
-//             token
-//         );
-//         if (transactionsResult.respInfo.status === 200) {
-//             const parsed = await transactionsResult.json();
-//             console.warn(parsed);
-//             //get difference if token is expired or device has been removed
-//             if (parsed['operation'] && parsed['operation'] === 'login') {
-//                 saveUpdatedToken(accId);
-//             }
-
-//             const { attributesPending, transactionsPending } = parsed[
-//                 'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
-//             ];
-
-//             if (
-//                 attributesPending.length > 0 &&
-//                 transactionsPending.length > 0
-//             ) {
-//                 const messageObj = attributesPending.find(
-//                     (attribute) =>
-//                         attribute['name'] === 'mmfa.request.context.message'
-//                 );
-//                 const [transaction] = transactionsPending;
-//                 const {
-//                     requestUrl,
-//                     creationTime: createdAt,
-//                     transactionId,
-//                     authnPolicyURI
-//                 } = transaction;
-
-//                 return Promise.resolve({
-//                     id: transactionId,
-//                     displayMessage: messageObj.values[0],
-//                     requestUrl: requestUrl,
-//                     createdAt,
-//                     method: translateMethod(authnPolicyURI)
-//                 });
-//             } else return Promise.resolve();
-//         }
-//     } catch (error) {
-//         return Promise.reject(error);
-//     }
-// }
