@@ -1,5 +1,7 @@
 package com.verify.custom;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.hardware.Camera;
 import android.os.Build;
 import android.view.WindowManager;
@@ -18,11 +20,14 @@ import com.verify.rnbiometrics.RNBiometrics;
 public class CustomUtilities extends ReactContextBaseJavaModule {
     private final ReactApplicationContext reactContext;
     private final RNBiometrics biometrics;
+    private final SharedPreferences preferences;
+    private final String prefName = "settingsPref";
 
     public CustomUtilities(ReactApplicationContext context) {
         super(context);
         this.reactContext = context;
         this.biometrics = new RNBiometrics(context);
+        this.preferences = context.getSharedPreferences(prefName, Context.MODE_PRIVATE);
     }
 
     @ReactMethod
@@ -47,7 +52,32 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
             deviceInfo.putBoolean("frontCamera", hasFrontCamera());
             promise.resolve(deviceInfo);
         } catch (Exception e) {
-            promise.reject("Error:", e);
+            promise.reject("DEVICEINFOERROR", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void setInitiated(Promise promise) {
+        try {
+            SharedPreferences.Editor editor = this.preferences.edit();
+            editor.putBoolean("initiated", true);
+            editor.apply();
+            promise.resolve(true);
+        } catch (Exception e) {
+            promise.reject("PREFERROR", e.getMessage());
+        }
+
+    }
+
+    @ReactMethod
+    public void isInitiated(Promise promise) {
+        try {
+            Boolean initiated = this.preferences.getBoolean("initiated", false);
+            WritableMap result = new WritableNativeMap();
+            result.putBoolean("initiated", initiated);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject("PREFREADERROR", e.getMessage());
         }
     }
 

@@ -4,28 +4,24 @@ import React, { useEffect } from 'react';
 import { View, Button, Text } from 'react-native';
 import navigator from '../../navigation';
 import { initiateDb } from './init-db';
+import { setInitiated } from '../../util/utilities';
 
-const WelcomeScreen = (props) => {
+const WelcomeScreen = () => {
     useEffect(() => {
         init();
     }, []);
     const init = async () => {
         try {
             await initiateDb();
+            await setInitiated();
         } catch (error) {
-            console.warn(error);
             alert(error);
         }
     };
     return (
         <View>
             <Text>WELCOME!</Text>
-            <Button
-                title="Continue"
-                onPress={() =>
-                    navigator.goTo(props.componentId, navigator.screenIds.main)
-                }
-            />
+            <Button title="Continue" onPress={() => navigator.setMainRoot()} />
         </View>
     );
 };

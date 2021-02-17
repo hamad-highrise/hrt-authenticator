@@ -32,7 +32,6 @@ const setRoot = () => {
             visible: false
         }
     });
-
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setRoot({
             root: {
@@ -50,14 +49,29 @@ const setRoot = () => {
     });
 };
 
+const setMainRoot = () => {
+    Navigation.setRoot({
+        root: {
+            stack: {
+                children: [
+                    {
+                        component: {
+                            name: screenIds.main
+                        }
+                    }
+                ]
+            }
+        }
+    });
+};
+
 const navigator = {
     goBack,
     goTo,
     goToRoot,
     registerScreens,
     screenIds,
-    getOnBoardingRoot,
-    getMainRoot,
+    setMainRoot,
     setRoot
 };
 
