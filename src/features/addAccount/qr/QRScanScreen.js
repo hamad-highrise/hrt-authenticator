@@ -5,6 +5,7 @@ import navigator from '../../../navigation';
 import { TopNavbar } from '../../../components';
 import { isUnique, addAccount } from '../offline/queries';
 import initiateSamAccount from '../mmfa/initiate';
+import { vibrate } from '../../../util/utilities';
 
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
@@ -13,6 +14,7 @@ const QRScan = (props) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
+            vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
                 try {
