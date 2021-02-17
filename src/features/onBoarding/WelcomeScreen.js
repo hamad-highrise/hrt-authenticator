@@ -13,19 +13,13 @@ const WelcomeScreen = (props) => {
         try {
             await initiateDb();
         } catch (error) {
-            console.warn(error);
             alert(error);
         }
     };
     return (
         <View>
             <Text>WELCOME!</Text>
-            <Button
-                title="Continue"
-                onPress={() =>
-                    navigator.goTo(props.componentId, navigator.screenIds.main)
-                }
-            />
+            <Button title="Continue" onPress={() => navigator.setMainRoot()} />
         </View>
     );
 };
