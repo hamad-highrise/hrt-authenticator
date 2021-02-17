@@ -4,7 +4,6 @@ import convertToFormEncoded from './formData';
 import { addAccount, isUnique } from './queries';
 import parser from '../qr/parser';
 
-
 async function initiate(scanned) {
     const { Utilities, BiometricAndroid } = NativeModules;
 
@@ -17,6 +16,7 @@ async function initiate(scanned) {
     }
     try {
         const detailsResult = await getDetails(scanned.details_url);
+        console.warn(detailsResult.json());
         if (!detailsResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
@@ -32,17 +32,15 @@ async function initiate(scanned) {
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
             deviceName: deviceInfo.model
         };
-        const tokenResult = await getToken(
-            detailsResult.json().token_endpoint,
-            data
-        );
+        const details = detailsResult.json();
+        const tokenResult = await getToken(details.token_endpoint, data);
         if (!tokenResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
         }
         const tokenObj = await tokenResult.json();
         const totpResult = await registerTotp(
-            detailsResult.json()['totp_shared_secret_endpoint'],
+            details['totp_shared_secret_endpoint'],
             tokenObj['access_token']
         );
         if (!totpResult.respInfo.status === 200) {
@@ -52,7 +50,7 @@ async function initiate(scanned) {
         const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
         const account = {
             name: parsedData.label.account,
-            issuer: parsedData.label.issuer,
+            issuer: details.metadata.service_name,
             secret: parsedData.query.secret,
             type: 'SAM',
             transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
