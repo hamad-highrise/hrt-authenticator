@@ -4,14 +4,16 @@ import React, { useEffect } from 'react';
 import { View, Button, Text } from 'react-native';
 import navigator from '../../navigation';
 import { initiateDb } from './init-db';
+import { setInitiated } from '../../util/utilities';
 
-const WelcomeScreen = (props) => {
+const WelcomeScreen = () => {
     useEffect(() => {
         init();
     }, []);
     const init = async () => {
         try {
             await initiateDb();
+            await setInitiated();
         } catch (error) {
             alert(error);
         }

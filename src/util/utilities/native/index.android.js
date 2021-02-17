@@ -20,14 +20,21 @@ async function getDeviceInformation() {
     }
 }
 
-async function isInitialStart() {
+async function isInitiated() {
     const { Utilities } = NativeModules;
     try {
-        const { initiated } = await Utilities.isInitialStart();
-        if (!initiated) {
-            await Utilities.setInitiated();
-        }
-        return Promise.resolve(initiated);
+        const result = await Utilities.isInitiated();
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function setInitiated() {
+    const { Utilities } = NativeModules;
+    try {
+        await Utilities.setInitiated();
+        return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
     }
@@ -43,5 +50,11 @@ async function preventScreenshot() {
     }
 }
 
-export default { getDeviceInformation, preventScreenshot, isInitialStart };
-export { getDeviceInformation, preventScreenshot, isInitialStart };
+export default {
+    getDeviceInformation,
+    preventScreenshot,
+    isInitiated,
+    setInitiated
+};
+
+export { getDeviceInformation, preventScreenshot, isInitiated, setInitiated };

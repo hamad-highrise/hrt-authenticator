@@ -1,4 +1,5 @@
 import utilities from './native/index.android';
+import { Vibration } from 'react-native';
 
 async function preventScreenshot() {
     try {
@@ -23,14 +24,33 @@ async function getDeviceInfo() {
     }
 }
 
-async function isInitialStart() {
+async function isInitiated() {
     try {
-        const initiated = await utilities.isInitialStart();
-        return Promise.resolve({ initiated });
+        const { initiated } = await utilities.isInitiated();
+        return Promise.resolve(initiated);
     } catch (error) {
         return Promise.reject(error);
     }
 }
 
-export default { preventScreenshot, getDeviceInfo, isInitialStart };
-export { preventScreenshot, getDeviceInfo, isInitialStart };
+async function setInitiated() {
+    try {
+        await utilities.setInitiated();
+        return Promise.resolve();
+    } catch (error) {
+        return Promise.reject();
+    }
+}
+
+async function vibrate(duration) {
+    Vibration.vibrate();
+}
+
+export default {
+    preventScreenshot,
+    getDeviceInfo,
+    isInitiated,
+    setInitiated,
+    vibrate
+};
+export { preventScreenshot, getDeviceInfo, isInitiated, setInitiated, vibrate };

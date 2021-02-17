@@ -70,7 +70,7 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
-    private void isInitialStart(Promise promise) {
+    public void isInitiated(Promise promise) {
         try {
             Boolean initiated = this.preferences.getBoolean("initiated", false);
             WritableMap result = new WritableNativeMap();
