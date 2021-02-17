@@ -46,7 +46,6 @@ async function authenticateTransaction(endpoint, token, state, signedPayload) {
             },
             body
         );
-        console.warn(authResult);
         if (authResult.respInfo.status === 204) {
             return Promise.resolve({ message: 'AUTHENTICATED' });
         } else {
