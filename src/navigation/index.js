@@ -27,6 +27,12 @@ const goToRoot = (componentId) => {
 };
 
 const setRoot = () => {
+    Navigation.setDefaultOptions({
+        topBar: {
+            visible: false
+        }
+    });
+
     Navigation.events().registerAppLaunchedListener(() => {
         Navigation.setRoot({
             root: {

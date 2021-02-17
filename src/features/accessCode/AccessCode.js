@@ -19,7 +19,7 @@ const AccessCode = (props) => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
-        // getTran();
+        getTran();
         updateOtp();
         return () => {
             //Here listeners are being removed on component unmount
@@ -46,8 +46,7 @@ const AccessCode = (props) => {
                             endpoint: requestUrl
                         }
                     );
-                    alert(result.transaction.displayMessage);
-                } else alert('No Pending transaction');
+                }
             } else if (result.message === 'SERVER_NO_DEVICE') {
                 alert('Device has been removed');
             } else {
