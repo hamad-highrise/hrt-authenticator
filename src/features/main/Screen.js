@@ -5,6 +5,7 @@ import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import accountQueries from './queries';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
+import { TopNavbar } from '../../components';
 
 const Main = (props) => {
     const [accounts, setAccounts] = useState([]);
@@ -102,11 +103,12 @@ const Main = (props) => {
 
     return (
         <View style={styles.container}>
+            {/* <TopNavbar title="HRT Verify" /> */}
             <View style={styles.header}>
                 <View>
                     <IconButton onPress={onPressHandlerAccessCode}>
                         <Image
-                            source={require('../../assets/icons/settings2.png')}
+                            source={require('../../assets/icons/settings2invert.png')}
                             style={[
                                 styles.iconBtn,
                                 {
@@ -119,18 +121,18 @@ const Main = (props) => {
                 </View>
 
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>Accounts</Text>
+                    <Text style={styles.titleText}>HRT Verify</Text>
                 </View>
                 <View>
                     <IconButton onPress={onPressHandler}>
                         <Image
-                            source={require('../../assets/icons/add.png')}
+                            source={require('../../assets/icons/addinvert.png')}
                             style={{ marginLeft: -10, marginTop: -3 }}
                         />
                     </IconButton>
                 </View>
             </View>
-            <View style={{ marginLeft: 5, marginRight: 5 }} />
+            <View style={{ marginLeft: 5, marginRight: 5, marginTop:0 }} />
             <AccountList accounts={accounts} onListItemPress={onItemPress} />
 
         </View>
@@ -145,7 +147,8 @@ Main.options = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor:'black',
     },
     header: {
         flexDirection: 'row',
@@ -159,7 +162,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     titleText: {
-        color:'black',
+        color:'white',
         fontSize: 18,
         fontWeight: 'bold'
     },

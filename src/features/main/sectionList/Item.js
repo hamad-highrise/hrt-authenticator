@@ -21,8 +21,8 @@ const Item = ({ account, onPress }) => {
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
-            <Text style={styles.SListheader}>HBL exaple{account['account_name']}</Text>
-            <Text style={styles.SListtitle}>test.isd{account['issuer']}</Text>
+            <Text style={styles.SListheader}>HBL PIM {account['account_name']}</Text>
+            <Text style={styles.SListtitle}>test.isd {account['issuer']}</Text>
         </TouchableOpacity>
     );
 };

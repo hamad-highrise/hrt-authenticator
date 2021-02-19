@@ -2,19 +2,24 @@ import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     listContainer: {
-        flex: 1
+        flex: 1,
     },
     header: {
         backgroundColor: 'black',
         fontSize: 26,
         padding: 10,
         margin: 5,
+        borderTopWidth:1,
+        borderTopColor:'#adb6c6',
     },
     titleText: {
         color: 'white',
-        fontSize: 18,
-        fontWeight: 'bold',
-        textAlign: 'center'
+        fontSize: 15,
+        lineHeight:15,
+        marginTop:10,
+        marginBottom:-8,
+        borderBottomWidth:0.5,
+        borderBottomColor:'#adb6c6',
     },
     title: {
         fontSize: 25,
@@ -34,8 +39,7 @@ export default StyleSheet.create({
     SListitem: {
         backgroundColor: "black",
         padding: 15,
-        marginVertical: 0.12,
-        color:'white',
+        marginVertical: 0,
         margin:5,
     },
     SListheader: {
