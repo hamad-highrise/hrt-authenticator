@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import { View, Text, StyleSheet, Image, FlatList,   SafeAreaView, SectionList ,TouchableOpacity} from 'react-native';
 import navigation from '../../navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
 import accountQueries from './queries';
@@ -69,6 +69,36 @@ const Main = (props) => {
         { account_id: 3, account_name: 'hamad', issuer: 'server', type: 'SAM' },
         { account_id: 4, account_name: 'local', issuer: 'server', type: 'SAM' }
     ];
+    const [items, setItems] = useState([
+        { id: 'test.isd', text: 'HBL pim' },
+        { id: 'hbl.support', text: 'HBL sam' }
+    ]);
+
+    const DATA = [
+        {
+          title: "MULTI FACTOR AUTH ACCOUNTS",
+          data: ["HBL SAM", "HBL PIM", "HBL Support", "HBL Example"]
+        },
+ 
+      ];
+    const Item = ({ title }) => (
+    <View style={styles.SListitem}>
+        <Text style={styles.SListtitle}>{title}</Text>
+        <TouchableOpacity onPress={()=>alert("Go to Access Code Screen")}>
+        <Image
+            source={require('../../assets/icons/backarrowinvert.png')}
+            style={{
+                width: 32,
+                height: 30,
+                transform:[{rotate:'180deg'}],
+                backgroundColor:'#e57f01',
+                borderRadius:10,
+            }}
+        />
+    </TouchableOpacity>
+
+    </View>
+    );
 
     return (
         <View style={styles.container}>
@@ -102,6 +132,7 @@ const Main = (props) => {
             </View>
             <View style={{ marginLeft: 5, marginRight: 5 }} />
             <AccountList accounts={accounts} onListItemPress={onItemPress} />
+
         </View>
     );
 };
@@ -128,7 +159,7 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     titleText: {
-        color: 'black',
+        color:'black',
         fontSize: 18,
         fontWeight: 'bold'
     },
@@ -137,21 +168,26 @@ const styles = StyleSheet.create({
         height: 37
     },
     SListitem: {
-        backgroundColor: 'white',
-        padding: 23,
-        marginVertical: 0.5,
+        backgroundColor: "white",
+        padding: 20,
+        marginVertical: 0.12,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        paddingRight: 28
+        paddingRight:28,
     },
     SListheader: {
-        fontSize: 26,
-        padding: 10,
-        backgroundColor: '#adb6c6'
+        fontSize: 20,
+        padding: 9,
+        backgroundColor: "#424c58",
+        color:'#b5b6bd',
+        fontWeight: 'bold',
+        alignSelf:'center',
+        lineHeight:25,
     },
     SListtitle: {
-        fontSize: 24,
-        color: '#b5b6bd'
+        fontSize: 20,
+        color: '#424c58',
+        fontWeight: 'bold',
     }
 });
 
