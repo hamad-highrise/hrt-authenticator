@@ -26,7 +26,7 @@ const AccountList = ({ accounts, onListItemPress }) => {
     return (
         <View style={styles.listContainer}>
             <SectionList
-                style={{ backgroundColor: 'black' }}
+                style={{ backgroundColor: 'white' }}
                 sections={memoizedAccounts}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
                 keyExtractor={(item, index) => item['account_id'] + index}

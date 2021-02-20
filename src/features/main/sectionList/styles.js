@@ -5,15 +5,16 @@ export default StyleSheet.create({
         flex: 1,
     },
     header: {
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         fontSize: 26,
         padding: 10,
         margin: 5,
         borderTopWidth:1,
-        borderTopColor:'#adb6c6',
+        borderTopColor:'black',
     },
     titleText: {
-        color: 'white',
+        color: 'grey',
+        fontWeight:'bold',
         fontSize: 15,
         lineHeight:15,
         marginTop:10,
@@ -30,14 +31,13 @@ export default StyleSheet.create({
         color: 'grey'
     },
     item: {
-        backgroundColor: 'black',
         padding: 10,
         marginVertical: 0.5,
         flexDirection: 'column',
         borderRadius: 10
     },
     SListitem: {
-        backgroundColor: "black",
+        backgroundColor: "white",
         padding: 15,
         marginVertical: 0,
         margin:5,
@@ -45,8 +45,7 @@ export default StyleSheet.create({
     SListheader: {
         fontSize: 20,
         padding: 2,
-        backgroundColor: "black",
-        color:'white',
+        color:'#424c58',
         lineHeight:25,
     },
     SListtitle: {
