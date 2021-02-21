@@ -68,12 +68,12 @@ export default StyleSheet.create({
         paddingTop: 13,
         paddingBottom: 13,
         paddingRight: 20,
-        width: 130,
+        width: '95%',
         justifyContent: 'center',
         alignItems: 'center'
     },
     selectorSeparator: {
-        width: 2,
+        width: 0,
         backgroundColor: 'black'
     },
     selected: {

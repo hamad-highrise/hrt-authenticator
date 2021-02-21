@@ -114,7 +114,7 @@ const AccessCode = (props) => {
                 <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
                     <IconButton onPress={onSettings}>
                         <Image
-                            source={require('../../assets/icons/settings2invert.png')}
+                            source={require('../../assets/icons/refreshinvert.png')}
                             style={[
                                 styles.iconBtn,
                                 {

@@ -16,10 +16,6 @@ const CodeAccount = (props) => {
         }));
     };
 
-    const [text, setText] = useState('');
-    const [textC, setTextC] = useState('');
-    const [textS, setTextS] = useState('');
-
     return (
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
             <TopNavbar title="Account By Code"></TopNavbar>
@@ -35,7 +31,6 @@ const CodeAccount = (props) => {
                 <View style={styles.middle}>
                     <TextInput
                         placeholder="Account name"
-                        style={styles.titleCodeText}
                         onChangeText={onChangeHandler('name')}
                     />
                     <Text
@@ -44,13 +39,11 @@ const CodeAccount = (props) => {
                             fontSize: 13,
                             paddingTop: 20
                         }}>
-                        {text.length > 8 ? '✖️' : '✔️'}
                     </Text>
                 </View>
                 <View style={styles.middle}>
                     <TextInput
                         placeholder="Company name"
-                        style={styles.titleCodeText}
                         onChangeText={onChangeHandler('issuer')}
                     />
                     <Text
@@ -59,7 +52,6 @@ const CodeAccount = (props) => {
                             fontSize: 13,
                             paddingTop: 20
                         }}>
-                        {textC.length > 8 || textC.length == 0 ? '✖️' : '✔️'}
                     </Text>
                 </View>
 
@@ -67,7 +59,6 @@ const CodeAccount = (props) => {
                     <TextInput
                         secureTextEntry={true}
                         placeholder="Secret Code"
-                        style={styles.titleCodeText}
                         onChangeText={onChangeHandler('secret')}
                     />
                     <Text
@@ -76,7 +67,6 @@ const CodeAccount = (props) => {
                             fontSize: 13,
                             paddingTop: 20
                         }}>
-                        {textS.length > 8 || textS.length == 0 ? '✖️' : '✔️'}
                     </Text>
                 </View>
 
@@ -134,32 +124,14 @@ const styles = StyleSheet.create({
         margin: 7,
         flexDirection: 'row',
         width: Dimensions.get('window').width * 0.8,
-        // backgroundColor:'blue',
         justifyContent: 'center'
     },
-    titleCodeText: {
-        color: 'maroon',
-        fontSize: 28,
-        // fontWeight: 'bold',
-        borderBottomColor: 'orange',
-        borderBottomWidth: 4
-        // marginLeft: Dimensions.get('window').width * 0.03,
-        // marginRight: Dimensions.get('window').width * 0.07,
-        // alignSelf: 'flex-end',
-        // alignItems: 'flex-end',
-        // width: 210,
-        // height: 50,
-    },
-    // bottom: {
-    //     flex: 0.3
-    // },
     btn: {
         backgroundColor: '#ff8544',
         borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'white',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',

@@ -42,7 +42,7 @@ const styles = StyleSheet.create({
     },
     label: {
         fontSize: 14,
-        color: '#e57f01',
+        color: 'white',
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase'
@@ -55,7 +55,6 @@ const styles = StyleSheet.create({
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'black',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',

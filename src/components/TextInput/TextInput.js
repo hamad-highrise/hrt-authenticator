@@ -68,10 +68,10 @@ const styles = StyleSheet.create({
         color: 'maroon',
         fontSize: 18,
         fontWeight: 'bold',
-        borderBottomColor: 'orange',
+        borderBottomColor: '#1c9db2',
         borderBottomWidth: 4,
         marginLeft: Dimensions.get('window').width * 0.03,
         marginRight: Dimensions.get('window').width * 0.07,
-        width: 200,
+        width: 250,
     }
 });
