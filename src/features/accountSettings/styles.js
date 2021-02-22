@@ -79,17 +79,17 @@ export default StyleSheet.create({
         marginRight: Dimensions.get('window').width * 0.2
     },
     btn: {
-        backgroundColor: '#a24e12',
-        borderRadius: 2,
+        backgroundColor: '#ff8544',
+        borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'black',
+        color: 'white',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase',
 
         width: Dimensions.get('window').width * 0.7
-    }
+    },
 });

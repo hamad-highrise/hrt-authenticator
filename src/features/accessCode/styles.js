@@ -14,7 +14,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomColor: '#525961',
         borderBottomWidth: 1,
-        backgroundColor: '#424c58',
+        backgroundColor: 'black',
         padding: -50,
         margin: -30
     },
@@ -108,16 +108,50 @@ export default StyleSheet.create({
         color: 'white'
     },
     btn: {
-        backgroundColor: '#a24e12',
-        borderRadius: 2,
+        backgroundColor: '#ff8544',
+        borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'black',
+        color: 'white',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.7
+    },
+    middles: {
+        flex: 0.12
+    },
+    bottoms: {
+        flex: 0.3
+    },
+    listitem: {
+        padding: 13,
+        backgroundColor: '#1c9db208',
+        borderBottomWidth: 2,
+        borderColor: '#1c9db2',
+        justifyContent: 'space-between'
+    },
+    listitemView: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center'
+    },
+    listitemText: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        color: '#424c58'
+    },
+    img: {
+        width: 30,
+        height: 28,
+        transform: [{ rotate: '180deg' }],
+        backgroundColor: '#e57f01',
+        borderRadius: 10
+    },
+    imgg: {
+        width: 25,
+        height: 25
     }
 });

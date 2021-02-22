@@ -49,29 +49,4 @@ const styles = StyleSheet.create({
     },
     large: {},
     small: {},
-    btn: {
-        backgroundColor: '#a24e12',
-        borderRadius: 2,
-        paddingVertical: 25,
-        paddingHorizontal: 12,
-        fontSize: 14,
-        borderWidth: 0,
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase',
-
-        width: Dimensions.get('window').width * 0.7
-    },
-    btnInvert: {
-        backgroundColor: 'white',
-        borderRadius: 2,
-        paddingVertical: 25,
-        paddingHorizontal: 12,
-        fontSize: 14,
-        borderWidth: 0,
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase',
-        width: Dimensions.get('window').width * 0.7
-    },
 });

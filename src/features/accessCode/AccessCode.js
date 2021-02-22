@@ -101,7 +101,7 @@ const AccessCode = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
+                <View style={{ backgroundColor: 'black', height: 54 }}>
                     <IconButton onPress={onBackPress}>
                         <Image
                             source={require('../../assets/icons/backarrowinvert.png')}
@@ -118,7 +118,7 @@ const AccessCode = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
-                <View style={{ backgroundColor: '#2b2d32', height: 54 }}>
+                <View style={{ backgroundColor: 'black', height: 54 }}>
                     <IconButton onPress={onSettings}>
                         <Image
                             source={require('../../assets/icons/refreshinvert.png')}
