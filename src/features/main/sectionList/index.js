@@ -17,8 +17,8 @@ const AccountList = ({ accounts, onListItemPress }) => {
                 return [mmfa, totp];
             },
             [
-                { title: 'MMFA Accounts',  data: ["HBL SAM", "HBL PIM"] },
-                { title: 'TOTP Accounts', data: ["hbl example"] }
+                { title: 'MMFA Accounts', data: [] },
+                { title: 'TOTP Accounts', data: [] }
             ]
         );
     }, [JSON.stringify(accounts)]);

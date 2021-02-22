@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import accountQueries from '../queries';
 
@@ -21,8 +21,18 @@ const Item = ({ account, onPress }) => {
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
-            <Text style={styles.SListheader}>HBL PIM {account['account_name']}</Text>
-            <Text style={styles.SListtitle}>test.isd {account['issuer']}</Text>
+            <Text style={styles.SListheader}> {account['account_name']}</Text>
+            <Text style={styles.SListtitle}> {account['issuer']}</Text>
+            {!true && (
+                <Text style={styles.notificationText}>Transaction Pending</Text>
+            )}
+            {!true && (
+                <View>
+                    <Text style={styles.errorText}>
+                        Please Contact {account['issuer']}
+                    </Text>
+                </View>
+            )}
         </TouchableOpacity>
     );
 };
