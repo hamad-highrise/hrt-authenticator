@@ -13,7 +13,7 @@ const TopNavbar = ({
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={styles.iconBtnContainer}>
+                <View style={[styles.iconBtnContainer,{marginLeft:18}]}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
                             // source={{ uri: imageUrlBack }}
@@ -33,11 +33,7 @@ const TopNavbar = ({
                 </View>
 
                 <View
-                    style={{
-                        backgroundColor: '#2b2d32',
-                        height: 55,
-                        marginRight: 18
-                    }}>
+                   style={[styles.iconBtnContainer,{marginRight:18}]}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
                             // source={{ uri: {imageUrlRight} }}
@@ -82,13 +78,6 @@ const styles = StyleSheet.create({
         paddingVertical: 18,
         paddingHorizontal: 12
     },
-    label: {
-        fontSize: 14,
-        color: '#e57f01',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase'
-    },
     large: {},
     small: {},
     header: {
@@ -99,7 +88,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         borderBottomColor: '#525961',
         borderBottomWidth: 1,
-        backgroundColor: '#424c58',
+        backgroundColor: 'black',
         paddingTop: 10,
         margin: -30
     },
@@ -113,9 +102,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     iconBtnContainer: {
-        backgroundColor: '#2b2d32',
+        backgroundColor: 'black',
         height: 55,
-        marginLeft: 18
     },
     iconBtn: {
         width: 30,
