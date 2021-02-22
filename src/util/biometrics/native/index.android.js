@@ -29,7 +29,7 @@ const displaySimplePrompt = async ({
 
 const createBiomerticKey = async (keyHandle = 'biometricKeyHandle') => {
     try {
-        const { publicKey } = await BiometricAndroid.createBiomerticKey(
+        const { publicKey } = await BiometricAndroid.createBiometricKeys(
             keyHandle
         );
         return Promise.resolve({ publicKey });
@@ -64,9 +64,4 @@ export default {
     signChallengeWithBiometric
 };
 
-export {
-    isSensorAvailable,
-    displaySimplePrompt,
-    createBiomerticKey,
-    signChallengeWithBiometric
-};
+

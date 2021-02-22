@@ -53,6 +53,7 @@ public class RNBiometrics extends ReactContextBaseJavaModule {
                 if (canAuthenticate == BiometricManager.BIOMETRIC_SUCCESS) {
                     result.putBoolean("available", true);
                 } else {
+                    result.putBoolean("available", false);
                     switch (canAuthenticate) {
                         case BiometricManager.BIOMETRIC_ERROR_NO_HARDWARE:
                             result.putString("error", "NO_HARDWARE_FOUND");

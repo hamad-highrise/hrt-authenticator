@@ -21,7 +21,6 @@ const QRScan = (props) => {
             if (valid) {
                 try {
                     const result = await initiateSamAccount(value);
-                    // alert(JSON.stringify(result) + 'Okay');
                 } catch (error) {
                     alert(JSON.stringify(error + 'Not Okay'));
                 }
