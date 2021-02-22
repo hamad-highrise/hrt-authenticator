@@ -1,10 +1,13 @@
-import {StyleSheet} from 'react-native';
-
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
-        flex: 1
+        flex: 1,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+    content: {},
     footer: {
         position: 'absolute',
         bottom: 0,
@@ -28,6 +31,16 @@ export default StyleSheet.create({
     footerBtnApprove: {
         right: 0,
         backgroundColor: 'blue'
+    },
+    text: {
+        color: 'white',
+        fontSize: 15,
+        textAlign: 'center',
+        fontWeight: 'bold'
+    },
+    titleText: {
+        fontSize: 25,
+        color: 'white'
     },
     btnText: {
         fontSize: 25,

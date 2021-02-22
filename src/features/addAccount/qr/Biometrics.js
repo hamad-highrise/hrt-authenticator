@@ -3,13 +3,13 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../../components';
 
-const BiometricOption = ({ onPositive, onNegative, title }) => {
+const BiometricOption = ({ onPositive, onNegative, endpoint, token }) => {
     return (
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}></View>
             <Image
                 style={styles.image}
-                source={require('../../assets/images/bio2.png')}></Image>
+                source={require('../../../assets/icons/add-fingerprint.png')}></Image>
             <View>
                 <Text style={styles.welcome}>Biometric</Text>
                 <Text style={styles.instructions}>
@@ -17,16 +17,16 @@ const BiometricOption = ({ onPositive, onNegative, title }) => {
                     safe.
                 </Text>
             </View>
-            <View style={{ margin: 40 }} />
+            <View style={{ margin: 5 }} />
             <Button
                 title="Use Biometric"
                 style={styles.btn}
-                onPress={() => alert('Use biometric')}
+                onPress={() => onPositive(endpoint, token)}
             />
 
             <Button
                 title="No, Thanks"
-                onPress={() => alert('No, Thanks')}
+                onPress={onNegative}
                 style={styles.btnInvert}
             />
             <View style={{ marginBottom: 20 }}></View>

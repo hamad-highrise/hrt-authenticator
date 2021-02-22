@@ -2,8 +2,8 @@ import getInsecureFetch from '../RNFetch';
 import { Platform } from 'react-native';
 import {
     registerTotp,
-    registerUserPresence,
-    registerBiometrics
+    registerUserPresence
+    // registerBiometrics
 } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
@@ -12,7 +12,12 @@ import { addAccount, isUnique } from './queries';
 import parser from '../qr/parser';
 
 async function initiate(scanned) {
-    const resultObj = { message: 'OKAY' };
+    const resultObj = {
+        message: 'OKAY',
+        enrollmentEndpoint: '',
+        token: '',
+        accountName: ''
+    };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
     if (!isValidMmfaObj) {
@@ -21,17 +26,17 @@ async function initiate(scanned) {
     }
     try {
         const detailsResult = await getDetails(scanned.details_url);
-        console.warn(detailsResult.json());
+
         if (!detailsResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
-        const { osVersion, frontCameraAvailabe, name } = await getDeviceInfo();
+        const { osVersion, frontCameraAvailable, name } = await getDeviceInfo();
         //device information
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
-            frontCamera: frontCameraAvailabe,
+            frontCamera: frontCameraAvailable,
             fingerprintSupport: await (await biometric.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
@@ -58,32 +63,31 @@ async function initiate(scanned) {
             issuer: details.metadata.service_name,
             secret: parsedData.query.secret,
             type: 'SAM',
-            transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
-            enrollmentEndpoint: detailsResult.json()['enrollment_endpoint'],
+            transactionEndpoint: details['authntrxn_endpoint'],
+            enrollmentEndpoint: details['enrollment_endpoint'],
             authId: tokenObj['authenticator_id']
         };
         const token = {
             token: tokenObj['access_token'],
             refreshToken: tokenObj['refresh_token'],
             expiry: tokenObj['expires_in'],
-            tokenEndpoint: detailsResult.json()['token_endpoint']
+            tokenEndpoint: details['token_endpoint']
         };
         const presenceResult = await registerUserPresence(
             account.enrollmentEndpoint,
             token.token
         );
-        console.warn(presenceResult.data);
-        const biometricResult = await registerBiometrics(
-            account.enrollmentEndpoint,
-            token.token
-        );
-        if (biometricResult) {
-            if (!biometricResult.respInfo.status === 200) {
-                resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
-                return resultObj;
-            }
-            console.warn(biometricResult.data);
-        } else alert('INVALID_BIOMETRIC');
+
+        // const biometricResult = await registerBiometrics(
+        //     account.enrollmentEndpoint,
+        //     token.token
+        // );
+        // if (biometricResult) {
+        //     if (!biometricResult.respInfo.status === 200) {
+        //         resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
+        //         return resultObj;
+        //     }
+        // } else alert('INVALID_BIOMETRIC');
 
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
@@ -95,6 +99,9 @@ async function initiate(scanned) {
             resultObj.message = 'DUPLICATE_ACCOUNT';
             //here start remove account flow
         }
+        resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
+        resultObj.token = token.token;
+        resultObj.accountName = account.name;
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);
