@@ -17,8 +17,8 @@ const AccountList = ({ accounts, onListItemPress }) => {
                 return [mmfa, totp];
             },
             [
-                { title: 'MMFA Accounts', data: [] },
-                { title: 'TOTP Accounts', data: [] }
+                { title: 'MMFA Accounts',  data: ["HBL SAM", "HBL PIM"] },
+                { title: 'TOTP Accounts', data: ["hbl example"] }
             ]
         );
     }, [JSON.stringify(accounts)]);
@@ -26,7 +26,7 @@ const AccountList = ({ accounts, onListItemPress }) => {
     return (
         <View style={styles.listContainer}>
             <SectionList
-                style={{ backgroundColor: '#adb6c6' }}
+                style={{ backgroundColor: 'white' }}
                 sections={memoizedAccounts}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
                 keyExtractor={(item, index) => item['account_id'] + index}
