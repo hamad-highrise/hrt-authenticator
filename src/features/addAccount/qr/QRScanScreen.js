@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 import parser from './parser';
 import navigator from '../../../navigation';
-import { TopNavbar } from '../../../components';
+import { TopNavbar, LoadingIndicator } from '../../../components';
 import { isUnique, addAccount } from '../offline/queries';
 import initiateSamAccount from '../mmfa/initiate';
 import { vibrate } from '../../../util/utilities';
@@ -10,10 +10,12 @@ import { vibrate } from '../../../util/utilities';
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
+    const [loading, setLoading] = useState(false);
     const barcodeRecognized = async (_barcode) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
+            setLoading(true);
             vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
@@ -43,15 +45,21 @@ const QRScan = (props) => {
 
     return (
         <>
-            <TopNavbar title="Scan QR" />
-            <QRCodeReader
-                captureAudio={false}
-                style={{
-                    flex: 1,
-                    width: '100%'
-                }}
-                onBarCodeRead={barcodeRecognized}
-            />
+            {loading ? (
+                <LoadingIndicator show={loading} />
+            ) : (
+                <>
+                    <TopNavbar title="Scan QR" />
+                    <QRCodeReader
+                        captureAudio={false}
+                        style={{
+                            flex: 1,
+                            width: '100%'
+                        }}
+                        onBarCodeRead={barcodeRecognized}
+                    />
+                </>
+            )}
         </>
     );
 };
