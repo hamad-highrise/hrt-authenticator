@@ -7,11 +7,11 @@ import {
     Platform
 } from 'react-native';
 
-const Loader = ({ show, color, backgroundColor }) => (
+const Loader = ({ show, backgroundColor }) => (
     <View style={{ ...styles.container, backgroundColor }}>
         <ActivityIndicator
             animating={show}
-            color="#0000ff"
+            color="#00CED1"
             size={Platform.OS === 'android' ? 70 : 'large'}
         />
         <Text style={{ color: 'white' }}>Requesting Server...</Text>
@@ -27,8 +27,7 @@ const styles = StyleSheet.create({
 });
 
 Loader.defaultProps = {
-    backgroundColor: '#010101',
-    color: 'blue'
+    backgroundColor: '#010101'
 };
 
 export default Loader;
