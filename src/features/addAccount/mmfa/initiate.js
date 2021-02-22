@@ -1,17 +1,17 @@
 import getInsecureFetch from '../RNFetch';
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
 import {
     registerTotp,
     registerUserPresence,
     registerBiometrics
 } from './registerMethods';
+import { getDeviceInfo } from '../../../util/utilities';
+import biometric from '../../../util/biometrics';
 import convertToFormEncoded from './formData';
 import { addAccount, isUnique } from './queries';
 import parser from '../qr/parser';
 
 async function initiate(scanned) {
-    const { Utilities, BiometricAndroid } = NativeModules;
-
     const resultObj = { message: 'OKAY' };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
@@ -26,16 +26,16 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
-        const deviceInfo = await Utilities.getDeviceInfo();
+        const { osVersion, frontCameraAvailabe, name } = await getDeviceInfo();
         //device information
         const data = {
             code: scanned.code,
-            OSVersion: deviceInfo.osVersion,
-            frontCamera: deviceInfo.frontCamera,
-            fingerprintSupport: await BiometricAndroid.isSensorAvailable()
+            OSVersion: osVersion,
+            frontCamera: frontCameraAvailabe,
+            fingerprintSupport: await (await biometric.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
-            deviceName: deviceInfo.model
+            deviceName: name
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);

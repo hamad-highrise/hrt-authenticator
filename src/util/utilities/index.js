@@ -42,7 +42,7 @@ async function setInitiated() {
     }
 }
 
-async function vibrate(duration) {
+function vibrate(duration) {
     Vibration.vibrate();
 }
 
