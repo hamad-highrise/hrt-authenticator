@@ -36,14 +36,21 @@ const AccessCode = (props) => {
             const result = await services.getTransactions(props.id);
             if (result.success) {
                 if (result.transaction) {
-                    const { displayMessage, requestUrl } = result.transaction;
+                    const {
+                        displayMessage,
+                        requestUrl,
+                        createdAt,
+                        transactionId
+                    } = result.transaction;
                     navigator.goTo(
                         props.componentId,
                         navigator.screenIds.authTransaction,
                         {
                             id: props.id,
                             message: displayMessage,
-                            endpoint: requestUrl
+                            endpoint: requestUrl,
+                            createdAt,
+                            transactionId
                         }
                     );
                 }

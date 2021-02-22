@@ -6,8 +6,14 @@ import navigator from '../../navigation';
 import styles from './styles';
 
 const AuthProcess = (props) => {
-    const { id, message, endpoint, componentId } = props;
-
+    const {
+        id,
+        message,
+        endpoint,
+        componentId,
+        createdAt,
+        transactionId
+    } = props;
     const onApprove = async () => {
         try {
             const authResult = await authTransaction(id, endpoint);
@@ -24,12 +30,16 @@ const AuthProcess = (props) => {
     };
     return (
         <View style={styles.container}>
-            <View>
-                <View>
-                    <Text>Auth Pendig</Text>
-                    <Text>{message}</Text>
-                </View>
+            <View style={{ position: 'absolute', top: 50 }}>
+                <Text style={styles.titleText}>Auth Transaction Pending</Text>
             </View>
+
+            <View>
+                <Text style={styles.text}>{message}</Text>
+                <Text style={styles.text}>{createdAt}</Text>
+                <Text style={styles.text}>{transactionId}</Text>
+            </View>
+
             <View style={styles.footer}>
                 <TouchableOpacity
                     onPress={onReject}

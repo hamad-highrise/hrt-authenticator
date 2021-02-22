@@ -1,6 +1,6 @@
 import { getTransactionData, authenticateTransaction } from './api';
 import { getTokenByAccount } from './queries';
-import { signChallengeWithBiometric } from '../../../util/biometrics';
+import biometrics from '../../../util/biometrics';
 
 async function authTransaction(accId, tEndpoint) {
     try {
@@ -14,7 +14,7 @@ async function authTransaction(accId, tEndpoint) {
                 type,
                 state
             } = transaction;
-            const { success, signature } = await signChallengeWithBiometric({
+            const { success, signature } = await biometrics.signPayload({
                 promptMessage: 'Please Verify for authentication',
                 keyHandle,
                 payload: challenge

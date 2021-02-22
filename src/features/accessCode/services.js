@@ -101,6 +101,7 @@ function processTransaction({ attributesPending, transactionsPending }) {
             (attribute) => attribute['name'] === 'mmfa.request.context.message'
         );
         const [transaction] = transactionsPending;
+
         const {
             requestUrl,
             creationTime: createdAt,
@@ -109,7 +110,7 @@ function processTransaction({ attributesPending, transactionsPending }) {
         } = transaction;
 
         return {
-            id: transactionId,
+            transactionId,
             displayMessage: displayMessage,
             requestUrl: requestUrl,
             createdAt,

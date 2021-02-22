@@ -6,28 +6,26 @@ import SectionHeader from './Header';
 import ListItemSeparator from './Separator';
 import styles from './styles';
 
-const AccountList = ({ accounts, onListItemPress }) => {
-    const memoizedAccounts = useMemo(() => {
-        return accounts.reduce(
-            (prev, account) => {
-                let [mmfa, totp] = prev;
-                account.type === 'SAM'
-                    ? mmfa.data.push(account)
-                    : totp.data.push(account);
-                return [mmfa, totp];
-            },
-            [
-                { title: 'MMFA Accounts', data: [] },
-                { title: 'TOTP Accounts', data: [] }
-            ]
-        );
-    }, [JSON.stringify(accounts)]);
+const AccountList = ({ accounts: acc, onListItemPress }) => {
+    const structuredAccounts = acc.reduce(
+        (prev, account) => {
+            let [mmfa, totp] = prev;
+            account.type === 'SAM'
+                ? mmfa.data.push(account)
+                : totp.data.push(account);
+            return [mmfa, totp];
+        },
+        [
+            { title: 'MMFA Accounts', data: [] },
+            { title: 'TOTP Accounts', data: [] }
+        ]
+    );
 
     return (
         <View style={styles.listContainer}>
             <SectionList
                 style={{ backgroundColor: 'white' }}
-                sections={memoizedAccounts}
+                sections={structuredAccounts}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
                 keyExtractor={(item, index) => item['account_id'] + index}
                 renderItem={({ item }) => (

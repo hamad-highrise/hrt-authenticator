@@ -1,13 +1,23 @@
 import getInsecureFetch from '../RNFetch';
-import { NativeModules, Platform } from 'react-native';
+import { Platform } from 'react-native';
+import {
+    registerTotp,
+    registerUserPresence
+    // registerBiometrics
+} from './registerMethods';
+import { getDeviceInfo } from '../../../util/utilities';
+import biometric from '../../../util/biometrics';
 import convertToFormEncoded from './formData';
 import { addAccount, isUnique } from './queries';
 import parser from '../qr/parser';
 
 async function initiate(scanned) {
-    const { Utilities, BiometricAndroid } = NativeModules;
-
-    const resultObj = { message: 'OKAY' };
+    const resultObj = {
+        message: 'OKAY',
+        enrollmentEndpoint: '',
+        token: '',
+        accountName: ''
+    };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
     if (!isValidMmfaObj) {
@@ -16,21 +26,21 @@ async function initiate(scanned) {
     }
     try {
         const detailsResult = await getDetails(scanned.details_url);
-        console.warn(detailsResult.json());
+
         if (!detailsResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
-        const deviceInfo = await Utilities.getDeviceInfo();
+        const { osVersion, frontCameraAvailable, name } = await getDeviceInfo();
         //device information
         const data = {
             code: scanned.code,
-            OSVersion: deviceInfo.osVersion,
-            frontCamera: deviceInfo.frontCamera,
-            fingerprintSupport: await BiometricAndroid.isSensorAvailable()
+            OSVersion: osVersion,
+            frontCamera: frontCameraAvailable,
+            fingerprintSupport: await (await biometric.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
-            deviceName: deviceInfo.model
+            deviceName: name
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
@@ -53,32 +63,31 @@ async function initiate(scanned) {
             issuer: details.metadata.service_name,
             secret: parsedData.query.secret,
             type: 'SAM',
-            transactionEndpoint: detailsResult.json()['authntrxn_endpoint'],
-            enrollmentEndpoint: detailsResult.json()['enrollment_endpoint'],
+            transactionEndpoint: details['authntrxn_endpoint'],
+            enrollmentEndpoint: details['enrollment_endpoint'],
             authId: tokenObj['authenticator_id']
         };
         const token = {
             token: tokenObj['access_token'],
             refreshToken: tokenObj['refresh_token'],
             expiry: tokenObj['expires_in'],
-            tokenEndpoint: detailsResult.json()['token_endpoint']
+            tokenEndpoint: details['token_endpoint']
         };
         const presenceResult = await registerUserPresence(
             account.enrollmentEndpoint,
             token.token
         );
-        console.warn(presenceResult.data);
-        const biometricResult = await registerBiometric(
-            account.enrollmentEndpoint,
-            token.token
-        );
-        if (biometricResult) {
-            if (!biometricResult.respInfo.status === 200) {
-                resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
-                return resultObj;
-            }
-            console.warn(biometricResult.data);
-        } else alert('INVALID_BIOMETRIC');
+
+        // const biometricResult = await registerBiometrics(
+        //     account.enrollmentEndpoint,
+        //     token.token
+        // );
+        // if (biometricResult) {
+        //     if (!biometricResult.respInfo.status === 200) {
+        //         resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
+        //         return resultObj;
+        //     }
+        // } else alert('INVALID_BIOMETRIC');
 
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
@@ -90,6 +99,9 @@ async function initiate(scanned) {
             resultObj.message = 'DUPLICATE_ACCOUNT';
             //here start remove account flow
         }
+        resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
+        resultObj.token = token.token;
+        resultObj.accountName = account.name;
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);
@@ -103,103 +115,6 @@ async function getDetails(endpoint) {
             Accept: 'application/json'
         });
         return Promise.resolve(result);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-async function registerUserPresence(endpoint, token) {
-    const insecureFetch = getInsecureFetch();
-    const userPresenceKeyHandle = 'Account.' + Date.now() + '.UserPresence';
-    const url =
-        endpoint +
-        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods`;
-    const { CustomKeyGen } = NativeModules;
-    try {
-        const { publicKey: userPresenceKey } = await CustomKeyGen.createKeys(
-            userPresenceKeyHandle
-        );
-        const body = JSON.stringify({
-            schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
-            Operations: [
-                {
-                    op: 'add',
-                    path:
-                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods',
-                    value: [
-                        {
-                            keyHandle: userPresenceKeyHandle,
-                            algorithm: 'SHA256withRSA',
-                            publicKey: userPresenceKey,
-                            enabled: true
-                        }
-                    ]
-                }
-            ]
-        });
-        const result = await insecureFetch(
-            'PATCH',
-            url,
-            {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            },
-            body
-        );
-        return Promise.resolve(result);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-async function registerBiometric(endpoint, token) {
-    const insecureFetch = getInsecureFetch();
-    const biometricKeyHandle = 'Account.' + Date.now() + '.UserPresence';
-    const { CustomKeyGen, BiometricAndroid } = NativeModules;
-    const url =
-        endpoint +
-        `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods`;
-    try {
-        const { success } = await BiometricAndroid.showSimpleBiometricPrompt({
-            promptMessage: 'Please verify you fingerprint',
-            cancelButtonText: 'Cancel'
-        });
-        if (success) {
-            const { publicKey: biometicKey } = await CustomKeyGen.createKeys(
-                biometricKeyHandle
-            );
-            const body = JSON.stringify({
-                schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
-                Operations: [
-                    {
-                        op: 'add',
-                        path:
-                            'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods',
-                        value: [
-                            {
-                                keyHandle: biometricKeyHandle,
-                                algorithm: 'SHA256withRSA',
-                                publicKey: biometicKey,
-                                enabled: true
-                            }
-                        ]
-                    }
-                ]
-            });
-            const result = await insecureFetch(
-                'PATCH',
-                url,
-                {
-                    Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: 'Bearer ' + token
-                },
-                body
-            );
-            return Promise.resolve(result);
-        }
-        return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
     }
@@ -228,20 +143,6 @@ async function getToken(endpoint, data) {
             },
             convertToFormEncoded(rawObject)
         );
-        return Promise.resolve(result);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-async function registerTotp(endpoint, token) {
-    try {
-        const insecureFetch = getInsecureFetch();
-        const result = await insecureFetch('GET', endpoint, {
-            Accept: 'application/json',
-            'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
-        });
         return Promise.resolve(result);
     } catch (error) {
         return Promise.reject(error);

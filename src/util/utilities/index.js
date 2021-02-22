@@ -12,13 +12,14 @@ async function preventScreenshot() {
 
 async function getDeviceInfo() {
     try {
-        const {
+        const info = await utilities.getDeviceInfo();
+        const { type, oSVersion, frontCameraAvailable, name } = info;
+        return Promise.resolve({
             type,
-            osVersion,
-            frontCameraAvailabe,
+            osVersion: oSVersion,
+            frontCameraAvailable,
             name
-        } = await utilities.getDeviceInfo();
-        return Promise.resolve({ type, osVersion, frontCameraAvailabe, name });
+        });
     } catch (error) {
         return Promise.reject(error);
     }
@@ -42,7 +43,7 @@ async function setInitiated() {
     }
 }
 
-async function vibrate(duration) {
+function vibrate(duration) {
     Vibration.vibrate();
 }
 

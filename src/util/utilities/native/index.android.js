@@ -1,6 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 
-async function getDeviceInformation() {
+async function getDeviceInfo() {
     //TODO: check device rooted or not
     const { Utilities } = NativeModules;
     try {
@@ -51,10 +51,10 @@ async function preventScreenshot() {
 }
 
 export default {
-    getDeviceInformation,
+    getDeviceInfo,
     preventScreenshot,
     isInitiated,
     setInitiated
 };
 
-export { getDeviceInformation, preventScreenshot, isInitiated, setInitiated };
+export { getDeviceInfo, preventScreenshot, isInitiated, setInitiated };
