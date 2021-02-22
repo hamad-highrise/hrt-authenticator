@@ -2,7 +2,7 @@ import SQlite from 'react-native-sqlite-storage';
 SQlite.enablePromise(true);
 
 function Database() {
-    this.name = 'test.db';
+    this.name = 'verify.db';
     this.version = '1.0';
     this.displayName = 'Test Database';
     this.size = 1024 * 1024 * 5; // 5 MBs
