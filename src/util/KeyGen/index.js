@@ -9,4 +9,17 @@ async function createKeys(keyHandle) {
     }
 }
 
-export { createKeys };
+async function signPayload({ keyHandle, payload }) {
+    try {
+        const { success, signature } = await native.signPayload({
+            keyHandle,
+            payload
+        });
+        return Promise.resolve({ success, signature });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export default { createKeys, signPayload };
+export { createKeys, signPayload };
