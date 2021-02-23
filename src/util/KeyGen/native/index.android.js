@@ -10,4 +10,14 @@ async function createKeys(keyHandle) {
     }
 }
 
-export default { createKeys };
+async function signPayload({ keyHandle, payload }) {
+    const { CustomKeyGen } = NativeModules;
+    try {
+        const result = await CustomKeyGen.signPayload(keyHandle, payload);
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export default { createKeys, signPayload };

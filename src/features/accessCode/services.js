@@ -122,8 +122,8 @@ function processTransaction({ attributesPending, transactionsPending }) {
 function translateMethod(policyURI) {
     const arr = policyURI.split(':');
     return arr.includes('mmfa_fingerprint_response')
-        ? 'fingerprit'
-        : 'userPresence';
+        ? 'FINGERPRINT'
+        : 'USER_PRESENCE';
 }
 
 export default { getTransactions };
