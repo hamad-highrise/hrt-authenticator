@@ -73,12 +73,12 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     btn: {
-        backgroundColor: '#a24e12',
-        borderRadius: 2,
+        backgroundColor: '#ff8544',
+        borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
-        color: 'black',
+        color: 'white',
         borderWidth: 0,
         fontWeight: 'bold',
         alignSelf: 'center',
@@ -87,8 +87,8 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.7
     },
     btnInvert: {
-        backgroundColor: 'white',
-        borderRadius: 2,
+        backgroundColor: '#1c9db2',
+        borderRadius: 4,
         paddingVertical: 25,
         paddingHorizontal: 12,
         fontSize: 14,
