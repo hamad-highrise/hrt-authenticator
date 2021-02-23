@@ -26,7 +26,7 @@ const AddScreen = (props) => {
     };
     return (
         <View>
-            <TopNavbar title="Add Account"></TopNavbar>
+            <TopNavbar title="Add Account" RightIcon="NO"></TopNavbar>
 
             <View style={styles.container}>
                 <View style={{ margin: 25 }} />

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
@@ -8,22 +8,21 @@ const TopNavbar = ({
     imageUrlRight,
     imageBackOnPress,
     title,
-    param
+    param,
+    RightIcon
 }) => {
+
+    const [rIcon, setRight] = useState('');
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={[styles.iconBtnContainer,{marginLeft:18}]}>
+                <View style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
                     <IconButton onPress={imageBackOnPress}>
                         <Image
                             // source={{ uri: imageUrlBack }}
                             source={require('../../assets/icons/backarrowinvert.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 4
-                                }
-                            ]}
+                            style={styles.iconBtn}
                         />
                     </IconButton>
                 </View>
@@ -32,21 +31,20 @@ const TopNavbar = ({
                     <Text style={styles.titleMainText}> {title} </Text>
                 </View>
 
-                <View
-                   style={[styles.iconBtnContainer,{marginRight:18}]}>
-                    <IconButton onPress={imageBackOnPress}>
-                        <Image
-                            // source={{ uri: {imageUrlRight} }}
-                            source={require('../../assets/icons/settings2invert.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 5
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
+                {RightIcon == "YES" ? (
+                    <View
+                        style={[styles.iconBtnContainer, { marginRight: 18 }]}>
+                        <IconButton onPress={imageBackOnPress}>
+                            <Image
+                                // source={{ uri: {imageUrlRight} }}
+                                source={require('../../assets/icons/settings2invert.png')}
+                                style={styles.iconBtn}
+                            />
+                        </IconButton>
+                    </View>
+                ) : (
+                    <Text></Text>
+                )}
             </View>
         </View>
     );
@@ -58,7 +56,8 @@ TopNavbar.propTypes = {
     imageBackOnPress: PropTypes.func,
     title: PropTypes.string,
     param: PropTypes.any,
-    styles: PropTypes.any
+    styles: PropTypes.any,
+    RightIcon: PropTypes.string
 };
 
 TopNavbar.defaultProps = {
@@ -66,7 +65,8 @@ TopNavbar.defaultProps = {
     imageUrlBack: '../../assets/icons/addinvert.png',
     imageUrlRight: '../../assets/icons/settings2invert.png',
     title: 'HRT',
-    imageBackOnPress: () => alert('Back')
+    imageBackOnPress: () => alert('Back'),
+    RightIcon: 'NO'
 };
 
 export default TopNavbar;
@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     large: {},
     small: {},
     header: {
-        elevation: 8,
+        elevation: 10,
         flexDirection: 'row',
         height: 65,
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: '#525961',
+        borderBottomColor: 'black',
         borderBottomWidth: 1,
         backgroundColor: 'black',
         paddingTop: 10,
@@ -103,11 +103,12 @@ const styles = StyleSheet.create({
     },
     iconBtnContainer: {
         backgroundColor: 'black',
-        height: 55,
+        height: 55
     },
     iconBtn: {
         width: 30,
         height: 30,
-        marginTop: 14
+        marginTop: 14,
+        marginLeft: 5,
     }
 });
