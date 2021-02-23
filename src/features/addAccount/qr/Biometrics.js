@@ -1,9 +1,53 @@
-import React from 'react';
-import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
+import React, { useEffect } from 'react';
+import {
+    Dimensions,
+    Text,
+    Image,
+    StyleSheet,
+    View,
+    BackHandler
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../../components';
+import navigator from '../../../navigation';
+import { registerBiometrics } from './../mmfa/registerMethods';
+import biometric from '../../../util/biometrics';
 
-const BiometricOption = ({ onPositive, onNegative, endpoint, token }) => {
+const BiometricOption = ({ endpoint, token, ...props }) => {
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            goBack
+        );
+        return () => {
+            backHandler.remove();
+        };
+    }, []);
+
+    const goBack = () => {
+        navigator.goToRoot(props.componentId);
+        return true;
+    };
+
+    const onPositive = async () => {
+        try {
+            const { available, error } = await biometric.isSensorAvailable();
+            if (available) {
+                const result = await registerBiometrics(endpoint, token);
+                if (result && result.respInfo.status === 200) {
+                    navigator.goToRoot(props.componentId);
+                } else {
+                    alert('Error registering biometrics');
+                }
+            } else {
+                alert(JSON.stringify(error));
+            }
+        } catch (error) {
+            alert(error);
+        } finally {
+            navigator.goToRoot(props.componentId);
+        }
+    };
     return (
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}></View>
@@ -26,7 +70,7 @@ const BiometricOption = ({ onPositive, onNegative, endpoint, token }) => {
 
             <Button
                 title="No, Thanks"
-                onPress={onNegative}
+                onPress={goBack}
                 style={styles.btnInvert}
             />
             <View style={{ marginBottom: 20 }}></View>
@@ -36,10 +80,6 @@ const BiometricOption = ({ onPositive, onNegative, endpoint, token }) => {
 BiometricOption.propTypes = {
     title: PropTypes.string,
     styles: PropTypes.any
-};
-
-BiometricOption.defaultProps = {
-    title: 'HBL PIM'
 };
 
 export default BiometricOption;
