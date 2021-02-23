@@ -15,7 +15,11 @@ import com.facebook.react.bridge.WritableNativeMap;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.security.Signature;
 import java.security.spec.RSAKeyGenParameterSpec;
 
 public class CustomKeyGen extends ReactContextBaseJavaModule {
@@ -45,10 +49,31 @@ public class CustomKeyGen extends ReactContextBaseJavaModule {
                 resultMap.putString("publicKey", publicKeyString);
                 promise.resolve(resultMap);
             } else {
-                promise.reject("Error", "Unsupported Android Versio");
+                promise.reject("Error", "Unsupported Android Version");
             }
         } catch (Exception e) {
             promise.reject("Error", e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void signPayload(final String keyAlias, final String payload, final  Promise promise){
+        try {
+            Signature signature = Signature.getInstance("SHA256withRSA");
+            KeyStore keyStore = KeyStore.getInstance("AndroidKeyStore");
+            keyStore.load(null);
+            PrivateKey privateKey = (PrivateKey) keyStore.getKey(keyAlias, null);
+            signature.initSign(privateKey);
+            signature.update(payload.getBytes());
+            byte[] signed = signature.sign();
+            String signedString = Base64.encodeToString(signed, Base64.DEFAULT);
+            signedString = signedString.replaceAll("\r", "").replaceAll("\n", "");
+            WritableMap result = new WritableNativeMap();
+            result.putBoolean("success", true);
+            result.putString("signature", signedString);
+            promise.resolve(result);
+        } catch (Exception e) {
+            promise.reject("SIGNPAYLOADERROR", e.getMessage());
         }
     }
 
