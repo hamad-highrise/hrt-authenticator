@@ -1,8 +1,10 @@
 import { getTransactionData, authenticateTransaction } from './api';
 import { getTokenByAccount } from './queries';
 import biometrics from '../../../util/biometrics';
+import keyGen from '../../../util/KeyGen';
 
 async function authTransaction(accId, tEndpoint) {
+    let result;
     try {
         const { token } = await getTokenByAccount(accId);
         const transaction = await getTransactionData(tEndpoint, token);
@@ -14,11 +16,19 @@ async function authTransaction(accId, tEndpoint) {
                 type,
                 state
             } = transaction;
-            const { success, signature } = await biometrics.signPayload({
-                promptMessage: 'Please Verify for authentication',
-                keyHandle,
-                payload: challenge
-            });
+            if (type === 'fingerprint') {
+                result = await biometrics.signPayload({
+                    promptMessage: 'Please Verify for authentication',
+                    keyHandle,
+                    payload: challenge
+                });
+            } else if (type === 'user_presence') {
+                result = await keyGen.signPayload({
+                    keyHandle,
+                    payload: challenge
+                });
+            }
+            const { success, signature } = result;
             if (success) {
                 const auth = await authenticateTransaction(
                     requestUrl,

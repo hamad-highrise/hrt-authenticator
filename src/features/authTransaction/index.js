@@ -14,7 +14,7 @@ const AuthProcess = (props) => {
         createdAt,
         transactionId
     } = props;
-    const onApprove = async () => {
+    const onApproveBiometric = async () => {
         try {
             const authResult = await authTransaction(id, endpoint);
             alert('Authenticated Success');
@@ -47,7 +47,7 @@ const AuthProcess = (props) => {
                     <Text style={styles.btnText}>Deny</Text>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    onPress={onApprove}
+                    onPress={onApproveBiometric}
                     style={{
                         ...styles.footerButton,
                         ...styles.footerBtnApprove
