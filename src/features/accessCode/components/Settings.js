@@ -7,21 +7,15 @@ import {
     Image,
     TouchableOpacity,
     KeyboardAvoidingView,
-    TextInput,
+    TextInput
 } from 'react-native';
 
 const Settings = ({ onPress }) => {
     const [AccType, setFunc] = useState('Normal');
 
     return (
-        // <Button
-        //     title="Remove Account"
-        //     style={styles.btn}
-        //     onPress={() => alert('Ye Account Hatao bhae')}
-        // />
         <View>
             <KeyboardAvoidingView
-                // style={styles.middles}
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
                 {AccType == 'Normal' ? (
                     <TouchableOpacity
@@ -65,7 +59,6 @@ const Settings = ({ onPress }) => {
                     style={styles.btn}
                     onPress={() => alert('hatao is account ko pleez')}
                 />
-                {/* <Modal style={styles.btn} title="WARNING" subtitle="This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?"/> */}
                 <Text
                     style={{
                         marginTop: 30,
