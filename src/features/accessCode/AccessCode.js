@@ -93,13 +93,6 @@ const AccessCode = (props) => {
         appState.current = nextAppState;
     };
 
-    const onSettings = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
-            id: props.id,
-            name: props.name,
-            issuer: props.issuer
-        });
-    };
     const updateOtp = () => {
         setOTP(TOTPGenerator(props.secret));
     };
@@ -133,7 +126,7 @@ const AccessCode = (props) => {
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
                 <View style={{ backgroundColor: 'black', height: 54 }}>
-                    <IconButton onPress={onSettings}>
+                    <IconButton onPress={onRefereshClick}>
                         <Image
                             source={require('../../assets/icons/refreshinvert.png')}
                             style={[

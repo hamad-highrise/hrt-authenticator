@@ -25,7 +25,7 @@ const Settings = ({ removeAccount }) => {
                     style: 'cancel'
                 },
                 {
-                    text: 'Yes, delete.',
+                    text: 'Yes, delete',
                     onPress: removeAccount,
                     style: 'destructive'
                 }
