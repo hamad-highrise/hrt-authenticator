@@ -1,7 +1,7 @@
 import Database from '../../util/sqlite/index.new';
 
 async function getToken(accId) {
-    const query = `SELECT token, endpoint, refresh_token, expires_at FROM tokens WHERE acccount_id = ?`;
+    const query = `SELECT token, endpoint, refresh_token, expires_at FROM tokens WHERE account_id = ?`;
     const params = [accId];
     const database = new Database();
     try {
@@ -14,14 +14,15 @@ async function getToken(accId) {
             token: tokenObj['token'],
             refreshToken: tokenObj['refresh_token'],
             endpoint: tokenObj['endpoint'],
-            expiresAt: tokenObj[expiresAt]
+            expiresAt: tokenObj['expires_at']
         });
     } catch (error) {
+        console.warn(error, 'OKAY');
         return Promise.reject(error);
     }
 }
 
-async function updateTokenDb({ token, refreshToken, expiry }, accId) {
+async function updateTokenDb({ token, refreshToken, expiry, accId }) {
     const query = `UPDATE tokens 
         SET 
         token = ?,
@@ -60,7 +61,9 @@ async function getAuthIdByAccount(accId) {
         for (let i = 0; i < result.rows.length; i++) {
             authId = result.rows.item(i);
         }
-        return Promise.resolve(await authId.authenticator_id);
+        return Promise.resolve({
+            authenticatorId: authId.authenticator_id
+        });
     } catch (error) {
         return Promise.reject(error);
     }
@@ -76,7 +79,9 @@ async function getEnrollmentEndpoint(accId) {
         for (let i = 0; i < result.rows.length; i++) {
             endpoint = result.rows.item(i);
         }
-        return Promise.resolve(await endpoint.enrollment_endpoint);
+        return Promise.resolve({
+            enrollmentEndpoint: endpoint.enrollment_endpoint
+        });
     } catch (error) {
         return Promise.reject(error);
     }

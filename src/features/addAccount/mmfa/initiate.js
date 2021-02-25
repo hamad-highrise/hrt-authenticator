@@ -1,10 +1,6 @@
 import getInsecureFetch from '../RNFetch';
 import { Platform } from 'react-native';
-import {
-    registerTotp,
-    registerUserPresence
-    // registerBiometrics
-} from './registerMethods';
+import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
 import convertToFormEncoded from './formData';
@@ -78,17 +74,6 @@ async function initiate(scanned) {
             token.token
         );
 
-        // const biometricResult = await registerBiometrics(
-        //     account.enrollmentEndpoint,
-        //     token.token
-        // );
-        // if (biometricResult) {
-        //     if (!biometricResult.respInfo.status === 200) {
-        //         resultObj.message = 'ERROR_REGISTERING_BIOMETRIC';
-        //         return resultObj;
-        //     }
-        // } else alert('INVALID_BIOMETRIC');
-
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
             return resultObj;
@@ -132,7 +117,9 @@ async function getToken(endpoint, data) {
             front_camera_support: data.frontCamera || false,
             os_version: data.OSVersion || 13,
             device_name: data.deviceName || 'Default Device Name',
-            device_rooted: data.deviceRooted || false
+            device_rooted: data.deviceRooted || false,
+            application_id: 'com.hrt.verify',
+            platform_type: data.deviceType
         };
         const result = await insecureFetch(
             'POST',

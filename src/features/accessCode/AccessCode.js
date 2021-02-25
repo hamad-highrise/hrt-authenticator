@@ -8,6 +8,7 @@ import styles from './styles';
 import TOTPGenerator from './totp';
 import services from './services';
 import { AccessCodeFragment, SettingsFragment } from './components';
+import { removeAccount } from '../services';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
@@ -66,6 +67,19 @@ const AccessCode = (props) => {
 
     const onRefereshClick = () => {
         getTran();
+    };
+
+    const handleRemoveAccount = async () => {
+        try {
+            const result = await removeAccount({
+                accId: props.id,
+                type: props.type
+            });
+            navigator.goToRoot(props.componentId);
+            alert(JSON.stringify(result));
+        } catch (error) {
+            console.warn(error);
+        }
     };
 
     const handleAppStateChange = (nextAppState) => {
@@ -193,7 +207,7 @@ const AccessCode = (props) => {
                 {fragment == 'CODE' ? (
                     <AccessCodeFragment otp={otp} counter={counter} />
                 ) : (
-                    <SettingsFragment />
+                    <SettingsFragment removeAccount={handleRemoveAccount} />
                 )}
             </View>
 

@@ -9,12 +9,7 @@ const Item = ({ account, onPress }) => {
             const mSecret = await accountQueries.getSecretByAccountId(
                 account['account_id']
             );
-            onPress(
-                account['account_id'],
-                account['account_name'],
-                account['issuer'],
-                mSecret
-            );
+            onPress({ ...account, mSecret });
         } catch (error) {
             alert(error);
         }
