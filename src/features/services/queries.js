@@ -21,7 +21,7 @@ async function getToken(accId) {
     }
 }
 
-async function updateToken({ token, refreshToken, expiry }, accId) {
+async function updateTokenDb({ token, refreshToken, expiry }, accId) {
     const query = `UPDATE tokens 
         SET 
         token = ?,
@@ -84,7 +84,7 @@ async function getEnrollmentEndpoint(accId) {
 
 export default {
     getToken,
-    updateToken,
+    updateTokenDb,
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB
@@ -92,7 +92,7 @@ export default {
 
 export {
     getToken,
-    updateToken,
+    updateTokenDb,
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB

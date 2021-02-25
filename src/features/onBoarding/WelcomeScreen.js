@@ -16,17 +16,21 @@ const WelcomeScreen = () => {
             await initiateDb();
             await setInitiated();
         } catch (error) {
-            alert(error);
+            alert(JSON.stringify(error));
         }
     };
     return (
         <View style={styles.container}>
-            <View style={{marginTop:20}}></View>
+            <View style={{ marginTop: 20 }}></View>
             <View>
                 <Text style={styles.welcome}>Welcome To Secure World!</Text>
             </View>
-            <Button style={styles.btn} title="Continue" onPress={() => navigator.setMainRoot()} />
-            <View style={{marginBottom:-50}}></View>
+            <Button
+                style={styles.btn}
+                title="Continue"
+                onPress={() => navigator.setMainRoot()}
+            />
+            <View style={{ marginBottom: -50 }}></View>
         </View>
     );
 };
@@ -45,15 +49,15 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         backgroundColor: '#fff',
-        paddingRight:25,
-        paddingLeft:25,
+        paddingRight: 25,
+        paddingLeft: 25
     },
     welcome: {
         fontSize: 32,
-        marginLeft:20,
+        marginLeft: 20,
         margin: 10,
         color: 'black',
-        fontWeight:'bold',
+        fontWeight: 'bold'
     },
     btn: {
         backgroundColor: '#1db4c4',
