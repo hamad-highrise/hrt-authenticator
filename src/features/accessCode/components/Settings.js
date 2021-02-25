@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Modal } from '../../../components';
+import { Button } from '../../../components';
 import styles from '../styles';
 import {
     View,
@@ -7,11 +7,31 @@ import {
     Image,
     TouchableOpacity,
     KeyboardAvoidingView,
-    TextInput
+    TextInput,
+    Alert
 } from 'react-native';
 
-const Settings = ({ onPress }) => {
+const Settings = ({ removeAccount }) => {
     const [AccType, setFunc] = useState('Normal');
+
+    const onRemovePress = async () => {
+        Alert.alert(
+            'Delete Account',
+            `This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?`,
+            [
+                {
+                    text: 'Cancel',
+                    onPress: () => null,
+                    style: 'cancel'
+                },
+                {
+                    text: 'Yes, delete',
+                    onPress: removeAccount,
+                    style: 'destructive'
+                }
+            ]
+        );
+    };
 
     return (
         <View>
@@ -57,7 +77,7 @@ const Settings = ({ onPress }) => {
                 <Button
                     title="Remove Account"
                     style={styles.btn}
-                    onPress={() => alert('hatao is account ko pleez')}
+                    onPress={onRemovePress}
                 />
                 <Text
                     style={{

@@ -8,6 +8,7 @@ import styles from './styles';
 import TOTPGenerator from './totp';
 import services from './services';
 import { AccessCodeFragment, SettingsFragment } from './components';
+import { removeAccount } from '../services';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
@@ -68,6 +69,19 @@ const AccessCode = (props) => {
         getTran();
     };
 
+    const handleRemoveAccount = async () => {
+        try {
+            const result = await removeAccount({
+                accId: props.id,
+                type: props.type
+            });
+            navigator.goToRoot(props.componentId);
+            alert(JSON.stringify(result));
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
     const handleAppStateChange = (nextAppState) => {
         if (
             //inactive of iOS and background for android
@@ -79,13 +93,6 @@ const AccessCode = (props) => {
         appState.current = nextAppState;
     };
 
-    const onSettings = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.accountSettings, {
-            id: props.id,
-            name: props.name,
-            issuer: props.issuer
-        });
-    };
     const updateOtp = () => {
         setOTP(TOTPGenerator(props.secret));
     };
@@ -119,7 +126,7 @@ const AccessCode = (props) => {
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
                 <View style={{ backgroundColor: 'black', height: 54 }}>
-                    <IconButton onPress={onSettings}>
+                    <IconButton onPress={onRefereshClick}>
                         <Image
                             source={require('../../assets/icons/refreshinvert.png')}
                             style={[
@@ -193,7 +200,7 @@ const AccessCode = (props) => {
                 {fragment == 'CODE' ? (
                     <AccessCodeFragment otp={otp} counter={counter} />
                 ) : (
-                    <SettingsFragment />
+                    <SettingsFragment removeAccount={handleRemoveAccount} />
                 )}
             </View>
 

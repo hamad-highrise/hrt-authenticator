@@ -7,7 +7,6 @@ import {
     AddAccountScreen,
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
-    AccountSettingScreen as Setting,
     CodeScreen,
     AuthScreen,
     BiometricOption
@@ -28,7 +27,6 @@ function registerScreens() {
     Navigation.registerComponent(screensId.main, () => MainScreen);
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
     Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
-    Navigation.registerComponent(screensId.accountSettings, () => Setting);
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
     Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
     Navigation.registerComponent(screensId.authTransaction, () => AuthScreen);

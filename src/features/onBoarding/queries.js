@@ -1,11 +1,14 @@
 //Single row table, will contain app data
 const appDataQuery = `
     CREATE TABLE IF NOT EXISTS "app_meta" (
-        "name" TEXT PRIMARY KEY NOT NULL
-    )
+        "id" TEXT UNIQUE NOT NULL,
+        "version" TEXT UNIQUE NOT NULL
+    );
 `;
 
-const appDataPopulate = ``;
+const appDataPopulate = `
+        INSERT INTO app_meta (id, version) VALUES (?,?);
+`;
 
 const accountTableQuery = `
 CREATE TABLE IF NOT EXISTS "accounts"(
