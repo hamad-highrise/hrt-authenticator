@@ -20,7 +20,6 @@ const AccessCode = (props) => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
-        getTran();
         updateOtp();
         return () => {
             //Here listeners are being removed on component unmount
