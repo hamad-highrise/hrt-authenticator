@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, AppState, TouchableOpacity } from 'react-native';
-import { IconButton, LoadingIndicator } from '../../components';
+import { IconButton } from '../../components';
 
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
@@ -14,7 +14,6 @@ const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
-    const [loading, setLoading] = useState(false);
 
     const appState = useRef(AppState.currentState);
     useEffect(() => {
@@ -34,9 +33,7 @@ const AccessCode = (props) => {
 
     const getTran = async () => {
         try {
-            setLoading(true);
             const result = await services.getTransactions(props.id);
-            setLoading(false);
             if (result.success) {
                 if (result.transaction) {
                     const {
@@ -56,7 +53,7 @@ const AccessCode = (props) => {
                             transactionId
                         }
                     );
-                } else alert('No Pending Transaction');
+                }
             } else if (result.message === 'SERVER_NO_DEVICE') {
                 alert('Device has been removed');
             } else {
@@ -73,13 +70,12 @@ const AccessCode = (props) => {
 
     const handleRemoveAccount = async () => {
         try {
-            setLoading(true);
             const result = await removeAccount({
                 accId: props.id,
                 type: props.type
             });
-            setLoading(false);
             navigator.goToRoot(props.componentId);
+            alert(JSON.stringify(result));
         } catch (error) {
             console.warn(error);
         }
@@ -109,130 +105,126 @@ const AccessCode = (props) => {
     const onSettingsSelect = () => setFragment('SETTINGS');
 
     return (
-        <>
-            {loading ? (
-                <LoadingIndicator show={loading} />
-            ) : (
-                <View style={styles.container}>
-                    <View style={styles.header}>
-                        <View style={{ backgroundColor: 'black', height: 54 }}>
-                            <IconButton onPress={onBackPress}>
-                                <Image
-                                    source={require('../../assets/icons/backarrowinvert.png')}
-                                    style={{
-                                        width: 25,
-                                        height: 35,
-                                        marginLeft: 6,
-                                        marginTop: 10
-                                    }}
-                                />
-                            </IconButton>
-                        </View>
-
-                        <View style={styles.title}>
-                            <Text style={styles.titleMainText}>
-                                Access Code
-                            </Text>
-                        </View>
-                        <View style={{ backgroundColor: 'black', height: 54 }}>
-                            <IconButton onPress={onRefereshClick}>
-                                <Image
-                                    source={require('../../assets/icons/refreshinvert.png')}
-                                    style={[
-                                        styles.iconBtn,
-                                        {
-                                            marginLeft: 9,
-                                            marginTop: 12,
-                                            width: 25,
-                                            height: 30
-                                        }
-                                    ]}
-                                />
-                            </IconButton>
-                        </View>
-                    </View>
-
-                    <View style={{ margin: 0 }}></View>
-                    <View style={styles.top}>
-                        <View style={styles.title}>
-                            <Text style={styles.titleText}>{props.name}</Text>
-                            <Text style={styles.titleIDText}>
-                                {props.issuer}
-                            </Text>
-                        </View>
-                    </View>
-                    <View style={styles.middle}>
-                        <View style={styles.slectorContainer}>
-                            <TouchableOpacity
-                                onPress={onCodeSelect}
-                                style={[
-                                    styles.selector,
-                                    fragment === 'CODE'
-                                        ? {
-                                              ...styles.selected,
-                                              ...styles.selectedLeft
-                                          }
-                                        : {
-                                              ...styles.selectedInvert,
-                                              ...styles.selectedInvertLeft
-                                          }
-                                ]}>
-                                <Text
-                                    style={[
-                                        styles.selectorText,
-                                        fragment === 'CODE' &&
-                                            styles.selectedText
-                                    ]}>
-                                    Access Code
-                                </Text>
-                            </TouchableOpacity>
-                            <View style={styles.selectorSeparator} />
-                            <TouchableOpacity
-                                onPress={onSettingsSelect}
-                                style={[
-                                    styles.selector,
-                                    fragment === 'SETTINGS'
-                                        ? {
-                                              ...styles.selected,
-                                              ...styles.selectedRight
-                                          }
-                                        : {
-                                              ...styles.selectedInvert,
-                                              ...styles.selectedInvertRight
-                                          }
-                                ]}>
-                                <Text
-                                    style={[
-                                        styles.selectorText,
-                                        fragment === 'SETTINGS' &&
-                                            styles.selectedText
-                                    ]}>
-                                    Settings
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.bottom}>
-                        {fragment == 'CODE' ? (
-                            <AccessCodeFragment otp={otp} counter={counter} />
-                        ) : (
-                            <SettingsFragment
-                                removeAccount={handleRemoveAccount}
-                            />
-                        )}
-                    </View>
-
-                    <View style={{ margin: 10 }}></View>
+        <View style={styles.container}>
+            <View style={styles.header}>
+                <View style={{ backgroundColor: 'black', height: 54 }}>
+                    <IconButton onPress={onBackPress}>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={{
+                                width: 25,
+                                height: 35,
+                                marginLeft: 6,
+                                marginTop: 10
+                            }}
+                        />
+                    </IconButton>
                 </View>
-            )}
-        </>
+
+                <View style={styles.title}>
+                    <Text style={styles.titleMainText}>Access Code</Text>
+                </View>
+                <View style={{ backgroundColor: 'black', height: 54 }}>
+                    <IconButton onPress={onRefereshClick}>
+                        <Image
+                            source={require('../../assets/icons/refreshinvert.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 9,
+                                    marginTop: 12,
+                                    width: 25,
+                                    height: 30
+                                }
+                            ]}
+                        />
+                    </IconButton>
+                </View>
+            </View>
+
+            <View style={{ margin: 0 }}></View>
+            <View style={styles.top}>
+                <View style={styles.title}>
+                    <Text style={styles.titleText}>{props.name}</Text>
+                    <Text style={styles.titleIDText}>{props.issuer}</Text>
+                </View>
+            </View>
+            <View style={styles.middle}>
+                <View style={styles.slectorContainer}>
+                    <TouchableOpacity
+                        onPress={onCodeSelect}
+                        style={[
+                            styles.selector,
+                            fragment === 'CODE'
+                                ? { ...styles.selected, ...styles.selectedLeft }
+                                : {
+                                      ...styles.selectedInvert,
+                                      ...styles.selectedInvertLeft
+                                  }
+                        ]}>
+                        <Text
+                            style={[
+                                styles.selectorText,
+                                fragment === 'CODE' && styles.selectedText
+                            ]}>
+                            Access Code
+                        </Text>
+                    </TouchableOpacity>
+                    <View style={styles.selectorSeparator} />
+                    <TouchableOpacity
+                        onPress={onSettingsSelect}
+                        style={[
+                            styles.selector,
+                            fragment === 'SETTINGS'
+                                ? {
+                                      ...styles.selected,
+                                      ...styles.selectedRight
+                                  }
+                                : {
+                                      ...styles.selectedInvert,
+                                      ...styles.selectedInvertRight
+                                  }
+                        ]}>
+                        <Text
+                            style={[
+                                styles.selectorText,
+                                fragment === 'SETTINGS' && styles.selectedText
+                            ]}>
+                            Settings
+                        </Text>
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.bottom}>
+                {fragment == 'CODE' ? (
+                    <AccessCodeFragment otp={otp} counter={counter} />
+                ) : (
+                    <SettingsFragment removeAccount={handleRemoveAccount} />
+                )}
+            </View>
+
+            <View style={{ margin: 10 }}></View>
+        </View>
     );
 };
 
 AccessCode.propTypes = {
     secret: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    server: PropTypes.string.isRequired
+    name: PropTypes.string,
+    server: PropTypes.string
+};
+
+AccessCode.defaultProps = {
+    name: '*Account Name*',
+    server: '*Server Name*',
+    issuer: '*test.isd*',
+    secret: '*000000*'
+};
+
+AccessCode.options = {
+    topBar: {
+        visible: false
+    }
 };
 
 export default AccessCode;
