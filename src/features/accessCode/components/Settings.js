@@ -65,14 +65,14 @@ const Settings = ({ removeAccount }) => {
                         <View style={styles.listitemView}>
                             <Text style={styles.listitemText}>Biometric</Text>
                             <Image
-                                source={require('../../../assets/icons/backarrowinvert.png')}
+                                source={require('../../../assets/icons/backarrowblack.png')}
                                 style={styles.img}
                             />
                         </View>
                     </TouchableOpacity>
                 )}
             </KeyboardAvoidingView>
-            <View style={{ margin: 5 }} />
+            <View style={{ margin: 10 }} />
             <View>
                 <Button
                     title="Remove Account"
@@ -81,9 +81,10 @@ const Settings = ({ removeAccount }) => {
                 />
                 <Text
                     style={{
-                        marginTop: 30,
+                        marginTop: 12,
                         alignSelf: 'center',
-                        fontSize: 14
+                        fontSize: 16,
+                        paddingHorizontal: 12,
                     }}>
                     Removing this account may prevent you from verifying in the
                     future.

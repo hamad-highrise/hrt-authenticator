@@ -11,29 +11,14 @@ const TopNavbar = ({
     param,
     RightIcon
 }) => {
-
     const [rIcon, setRight] = useState('');
 
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
-                    <IconButton onPress={imageBackOnPress}>
-                        <Image
-                            // source={{ uri: imageUrlBack }}
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={styles.iconBtn}
-                        />
-                    </IconButton>
-                </View>
-
-                <View>
-                    <Text style={styles.titleMainText}> {title} </Text>
-                </View>
-
-                {RightIcon == "YES" ? (
+                {RightIcon == 'YES' ? (
                     <View
-                        style={[styles.iconBtnContainer, { marginRight: 18 }]}>
+                        style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
                         <IconButton onPress={imageBackOnPress}>
                             <Image
                                 // source={{ uri: {imageUrlRight} }}
@@ -42,9 +27,20 @@ const TopNavbar = ({
                             />
                         </IconButton>
                     </View>
-                ) : (
-                    <Text></Text>
-                )}
+                ) : null}
+                <View style={{ margin: 30 }}>
+                    <Text style={styles.titleMainText}> {title} </Text>
+                </View>
+
+                <View style={[styles.iconBtnContainer, { marginRight: 18 }]}>
+                    <IconButton onPress={imageBackOnPress}>
+                        <Image
+                            // source={{ uri: imageUrlBack }}
+                            source={require('../../assets/icons/crossblack.png')}
+                            style={styles.iconBtn}
+                        />
+                    </IconButton>
+                </View>
             </View>
         </View>
     );
@@ -62,7 +58,7 @@ TopNavbar.propTypes = {
 
 TopNavbar.defaultProps = {
     // imageUrlBack: "https://cdn.iconscout.com/icon/free/png-512/settings-410-461751.png",
-    imageUrlBack: '../../assets/icons/addinvert.png',
+    imageUrlBack: '../../assets/icons/backarrowinvert.png',
     imageUrlRight: '../../assets/icons/settings2invert.png',
     title: 'HRT',
     imageBackOnPress: () => alert('Back'),
@@ -73,22 +69,21 @@ export default TopNavbar;
 
 const styles = StyleSheet.create({
     container: {
-        elevation: 8,
-        borderRadius: 2,
-        paddingVertical: 18,
-        paddingHorizontal: 12
+        // elevation: 8,
+        paddingVertical: 27,
+        paddingHorizontal: 12,
+        // backgroundColor: 'black',
     },
     large: {},
     small: {},
     header: {
-        elevation: 10,
+        // elevation: 10,
         flexDirection: 'row',
-        height: 65,
+        height: 49,
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
-        backgroundColor: 'black',
+        // borderBottomColor: 'black',
+        // borderBottomWidth: 1,
         paddingTop: 10,
         margin: -30
     },
@@ -96,19 +91,20 @@ const styles = StyleSheet.create({
         marginLeft: 20
     },
     titleMainText: {
-        color: 'white',
+        color: 'black',
         justifyContent: 'center',
-        fontSize: 16,
+        fontSize: 18,
         fontWeight: 'bold'
     },
     iconBtnContainer: {
-        backgroundColor: 'black',
-        height: 55
+        // backgroundColor: 'black',
+        // transform:[{rotate:'45deg'}],
+        // height: 55
     },
     iconBtn: {
-        width: 30,
-        height: 30,
-        marginTop: 14,
-        marginLeft: 5,
+        width: 25,
+        height: 25,
+        marginTop: 10,
+        // marginLeft: 5
     }
 });

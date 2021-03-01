@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import { Navigation } from 'react-native-navigation';
-import { Dimensions, Image, StyleSheet, View } from 'react-native';
+import { Dimensions, Image, StyleSheet, View, Text } from 'react-native';
 import { Button, TopNavbar } from '../../components';
 import navigation from '../../navigation';
 const AddScreen = (props) => {
@@ -26,26 +26,29 @@ const AddScreen = (props) => {
     };
     return (
         <View>
-            <TopNavbar title="Add Account" RightIcon="NO"></TopNavbar>
+            <TopNavbar title="Connect an account" RightIcon="NO"></TopNavbar>
 
             <View style={styles.container}>
-                <View style={{ margin: 25 }} />
+                <View>
+                    <Text style={styles.heading}>
+                        Scan the QR code on your computer
+                    </Text>
+                </View>
                 <View>
                     <Image
-                        source={require('../../assets/images/add3.png')}
+                        source={require('../../assets/images/2typeAcc2.png')}
                         style={styles.image}
                     />
                 </View>
-                <View style={{ margin: 35 }} />
                 <View>
                     <Button
                         title="Scan QR Code"
                         style={styles.btn}
                         onPress={onQrScanClick}
                     />
-                    <View style={{ margin: 12 }} />
+                    <View style={{ margin: 8 }} />
                     <Button
-                        title="Add Manually"
+                        title="Enter code manually"
                         onPress={onManualCodeClick}
                         style={styles.btnInvert}
                     />
@@ -65,38 +68,35 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center'
+        alignItems: 'center',
+    },
+    heading: {
+        fontSize: 32,
+        margin: 30,
+        lineHeight: 45
     },
     image: {
         width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').height * 0.4,
+        height: Dimensions.get('window').height * 0.37,
         alignItems: 'center'
     },
     btn: {
-        backgroundColor: '#ff8544',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
-        color: 'white',
         borderWidth: 0,
-        fontWeight: 'bold',
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center',
-        textTransform: 'uppercase',
-
-        width: Dimensions.get('window').width * 0.7
     },
     btnInvert: {
-        backgroundColor: '#1c9db2',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: 'lightgrey',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
         borderWidth: 0,
-        fontWeight: 'bold',
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center',
-        textTransform: 'uppercase',
-        width: Dimensions.get('window').width * 0.7
     },
     titleMainText: {
         color: 'white',

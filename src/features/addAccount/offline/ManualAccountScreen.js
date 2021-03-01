@@ -127,18 +127,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
-        backgroundColor: '#ff8544',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
         borderWidth: 0,
-        fontWeight: 'bold',
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center',
-        textTransform: 'uppercase',
-
-        width: Dimensions.get('window').width * 0.7
-    }
+    },
 });
 
 export default CodeAccount;

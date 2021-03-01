@@ -60,15 +60,11 @@ const styles = StyleSheet.create({
         fontWeight: 'bold'
     },
     btn: {
-        backgroundColor: '#1db4c4',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
         borderWidth: 0,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-
+        borderRadius: 0,
         width: Dimensions.get('window').width * 0.7
-    }
+    },
 });

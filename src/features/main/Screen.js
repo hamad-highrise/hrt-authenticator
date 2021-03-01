@@ -113,7 +113,7 @@ const Main = (props) => {
                 <View>
                     <IconButton onPress={onPressHandlerAccessCode}>
                         <Image
-                            source={require('../../assets/icons/settings2invert.png')}
+                            source={require('../../assets/icons/settings2black.png')}
                             style={[
                                 styles.iconBtn,
                                 {
@@ -126,12 +126,12 @@ const Main = (props) => {
                 </View>
 
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>HRT Verify</Text>
+                    <Text style={styles.titleText}>HRT Security Verify</Text>
                 </View>
                 <View>
                     <IconButton onPress={onPressHandler}>
                         <Image
-                            source={require('../../assets/icons/addinvert.png')}
+                            source={require('../../assets/icons/qr_code2.png')}
                             style={{ marginLeft: -10, marginTop: -3 }}
                         />
                     </IconButton>
@@ -152,22 +152,20 @@ Main.options = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'black'
+        // backgroundColor: 'black'
     },
     header: {
         flexDirection: 'row',
         height: 50,
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: 'black',
-        borderBottomWidth: 1
     },
     title: {
         marginLeft: 20
     },
     titleText: {
-        color: 'white',
-        fontSize: 18,
+        color: 'black',
+        fontSize: 16,
         fontWeight: 'bold'
     },
     iconBtn: {
@@ -175,7 +173,7 @@ const styles = StyleSheet.create({
         height: 37
     },
     SListitem: {
-        backgroundColor: 'white',
+        // backgroundColor: 'white',
         padding: 20,
         marginVertical: 0.12,
         flexDirection: 'row',
