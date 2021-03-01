@@ -50,5 +50,32 @@ async function authTransaction(accId, tEndpoint) {
     }
 }
 
-export default { authTransaction };
-export { authTransaction };
+async function rejectTransaction({ accId, tEndpoint }) {
+    let result;
+    try {
+        const { token } = await getTokenByAccount(accId);
+        const transaction = await getTransactionData(tEndpoint, token);
+        if (transaction.message === 'SUCCESS') {
+            const { challenge, requestUrl, state } = transaction;
+
+            const auth = await authenticateTransaction(
+                requestUrl,
+                token,
+                state,
+                'transaction-reject-workaround-till-next-time'
+            );
+            if (auth.message === 'NOT_AUTHENTICATED') {
+                return Promise.resolve();
+            } else alert('Error REJECTING');
+        } else {
+            alert('Error getting data');
+        }
+        return Promise.resolve();
+    } catch (error) {
+        console.warn(error);
+        return Promise.reject(error);
+    }
+}
+
+export default { authTransaction, rejectTransaction };
+export { authTransaction, rejectTransaction };
