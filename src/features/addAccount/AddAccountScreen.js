@@ -46,7 +46,7 @@ const AddScreen = (props) => {
                         style={styles.btn}
                         onPress={onQrScanClick}
                     />
-                    <View style={{ margin: 12 }} />
+                    <View style={{ margin: 8 }} />
                     <Button
                         title="Enter code manually"
                         onPress={onManualCodeClick}
@@ -68,7 +68,7 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center'
+        alignItems: 'center',
     },
     heading: {
         fontSize: 32,
@@ -76,8 +76,8 @@ const styles = StyleSheet.create({
         lineHeight: 45
     },
     image: {
-        width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').height * 0.4,
+        width: Dimensions.get('window').width * 0.7,
+        height: Dimensions.get('window').height * 0.37,
         alignItems: 'center'
     },
     btn: {
@@ -86,7 +86,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderWidth: 0,
         borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center',
     },
     btnInvert: {
         backgroundColor: 'lightgrey',
@@ -94,7 +95,8 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         borderWidth: 0,
         borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center',
     },
     titleMainText: {
         color: 'white',

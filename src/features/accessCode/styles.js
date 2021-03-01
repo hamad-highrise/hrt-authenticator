@@ -77,7 +77,7 @@ export default StyleSheet.create({
         backgroundColor: 'black'
     },
     selected: {
-        backgroundColor: '#1c9db2'
+        backgroundColor: '#0f62fe'
     },
     selectedLeft: {
         borderTopLeftRadius: 10,
@@ -101,24 +101,20 @@ export default StyleSheet.create({
 
     selectorText: {
         fontSize: 15,
-        color: '#1c9db2',
+        color: '#0f62fe',
         fontWeight: 'bold'
     },
     selectedText: {
         color: 'white'
     },
     btn: {
-        backgroundColor: '#ff8544',
-        borderRadius: 4,
-        paddingVertical: 25,
-        paddingHorizontal: 12,
-        fontSize: 14,
-        color: 'white',
+        backgroundColor: 'red',
+        paddingVertical: 13,
+        // paddingHorizontal: 12,
         borderWidth: 0,
-        fontWeight: 'bold',
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.9,
         alignSelf: 'center',
-        textTransform: 'uppercase',
-        width: Dimensions.get('window').width * 0.7
     },
     middles: {
         flex: 0.12
@@ -128,9 +124,9 @@ export default StyleSheet.create({
     },
     listitem: {
         padding: 13,
-        backgroundColor: '#1c9db208',
+        backgroundColor: '#0f62fe08',
         borderBottomWidth: 2,
-        borderColor: '#1c9db2',
+        borderColor: '#0f62fe',
         justifyContent: 'space-between'
     },
     listitemView: {
@@ -146,9 +142,9 @@ export default StyleSheet.create({
     img: {
         width: 30,
         height: 28,
-        transform: [{ rotate: '180deg' }],
-        backgroundColor: '#e57f01',
-        borderRadius: 10
+        // transform: [{ rotate: '180deg' }],
+        // backgroundColor: '#e57f01',
+        // borderRadius: 10
     },
     imgg: {
         width: 25,
