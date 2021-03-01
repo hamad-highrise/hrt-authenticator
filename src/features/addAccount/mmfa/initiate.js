@@ -66,7 +66,7 @@ async function initiate(scanned) {
         const token = {
             token: tokenObj['access_token'],
             refreshToken: tokenObj['refresh_token'],
-            expiry: tokenObj['expires_in'],
+            expiry: getExpiryInSeconds(tokenObj['expires_in']),
             tokenEndpoint: details['token_endpoint']
         };
         const presenceResult = await registerUserPresence(
@@ -134,6 +134,10 @@ async function getToken(endpoint, data) {
     } catch (error) {
         return Promise.reject(error);
     }
+}
+
+function getExpiryInSeconds(expiresIn) {
+    return Math.floor(Date.now() / 1000) + expiresIn;
 }
 
 export default initiate;

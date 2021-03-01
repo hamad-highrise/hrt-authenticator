@@ -58,7 +58,8 @@ async function getToken(accId) {
         const { token, expiresAt, endpoint, refreshToken } = await db.getToken(
             accId
         );
-        if (false /* condition for token expiry*/) {
+        if (!isTokenValid(expiresAt)) {
+            console.warn('Token refreshed');
             //here token expiry will be handled
             const result = await apiRequests.getRefreshedToken({
                 endpoint,
@@ -86,7 +87,7 @@ async function getToken(accId) {
                 });
             } else {
                 //some unhandeled error has occured
-                return Promise.reject({
+                return Promise.resolve({
                     success: false,
                     message: 'UNKNOWN_ERROR'
                 });
@@ -102,6 +103,11 @@ async function getToken(accId) {
     } catch (error) {
         return Promise.reject(error);
     }
+}
+
+function isTokenValid(expiresAt) {
+    const currentTime = Math.floor(Date.now() / 1000); //time in seconds
+    return expiresAt > currentTime && expiresAt - currentTime > 5;
 }
 
 export { getToken, removeAccount };
