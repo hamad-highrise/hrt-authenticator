@@ -1,14 +1,12 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, AppState, TouchableOpacity } from 'react-native';
 import { IconButton } from '../../components';
-
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
-import services from './services';
 import { AccessCodeFragment, SettingsFragment } from './components';
-import { removeAccount } from '../services';
+import { removeAccount, getTransactions } from '../services';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
@@ -46,7 +44,7 @@ const AccessCode = (props) => {
 
     const getTran = async () => {
         try {
-            const result = await services.getTransactions(props.id);
+            const result = await getTransactions({ accId: props.id });
             if (result.success) {
                 if (result.transaction) {
                     const {
