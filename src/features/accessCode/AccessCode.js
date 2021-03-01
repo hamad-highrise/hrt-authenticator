@@ -17,7 +17,7 @@ const AccessCode = (props) => {
     const appState = useRef(AppState.currentState);
     useEffect(() => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
-        transaction.available &&
+        props?.transaction?.available &&
             navigator.goTo(
                 props.componentId,
                 navigator.screenIds.authTransaction,
