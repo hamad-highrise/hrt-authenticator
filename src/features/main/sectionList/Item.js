@@ -16,9 +16,9 @@ const Item = ({ account, onPress }) => {
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
-            <Text style={styles.SListheader}> {account['account_name']}</Text>
-            <Text style={styles.SListtitle}> {account['issuer']}</Text>
-            {!true && (
+            <Text style={styles.SListheader}>{account['account_name']}</Text>
+            <Text style={styles.SListtitle}>{account['issuer']}</Text>
+            {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
             {!true && (

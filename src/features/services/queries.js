@@ -1,5 +1,21 @@
 import Database from '../../util/sqlite/index.new';
 
+async function getTransactionEndpoint(accId) {
+    const query = `SELECT transaction_endpoint FROM accounts WHERE account_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let transaction_endpoint;
+        for (let i = 0; i < result.rows.length; i++) {
+            transaction_endpoint = result.rows.item(i).transaction_endpoint;
+        }
+        return Promise.resolve({ transactionEndpoint: transaction_endpoint });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 async function getToken(accId) {
     const query = `SELECT token, endpoint, refresh_token, expires_at FROM tokens WHERE account_id = ?`;
     const params = [accId];
@@ -17,7 +33,6 @@ async function getToken(accId) {
             expiresAt: tokenObj['expires_at']
         });
     } catch (error) {
-        console.warn(error, 'OKAY');
         return Promise.reject(error);
     }
 }
@@ -92,7 +107,8 @@ export default {
     updateTokenDb,
     getEnrollmentEndpoint,
     getAuthIdByAccount,
-    removeAccountDB
+    removeAccountDB,
+    getTransactionEndpoint
 };
 
 export {
@@ -100,5 +116,6 @@ export {
     updateTokenDb,
     getEnrollmentEndpoint,
     getAuthIdByAccount,
-    removeAccountDB
+    removeAccountDB,
+    getTransactionEndpoint
 };

@@ -1,23 +1,34 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { View, Text, Image, AppState, TouchableOpacity } from 'react-native';
 import { IconButton } from '../../components';
-
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import TOTPGenerator from './totp';
-import services from './services';
 import { AccessCodeFragment, SettingsFragment } from './components';
-import { removeAccount } from '../services';
+import { removeAccount, getTransactions } from '../services';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
+    const { transaction } = props;
 
     const appState = useRef(AppState.currentState);
     useEffect(() => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
+        transaction.available &&
+            navigator.goTo(
+                props.componentId,
+                navigator.screenIds.authTransaction,
+                {
+                    id: props.id,
+                    message: transaction.displayMessage,
+                    endpoint: transaction.requestUrl,
+                    createdAt: transaction.createdAt,
+                    transactionId: transaction.transactionId
+                }
+            );
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
         updateOtp();
@@ -33,7 +44,7 @@ const AccessCode = (props) => {
 
     const getTran = async () => {
         try {
-            const result = await services.getTransactions(props.id);
+            const result = await getTransactions({ accId: props.id });
             if (result.success) {
                 if (result.transaction) {
                     const {
