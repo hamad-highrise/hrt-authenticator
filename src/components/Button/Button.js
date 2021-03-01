@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text,Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
 import PropTypes from 'prop-types';
 
 const AndroidButton = ({ title, onPress, style, param }) => {
@@ -41,12 +41,10 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12
     },
     label: {
-        fontSize: 14,
+        fontSize: 16,
         color: 'white',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase'
+        marginLeft: 10
     },
     large: {},
-    small: {},
+    small: {}
 });

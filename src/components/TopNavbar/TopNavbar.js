@@ -27,7 +27,7 @@ const TopNavbar = ({
                     </IconButton>
                 </View>
 
-                <View>
+                <View style={{margin:30}}>
                     <Text style={styles.titleMainText}> {title} </Text>
                 </View>
 
@@ -43,7 +43,7 @@ const TopNavbar = ({
                         </IconButton>
                     </View>
                 ) : (
-                    <Text></Text>
+                    null
                 )}
             </View>
         </View>
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         color: 'white',
         justifyContent: 'center',
         fontSize: 16,
-        fontWeight: 'bold'
+        // fontWeight: 'bold'
     },
     iconBtnContainer: {
         backgroundColor: 'black',
