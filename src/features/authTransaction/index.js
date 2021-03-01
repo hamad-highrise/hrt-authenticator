@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
-import { authTransaction } from './services';
+import { authTransaction, rejectTransaction } from './services';
 import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
@@ -17,16 +17,23 @@ const AuthProcess = (props) => {
     const onApproveBiometric = async () => {
         try {
             const authResult = await authTransaction(id, endpoint);
-            alert('Authenticated Success');
         } catch (error) {
             alert(error);
         } finally {
             navigator.goToRoot(componentId);
         }
     };
-    const onReject = () => {
-        navigator.goToRoot(componentId);
-        alert('Reject');
+    const onReject = async () => {
+        try {
+            const authResult = await rejectTransaction({
+                accId: id,
+                tEndpoint: endpoint
+            });
+        } catch (error) {
+            alert(error);
+        } finally {
+            navigator.goToRoot(componentId);
+        }
     };
     return (
         <View style={styles.container}>
