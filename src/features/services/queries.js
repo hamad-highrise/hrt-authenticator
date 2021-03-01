@@ -3,6 +3,7 @@ import Database from '../../util/sqlite/index.new';
 async function getTransactionEndpoint(accId) {
     const query = `SELECT transaction_endpoint FROM accounts WHERE account_id = ?;`;
     const params = [accId];
+    const database = new Database();
     try {
         const [result] = await database.executeQuery(query, params);
         let transaction_endpoint;
@@ -32,7 +33,6 @@ async function getToken(accId) {
             expiresAt: tokenObj['expires_at']
         });
     } catch (error) {
-        console.warn(error, 'OKAY');
         return Promise.reject(error);
     }
 }

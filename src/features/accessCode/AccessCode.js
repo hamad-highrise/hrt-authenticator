@@ -14,10 +14,23 @@ const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
+    const { transaction } = props;
 
     const appState = useRef(AppState.currentState);
     useEffect(() => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
+        transaction.available &&
+            navigator.goTo(
+                props.componentId,
+                navigator.screenIds.authTransaction,
+                {
+                    id: props.id,
+                    message: transaction.displayMessage,
+                    endpoint: transaction.requestUrl,
+                    createdAt: transaction.createdAt,
+                    transactionId: transaction.transactionId
+                }
+            );
         AppState.addEventListener('change', handleAppStateChange);
         const x = setInterval(timer, 1000);
         updateOtp();
