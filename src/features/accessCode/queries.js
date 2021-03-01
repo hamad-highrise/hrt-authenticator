@@ -49,6 +49,8 @@ async function getTransactionEndpoint(accId) {
     }
 }
 
+export { getTokenByAccount, getTransactionEndpoint, updateToken };
+
 async function removeAccountDB(accId) {
     const query = `DELETE FROM accounts WHERE account_id = ?;`;
     const params = [accId];
@@ -89,5 +91,3 @@ async function getEnrollmentEndpoint(accId) {
         return Promise.reject(error);
     }
 }
-
-export { getTokenByAccount, getTransactionEndpoint, updateToken };

@@ -1,5 +1,48 @@
 import apiRequests from './api';
 import db from './queries';
+import { processTransaction } from './transaction';
+
+async function getTransactions({ accId, secure }) {
+    try {
+        const { token, success, message } = await getToken(accId);
+
+        if (success) {
+            const { transactionEndpoint } = await db.getTransactionEndpoint(
+                accId
+            );
+            const result = await apiRequests.getPendingTransactions({
+                endpoint: transactionEndpoint,
+                token,
+                secure
+            });
+            if (result.respInfo.status === 200) {
+                const processed = processTransaction(
+                    result.json()[
+                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
+                    ]
+                );
+                return Promise.resolve({
+                    transaction: processed,
+                    success: true,
+                    message: 'SUCCESS'
+                });
+            } else {
+                return Promise.resolve({
+                    success: false,
+                    message: 'GET_TRANS_ERROR_!200'
+                });
+            }
+        } else {
+            //evaluate message
+            return Promise.resolve({
+                success: false,
+                message: 'TOKEN_ERROR'
+            });
+        }
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 
 async function removeAccount({ accId, type, ignoreSsl }) {
     try {
@@ -110,6 +153,6 @@ function isTokenValid(expiresAt) {
     return expiresAt > currentTime && expiresAt - currentTime > 5;
 }
 
-export { getToken, removeAccount };
+export { getToken, removeAccount, getTransactions };
 export { default as getFetchInstance } from './RNFetch';
 export { default as encodeFormData } from './formData';

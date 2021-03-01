@@ -1,34 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
-import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks';
-import accountQueries from './queries';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
+import { useAccounts } from './useAccounts';
 
 const Main = (props) => {
-    const [accounts, setAccounts] = useState([]);
-
-    const getAllAccounts = async () => {
-        try {
-            const mAccounts = await accountQueries.getAll();
-            //check accounts if empty
-            setAccounts(mAccounts);
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
-    useNavigationComponentDidAppear(
-        () => {
-            getAllAccounts();
-        },
-        { componentId: props.componentId }
-    );
-
-    useEffect(() => {
-        getAllAccounts();
-    }, []);
+    const { accounts } = useAccounts({ componentId: props.componentId });
 
     const onPressHandler = () => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);

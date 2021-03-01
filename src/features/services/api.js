@@ -1,6 +1,21 @@
 import { getFetchInstance } from './RNFetch';
 import { encodeFormData } from './formData';
 
+async function getPendingTransactions({ endpoint, token, secure }) {
+    const rnFetch = getFetchInstance({ secure });
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+    };
+    try {
+        const result = await rnFetch('GET', endpoint, headers);
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 async function removeDeviceFromSam({ endpoint, authId, token, secure }) {
     const rnFetch = getFetchInstance({ secure });
     const url =
@@ -94,5 +109,15 @@ async function getRefreshedToken({ endpoint, refreshToken, secure }) {
     }
 }
 
-export default { removeDeviceFromSam, unregisterTotp, getRefreshedToken };
-export { removeDeviceFromSam, unregisterTotp, getRefreshedToken };
+export default {
+    removeDeviceFromSam,
+    unregisterTotp,
+    getRefreshedToken,
+    getPendingTransactions
+};
+export {
+    removeDeviceFromSam,
+    unregisterTotp,
+    getRefreshedToken,
+    getPendingTransactions
+};
