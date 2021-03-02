@@ -6,10 +6,10 @@ import accountQueries from '../queries';
 const Item = ({ account, onPress }) => {
     const onAccountPress = async () => {
         try {
-            const mSecret = await accountQueries.getSecretByAccountId(
+            const secret = await accountQueries.getSecretByAccountId(
                 account['account_id']
             );
-            onPress({ ...account, mSecret });
+            onPress({ ...account, secret });
         } catch (error) {
             alert(error);
         }

@@ -26,7 +26,12 @@ const AddScreen = (props) => {
     };
     return (
         <View>
-            <TopNavbar title="Connect an account" RightIcon="NO"></TopNavbar>
+            <TopNavbar
+                title="Connect an account"
+                RightIcon="NO"
+                imageBackOnPress={() =>
+                    navigation.goBack(props.componentId)
+                }></TopNavbar>
 
             <View style={styles.container}>
                 <View>
@@ -68,7 +73,7 @@ export default AddScreen;
 
 const styles = StyleSheet.create({
     container: {
-        alignItems: 'center',
+        alignItems: 'center'
     },
     heading: {
         fontSize: 32,
@@ -87,7 +92,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     btnInvert: {
         backgroundColor: 'lightgrey',
@@ -96,7 +101,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     titleMainText: {
         color: 'white',
