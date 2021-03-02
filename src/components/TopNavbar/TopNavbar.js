@@ -102,7 +102,7 @@ const styles = StyleSheet.create({
         // height: 55
     },
     iconBtn: {
-        width: 25,
+        width:25,
         height: 25,
         marginTop: 10,
         // marginLeft: 5

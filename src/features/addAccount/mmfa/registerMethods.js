@@ -69,7 +69,7 @@ async function registerBiometrics(endpoint, token) {
         // const {} = await biometrics.
 
         const { success } = await biometrics.showBiometricPrompt({
-            promptMessage: 'Please verify you fingerprint',
+            promptMessage: 'Please verify your fingerprint',
             cancelButtonText: 'Cancel'
         });
         if (success) {
