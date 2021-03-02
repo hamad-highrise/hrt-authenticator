@@ -109,15 +109,14 @@ async function getToken(accId) {
         const { token, expiresAt, endpoint, refreshToken } = await db.getToken(
             accId
         );
+        //TODO: Only token expiry is being handeled here. Need to implement device deletion on individual requests to server.
         if (!isTokenValid(expiresAt)) {
-            console.warn('Token refreshed');
             //here token expiry will be handled
             const result = await apiRequests.getRefreshedToken({
                 endpoint,
                 refreshToken,
                 secure: false
             });
-            console.warn(result.json());
             if (result.respInfo.status === 200) {
                 //token has been refreshed successfully
                 const {
