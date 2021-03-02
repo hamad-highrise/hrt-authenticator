@@ -13,12 +13,14 @@ async function preventScreenshot() {
 async function getDeviceInfo() {
     try {
         const info = await utilities.getDeviceInfo();
-        const { type, oSVersion, frontCameraAvailable, name } = info;
+        console.warn(info);
+        const { type, oSVersion, frontCameraAvailable, name, rooted } = info;
         return Promise.resolve({
             type,
             osVersion: oSVersion,
             frontCameraAvailable,
-            name
+            name,
+            rooted
         });
     } catch (error) {
         return Promise.reject(error);
@@ -43,8 +45,17 @@ async function setInitiated() {
     }
 }
 
-function vibrate(duration) {
+function vibrate() {
     Vibration.vibrate();
+}
+
+async function getUUID() {
+    try {
+        const { uuid } = await utilities.getUUID();
+        return Promise.resolve({ uuid });
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 export default {
@@ -52,6 +63,14 @@ export default {
     getDeviceInfo,
     isInitiated,
     setInitiated,
-    vibrate
+    vibrate,
+    getUUID
 };
-export { preventScreenshot, getDeviceInfo, isInitiated, setInitiated, vibrate };
+export {
+    preventScreenshot,
+    getDeviceInfo,
+    isInitiated,
+    setInitiated,
+    vibrate,
+    getUUID
+};
