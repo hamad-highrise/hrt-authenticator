@@ -13,7 +13,6 @@ async function preventScreenshot() {
 async function getDeviceInfo() {
     try {
         const info = await utilities.getDeviceInfo();
-        console.warn(info);
         const { type, oSVersion, frontCameraAvailable, name, rooted } = info;
         return Promise.resolve({
             type,

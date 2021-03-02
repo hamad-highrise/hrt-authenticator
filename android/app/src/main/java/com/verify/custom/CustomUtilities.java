@@ -6,8 +6,6 @@ import android.os.Build;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
-import androidx.camera.core.CameraInfoUnavailableException;
-import androidx.camera.core.CameraX;
 
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -55,7 +53,7 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
             deviceInfo.putString("brand", Build.BRAND);
             deviceInfo.putString("device", Build.PRODUCT);
             deviceInfo.putString("osVersion", Build.VERSION.RELEASE);
-            deviceInfo.putBoolean("frontCamera", hasFrontCamera());
+            deviceInfo.putBoolean("frontCamera", false);
             deviceInfo.putBoolean("rooted", checkRootMethod1() || checkRootMethod2());
             promise.resolve(deviceInfo);
         } catch (Exception e) {
@@ -120,11 +118,11 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
 
     }
 
-
-    private boolean hasFrontCamera() throws CameraInfoUnavailableException {
-        boolean hasFrontCamera = CameraX.hasCameraWithLensFacing(CameraX.LensFacing.FRONT);
-        return hasFrontCamera;
-    }
+//
+//    private boolean hasFrontCamera() throws CameraInfoUnavailableException {
+//        boolean hasFrontCamera = CameraX.hasCameraWithLensFacing(CameraX.LensFacing.FRONT);
+//        return hasFrontCamera;
+//    }
 
     @ReactMethod
     public void getUUID(Promise promise) {

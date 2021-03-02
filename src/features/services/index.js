@@ -55,18 +55,22 @@ async function removeAccount({ accId, type, ignoreSsl }) {
                 const { enrollmentEndpoint } = await db.getEnrollmentEndpoint(
                     accId
                 );
+
                 const result = await apiRequests.removeDeviceFromSam({
                     endpoint: enrollmentEndpoint,
                     authId: authenticatorId,
                     token,
                     secure: false
                 });
-                if (result.respInfo.status !== 200) {
-                    //error in device removal
-                    console.warn(result.json());
+
+                if (result.respInfo.status === 400) {
+                    //device has been removed from SAM server
+                    //account from local db will be removed here
+                    await db.removeAccountDB(accId);
                     return Promise.resolve({
-                        success: false,
-                        message: 'ERROR_REMOVING_DEVICE'
+                        success: true,
+                        message:
+                            'DEVICE_ALREADY_REMOVED_FROM_SAM_REMOVED_LOCALLY'
                     });
                 }
                 //Unregister totp after removing device from SAM
@@ -75,21 +79,25 @@ async function removeAccount({ accId, type, ignoreSsl }) {
                     token,
                     secure: false
                 });
+
                 if (unregisterTotpResult.respInfo.status !== 200) {
+                    //account from local db will be removed here
+                    await db.removeAccountDB(accId);
                     //error in unregistering TOTP
-                    console.warn(unregisterTotpResult.json());
                     return Promise.resolve({
                         success: false,
                         message: 'ERROR_REMOVING_UNREGISTERING_TOTP'
                     });
                 }
+
+                //account from local db will be removed here
+                await db.removeAccountDB(accId);
             } else {
                 //Device removed and unknown error will be handled
                 return Promise.resolve({ success: false, message });
             }
         }
-        //account from local db will be removed here
-        await db.removeAccountDB(accId);
+
         return Promise.resolve({ success: true });
     } catch (error) {
         return Promise.resolve(error);
@@ -101,8 +109,8 @@ async function getToken(accId) {
         const { token, expiresAt, endpoint, refreshToken } = await db.getToken(
             accId
         );
+        //TODO: Only token expiry is being handeled here. Need to implement device deletion on individual requests to server.
         if (!isTokenValid(expiresAt)) {
-            console.warn('Token refreshed');
             //here token expiry will be handled
             const result = await apiRequests.getRefreshedToken({
                 endpoint,
