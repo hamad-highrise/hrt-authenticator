@@ -1,5 +1,7 @@
 import { getFetchInstance } from './RNFetch';
 import { encodeFormData } from './formData';
+import utilities from '../../util/utilities';
+import { Platform } from 'react-native';
 
 async function getPendingTransactions({ endpoint, token, secure }) {
     const rnFetch = getFetchInstance({ secure });
@@ -75,28 +77,29 @@ async function unregisterTotp({ endpoint, token, secure }) {
 }
 
 async function getRefreshedToken({ endpoint, refreshToken, secure }) {
-    const body = {
-        client_id: 'AuthenticatorClient',
-        refresh_token: refreshToken,
-        grant_type: 'refresh_token',
-        scope: 'mmfaAythn',
-        application_id: 'hrt.verify',
-        device_rooted: false,
-        device_id: '',
-        device_type: '',
-        device_name: '',
-        platform_type: '',
-        fingerprint_support: false,
-        front_camera_support: false,
-        os_version: 15,
-        face_support: false
-    };
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
     };
     const rnFetch = getFetchInstance({ secure });
     try {
+        const info = await utilities.getDeviceInfo();
+        const body = {
+            client_id: 'AuthenticatorClient',
+            refresh_token: refreshToken,
+            grant_type: 'refresh_token',
+            scope: 'mmfaAuthn',
+            application_id: 'hrt.verify',
+            device_rooted: info.rooted,
+            device_type: Platform.OS === 'android' ? 'Android' : 'iOS',
+            device_name: info.name,
+            platform_type: Platform.OS,
+            fingerprint_support: false,
+            front_camera_support: info.frontCameraAvailable,
+            os_version: info.osVersion,
+            face_support: false
+        };
+
         const result = await rnFetch(
             'POST',
             endpoint,

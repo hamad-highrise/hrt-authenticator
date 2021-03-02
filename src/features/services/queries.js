@@ -44,7 +44,7 @@ async function updateTokenDb({ token, refreshToken, expiry, accId }) {
         refresh_token = ?,
         expires_at = ?
         WHERE account_id = ?;`;
-    const params = [token, refreshToken, expiry, accId];
+    const params = [token, refreshToken, getExpiryInSeconds(expiry), accId];
     const database = new Database();
     try {
         const result = await database.executeQuery(query, params);
@@ -100,6 +100,10 @@ async function getEnrollmentEndpoint(accId) {
     } catch (error) {
         return Promise.reject(error);
     }
+}
+
+function getExpiryInSeconds(expiresIn) {
+    return Math.floor(Date.now() / 1000) + expiresIn;
 }
 
 export default {
