@@ -7,13 +7,15 @@ async function getDeviceInfo() {
         const {
             osVersion,
             frontCamera,
-            model: name
+            model: name,
+            rooted
         } = await Utilities.getDeviceInfo();
         return Promise.resolve({
             type: Platform.OS === 'android' ? 'Android' : 'iOS',
             oSVersion: osVersion,
             frontCameraAvailable: frontCamera,
-            name
+            name,
+            rooted
         });
     } catch (error) {
         return Promise.reject(error);
@@ -50,11 +52,22 @@ async function preventScreenshot() {
     }
 }
 
+async function getUUID() {
+    const { Utilities } = NativeModules;
+    try {
+        const result = Utilities.getUUID();
+        return Promise.resolve(result);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 export default {
     getDeviceInfo,
     preventScreenshot,
     isInitiated,
-    setInitiated
+    setInitiated,
+    getUUID
 };
 
-export { getDeviceInfo, preventScreenshot, isInitiated, setInitiated };
+export { getDeviceInfo, preventScreenshot, isInitiated, setInitiated, getUUID };

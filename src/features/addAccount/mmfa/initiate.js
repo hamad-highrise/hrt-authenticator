@@ -27,7 +27,12 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
-        const { osVersion, frontCameraAvailable, name } = await getDeviceInfo();
+        const {
+            osVersion,
+            frontCameraAvailable,
+            name,
+            rooted
+        } = await getDeviceInfo();
         //device information
         const data = {
             code: scanned.code,
@@ -36,7 +41,8 @@ async function initiate(scanned) {
             fingerprintSupport: await (await biometric.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
-            deviceName: name
+            deviceName: name,
+            deviceRooted: rooted
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
