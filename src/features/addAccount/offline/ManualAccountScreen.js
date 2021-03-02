@@ -38,8 +38,7 @@ const CodeAccount = (props) => {
                             paddingLeft: 10,
                             fontSize: 13,
                             paddingTop: 20
-                        }}>
-                    </Text>
+                        }}></Text>
                 </View>
                 <View style={styles.middle}>
                     <TextInput
@@ -51,8 +50,7 @@ const CodeAccount = (props) => {
                             paddingLeft: 10,
                             fontSize: 13,
                             paddingTop: 20
-                        }}>
-                    </Text>
+                        }}></Text>
                 </View>
 
                 <View style={styles.middle}>
@@ -66,8 +64,7 @@ const CodeAccount = (props) => {
                             paddingLeft: 10,
                             fontSize: 13,
                             paddingTop: 20
-                        }}>
-                    </Text>
+                        }}></Text>
                 </View>
 
                 <View style={styles.bottom}>
@@ -133,8 +130,8 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center',
-    },
+        alignSelf: 'center'
+    }
 });
 
 export default CodeAccount;
