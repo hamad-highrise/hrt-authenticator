@@ -5,7 +5,7 @@ import { Button, TopNavbar } from '../../components';
 import navigation from '../../navigation';
 const AddScreen = (props) => {
     const onQrScanClick = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
+        navigation.goTo(props.componentId, navigation.screenIds.welcome);
     }, [props.componentId]);
 
     const onManualCodeClick = useCallback(() => {
