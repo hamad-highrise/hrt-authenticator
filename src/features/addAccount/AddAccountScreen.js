@@ -5,7 +5,7 @@ import { Button, TopNavbar } from '../../components';
 import navigation from '../../navigation';
 const AddScreen = (props) => {
     const onQrScanClick = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.welcome);
+        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
     }, [props.componentId]);
 
     const onManualCodeClick = useCallback(() => {
@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     titleMainText: {
-        color: 'white',
+        color: 'grey',
         justifyContent: 'center',
         fontSize: 18,
         fontWeight: 'bold'

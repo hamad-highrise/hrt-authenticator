@@ -16,15 +16,15 @@ const Item = ({ account, onPress }) => {
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
-            <Text style={styles.SListheader}> {account['account_name']}</Text>
-            <Text style={styles.SListtitle}> {account['issuer']}</Text>
-            {!true && (
+            <Text style={styles.SListheader}>HBL PIM {account['account_name']}</Text>
+            <Text style={styles.SListtitle}>test.isd {account['issuer']}</Text>
+            {!false && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
-            {!true && (
+            {!false && (
                 <View>
                     <Text style={styles.errorText}>
-                        Please Contact {account['issuer']}
+                        Please contact HBL PIM{account['issuer']} support ❗
                     </Text>
                 </View>
             )}
