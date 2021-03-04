@@ -3,17 +3,24 @@ package com.verify;
 //import android.app.Application;
 
 import android.content.Context;
+import android.util.Log;
+
+import androidx.annotation.NonNull;
 
 import com.facebook.react.PackageList;
-import com.reactnativenavigation.NavigationApplication;
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
-import com.reactnativenavigation.react.NavigationReactNativeHost;
 import com.facebook.react.ReactPackage;
-//import com.facebook.soloader.SoLoader;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.reactnativenavigation.NavigationApplication;
+import com.reactnativenavigation.react.NavigationReactNativeHost;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.List;
+
+//import com.facebook.soloader.SoLoader;
 
 public class MainApplication extends NavigationApplication {
 
@@ -40,22 +47,6 @@ public class MainApplication extends NavigationApplication {
                     return "index";
                 }
             };
-
-
-
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
-    }
-
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        
-        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
-    }
-
 
     /**
      * Loads Flipper in React Native templates. Call this in the onCreate method with something like
@@ -88,5 +79,27 @@ public class MainApplication extends NavigationApplication {
         }
     }
 
+    @Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
 
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+            @Override
+            public void onComplete(@NonNull Task<String> task) {
+                if (!task.isSuccessful()) {
+                    Log.w("FB", "FAILED TOKEN", task.getException());
+                    return;
+                }
+
+                String token = task.getResult();
+                Log.i("FB", token);
+            }
+
+        });
+    }
 }
