@@ -1,5 +1,5 @@
 import getInsecureFetch from '../RNFetch';
-import { Platform } from 'react-native';
+import { Platform, NativeModules } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
@@ -34,6 +34,8 @@ async function initiate(scanned) {
             rooted
         } = await getDeviceInfo();
         //device information
+        const { pushToken } = await NativeModules.RNPush.getFirebaseToken();
+        console.warn('Push Token', pushToken);
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
@@ -42,10 +44,12 @@ async function initiate(scanned) {
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
             deviceName: name,
-            deviceRooted: rooted
+            deviceRooted: rooted,
+            pushToken: pushToken
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
+        console.warn(tokenResult.json());
         if (!tokenResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
@@ -125,8 +129,11 @@ async function getToken(endpoint, data) {
             device_name: data.deviceName || 'Default Device Name',
             device_rooted: data.deviceRooted || false,
             application_id: 'com.hrt.verify',
-            platform_type: data.deviceType
+            platform_type: data.deviceType,
+            push_token: data.pushToken
         };
+        const body = convertToFormEncoded(rawObject);
+        console.warn(body);
         const result = await insecureFetch(
             'POST',
             endpoint,
@@ -134,7 +141,7 @@ async function getToken(endpoint, data) {
                 Accept: 'application/json',
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            convertToFormEncoded(rawObject)
+            body
         );
         return Promise.resolve(result);
     } catch (error) {

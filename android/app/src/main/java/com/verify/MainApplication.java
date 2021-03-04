@@ -88,18 +88,18 @@ public class MainApplication extends NavigationApplication {
     public void onCreate() {
         super.onCreate();
         initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
-        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
-            @Override
-            public void onComplete(@NonNull Task<String> task) {
-                if (!task.isSuccessful()) {
-                    Log.w("FB", "FAILED TOKEN", task.getException());
-                    return;
-                }
+        // FirebaseMessaging.getInstance().getToken().addOnCompleteListener(new OnCompleteListener<String>() {
+        //     @Override
+        //     public void onComplete(@NonNull Task<String> task) {
+        //         if (!task.isSuccessful()) {
+        //             Log.w("FB", "FAILED TOKEN", task.getException());
+        //             return;
+        //         }
 
-                String token = task.getResult();
-                Log.i("FB", token);
-            }
+        //         String token = task.getResult();
+        //         Log.i("FB", token);
+        //     }
 
-        });
+        // });
     }
 }
