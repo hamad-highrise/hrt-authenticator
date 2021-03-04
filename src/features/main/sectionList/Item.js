@@ -6,19 +6,19 @@ import accountQueries from '../queries';
 const Item = ({ account, onPress }) => {
     const onAccountPress = async () => {
         try {
-            const mSecret = await accountQueries.getSecretByAccountId(
+            const secret = await accountQueries.getSecretByAccountId(
                 account['account_id']
             );
-            onPress({ ...account, mSecret });
+            onPress({ ...account, secret });
         } catch (error) {
             alert(error);
         }
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
-            <Text style={styles.SListheader}>HBL PIM {account['account_name']}</Text>
-            <Text style={styles.SListtitle}>test.isd {account['issuer']}</Text>
-            {!false && (
+            <Text style={styles.SListheader}>{account['account_name']}</Text>
+            <Text style={styles.SListtitle}>{account['issuer']}</Text>
+            {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
             {!false && (

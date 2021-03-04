@@ -49,7 +49,7 @@ async function authenticateTransaction(endpoint, token, state, signedPayload) {
         if (authResult.respInfo.status === 204) {
             return Promise.resolve({ message: 'AUTHENTICATED' });
         } else {
-            return Promise.reject(new Error('NOT_AUTHENTICATED'));
+            return Promise.resolve({ message: 'NOT_AUTHENTICATED' });
         }
     } catch (error) {
         return Promise.reject(error);

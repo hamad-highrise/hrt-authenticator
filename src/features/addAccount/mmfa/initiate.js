@@ -27,7 +27,12 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
-        const { osVersion, frontCameraAvailable, name } = await getDeviceInfo();
+        const {
+            osVersion,
+            frontCameraAvailable,
+            name,
+            rooted
+        } = await getDeviceInfo();
         //device information
         const data = {
             code: scanned.code,
@@ -36,7 +41,8 @@ async function initiate(scanned) {
             fingerprintSupport: await (await biometric.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
-            deviceName: name
+            deviceName: name,
+            deviceRooted: rooted
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
@@ -66,7 +72,7 @@ async function initiate(scanned) {
         const token = {
             token: tokenObj['access_token'],
             refreshToken: tokenObj['refresh_token'],
-            expiry: tokenObj['expires_in'],
+            expiry: getExpiryInSeconds(tokenObj['expires_in']),
             tokenEndpoint: details['token_endpoint']
         };
         const presenceResult = await registerUserPresence(
@@ -134,6 +140,10 @@ async function getToken(endpoint, data) {
     } catch (error) {
         return Promise.reject(error);
     }
+}
+
+function getExpiryInSeconds(expiresIn) {
+    return Math.floor(Date.now() / 1000) + expiresIn;
 }
 
 export default initiate;
