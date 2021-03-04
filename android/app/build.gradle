@@ -73,6 +73,7 @@ apply plugin: "com.android.application"
  *   extraPackagerArgs: []
  * ]
  */
+apply plugin: 'com.google.gms.google-services'
 
 project.ext.react = [
         enableHermes: false
@@ -188,6 +189,9 @@ dependencies {
     implementation 'com.android.support:multidex:1.0.3'
     implementation "androidx.swiperefreshlayout:swiperefreshlayout:1.0.0"
     implementation 'androidx.biometric:biometric:1.0.0-rc01'
+    implementation platform('com.google.firebase:firebase-bom:26.6.0')
+    implementation 'com.google.firebase:firebase-messaging'
+
 //    def camerax_version = "1.0.0-alpha06"
 //    // The following line is optional, as the core library is included indirectly by camera-camera2
 //    implementation "androidx.camera:camera-core:${camerax_version}"
