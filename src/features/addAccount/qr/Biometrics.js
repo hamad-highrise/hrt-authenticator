@@ -61,19 +61,21 @@ const BiometricOption = ({ endpoint, token, ...props }) => {
                     safe.
                 </Text>
             </View>
-            <View style={{ margin: 5 }} />
-            <Button
-                title="Use Biometric"
-                style={styles.btn}
-                onPress={() => onPositive(endpoint, token)}
-            />
-
-            <Button
-                title="No, Thanks"
-                onPress={goBack}
-                style={styles.btnInvert}
-            />
-            <View style={{ marginBottom: 20 }}></View>
+            {/* <View style={{ margin: 5 }} /> */}
+            <View>
+                <Button
+                    title="Use Biometric"
+                    style={styles.btn}
+                    onPress={() => onPositive(endpoint, token)}
+                />
+                <View style={{ margin: 10 }} />
+                <Button
+                    title="No, Thanks"
+                    onPress={goBack}
+                    style={styles.btnInvert}
+                />
+            </View>
+            <View style={{ marginBottom: 20 }}/>
         </View>
     );
 };
@@ -111,29 +113,21 @@ const styles = StyleSheet.create({
         height: 150
     },
     btn: {
-        backgroundColor: '#ff8544',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
-        color: 'white',
         borderWidth: 0,
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase',
-
-        width: Dimensions.get('window').width * 0.7
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center'
     },
     btnInvert: {
-        backgroundColor: '#1c9db2',
-        borderRadius: 4,
-        paddingVertical: 25,
+        backgroundColor: 'lightgrey',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
         borderWidth: 0,
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        textTransform: 'uppercase',
-        width: Dimensions.get('window').width * 0.7
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center'
     }
 });

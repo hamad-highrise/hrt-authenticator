@@ -27,7 +27,7 @@ const EmptyState = (props) => {
                 <View style={styles.bar}></View>
                 <Button
                     title="Connect Account"
-                    style={styles.btnInvert}
+                    style={styles.btn}
                     onPress={() =>
                         navigation.goTo(
                             props.componentId,
@@ -68,17 +68,14 @@ const styles = StyleSheet.create({
         color: 'lightgrey',
         marginBottom: 5
     },
-    btnInvert: {
-        backgroundColor: '#1c9db2',
-        borderRadius: 4,
-        paddingVertical: 25,
+    btn: {
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
         paddingHorizontal: 12,
-        fontSize: 14,
         borderWidth: 0,
-        fontWeight: 'bold',
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center',
-        textTransform: 'uppercase',
-        width: Dimensions.get('window').width * 0.7
     },
     bar: {
         alignSelf: 'center',

@@ -21,10 +21,10 @@ const Item = ({ account, onPress }) => {
             {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
-            {!true && (
+            {!false && (
                 <View>
                     <Text style={styles.errorText}>
-                        Please Contact {account['issuer']}
+                        Please contact HBL PIM{account['issuer']} support ❗
                     </Text>
                 </View>
             )}

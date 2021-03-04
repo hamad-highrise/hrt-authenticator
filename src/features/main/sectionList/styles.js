@@ -46,20 +46,20 @@ export default StyleSheet.create({
         fontSize: 20,
         padding: 2,
         color: '#424c58',
-        lineHeight: 25
+        lineHeight: 25,
+        fontWeight:'bold'
     },
     SListtitle: {
-        fontSize: 20,
+        fontSize: 16,
         color: 'grey',
-        paddingRight: 9
     },
     notificationText: {
-        fontSize: 11,
-        color: 'blue'
+        fontSize: 16,
+        color: '#1c6db2',
     },
     error: {},
     errorText: {
-        color: 'red',
-        fontSize: 11
+        fontSize: 16,
+        color: '#96281b',
     }
 });
