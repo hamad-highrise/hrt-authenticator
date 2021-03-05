@@ -3,6 +3,7 @@ package com.verify.notification;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
@@ -39,11 +40,13 @@ public class CustomNotifications {
     public void createNotification(final String title, final String text) {
         createDefaultNotificationChannel();
         Intent intent = new Intent(context, MainActivity.class);
+        PendingIntent activityIntent = PendingIntent.getActivity(context, 0, intent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this.context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(text)
                 .setShowWhen(true)
                 .setSmallIcon(R.mipmap.ic_launcher_round)
+                .setContentIntent(activityIntent)
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setAutoCancel(true);
 
