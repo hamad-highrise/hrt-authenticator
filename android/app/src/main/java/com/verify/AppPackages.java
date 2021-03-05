@@ -7,6 +7,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
 import com.verify.custom.CustomUtilities;
 import com.verify.rnbiometrics.RNBiometrics;
+import com.verify.rnpush.RNPushModule;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -20,6 +21,7 @@ public class AppPackages implements ReactPackage {
 //        modules.add(new SecureModule(reactContext));
         modules.add(new RNBiometrics(reactContext));
         modules.add(new CustomKeyGen(reactContext));
+        modules.add(new RNPushModule(reactContext));
         return modules;
     }
 
