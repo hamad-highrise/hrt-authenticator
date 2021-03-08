@@ -1,6 +1,6 @@
 import RNFetchBlob from 'rn-fetch-blob';
 
-function getFetchInstance({ secure = true }) {
+function getFetchInstance({ secure = true } = {}) {
     return RNFetchBlob.config({ trusty: true }).fetch;
 }
 

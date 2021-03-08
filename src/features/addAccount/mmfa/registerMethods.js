@@ -1,10 +1,10 @@
-import getInsecureFetch from '../RNFetch';
+import { getFetchInstance } from '../../services';
 import { createKeys } from '../../../util/KeyGen';
 import biometrics from '../../../util/biometrics';
 
 async function registerTotp(endpoint, token) {
     try {
-        const insecureFetch = getInsecureFetch();
+        const insecureFetch = getFetchInstance();
         const result = await insecureFetch('GET', endpoint, {
             Accept: 'application/json',
             'Content-Type': 'application/json',
@@ -17,7 +17,7 @@ async function registerTotp(endpoint, token) {
 }
 
 async function registerUserPresence(endpoint, token) {
-    const insecureFetch = getInsecureFetch();
+    const insecureFetch = getFetchInstance();
     const keyHandle = 'Account.' + Date.now() + '.UserPresence';
     const url =
         endpoint +
@@ -59,7 +59,7 @@ async function registerUserPresence(endpoint, token) {
 }
 
 async function registerBiometrics(endpoint, token) {
-    const insecureFetch = getInsecureFetch();
+    const insecureFetch = getFetchInstance();
     const keyHandle = 'Account.' + Date.now() + '.Biometric';
 
     const url =

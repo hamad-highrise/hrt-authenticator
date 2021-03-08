@@ -1,7 +1,7 @@
-import getInsecureFetch from '../../addAccount/RNFetch';
+import { getFetchInstance } from '../../services';
 
 async function getTransactionData(endpoint, token) {
-    const insecureFetch = getInsecureFetch();
+    const insecureFetch = getFetchInstance();
     try {
         const data = await insecureFetch('POST', endpoint, {
             Accept: 'application/json',
@@ -32,7 +32,7 @@ async function getTransactionData(endpoint, token) {
 }
 
 async function authenticateTransaction(endpoint, token, state, signedPayload) {
-    const insecureFetch = getInsecureFetch();
+    const insecureFetch = getFetchInstance();
     const body = JSON.stringify({ signedChallenge: signedPayload });
     const endUrl = endpoint + '?StateId=' + state;
     try {
