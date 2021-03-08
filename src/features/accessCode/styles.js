@@ -30,7 +30,7 @@ export default StyleSheet.create({
     },
     titleText: {
         color: '#424c58',
-        fontSize: 36,
+        fontSize: 32,
         fontWeight: 'bold'
     },
     iconBtn: {
@@ -38,12 +38,10 @@ export default StyleSheet.create({
         height: 37
     },
     top: {
-        flex: 0.2,
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1
+        flex: 0.1,
     },
     titleIDText: {
-        fontSize: 24
+        fontSize: 22
     },
     middle: {
         flex: 0.1,
@@ -68,41 +66,39 @@ export default StyleSheet.create({
         paddingTop: 13,
         paddingBottom: 13,
         paddingRight: 20,
-        width: '95%',
+        width: '100%',
         justifyContent: 'center',
-        alignItems: 'center'
     },
     selectorSeparator: {
         width: 0,
         backgroundColor: 'black'
     },
     selected: {
-        backgroundColor: '#0f62fe'
+        backgroundColor: '#0f62fe',
     },
     selectedLeft: {
-        borderTopLeftRadius: 10,
-        borderBottomLeftRadius: 10
+        borderTopLeftRadius: 7,
+        borderBottomLeftRadius: 7
     },
     selectedRight: {
-        borderTopRightRadius: 10,
-        borderBottomRightRadius: 10
+        borderTopRightRadius: 7,
+        borderBottomRightRadius: 7
     },
     selectedInvert: {
         backgroundColor: 'lightgrey'
     },
     selectedInvertLeft: {
-        borderBottomLeftRadius: 10,
-        borderTopLeftRadius: 10
+        borderBottomLeftRadius: 7,
+        borderTopLeftRadius: 7
     },
     selectedInvertRight: {
-        borderBottomRightRadius: 10,
-        borderTopRightRadius: 10
+        borderBottomRightRadius: 7,
+        borderTopRightRadius: 7
     },
 
     selectorText: {
         fontSize: 15,
         color: '#0f62fe',
-        fontWeight: 'bold'
     },
     selectedText: {
         color: 'white'
@@ -110,7 +106,6 @@ export default StyleSheet.create({
     btn: {
         backgroundColor: 'red',
         paddingVertical: 13,
-        // paddingHorizontal: 12,
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.9,
@@ -142,9 +137,6 @@ export default StyleSheet.create({
     img: {
         width: 30,
         height: 28,
-        // transform: [{ rotate: '180deg' }],
-        // backgroundColor: '#e57f01',
-        // borderRadius: 10
     },
     imgg: {
         width: 25,
