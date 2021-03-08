@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button, TextInput, TopNavbar } from '../../../components';
+import { createAccount } from '../services';
 
 const CodeAccount = (props) => {
     const [account, setAccount] = useState({
@@ -16,9 +17,18 @@ const CodeAccount = (props) => {
         }));
     };
 
+    const onAddPress = async () => {
+        try {
+            await createAccount({ account });
+        } catch (error) {
+            alert('Error');
+        } finally {
+        }
+    };
+
     return (
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
-            <TopNavbar title="Account By Code"></TopNavbar>
+            <TopNavbar title="Account By Code" />
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -72,7 +82,7 @@ const CodeAccount = (props) => {
                     <Button
                         title="Add Account"
                         style={styles.btn}
-                        onPress={() => alert('account added successfully')}
+                        onPress={onAddPress}
                     />
                     <View style={{ marginBottom: 40 }} />
                 </View>

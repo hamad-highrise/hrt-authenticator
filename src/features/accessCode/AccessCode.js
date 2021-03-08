@@ -104,7 +104,13 @@ const AccessCode = (props) => {
     };
 
     const updateOtp = () => {
-        setOTP(TOTPGenerator(props.secret));
+        try {
+            setOTP(TOTPGenerator(props.secret));
+        } catch (error) {
+            alert(
+                'Account have invalid secret. Delete the account and enter a valid Secret.'
+            );
+        }
     };
     const timer = (TOTP_PERIOD = 30) => {
         //function executes every second and checks if specific time period is passed and updates the otp.

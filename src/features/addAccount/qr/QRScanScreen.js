@@ -3,8 +3,9 @@ import { RNCamera as QRCodeReader } from 'react-native-camera';
 import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar, LoadingIndicator } from '../../../components';
-import { isUnique, addAccount } from '../offline/queries';
 import initiateSamAccount from '../mmfa/initiate';
+import { createAccount } from '../services';
+import { isUnique } from '../services/queries';
 import { vibrate } from '../../../util/utilities';
 
 const QRScan = (props) => {
@@ -20,6 +21,7 @@ const QRScan = (props) => {
             vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
+                //MMFA Account is being Started
                 try {
                     const result = await initiateSamAccount(value);
                     if (result.message === 'OKAY') {
@@ -38,6 +40,7 @@ const QRScan = (props) => {
                     navigator.goToRoot(props.componentId);
                 }
             } else {
+                //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
                 const account = {
                     name: parsedData.label.account,
@@ -45,7 +48,7 @@ const QRScan = (props) => {
                     secret: parsedData.query.secret
                 };
                 if (await isUnique(account)) {
-                    addAccount(account);
+                    createAccount({ account });
                 } else {
                     alert('Duplicate Account');
                 }

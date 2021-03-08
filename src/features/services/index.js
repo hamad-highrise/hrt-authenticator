@@ -2,7 +2,6 @@ import apiRequests from './api';
 import db from './queries';
 import { processTransaction } from './transaction';
 
-
 async function getTransactions({ accId, secure }) {
     try {
         const { token, success, message } = await getToken(accId);
@@ -90,15 +89,13 @@ async function removeAccount({ accId, type, ignoreSsl }) {
                         message: 'ERROR_REMOVING_UNREGISTERING_TOTP'
                     });
                 }
-
-                //account from local db will be removed here
-                await db.removeAccountDB(accId);
             } else {
                 //Device removed and unknown error will be handled
                 return Promise.resolve({ success: false, message });
             }
         }
-
+        //account from local db will be removed here
+        await db.removeAccountDB(accId);
         return Promise.resolve({ success: true });
     } catch (error) {
         return Promise.resolve(error);

@@ -34,6 +34,7 @@ async function createAccountEntry({
 async function isUnique({ name, issuer }) {
     const query = `SELECT account_id FROM accounts WHERE account_name = ? AND issuer = ?;`;
     const params = [name, issuer];
+    const database = new Database();
     try {
         const result = await database.executeQuery(query, params);
         return Promise.resolve(result[0].rows.length === 0);
