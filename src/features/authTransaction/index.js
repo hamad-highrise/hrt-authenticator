@@ -1,6 +1,12 @@
+<<<<<<< HEAD
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { authTransaction } from './services';
+=======
+import React from 'react';
+import { View, Text, TouchableOpacity } from 'react-native';
+import { authTransaction, rejectTransaction } from './services';
+>>>>>>> 092e9957dc90edaf7390eb79450d5b43af5aae52
 import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
@@ -17,16 +23,23 @@ const AuthProcess = (props) => {
     const onApproveBiometric = async () => {
         try {
             const authResult = await authTransaction(id, endpoint);
-            alert('Authenticated Success');
         } catch (error) {
             alert(error);
         } finally {
             navigator.goToRoot(componentId);
         }
     };
-    const onReject = () => {
-        navigator.goToRoot(componentId);
-        alert('Reject');
+    const onReject = async () => {
+        try {
+            const authResult = await rejectTransaction({
+                accId: id,
+                tEndpoint: endpoint
+            });
+        } catch (error) {
+            alert(error);
+        } finally {
+            navigator.goToRoot(componentId);
+        }
     };
     const [viewDetails, setFragment] = useState('YES');
     const onDetailsSelect = () => setFragment('NO');

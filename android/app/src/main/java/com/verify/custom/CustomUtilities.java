@@ -2,7 +2,6 @@ package com.verify.custom;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.hardware.Camera;
 import android.os.Build;
 import android.view.WindowManager;
 
@@ -16,6 +15,11 @@ import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
 import com.verify.rnbiometrics.RNBiometrics;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.InputStreamReader;
+import java.util.UUID;
 
 public class CustomUtilities extends ReactContextBaseJavaModule {
     private final ReactApplicationContext reactContext;
@@ -49,7 +53,8 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
             deviceInfo.putString("brand", Build.BRAND);
             deviceInfo.putString("device", Build.PRODUCT);
             deviceInfo.putString("osVersion", Build.VERSION.RELEASE);
-            deviceInfo.putBoolean("frontCamera", hasFrontCamera());
+            deviceInfo.putBoolean("frontCamera", false);
+            deviceInfo.putBoolean("rooted", checkRootMethod1() || checkRootMethod2());
             promise.resolve(deviceInfo);
         } catch (Exception e) {
             promise.reject("DEVICEINFOERROR", e.getMessage());
@@ -81,17 +86,51 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
         }
     }
 
-
-    private boolean hasFrontCamera() {
-        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        int numberOfCameras = Camera.getNumberOfCameras();
-        for (int i = 0; i < numberOfCameras; i++) {
-            Camera.getCameraInfo(i, cameraInfo);
-            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                return true;
-            }
+    private boolean checkRootMethod1() {
+        String[] paths = {
+                "/system/app/Superuser.apk",
+                "/sbin/su",
+                "/system/bin/su",
+                "/system/xbin/su",
+                "/data/local/xbin/su",
+                "/data/local/bin/su",
+                "/system/sd/xbin/su",
+                "/system/bin/failsafe/su",
+                "/data/local/su"};
+        for (String path : paths) {
+            if (new File(path).exists()) return true;
         }
         return false;
+    }
+
+    private boolean checkRootMethod2() {
+        Process process = null;
+        try {
+            process = Runtime.getRuntime().exec(new String[]{"/system/xbin/which", "su"});
+            BufferedReader in = new BufferedReader(new InputStreamReader(process.getInputStream()));
+            if (in.readLine() != null) return true;
+            return false;
+        } catch (Exception e) {
+            return false;
+        } finally {
+            if (process != null) process.destroy();
+        }
+
+    }
+
+//
+//    private boolean hasFrontCamera() throws CameraInfoUnavailableException {
+//        boolean hasFrontCamera = CameraX.hasCameraWithLensFacing(CameraX.LensFacing.FRONT);
+//        return hasFrontCamera;
+//    }
+
+    @ReactMethod
+    public void getUUID(Promise promise) {
+        UUID uuid = UUID.randomUUID();
+        String uuidString = uuid.toString();
+        WritableMap result = new WritableNativeMap();
+        result.putString("uuid", uuidString);
+        promise.resolve(result);
     }
 
     @NonNull
