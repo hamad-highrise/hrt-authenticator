@@ -1,10 +1,9 @@
+import 'react-native-url-polyfill/auto';
 /**
- * Function parses the otpauth URI and returns an object containing
+ * Function parses the otpauth URI and returns an object
  * @param {String} uri - OTP Auth URI
  * @returns Object
  */
-
-import 'react-native-url-polyfill/auto';
 
 function parseOTPAuthUri(uri) {
     if (typeof uri !== 'string' || uri.length < 7) {

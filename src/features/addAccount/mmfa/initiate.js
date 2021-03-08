@@ -15,7 +15,6 @@ async function initiate(scanned) {
         token: '',
         accountName: ''
     };
-    console.warn(scanned);
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
     if (!isValidMmfaObj) {
