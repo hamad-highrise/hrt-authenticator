@@ -1,13 +1,13 @@
-import React, { useMemo } from 'react';
-import { View, SectionList } from 'react-native';
+import React from 'react';
+import { View, SectionList, Text } from 'react-native';
 import PropTypes from 'prop-types';
 import ListItem from './Item';
 import SectionHeader from './Header';
 import ListItemSeparator from './Separator';
 import styles from './styles';
 
-const AccountList = ({ accounts: acc, onListItemPress }) => {
-    const structuredAccounts = acc.reduce(
+const AccountList = ({ accounts, onListItemPress }) => {
+    const structuredAccounts = accounts.reduce(
         (prev, account) => {
             let [mmfa, totp] = prev;
             account.type === 'SAM'
@@ -21,6 +21,28 @@ const AccountList = ({ accounts: acc, onListItemPress }) => {
         ]
     );
 
+    const renderNoContent = ({ section }) => {
+        if (!section.data.length)
+            return (
+                <View
+                    style={{
+                        backgroundColor: 'orange',
+                        flex: 1,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Text
+                        style={{
+                            fontFamily: 'monospace',
+                            color: 'white'
+                        }}>
+                        No Content!
+                    </Text>
+                </View>
+            );
+        return null;
+    };
+
     return (
         <View style={styles.listContainer}>
             <SectionList
@@ -31,9 +53,10 @@ const AccountList = ({ accounts: acc, onListItemPress }) => {
                 renderItem={({ item }) => (
                     <ListItem account={item} onPress={onListItemPress} />
                 )}
-                renderSectionHeader={({ section: { title } }) => (
-                    <SectionHeader title={title} />
+                renderSectionHeader={({ section }) => (
+                    <SectionHeader title={section.title} />
                 )}
+                renderSectionFooter={renderNoContent}
             />
         </View>
     );
