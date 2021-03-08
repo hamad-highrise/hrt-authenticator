@@ -2,6 +2,7 @@ import apiRequests from './api';
 import db from './queries';
 import { processTransaction } from './transaction';
 
+
 async function getTransactions({ accId, secure }) {
     try {
         const { token, success, message } = await getToken(accId);

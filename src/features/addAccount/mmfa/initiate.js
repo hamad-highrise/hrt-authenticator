@@ -4,7 +4,8 @@ import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
 import convertToFormEncoded from './formData';
-import { addAccount, isUnique } from './queries';
+import { isUnique } from './queries';
+import { createAccount } from '../services';
 import parser from '../qr/parser';
 
 async function initiate(scanned) {
@@ -35,7 +36,6 @@ async function initiate(scanned) {
         } = await getDeviceInfo();
         //device information
         const { pushToken } = await NativeModules.RNPush.getFirebaseToken();
-        console.warn('Push Token', pushToken);
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
@@ -49,7 +49,6 @@ async function initiate(scanned) {
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
-        console.warn(tokenResult.json());
         if (!tokenResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
@@ -89,7 +88,8 @@ async function initiate(scanned) {
             return resultObj;
         }
         if (await isUnique(account)) {
-            addAccount(account, token);
+            createAccount({ account, token });
+            // addAccount(account, token);
         } else {
             resultObj.message = 'DUPLICATE_ACCOUNT';
             //here start remove account flow
@@ -133,7 +133,6 @@ async function getToken(endpoint, data) {
             push_token: data.pushToken
         };
         const body = convertToFormEncoded(rawObject);
-        console.warn(body);
         const result = await insecureFetch(
             'POST',
             endpoint,

@@ -16,8 +16,8 @@ const AccountList = ({ accounts: acc, onListItemPress }) => {
             return [mmfa, totp];
         },
         [
-            { title: 'Multifactor authentication (MFA) accounts', data: ['hbl xyz'] },
-            { title: 'One-time passcode (OTP) accounts', data: ['sim sam sum'] }
+            { title: 'Multifactor authentication (MFA) accounts', data: [] },
+            { title: 'One-time passcode (OTP) accounts', data: [] }
         ]
     );
 
