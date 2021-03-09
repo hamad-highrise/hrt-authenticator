@@ -121,7 +121,7 @@ export default StyleSheet.create({
         padding: 13,
         backgroundColor: '#0f62fe08',
         borderBottomWidth: 2,
-        borderColor: '#0f62fe',
+        borderColor: '#0f62fe99',
         justifyContent: 'space-between'
     },
     listitemView: {
