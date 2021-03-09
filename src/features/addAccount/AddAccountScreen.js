@@ -27,11 +27,11 @@ const AddScreen = (props) => {
                 </View>
                 <View>
                     <Image
-                        source={require('../../assets/images/2typeAcc2.png')}
+                        source={require('../../assets/images/AddAccIBM.png')}
                         style={styles.image}
                     />
                 </View>
-                <View>
+                <View style={{marginTop:20}}>
                     <Button
                         title="Scan QR Code"
                         style={styles.btn}
@@ -67,8 +67,8 @@ const styles = StyleSheet.create({
         lineHeight: 45
     },
     image: {
-        width: Dimensions.get('window').width * 0.7,
-        height: Dimensions.get('window').height * 0.37,
+        width: Dimensions.get('window').width * 0.8,
+        height: Dimensions.get('window').height * 0.36,
         alignItems: 'center'
     },
     btn: {
