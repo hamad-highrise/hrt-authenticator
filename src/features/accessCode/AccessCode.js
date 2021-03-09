@@ -153,7 +153,7 @@ const AccessCode = (props) => {
                 </View>
             </View>
 
-            <View style={{ margin: 0 }}></View>
+            {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{props.name}</Text>
@@ -178,7 +178,7 @@ const AccessCode = (props) => {
                                 styles.selectorText,
                                 fragment === 'CODE' && styles.selectedText
                             ]}>
-                            Access Code
+                            Access code
                         </Text>
                     </TouchableOpacity>
                     <View style={styles.selectorSeparator} />

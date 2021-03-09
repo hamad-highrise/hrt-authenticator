@@ -37,7 +37,7 @@ const Settings = ({ removeAccount }) => {
         <View>
             <KeyboardAvoidingView
                 behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                {AccType == 'Normal' ? (
+                {AccType == 'NormalX' ? (
                     <TouchableOpacity
                         style={styles.listitem}
                         onPress={() => alert('zxcvbnm')}>

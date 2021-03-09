@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Image, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Image, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
 
@@ -15,6 +15,7 @@ const TopNavbar = ({
 
     return (
         <View style={styles.container}>
+            <StatusBar barStyle="default" backgroundColor="#0f62fe" />
             <View style={styles.header}>
                 {RightIcon == 'YES' ? (
                     <View
@@ -73,6 +74,8 @@ const styles = StyleSheet.create({
         paddingVertical: 27,
         paddingHorizontal: 12,
         // backgroundColor: 'black',
+        borderBottomColor: 'lightgrey',
+        borderBottomWidth: 1,
     },
     large: {},
     small: {},
@@ -82,7 +85,7 @@ const styles = StyleSheet.create({
         height: 49,
         alignItems: 'center',
         justifyContent: 'space-between',
-        // borderBottomColor: 'black',
+        // borderBottomColor: 'lightgrey',
         // borderBottomWidth: 1,
         paddingTop: 10,
         margin: -30
