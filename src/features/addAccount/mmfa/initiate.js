@@ -19,10 +19,26 @@ Further, token will be compulsory for any other operation
 
 2. Get Token
     Endpoint will be extracted from details result
+    Refresh token will also provide the same result
     Will give:
         - access token - ""
-        - 
-    
+        - refresh toke - ""
+        - authenticator id - ""
+        - expires in - ##
+    TODO: Need to check duplicated account, delete if duplicated
+3. register methods now
+    Enrollment endpoint will be used which was extracted befre
+    response of registeration methods is not critical
+
+4. Register totp method
+    totp method registeration will be extracted from details body
+    Will give:
+        - period - ##
+        - secret key url
+        - secret key
+        - digits
+        - algorithm
+        - username
 
 */
 
@@ -45,17 +61,27 @@ async function initiate(scanned) {
             endpoint: scanned['details_url']
         });
 
-        if (!detailsResult.respInfo.status === 200) {
+        if (detailsResult.respInfo.status !== 200) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
             return resultObj;
         }
+
+        const {
+            tokenEndpoint,
+            totpEndpoint,
+            enrollmentEndpoint,
+            transactionEndpoint,
+            methodsSupported,
+            serviceName
+        } = parseDetails(detailsResult.json());
+
+        //device information
         const {
             osVersion,
             frontCameraAvailable,
             name,
             rooted
         } = await utilities.getDeviceInfo();
-        //device information
         const { pushToken } = await push.getFirebaseToken();
         const data = {
             code: scanned.code,
@@ -68,10 +94,10 @@ async function initiate(scanned) {
             deviceRooted: rooted,
             pushToken: pushToken
         };
-        const details = detailsResult.json();
+
         //ignore ssl option should be here
         const tokenResult = await getToken({
-            endpoint: details['token_endpoint'],
+            endpoint: tokenEndpoint,
             data
         });
 
@@ -80,8 +106,9 @@ async function initiate(scanned) {
             return resultObj;
         }
         const tokenObj = await tokenResult.json();
+
         const totpResult = await registerTotp(
-            details['totp_shared_secret_endpoint'],
+            totpEndpoint,
             tokenObj['access_token']
         );
         if (!totpResult.respInfo.status === 200) {
@@ -91,21 +118,21 @@ async function initiate(scanned) {
         const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
         const account = {
             name: parsedData.label.account,
-            issuer: details.metadata.service_name,
+            issuer: serviceName,
             secret: parsedData.query.secret,
             type: 'SAM',
-            transactionEndpoint: details['authntrxn_endpoint'],
-            enrollmentEndpoint: details['enrollment_endpoint'],
+            transactionEndpoint,
+            enrollmentEndpoint,
             authId: tokenObj['authenticator_id']
         };
         const token = {
             token: tokenObj['access_token'],
             refreshToken: tokenObj['refresh_token'],
             expiry: getExpiryInSeconds(tokenObj['expires_in']),
-            tokenEndpoint: details['token_endpoint']
+            tokenEndpoint
         };
         const presenceResult = await registerUserPresence(
-            account.enrollmentEndpoint,
+            enrollmentEndpoint,
             token.token
         );
 
@@ -126,6 +153,47 @@ async function initiate(scanned) {
     } catch (error) {
         return Promise.reject(error);
     }
+}
+
+function parseToken(tokenResponse) {
+    const {
+        access_token: accessToken,
+        refresh_token: refreshToken,
+        authenticator_id: authenticatorId,
+        expires_in
+    } = tokenResponse;
+    return {
+        accessToken,
+        refreshToken,
+        expiry: getExpiryInSeconds(expires_in),
+        authenticatorId
+    };
+}
+
+function parseDetails(detailsResponse) {
+    const {
+        totp_shared_secret_endpoint: totpEndpoint,
+        enrollment_endpoint: enrollmentEndpoint,
+        authntrxn_endpoint: transactionEndpoint,
+        token_endpoint: tokenEndpoint,
+        metadata: { service_name: serviceName },
+        discovery_mechanisms
+    } = detailsResponse;
+
+    //will translate discovery mechanisims
+    const methodsSupported = discovery_mechanisms.map((mech) => {
+        const splitted = mech.split(':');
+        return splitted[splitted.length - 1];
+    });
+
+    return {
+        transactionEndpoint,
+        enrollmentEndpoint,
+        tokenEndpoint,
+        totpEndpoint,
+        serviceName,
+        methodsSupported
+    };
 }
 
 function getExpiryInSeconds(expiresIn) {

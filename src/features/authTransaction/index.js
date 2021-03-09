@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { authTransaction, rejectTransaction } from './services';
 import PropTypes from 'prop-types';
@@ -127,7 +127,7 @@ const AuthProcess = (props) => {
                             paddingLeft: 20
                         }
                     ]}
-                    onPress={() => alert('Approve')}>
+                    onPress={onReject}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold' }}>Deny</Text>
                     </View>
@@ -143,7 +143,7 @@ const AuthProcess = (props) => {
                         styles.decisionBox,
                         { backgroundColor: 'steelblue', padding: 10 }
                     ]}
-                    onPress={() => alert('Approve')}>
+                    onPress={onApproveBiometric}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold' }}>Approve</Text>
                     </View>
