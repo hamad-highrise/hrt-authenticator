@@ -1,29 +1,15 @@
 import React, { useCallback } from 'react';
-import { Navigation } from 'react-native-navigation';
 import { Dimensions, Image, StyleSheet, View, Text } from 'react-native';
 import { Button, TopNavbar } from '../../components';
 import navigation from '../../navigation';
 const AddScreen = (props) => {
     const onQrScanClick = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.authTransaction);
+        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
     }, [props.componentId]);
 
     const onManualCodeClick = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.accountForm);
     }, [props.componentId]);
-
-    const onPressHandlerAccountSettings = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccountSettingsScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
     return (
         <View>
             <TopNavbar

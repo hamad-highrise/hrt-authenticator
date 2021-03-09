@@ -21,7 +21,7 @@ const Item = ({ account, onPress }) => {
             {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
-            {!false && (
+            {false && (
                 <View>
                     <Text style={styles.errorText}>
                         Please contact HBL PIM{account['issuer']} support ❗

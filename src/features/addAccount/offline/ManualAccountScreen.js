@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Dimensions,
-    TextInput,
-    Image,
-    Switch
-} from 'react-native';
-import { Button, TopNavbar } from '../../../components';
+
+import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { Button, TextInput, TopNavbar } from '../../../components';
+import navigator from '../../../navigation';
+import { createAccount } from '../services';
 
 const CodeAccount = (props) => {
     const [account, setAccount] = useState({
@@ -17,17 +12,31 @@ const CodeAccount = (props) => {
         secret: ''
     });
 
+    const regexForSecret = /^[0-9A-F]$/;
+
     const onChangeHandler = (name) => (value) => {
         setAccount((account) => ({
             ...account,
             [name]: value
         }));
     };
-    const [isEnabled, setIsEnabled] = useState(false);
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+
+
+    const onAddPress = async () => {
+        try {
+            await createAccount({ account });
+            alert('Account Added');
+        } catch (error) {
+            alert('Error');
+        } finally {
+            navigator.goToRoot(props.componentId);
+        }
+    };
+
     return (
-        <View style={{ flex: 1}}>
-            <TopNavbar title="Account By Code"></TopNavbar>
+        <View style={{ flex: 1, justifyContent: 'space-between' }}>
+            <TopNavbar title="Account By Code" />
+  
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -37,6 +46,7 @@ const CodeAccount = (props) => {
                         </Text>
                     </View>
                 </View>
+
 
                 <View>
                     <View>
@@ -78,32 +88,14 @@ const CodeAccount = (props) => {
                         }}>
                         4 - 50 numbers or letters.
                     </Text>
-                    <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}>
-                        <Text
-                            style={{
-                                fontSize: 20,
-                                color: 'black',
-                                marginTop: '5%',
-                                marginLeft: 10,
-                                marginRight: 10,
-                            }}>
-                            Time based
-                        </Text>
-                        <Switch
-                            trackColor={{ false: '#767577', true: '#81b0ff' }}
-                            thumbColor={isEnabled ? '#0f62fe' : '#f4f3f4'}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                        />
-                    </View>
+                   
                 </View>
 
                 <View style={styles.bottom}>
                     <Button
                         title="Connect"
                         style={styles.btn}
-                        onPress={() => alert('account added successfully')}
+                        onPress={onAddPress}
                     />
                 </View>
             </View>

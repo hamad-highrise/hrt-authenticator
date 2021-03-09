@@ -1,10 +1,9 @@
-import getInsecureFetch from '../RNFetch';
 import { Platform, NativeModules } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
-import convertToFormEncoded from './formData';
-import { addAccount, isUnique } from './queries';
+import { createAccount, isUnique } from '../services';
+import { encodeFormData, getFetchInstance } from '../../services';
 import parser from '../qr/parser';
 
 async function initiate(scanned) {
@@ -35,7 +34,6 @@ async function initiate(scanned) {
         } = await getDeviceInfo();
         //device information
         const { pushToken } = await NativeModules.RNPush.getFirebaseToken();
-        console.warn('Push Token', pushToken);
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
@@ -49,7 +47,6 @@ async function initiate(scanned) {
         };
         const details = detailsResult.json();
         const tokenResult = await getToken(details.token_endpoint, data);
-        console.warn(tokenResult.json());
         if (!tokenResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
@@ -89,7 +86,7 @@ async function initiate(scanned) {
             return resultObj;
         }
         if (await isUnique(account)) {
-            addAccount(account, token);
+            createAccount({ account, token });
         } else {
             resultObj.message = 'DUPLICATE_ACCOUNT';
             //here start remove account flow
@@ -104,7 +101,7 @@ async function initiate(scanned) {
 }
 
 async function getDetails(endpoint) {
-    const insecureFetch = getInsecureFetch();
+    const insecureFetch = getFetchInstance();
     try {
         const result = await insecureFetch('GET', endpoint, {
             Accept: 'application/json'
@@ -117,7 +114,7 @@ async function getDetails(endpoint) {
 
 async function getToken(endpoint, data) {
     try {
-        const insecureFetch = getInsecureFetch();
+        const insecureFetch = getFetchInstance();
         const rawObject = {
             grant_type: 'authorization_code',
             code: data.code,
@@ -132,8 +129,7 @@ async function getToken(endpoint, data) {
             platform_type: data.deviceType,
             push_token: data.pushToken
         };
-        const body = convertToFormEncoded(rawObject);
-        console.warn(body);
+        const body = encodeFormData(rawObject);
         const result = await insecureFetch(
             'POST',
             endpoint,
