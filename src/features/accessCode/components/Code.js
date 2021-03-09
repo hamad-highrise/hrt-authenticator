@@ -4,14 +4,14 @@ import { PercentageCircle } from '../../../components';
 export default ({ otp, counter }) => (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         <PercentageCircle
-            borderWidth={12}
-            radius={130}
+            borderWidth={6}
+            radius={140}
             percent={(counter / 30) * 100}
-            color="#1c9db2">
-            <Text style={{ fontWeight: 'bold', fontSize: 35 }}>
-                {otp.split('').join(' ')}
+            color="#0f62fe99">
+            <Text style={{ fontWeight: 'bold', fontSize: 42, letterSpacing: 7 }}>
+                {otp.split('').join('')}
             </Text>
-            <Text>{counter} seconds</Text>
+            <Text style={{marginTop:20, fontSize: 15 }}>{counter} seconds</Text>
         </PercentageCircle>
     </View>
 );

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button, TextInput, TopNavbar } from '../../../components';
 import navigator from '../../../navigation';
@@ -20,6 +21,7 @@ const CodeAccount = (props) => {
         }));
     };
 
+
     const onAddPress = async () => {
         try {
             await createAccount({ account });
@@ -34,6 +36,7 @@ const CodeAccount = (props) => {
     return (
         <View style={{ flex: 1, justifyContent: 'space-between' }}>
             <TopNavbar title="Account By Code" />
+  
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -43,53 +46,57 @@ const CodeAccount = (props) => {
                         </Text>
                     </View>
                 </View>
-                <View style={styles.middle}>
-                    <TextInput
-                        placeholder="Account name"
-                        onChangeText={onChangeHandler('name')}
-                    />
-                    <Text
-                        style={{
-                            paddingLeft: 10,
-                            fontSize: 13,
-                            paddingTop: 20
-                        }}></Text>
-                </View>
-                <View style={styles.middle}>
-                    <TextInput
-                        placeholder="Company name"
-                        onChangeText={onChangeHandler('issuer')}
-                    />
-                    <Text
-                        style={{
-                            paddingLeft: 10,
-                            fontSize: 13,
-                            paddingTop: 20
-                        }}></Text>
-                </View>
 
-                <View style={styles.middle}>
-                    <TextInput
-                        placeholder="Secret Code"
-                        onChangeText={onChangeHandler('secret')}
-                        autoCapitalize={true}
-                    />
+
+                <View>
+                    <View>
+                        <Text style={styles.SListtitle}>Company name</Text>
+                        <TextInput
+                            placeholder="Company name"
+                            style={styles.listitemInput}
+                        />
+                        <View style={styles.bar}></View>
+                    </View>
+                    <View>
+                        <Text style={styles.SListtitle}>Account</Text>
+                        <View style={styles.listitemView}>
+                            <TextInput
+                                placeholder="Account"
+                                style={styles.listitemInput}
+                            />
+                        </View>
+                        <View style={styles.bar}></View>
+                    </View>
+
+                    <View>
+                        <Text style={styles.SListtitle}>Account code</Text>
+                        <View style={styles.listitemView}>
+                            <TextInput
+                                placeholder="Account code"
+                                style={styles.listitemInput}
+                            />
+                        </View>
+                        <View style={styles.bar}></View>
+                    </View>
                     <Text
                         style={{
-                            paddingLeft: 10,
-                            fontSize: 13,
-                            paddingTop: 20
-                        }}></Text>
+                            fontSize: 15,
+                            color: 'grey',
+                            marginLeft: 10,
+                            marginRight: 10,
+                            marginTop: -20
+                        }}>
+                        4 - 50 numbers or letters.
+                    </Text>
+                   
                 </View>
 
                 <View style={styles.bottom}>
-                    <View style={{ margin: 35 }} />
                     <Button
-                        title="Add Account"
+                        title="Connect"
                         style={styles.btn}
                         onPress={onAddPress}
                     />
-                    <View style={{ marginBottom: 40 }} />
                 </View>
             </View>
         </View>
@@ -107,30 +114,21 @@ const styles = StyleSheet.create({
         padding: 20,
         margin: 10
     },
-    titleMainText: {
-        color: 'white',
-        justifyContent: 'center',
-        fontSize: 18,
-        fontWeight: 'bold'
-    },
-
     title: {
-        marginLeft: 20
+        marginLeft: 5
     },
     titleText: {
         color: '#424c58',
-        fontSize: 30,
-        fontWeight: 'bold'
+        fontSize: 32,
+        lineHeight: 45,
+        marginTop: -10
     },
     iconBtn: {
         width: 37,
         height: 37
     },
     top: {
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1,
-        paddingBottom: 40,
-        marginBottom: 40
+        marginBottom: 25
     },
     middle: {
         margin: 7,
@@ -139,14 +137,41 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
-        backgroundColor: '#0f62fe',
+        backgroundColor: 'lightgrey',
         paddingVertical: 23,
         paddingHorizontal: 12,
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center'
-    }
+    },
+    SListtitle: {
+        fontSize: 16,
+        color: '#424c58',
+        marginLeft: 10,
+        marginRight: 10,
+        marginBottom: -10,
+    },
+    listitemInput:{
+        marginBottom: -15,
+        fontSize: 16,
+        marginLeft: 20
+    },
+    bar: {
+        alignSelf: 'center',
+        marginTop: 10,
+        marginBottom: 30,
+        width: '95%',
+        borderBottomColor: 'grey',
+        borderBottomWidth: 1
+    },
+    imgg: {
+        width: 25,
+        height: 25
+    },
+    bottom: {
+        marginTop: '10%',
+    },
 });
 
 export default CodeAccount;
