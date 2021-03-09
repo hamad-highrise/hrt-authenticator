@@ -1,10 +1,30 @@
-import { Platform, NativeModules } from 'react-native';
+import { Platform } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
-import { getDeviceInfo } from '../../../util/utilities';
-import biometric from '../../../util/biometrics';
-import { createAccount, isUnique } from '../services';
-import { encodeFormData, getFetchInstance } from '../../services';
+import { getDetails, getToken } from './api';
+import { push, biometrics, utilities } from '../../../util';
+import { createAccount, isUnique } from '../services'; //folder related services
 import parser from '../qr/parser';
+
+/*
+1. Fetch Details from server
+    Details fetching url will be extracted from scanned qr code.
+    Will give:
+        - transaction endpoint - ""
+        - metadata - {}
+        - discovery mechanisms - ["", "",...,""]
+        - enrollment endpoint - ""
+        - totp endpoint - ""
+        - token endpoint - ""
+Further, token will be compulsory for any other operation
+
+2. Get Token
+    Endpoint will be extracted from details result
+    Will give:
+        - access token - ""
+        - 
+    
+
+*/
 
 async function initiate(scanned) {
     const resultObj = {
@@ -20,7 +40,10 @@ async function initiate(scanned) {
         return resultObj;
     }
     try {
-        const detailsResult = await getDetails(scanned.details_url);
+        //ignore ssl option
+        const detailsResult = await getDetails({
+            endpoint: scanned['details_url']
+        });
 
         if (!detailsResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_DETAILS';
@@ -31,14 +54,14 @@ async function initiate(scanned) {
             frontCameraAvailable,
             name,
             rooted
-        } = await getDeviceInfo();
+        } = await utilities.getDeviceInfo();
         //device information
-        const { pushToken } = await NativeModules.RNPush.getFirebaseToken();
+        const { pushToken } = await push.getFirebaseToken();
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
             frontCamera: frontCameraAvailable,
-            fingerprintSupport: await (await biometric.isSensorAvailable())
+            fingerprintSupport: await (await biometrics.isSensorAvailable())
                 .available,
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
             deviceName: name,
@@ -46,7 +69,12 @@ async function initiate(scanned) {
             pushToken: pushToken
         };
         const details = detailsResult.json();
-        const tokenResult = await getToken(details.token_endpoint, data);
+        //ignore ssl option should be here
+        const tokenResult = await getToken({
+            endpoint: details['token_endpoint'],
+            data
+        });
+
         if (!tokenResult.respInfo.status === 200) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
@@ -95,51 +123,6 @@ async function initiate(scanned) {
         resultObj.token = token.token;
         resultObj.accountName = account.name;
         return Promise.resolve(resultObj);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-async function getDetails(endpoint) {
-    const insecureFetch = getFetchInstance();
-    try {
-        const result = await insecureFetch('GET', endpoint, {
-            Accept: 'application/json'
-        });
-        return Promise.resolve(result);
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-async function getToken(endpoint, data) {
-    try {
-        const insecureFetch = getFetchInstance();
-        const rawObject = {
-            grant_type: 'authorization_code',
-            code: data.code,
-            client_id: 'AuthenticatorClient',
-            scope: 'mmfaAuth',
-            device_type: data.deviceType || 'SmartPhone',
-            front_camera_support: data.frontCamera || false,
-            os_version: data.OSVersion || 13,
-            device_name: data.deviceName || 'Default Device Name',
-            device_rooted: data.deviceRooted || false,
-            application_id: 'com.hrt.verify',
-            platform_type: data.deviceType,
-            push_token: data.pushToken
-        };
-        const body = encodeFormData(rawObject);
-        const result = await insecureFetch(
-            'POST',
-            endpoint,
-            {
-                Accept: 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body
-        );
-        return Promise.resolve(result);
     } catch (error) {
         return Promise.reject(error);
     }
