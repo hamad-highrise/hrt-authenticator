@@ -11,7 +11,8 @@ const AndroidTextInput = ({
     placeholder,
     secureTextEntry,
     value,
-    onChangeText
+    onChangeText,
+    autoCapitalize
 }) => {
     return (
         <KeyboardAvoidingView style={styles.title} keyboardVerticalOffset={40}>
@@ -21,6 +22,7 @@ const AndroidTextInput = ({
                 style={styles.titleCodeText}
                 value={value}
                 onChangeText={onChangeText}
+                autoCapitalize={autoCapitalize ? 'characters' : 'none'}
             />
         </KeyboardAvoidingView>
     );
@@ -72,6 +74,6 @@ const styles = StyleSheet.create({
         borderBottomWidth: 4,
         marginLeft: Dimensions.get('window').width * 0.03,
         marginRight: Dimensions.get('window').width * 0.07,
-        width: 250,
+        width: 250
     }
 });

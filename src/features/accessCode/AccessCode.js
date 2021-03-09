@@ -107,6 +107,7 @@ const AccessCode = (props) => {
         try {
             setOTP(TOTPGenerator(props.secret));
         } catch (error) {
+            setFragment('SETTINGS');
             alert(
                 'Account have invalid secret. Delete the account and enter a valid Secret.'
             );

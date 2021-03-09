@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet,TouchableOpacity, Image, FlatList,Alert,Modal, TouchableHighlight} from 'react-native';
+import React from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { TopNavbar } from '../../components';
-import  {Navigation} from 'react-native-navigation';
+import { Navigation } from 'react-native-navigation';
 
 const DeviceInfo = (props) => {
     const onPressHandler = () => {
@@ -136,16 +136,21 @@ const DeviceInfo = (props) => {
         });
     };
     return (
-        
         <View style={styles.container}>
-            <TopNavbar title="Device Info" onPress={()=>alert("zxcvb")}></TopNavbar>
+            <TopNavbar
+                title="Device Info"
+                onPress={() => alert('zxcvb')}></TopNavbar>
 
-            <View style={{ margin: 30}} />
-            
+            <View style={{ margin: 30 }} />
+
             {/* li */}
-            <TouchableOpacity style={styles.listitem} onPress={AccountConnected}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={AccountConnected}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Version*/}Notify Account Connected</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Version*/}Notify Account Connected
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
@@ -154,7 +159,10 @@ const DeviceInfo = (props) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.listitem} onPress={ProcessComplete}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*IBM Security Verify SDK version*/}Notify Process Complete</Text>
+                    <Text style={styles.listitemText}>
+                        {/*IBM Security Verify SDK version*/}Notify Process
+                        Complete
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
@@ -163,59 +171,83 @@ const DeviceInfo = (props) => {
             </TouchableOpacity>
             <TouchableOpacity style={styles.listitem} onPress={BiometricOption}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*IBM Security Verify User Guide*/}Biometric Option</Text>
+                    <Text style={styles.listitemText}>
+                        {/*IBM Security Verify User Guide*/}Biometric Option
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerAccessCode}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerAccessCode}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Remove this record*/}Access Code</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Remove this record*/}Access Code
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerError}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerError}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Terms and Conditions*/}Notify Error</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Terms and Conditions*/}Notify Error
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerAccountSettings}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerAccountSettings}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Privacy Policy*/}Account Settings</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Privacy Policy*/}Account Settings
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerSplashScreen}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerSplashScreen}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Third Party Notices*/}SplashScreen</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Third Party Notices*/}SplashScreen
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerEmptyState}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerEmptyState}>
                 <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>{/*Security Assessment*/}EmptyState</Text>
+                    <Text style={styles.listitemText}>
+                        {/*Security Assessment*/}EmptyState
+                    </Text>
                     <Image
                         source={require('../../assets/icons/backarrowinvert.png')}
                         style={styles.img}
                     />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={onPressHandlerGetStarted}>
+            <TouchableOpacity
+                style={styles.listitem}
+                onPress={onPressHandlerGetStarted}>
                 <View style={styles.listitemView}>
                     <Text style={styles.listitemText}>GetStarted</Text>
                     <Image
@@ -225,7 +257,6 @@ const DeviceInfo = (props) => {
                 </View>
             </TouchableOpacity>
             {/* end li */}
-     
         </View>
     );
 };
@@ -234,12 +265,12 @@ DeviceInfo.options = {};
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
     },
     title: {
         marginLeft: 20
     },
-    
+
     titleText: {
         color: 'black',
         fontSize: 18,
@@ -251,7 +282,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#f8f8f8',
         borderBottomWidth: 2,
         borderColor: '#eee',
-        justifyContent:'space-between'
+        justifyContent: 'space-between'
     },
     listitemView: {
         flexDirection: 'row',
@@ -260,20 +291,20 @@ const styles = StyleSheet.create({
     },
     listitemText: {
         fontSize: 18,
-        fontWeight:'bold',
-        color:'#424c58',
+        fontWeight: 'bold',
+        color: '#424c58'
     },
     listitemID: {
         fontSize: 12,
         flex: 1
     },
-    img:{
+    img: {
         width: 32,
         height: 30,
-        transform:[{rotate:'180deg'}],
-        backgroundColor:'#e57f01',
-        borderRadius:10,
-    },
+        transform: [{ rotate: '180deg' }],
+        backgroundColor: '#e57f01',
+        borderRadius: 10
+    }
 });
 
 export default DeviceInfo;

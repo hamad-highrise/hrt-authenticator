@@ -104,7 +104,7 @@ const Main = (props) => {
         });
     };
     const onPressHandlerAccessCode = () => {
-        navigation.goTo(props.componentId, navigation.screenIds.accessCode);
+        navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
     };
 
     return (
@@ -151,14 +151,14 @@ Main.options = {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        flex: 1
         // backgroundColor: 'black'
     },
     header: {
         flexDirection: 'row',
         height: 50,
         alignItems: 'center',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     title: {
         marginLeft: 20

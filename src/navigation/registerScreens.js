@@ -9,7 +9,8 @@ import {
     ManualAccountScreen as ManualScreen,
     CodeScreen,
     AuthScreen,
-    BiometricOption
+    BiometricOption,
+    DeviceInfoScreen
 } from '../features';
 
 /**
@@ -34,6 +35,7 @@ function registerScreens() {
         screensId.biometricOption,
         () => BiometricOption
     );
+    Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
 }
 
 export default registerScreens;

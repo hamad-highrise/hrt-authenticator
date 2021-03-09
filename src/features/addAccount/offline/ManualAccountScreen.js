@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button, TextInput, TopNavbar } from '../../../components';
+import navigator from '../../../navigation';
 import { createAccount } from '../services';
 
 const CodeAccount = (props) => {
@@ -9,6 +10,8 @@ const CodeAccount = (props) => {
         issuer: '',
         secret: ''
     });
+
+    const regexForSecret = /^[0-9A-F]$/;
 
     const onChangeHandler = (name) => (value) => {
         setAccount((account) => ({
@@ -20,9 +23,11 @@ const CodeAccount = (props) => {
     const onAddPress = async () => {
         try {
             await createAccount({ account });
+            alert('Account Added');
         } catch (error) {
             alert('Error');
         } finally {
+            navigator.goToRoot(props.componentId);
         }
     };
 
@@ -65,9 +70,9 @@ const CodeAccount = (props) => {
 
                 <View style={styles.middle}>
                     <TextInput
-                        secureTextEntry={true}
                         placeholder="Secret Code"
                         onChangeText={onChangeHandler('secret')}
+                        autoCapitalize={true}
                     />
                     <Text
                         style={{

@@ -2,8 +2,7 @@ import { Platform, NativeModules } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDeviceInfo } from '../../../util/utilities';
 import biometric from '../../../util/biometrics';
-import { isUnique } from './queries';
-import { createAccount } from '../services';
+import { createAccount, isUnique } from '../services';
 import { encodeFormData, getFetchInstance } from '../../services';
 import parser from '../qr/parser';
 
