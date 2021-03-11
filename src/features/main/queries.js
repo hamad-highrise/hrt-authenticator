@@ -9,7 +9,18 @@ async function getAll() {
         for (let i = 0; i < result.rows.length; i++) {
             temp.push(result.rows.item(i));
         }
-        return Promise.resolve(temp);
+        return Promise.resolve(
+            temp.map((account) => {
+                if (account.type === 'SAM') {
+                    return {
+                        ...account,
+                        transaction: {
+                            available: false
+                        }
+                    };
+                }
+            })
+        );
     } catch (error) {
         return Promise.reject(error);
     }

@@ -50,12 +50,10 @@ const AuthProcess = (props) => {
                             paddingLeft: 25
                         }}>
                         <View style={{ paddingLeft: 20, paddingRight: 20 }}>
-                            <Text style={styles.welcome}>
-                                Please verify using fingerprint
-                            </Text>
+                            <Text style={styles.welcome}>{message}</Text>
                             <Text style={styles.SListheader}>HRT server</Text>
                             <Text style={styles.SListtitle}>
-                                configation #12343654
+                                Confirmation # {transactionId.split('-')[0]}
                             </Text>
                         </View>
                         <View style={{ marginTop: 30 }} />
@@ -87,7 +85,9 @@ const AuthProcess = (props) => {
                                 <Text style={styles.SListheader}>
                                     Confirmation
                                 </Text>
-                                <Text style={styles.SListtitle}>#12343654</Text>
+                                <Text style={styles.SListtitle}>
+                                    {transactionId.split('-')[0]}
+                                </Text>
                                 <View style={styles.bar}></View>
                             </View>
                             <View>
@@ -95,15 +95,13 @@ const AuthProcess = (props) => {
                                     Created On
                                 </Text>
                                 <Text style={styles.SListtitle}>
-                                    Tue Mar 02 11:37:29 GMT+05:00 2021
+                                    {createdAt}
                                 </Text>
                                 <View style={styles.bar}></View>
                             </View>
                             <View>
                                 <Text style={styles.SListheader}>Message</Text>
-                                <Text style={styles.SListtitle}>
-                                    Please verify using fingerprint
-                                </Text>
+                                <Text style={styles.SListtitle}>{message}</Text>
                                 <View style={styles.bar}></View>
                             </View>
                         </View>
