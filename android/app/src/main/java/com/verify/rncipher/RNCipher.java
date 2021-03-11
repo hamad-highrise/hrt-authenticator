@@ -3,9 +3,11 @@ package com.verify.rncipher;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
+import android.util.Log;
 import android.util.Pair;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
@@ -30,31 +32,38 @@ public class RNCipher {
     private final String ALIAS = "RN_CIPHER_KEY_ALIAS";
 
 
-    public Pair encrypt(final String keyAlias, final String payload)
+    public Pair encrypt(final String keyAlias, String payload)
             throws CertificateException, NoSuchAlgorithmException, KeyStoreException,
             IOException, UnrecoverableEntryException, NoSuchProviderException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
+        //
         final SecretKey secretKey;
         if (keysExist(ALIAS)) secretKey = getSecretKey(ALIAS);
         else secretKey = createKeys(ALIAS);
         final Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-        final byte[] encrypted = cipher.doFinal(payload.getBytes("UTF-8"));
+        while (payload.getBytes().length % 16 != 0) {
+            payload += '\u0020';
+        }
+        final byte[] encrypted = cipher.doFinal(payload.getBytes(StandardCharsets.UTF_8));
         final byte[] iv = cipher.getIV();
-        return new Pair(new String(encrypted, "UTF-8"), new String(iv, "UTF-8"));
+        Log.d("CIPHER", String.valueOf(new String(iv).getBytes().length));
+        return new Pair(new String(encrypted, StandardCharsets.UTF_8), new String(iv, StandardCharsets.UTF_8));
     }
 
     public String decrypt(final String keyAlias, final String encryptedPayload, final String iv)
             throws NoSuchPaddingException, NoSuchAlgorithmException, CertificateException,
             UnrecoverableEntryException, KeyStoreException, IOException, InvalidKeyException,
             InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException {
+        //
         Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
         SecretKey secretKey = getSecretKey(ALIAS);
-        IvParameterSpec spec = new IvParameterSpec(iv.getBytes("UTF-8"));
-        cipher.init(Cipher.DECRYPT_MODE, secretKey, spec);
-        final byte[] decrypted = cipher.doFinal(encryptedPayload.getBytes("UTF-8"));
-        return new String(decrypted, "UTF-8");
+        Log.d("CIPHER", String.valueOf(iv.getBytes(StandardCharsets.UTF_8).length));
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
+        cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+        final byte[] decrypted = cipher.doFinal(encryptedPayload.getBytes(StandardCharsets.UTF_8));
+        return new String(decrypted, StandardCharsets.UTF_8);
     }
 
 
