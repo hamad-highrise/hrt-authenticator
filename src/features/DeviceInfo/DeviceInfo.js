@@ -137,126 +137,107 @@ const DeviceInfo = (props) => {
     };
     return (
         <View style={styles.container}>
-            <TopNavbar
-                title="Device Info"
-                onPress={() => alert('zxcvb')}></TopNavbar>
+            <TopNavbar title="" onPress={() => alert('zxcvb')}></TopNavbar>
 
-            <View style={{ margin: 30 }} />
-
-            {/* li */}
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={AccountConnected}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Version*/}Notify Account Connected
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={ProcessComplete}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*IBM Security Verify SDK version*/}Notify Process
-                        Complete
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity style={styles.listitem} onPress={BiometricOption}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*IBM Security Verify User Guide*/}Biometric Option
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerAccessCode}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Remove this record*/}Access Code
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerError}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Terms and Conditions*/}Notify Error
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerAccountSettings}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Privacy Policy*/}Account Settings
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerSplashScreen}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Third Party Notices*/}SplashScreen
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerEmptyState}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>
-                        {/*Security Assessment*/}EmptyState
-                    </Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-                style={styles.listitem}
-                onPress={onPressHandlerGetStarted}>
-                <View style={styles.listitemView}>
-                    <Text style={styles.listitemText}>GetStarted</Text>
-                    <Image
-                        source={require('../../assets/icons/backarrowinvert.png')}
-                        style={styles.img}
-                    />
-                </View>
-            </TouchableOpacity>
-            {/* end li */}
+            <View style={{ margin: 25 }} />
+            <Text style={{ marginLeft: 10, marginBottom: 10, fontSize: 15 }}>
+                Device Information
+            </Text>
+            <View
+                style={{
+                    backgroundColor: 'lightgrey',
+                    borderColor: 'grey',
+                    borderBottomWidth: 1,
+                    borderTopWidth: 1
+                }}>
+                {/* li */}
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={AccountConnected}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Version
+                        </Text>
+                        <Text style={styles.listitemText}>2.4.5</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={ProcessComplete}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            IBM Security Verify SDK version
+                        </Text>
+                        <Text style={styles.listitemText}>2.1.2</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={BiometricOption}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            IBM Security Verify User Guide
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerAccessCode}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Remove this record
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerError}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Terms and Conditions
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerAccountSettings}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Privacy Policy
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerSplashScreen}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Third Party Notices
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowinvert.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                {/* end li */}
+            </View>
         </View>
     );
 };
@@ -273,16 +254,18 @@ const styles = StyleSheet.create({
 
     titleText: {
         color: 'black',
-        fontSize: 18,
-        fontWeight: 'bold'
+        fontSize: 18
     },
 
     listitem: {
-        padding: 15,
+        padding: 10,
+        marginLeft: 10,
+        marginRight: 10,
         backgroundColor: '#f8f8f8',
-        borderBottomWidth: 2,
+        borderBottomWidth: 1,
         borderColor: '#eee',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: 'lightgrey'
     },
     listitemView: {
         flexDirection: 'row',
@@ -290,8 +273,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     listitemText: {
-        fontSize: 18,
-        fontWeight: 'bold',
+        fontSize: 17,
+
         color: '#424c58'
     },
     listitemID: {
@@ -299,11 +282,9 @@ const styles = StyleSheet.create({
         flex: 1
     },
     img: {
-        width: 32,
-        height: 30,
-        transform: [{ rotate: '180deg' }],
-        backgroundColor: '#e57f01',
-        borderRadius: 10
+        width: 20,
+        height: 20,
+        transform: [{ rotate: '180deg' }]
     }
 });
 
