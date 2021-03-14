@@ -1,22 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
 import { TopNavbar } from '../../components';
 import { Navigation } from 'react-native-navigation';
-
+import navigation from '../../navigation';
 const DeviceInfo = (props) => {
-    const onPressHandler = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.MainScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    // NOIFICATION SCREEEN WORK
     const AccountConnected = () => {
         Navigation.push(props.componentId, {
             component: {
@@ -29,131 +16,62 @@ const DeviceInfo = (props) => {
             }
         });
     };
-    const ProcessComplete = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.NotifyProcessComplete',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const BiometricOption = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.BiometricOption',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerAccessCode = (id, name, issuer, secret) => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccessCodeScreen',
-                passProps: {
-                    id: id,
-                    name: name,
-                    issuer: issuer,
-                    secret: secret
-                },
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerAccountSettings = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.AccountSettingsScreen',
-                passProps: {
-                    id: props.id,
-                    refresh: props.refresh
-                },
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerSplashScreen = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.SplashScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerEmptyState = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.EmptyStateScreen',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerError = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.NotifyError',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
-    const onPressHandlerGetStarted = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.GetStarted',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
+    const onPressHandleProcessComplete = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.processcomplete
+        );
+    }, [props.componentId]);
+    const onPressHandleBiometricOption = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.biometricOption
+        );
+    }, [props.componentId]);
+
+    const onPressHandlerWelcome = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.authTransaction
+        );
+    }, [props.componentId]);
+    const onPressHandlerAuthTransaction = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.authTransaction
+        );
+    }, [props.componentId]);
+    const onPressHandlerSplashScreen = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.splash);
+    }, [props.componentId]);
+    const onPressHandlerEmptyState = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.emptyState);
+    }, [props.componentId]);
+    const onPressHandlerError = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.error);
+    }, [props.componentId]);
+    const onPressHandlerGetStarted = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.getstarted);
+    }, [props.componentId]);
     return (
         <View style={styles.container}>
             <TopNavbar title="" onPress={() => alert('zxcvb')}></TopNavbar>
 
             <View style={{ margin: 25 }} />
-            <Text style={{ marginLeft: 10, marginBottom: 10, fontSize: 15 }}>
+            <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
                 Device Information
             </Text>
             <View
                 style={{
-                    backgroundColor: 'lightgrey',
+                    backgroundColor: '#d3d3d380',
                     borderColor: 'grey',
                     borderBottomWidth: 1,
                     borderTopWidth: 1
                 }}>
                 {/* li */}
+                {/*                 
                 <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={AccountConnected}>
+                    style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Version
@@ -162,8 +80,7 @@ const DeviceInfo = (props) => {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={ProcessComplete}>
+                    style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             IBM Security Verify SDK version
@@ -173,52 +90,101 @@ const DeviceInfo = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={BiometricOption}>
+                    onPress={()=> alert('go to browser')}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             IBM Security Verify User Guide
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
+                            source={require('../../assets/icons/backarrowblack.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={onPressHandlerAccessCode}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Remove this record
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerError}>
+                    onPress={()=> alert('go to next screen')}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Terms and Conditions
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
+                            source={require('../../assets/icons/backarrowblack.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={onPressHandlerAccountSettings}>
+                    onPress={()=> alert('go to next screen')}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Privacy Policy
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={()=> alert('go to next screen')}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            Third Party Notices
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={()=> alert('go to next screen')}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                           Security Assessment
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                 */}
+                {/* end li */}
+                {/* REMOVE BELOW RECORDs */}
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandleBiometricOption}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandleBiometricOption
+                        </Text>
+                        <Text style={styles.listitemText}>2.4.5</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerWelcome}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            {/* Remove this record */}onPressHandlerWelcome
+                        </Text>
+                        <Text style={styles.listitemText}>2.1.2</Text>
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerAuthTransaction}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            {/* Privacy Policy */}onPressHandlerAuthTransaction
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
                             style={styles.img}
                         />
                     </View>
@@ -228,15 +194,68 @@ const DeviceInfo = (props) => {
                     onPress={onPressHandlerSplashScreen}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            Third Party Notices
+                            {/* Third Party Notices */}
+                            onPressHandlerSplashScreen
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
+                            source={require('../../assets/icons/backarrowblack.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                {/* end li */}
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerEmptyState}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            {/* Third Party Notices */}onPressHandlerEmptyState
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerGetStarted}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlerGetStarted
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerError}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlerError
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandleProcessComplete}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandleProcessComplete
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                {/* end REMOVE BELOW RECORDs */}
             </View>
         </View>
     );
@@ -251,21 +270,18 @@ const styles = StyleSheet.create({
     title: {
         marginLeft: 20
     },
-
     titleText: {
         color: 'black',
         fontSize: 18
     },
-
     listitem: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
-        backgroundColor: '#f8f8f8',
+        // backgroundColor: '#f8f8f8',
         borderBottomWidth: 1,
-        borderColor: '#eee',
+        borderColor: 'lightgrey',
         justifyContent: 'space-between',
-        backgroundColor: 'lightgrey'
     },
     listitemView: {
         flexDirection: 'row',
@@ -283,8 +299,7 @@ const styles = StyleSheet.create({
     },
     img: {
         width: 20,
-        height: 20,
-        transform: [{ rotate: '180deg' }]
+        height: 20
     }
 });
 
