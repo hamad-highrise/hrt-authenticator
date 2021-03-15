@@ -10,8 +10,12 @@ import {
     CodeScreen,
     AuthScreen,
     BiometricOption,
-    DeviceInfoScreen
+    DeviceInfoScreen,
+    GetStartedScreen,
+    ErrorScreen,
+    ProcessComplete
 } from '../features';
+import { SplashScreen } from '../features/Splash';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -36,6 +40,10 @@ function registerScreens() {
         () => BiometricOption
     );
     Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
+    Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
+    Navigation.registerComponent(screensId.splash, () => SplashScreen);
+    Navigation.registerComponent(screensId.error, () => ErrorScreen);
+    Navigation.registerComponent(screensId.processcomplete, () => ProcessComplete);
 }
 
 export default registerScreens;
