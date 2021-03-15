@@ -10,7 +10,7 @@ n.registerScreens();
         (await isInitiated()) && n.setMainRoot();
         const { RNCipher } = NativeModules;
         const payload =
-            'HAMADsafdarHAMADsafdarHAMADsafdarHAMADsafdarHAMADsafdarHAMADsafdar1';
+            'HamadSafdar';
         const alias = 'KEY_SECRET_ALIAS';
 
         const { encrypted, iv } = await RNCipher.encrypt({
@@ -24,7 +24,7 @@ n.registerScreens();
             encrypted,
             iv
         });
-        console.warn('Decrypted', decrypted);
+        console.warn('Decrypted', decrypted.trim());
     } catch (error) {
         console.warn(error);
         alert('Error initating app');

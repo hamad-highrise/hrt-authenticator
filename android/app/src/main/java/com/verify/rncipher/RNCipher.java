@@ -3,11 +3,10 @@ package com.verify.rncipher;
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
-import android.util.Log;
+import android.util.Base64;
 import android.util.Pair;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.InvalidKeyException;
 import java.security.KeyStore;
@@ -29,27 +28,29 @@ public class RNCipher {
 
     private final String PROVIDER = "AndroidKeyStore";
     private final String TRANSFORMATION_ALGORITHM = "AES/CBC/NoPadding";
-    private final String ALIAS = "RN_CIPHER_KEY_ALIAS";
 
 
-    public Pair encrypt(final String keyAlias, String payload)
+    public Pair<String, String> encrypt(final String keyAlias, String payload)
             throws CertificateException, NoSuchAlgorithmException, KeyStoreException,
             IOException, UnrecoverableEntryException, NoSuchProviderException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
             BadPaddingException, IllegalBlockSizeException {
         //
-        final SecretKey secretKey;
-        if (keysExist(ALIAS)) secretKey = getSecretKey(ALIAS);
-        else secretKey = createKeys(ALIAS);
+        SecretKey secretKey;
+        if (keysExist(keyAlias)) secretKey = getSecretKey(keyAlias);
+        else secretKey = createKeys(keyAlias);
         final Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
         cipher.init(Cipher.ENCRYPT_MODE, secretKey);
-        while (payload.getBytes().length % 16 != 0) {
-            payload += '\u0020';
+        StringBuilder payloadBuilder = new StringBuilder(payload);
+        while (payloadBuilder.toString().getBytes().length % 16 != 0) {
+            payloadBuilder.append('\u0020');
         }
-        final byte[] encrypted = cipher.doFinal(payload.getBytes(StandardCharsets.UTF_8));
-        final byte[] iv = cipher.getIV();
-        Log.d("CIPHER", String.valueOf(new String(iv).getBytes().length));
-        return new Pair(new String(encrypted, StandardCharsets.UTF_8), new String(iv, StandardCharsets.UTF_8));
+        payload = payloadBuilder.toString();
+        byte[] encrypted = cipher.doFinal(payload.getBytes());
+        byte[] iv = cipher.getIV();
+        String encodedIV = Base64.encodeToString(iv, Base64.NO_WRAP);
+        String encodedEncrypted = Base64.encodeToString(encrypted, Base64.NO_WRAP);
+        return new Pair<>(encodedEncrypted, encodedIV);
     }
 
     public String decrypt(final String keyAlias, final String encryptedPayload, final String iv)
@@ -58,12 +59,11 @@ public class RNCipher {
             InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException {
         //
         Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
-        SecretKey secretKey = getSecretKey(ALIAS);
-        Log.d("CIPHER", String.valueOf(iv.getBytes(StandardCharsets.UTF_8).length));
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(iv.getBytes(StandardCharsets.UTF_8));
+        SecretKey secretKey = getSecretKey(keyAlias);
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(Base64.decode(iv, Base64.NO_WRAP));
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
-        final byte[] decrypted = cipher.doFinal(encryptedPayload.getBytes(StandardCharsets.UTF_8));
-        return new String(decrypted, StandardCharsets.UTF_8);
+        final byte[] decrypted = cipher.doFinal(Base64.decode(encryptedPayload, Base64.NO_WRAP));
+        return new String(decrypted);
     }
 
 
@@ -72,7 +72,7 @@ public class RNCipher {
             InvalidAlgorithmParameterException {
         KeyGenerator keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, PROVIDER);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            KeyGenParameterSpec spec = new KeyGenParameterSpec.Builder(ALIAS, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
+            KeyGenParameterSpec spec = new KeyGenParameterSpec.Builder(keyAlias, KeyProperties.PURPOSE_ENCRYPT | KeyProperties.PURPOSE_DECRYPT)
                     .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
                     .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_NONE)
                     .build();
@@ -87,12 +87,12 @@ public class RNCipher {
             UnrecoverableEntryException {
         KeyStore keyStore = KeyStore.getInstance(PROVIDER);
         keyStore.load(null);
-        return ((KeyStore.SecretKeyEntry) keyStore.getEntry(ALIAS, null)).getSecretKey();
+        return ((KeyStore.SecretKeyEntry) keyStore.getEntry(keyAlias, null)).getSecretKey();
     }
 
     private Boolean keysExist(final String keyAlias) throws KeyStoreException, CertificateException, NoSuchAlgorithmException, IOException {
         KeyStore keyStore = KeyStore.getInstance(PROVIDER);
         keyStore.load(null);
-        return keyStore.containsAlias(ALIAS);
+        return keyStore.containsAlias(keyAlias);
     }
 }
