@@ -1,6 +1,5 @@
 import n from './src/navigation';
 import { isInitiated } from './src/util/utilities';
-import { push } from './src/util';
 import { NativeModules } from 'react-native';
 n.registerScreens();
 
