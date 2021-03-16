@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button, TextInput, TopNavbar } from '../../../components';
 import navigator from '../../../navigation';
@@ -21,11 +20,13 @@ const CodeAccount = (props) => {
 
     const onAddPress = async () => {
         try {
-            await createAccount({ account: { ...account, type: 'TOTP' } });
-            alert('Account Added');
+            if (account.name && account.issuer && account.secret >= 4) {
+                await createAccount({ account: { ...account, type: 'TOTP' } });
+                alert('Account Added');
+                navigator.goToRoot(props.componentId);
+            } else alert('Invalid Data or empty fields');
         } catch (error) {
             alert('Error');
-        } finally {
             navigator.goToRoot(props.componentId);
         }
     };
@@ -49,25 +50,29 @@ const CodeAccount = (props) => {
                         <TextInput
                             placeholder="Company name"
                             style={styles.listitemInput}
+                            onChangeText={onChangeHandler('issuer')}
                         />
                         <View style={styles.bar}></View>
                     </View>
                     <View>
                         <Text style={styles.SListtitle}>Account</Text>
-                            <TextInput
-                                placeholder="Account"
-                                style={styles.listitemInput}
-                            />
+                        <TextInput
+                            placeholder="Account"
+                            style={styles.listitemInput}
+                            onChangeText={onChangeHandler('name')}
+                        />
                         <View style={styles.bar}></View>
                     </View>
 
                     <View>
                         <Text style={styles.SListtitle}>Account code</Text>
-                        
-                            <TextInput
-                                placeholder="Account code"
-                                style={styles.listitemInput}
-                            />
+
+                        <TextInput
+                            placeholder="Account code"
+                            style={styles.listitemInput}
+                            onChangeText={onChangeHandler('secret')}
+                            autoCapitalize
+                        />
                         <View style={styles.bar}></View>
                     </View>
                     <Text
@@ -161,10 +166,8 @@ const styles = StyleSheet.create({
         height: 25
     },
     bottom: {
-
-        marginTop: '25%',
-    },
-
+        marginTop: '25%'
+    }
 });
 
 export default CodeAccount;
