@@ -1,6 +1,6 @@
 //All first start logic will go here
 // e.g. database setup and notification channel creation
-import React, { useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import navigator from '../../navigation';
 import { initiateDb } from './init-db';
@@ -8,9 +8,6 @@ import { setInitiated } from '../../util/utilities';
 import { Button } from '../../components';
 
 const WelcomeScreen = () => {
-    useEffect(() => {
-        init();
-    }, []);
     const init = async () => {
         try {
             await initiateDb();
@@ -21,14 +18,17 @@ const WelcomeScreen = () => {
     };
     return (
         <View style={styles.container}>
-            <View style={{ marginTop: 20 }}></View>
+            <View style={{ marginTop: 20 }} />
             <View>
                 <Text style={styles.welcome}>Welcome To Secure World!</Text>
             </View>
             <Button
                 style={styles.btn}
                 title="Continue"
-                onPress={() => navigator.setMainRoot()}
+                onPress={async () => {
+                    await init();
+                    navigator.setMainRoot();
+                }}
             />
             <View style={{ marginBottom: -50 }}></View>
         </View>
@@ -66,5 +66,5 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7
-    },
+    }
 });

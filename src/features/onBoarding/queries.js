@@ -85,7 +85,9 @@ const methodTableQuery = `
     );
 `;
 
-const methodsPopulate = ``;
+const methodsPopulate = `
+        INSERT 
+`;
 
 const accountMethodsTableQuery = `
     CREATE TABLE IF NOT EXISTS "accountMethods" (

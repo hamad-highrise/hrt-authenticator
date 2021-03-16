@@ -1,4 +1,3 @@
-import { UniqueIdProvider } from 'react-native-navigation/lib/dist/adapters/UniqueIdProvider';
 import Database from '../../util/sqlite/index.new';
 import queries from './queries';
 
@@ -12,10 +11,10 @@ async function initiateDb() {
         await database.executeQuery(queries.methodTableQuery);
         await database.executeQuery(queries.accountMethodsTableQuery);
         await database.executeQuery(queries.authenticatorIdTableQuery);
-        // database.executeQuery(queries.appDataPopulate, [
-        //     '' + Date.now(),
-        //     '1.0.0'
-        // ]);
+        database.executeQuery(queries.appDataPopulate, [
+            '' + Date.now(),
+            '1.0.0'
+        ]);
         return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
