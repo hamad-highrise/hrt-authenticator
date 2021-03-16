@@ -8,3 +8,6 @@ export { GetStartedScreen } from './GetStarted';
 export { SplashScreen } from './Splash';
 export { ErrorScreen } from './ErrorScreen';
 export { ProcessComplete } from './ProcessComplete';
+export { PrivacyPolicyScreen } from './PrivacyPolicy';
+export { TermAndConditionScreen } from './TermAndCondition';
+export { ThirdPartyNoticeScreen } from './ThirdPartyNotice';

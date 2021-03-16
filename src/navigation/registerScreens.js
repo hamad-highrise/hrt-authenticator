@@ -13,9 +13,12 @@ import {
     DeviceInfoScreen,
     GetStartedScreen,
     ErrorScreen,
-    ProcessComplete
+    ProcessComplete,
+    PrivacyPolicyScreen,
+    TermAndConditionScreen
 } from '../features';
 import { SplashScreen } from '../features/Splash';
+// import { TermAndConditionScreen } from '../features/TermAndCondition';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -44,6 +47,9 @@ function registerScreens() {
     Navigation.registerComponent(screensId.splash, () => SplashScreen);
     Navigation.registerComponent(screensId.error, () => ErrorScreen);
     Navigation.registerComponent(screensId.processcomplete, () => ProcessComplete);
+    Navigation.registerComponent(screensId.privacypolicy, ()=>PrivacyPolicyScreen);
+    Navigation.registerComponent(screensId.termandcondition, () => TermAndConditionScreen);
+    Navigation.registerComponent(screensId.thirdpartynotice, () => ThirdPartyNoticeScreen);
 }
 
 export default registerScreens;
