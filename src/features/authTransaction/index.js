@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { authTransaction, rejectTransaction } from './services';
 import PropTypes from 'prop-types';
@@ -50,12 +50,10 @@ const AuthProcess = (props) => {
                             paddingLeft: 25
                         }}>
                         <View style={{ paddingLeft: 20, paddingRight: 20 }}>
-                            <Text style={styles.welcome}>
-                                Please verify using fingerprint
-                            </Text>
+                            <Text style={styles.welcome}>{message}</Text>
                             <Text style={styles.SListheader}>HRT server</Text>
                             <Text style={styles.SListtitle}>
-                                configation #12343654
+                                Confirmation # {transactionId.split('-')[0]}
                             </Text>
                         </View>
                         <View style={{ marginTop: 30 }} />
@@ -87,7 +85,9 @@ const AuthProcess = (props) => {
                                 <Text style={styles.SListheader}>
                                     Confirmation
                                 </Text>
-                                <Text style={styles.SListtitle}>#12343654</Text>
+                                <Text style={styles.SListtitle}>
+                                    {transactionId.split('-')[0]}
+                                </Text>
                                 <View style={styles.bar}></View>
                             </View>
                             <View>
@@ -95,15 +95,13 @@ const AuthProcess = (props) => {
                                     Created On
                                 </Text>
                                 <Text style={styles.SListtitle}>
-                                    Tue Mar 02 11:37:29 GMT+05:00 2021
+                                    {createdAt}
                                 </Text>
                                 <View style={styles.bar}></View>
                             </View>
                             <View>
                                 <Text style={styles.SListheader}>Message</Text>
-                                <Text style={styles.SListtitle}>
-                                    Please verify using fingerprint
-                                </Text>
+                                <Text style={styles.SListtitle}>{message}</Text>
                                 <View style={styles.bar}></View>
                             </View>
                         </View>
@@ -127,7 +125,7 @@ const AuthProcess = (props) => {
                             paddingLeft: 20
                         }
                     ]}
-                    onPress={() => alert('Approve')}>
+                    onPress={onReject}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold',color: 'black' }}>Deny</Text>
                     </View>
@@ -143,7 +141,7 @@ const AuthProcess = (props) => {
                         styles.decisionBox,
                         { backgroundColor: 'steelblue', padding: 10 }
                     ]}
-                    onPress={() => alert('Approve')}>
+                    onPress={onApproveBiometric}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold' }}>Approve</Text>
                     </View>

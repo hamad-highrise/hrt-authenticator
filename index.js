@@ -1,5 +1,7 @@
 import n from './src/navigation';
 import { isInitiated } from './src/util/utilities';
+import { cipher } from './src/util';
+
 n.registerScreens();
 
 (async () => {
@@ -7,6 +9,7 @@ n.registerScreens();
         n.setRoot();
         (await isInitiated()) && n.setMainRoot();
     } catch (error) {
+        console.warn(error);
         alert('Error initating app');
     }
 })();

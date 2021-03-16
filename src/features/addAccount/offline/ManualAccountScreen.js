@@ -12,8 +12,6 @@ const CodeAccount = (props) => {
         secret: ''
     });
 
-    const regexForSecret = /^[0-9A-F]$/;
-
     const onChangeHandler = (name) => (value) => {
         setAccount((account) => ({
             ...account,
@@ -21,10 +19,9 @@ const CodeAccount = (props) => {
         }));
     };
 
-
     const onAddPress = async () => {
         try {
-            await createAccount({ account });
+            await createAccount({ account: { ...account, type: 'TOTP' } });
             alert('Account Added');
         } catch (error) {
             alert('Error');
@@ -36,7 +33,6 @@ const CodeAccount = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <TopNavbar title="Account By Code" />
-  
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -46,7 +42,6 @@ const CodeAccount = (props) => {
                         </Text>
                     </View>
                 </View>
-
 
                 <View>
                     <View>
@@ -85,7 +80,6 @@ const CodeAccount = (props) => {
                         }}>
                         4 - 50 numbers or letters.
                     </Text>
-                   
                 </View>
 
                 <View style={styles.bottom}>
@@ -147,9 +141,9 @@ const styles = StyleSheet.create({
         color: '#424c58',
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: -10,
+        marginBottom: -10
     },
-    listitemInput:{
+    listitemInput: {
         marginBottom: -15,
         fontSize: 16,
         marginLeft: 20
@@ -167,8 +161,10 @@ const styles = StyleSheet.create({
         height: 25
     },
     bottom: {
+
         marginTop: '25%',
     },
+
 });
 
 export default CodeAccount;
