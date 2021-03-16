@@ -53,6 +53,21 @@ const DeviceInfo = (props) => {
     const onPressHandlerGetStarted = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.getstarted);
     }, [props.componentId]);
+    const onPressHandlerprivacypolicy = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.privacypolicy);
+    }, [props.componentId]);
+    const onPressHandlertermandcondition = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.termandcondition
+        );
+    }, [props.componentId]);
+    const onPressHandlerthirdpartynotice = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.thirdpartynotice
+        );
+    }, [props.componentId]);
     return (
         <View style={styles.container}>
             <TopNavbar title="" onPress={() => alert('zxcvb')}></TopNavbar>
@@ -255,6 +270,46 @@ const DeviceInfo = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerprivacypolicy}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlerprivacypolicy
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlertermandcondition}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlertermandcondition
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerthirdpartynotice}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlerthirdpartynotice
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+
                 {/* end REMOVE BELOW RECORDs */}
             </View>
         </View>
@@ -281,7 +336,7 @@ const styles = StyleSheet.create({
         // backgroundColor: '#f8f8f8',
         borderBottomWidth: 1,
         borderColor: 'lightgrey',
-        justifyContent: 'space-between',
+        justifyContent: 'space-between'
     },
     listitemView: {
         flexDirection: 'row',
