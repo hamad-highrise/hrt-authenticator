@@ -1,6 +1,6 @@
 import { getFetchInstance } from './RNFetch';
 import { encodeFormData } from './formData';
-import utilities from '../../util/utilities';
+import utilities from '../../native-services/utilities';
 import { Platform } from 'react-native';
 
 async function getPendingTransactions({ endpoint, token, secure }) {

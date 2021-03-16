@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDetails, getToken } from './api';
-import { push, biometrics, utilities } from '../../../util';
+import { push, biometrics, utilities } from '../../../native-services';
 import { createAccount, isUnique } from '../services'; //folder related services
 import parser from '../qr/parser';
 import { getDeviceId } from '../../services';

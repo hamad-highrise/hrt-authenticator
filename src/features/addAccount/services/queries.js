@@ -1,4 +1,4 @@
-import Database from '../../../util/sqlite/index.new';
+import Database from '../../../native-services/sqlite/index.new';
 
 async function createAccountEntry({
     name,

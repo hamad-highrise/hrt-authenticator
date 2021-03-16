@@ -1,6 +1,6 @@
 import { getFetchInstance } from '../../services';
-import { createKeys } from '../../../util/KeyGen';
-import biometrics from '../../../util/biometrics';
+import { createKeys } from '../../../native-services/KeyGen';
+import biometrics from '../../../native-services/biometrics';
 
 async function registerTotp(endpoint, token) {
     try {
