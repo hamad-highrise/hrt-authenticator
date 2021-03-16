@@ -68,6 +68,12 @@ const DeviceInfo = (props) => {
             navigation.screenIds.thirdpartynotice
         );
     }, [props.componentId]);
+    const onPressHandlersecurityassessment = useCallback(() => {
+        navigation.goTo(
+            props.componentId,
+            navigation.screenIds.securityassessment
+        );
+    }, [props.componentId]);
     return (
         <View style={styles.container}>
             <TopNavbar title="" onPress={() => alert('zxcvb')}></TopNavbar>
@@ -302,6 +308,19 @@ const DeviceInfo = (props) => {
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             onPressHandlerthirdpartynotice
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlersecurityassessment}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                            onPressHandlersecurityassessment
                         </Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}

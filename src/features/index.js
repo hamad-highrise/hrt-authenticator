@@ -11,3 +11,4 @@ export { ProcessComplete } from './ProcessComplete';
 export { PrivacyPolicyScreen } from './PrivacyPolicy';
 export { TermAndConditionScreen } from './TermAndCondition';
 export { ThirdPartyNoticeScreen } from './ThirdPartyNotice';
+export { SecurityAssessmentScreen } from './SecurityAssessment';
