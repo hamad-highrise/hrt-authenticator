@@ -10,7 +10,10 @@ const screensIdentifiers = Object.freeze({
     welcome: 'authenticator.Welcome',
     authTransaction: 'authenticator.Transaction',
     biometricOption: 'authenticator.BioOpt',
-    deviceInfo: 'authenticator.DeviceInfoScreen'
+    deviceInfo: 'authenticator.DeviceInfoScreen',
+    getstarted: 'authenticator.GetStartedScreen',
+    error: 'authenticator.ErrorScreen',
+    processcomplete: 'authenticator.ProcessComplete'
 });
 
 export default screensIdentifiers;

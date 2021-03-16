@@ -120,14 +120,14 @@ const AuthProcess = (props) => {
                     style={[
                         styles.decisionBox,
                         {
-                            backgroundColor: 'powderblue',
+                            backgroundColor: '#e3242b',
                             padding: 10,
                             paddingLeft: 20
                         }
                     ]}
                     onPress={onReject}>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: 'bold' }}>Deny</Text>
+                        <Text style={{ fontWeight: 'bold',color: 'black' }}>Deny</Text>
                     </View>
 
                     <Image

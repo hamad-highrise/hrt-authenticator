@@ -31,7 +31,7 @@ const CodeAccount = (props) => {
     };
 
     return (
-        <View style={{ flex: 1, justifyContent: 'space-between' }}>
+        <View style={{ flex: 1 }}>
             <TopNavbar title="Account By Code" />
 
             <View style={styles.container}>
@@ -54,23 +54,20 @@ const CodeAccount = (props) => {
                     </View>
                     <View>
                         <Text style={styles.SListtitle}>Account</Text>
-                        <View style={styles.listitemView}>
                             <TextInput
                                 placeholder="Account"
                                 style={styles.listitemInput}
                             />
-                        </View>
                         <View style={styles.bar}></View>
                     </View>
 
                     <View>
                         <Text style={styles.SListtitle}>Account code</Text>
-                        <View style={styles.listitemView}>
+                        
                             <TextInput
                                 placeholder="Account code"
                                 style={styles.listitemInput}
                             />
-                        </View>
                         <View style={styles.bar}></View>
                     </View>
                     <Text
@@ -164,8 +161,10 @@ const styles = StyleSheet.create({
         height: 25
     },
     bottom: {
-        marginTop: '10%'
-    }
+
+        marginTop: '25%',
+    },
+
 });
 
 export default CodeAccount;
