@@ -4,43 +4,7 @@ import { getDetails, getToken } from './api';
 import { push, biometrics, utilities } from '../../../util';
 import { createAccount, isUnique } from '../services'; //folder related services
 import parser from '../qr/parser';
-
-/*
-1. Fetch Details from server
-    Details fetching url will be extracted from scanned qr code.
-    Will give:
-        - transaction endpoint - ""
-        - metadata - {}
-        - discovery mechanisms - ["", "",...,""]
-        - enrollment endpoint - ""
-        - totp endpoint - ""
-        - token endpoint - ""
-Further, token will be compulsory for any other operation
-
-2. Get Token
-    Endpoint will be extracted from details result
-    Refresh token will also provide the same result
-    Will give:
-        - access token - ""
-        - refresh toke - ""
-        - authenticator id - ""
-        - expires in - ##
-    TODO: Need to check duplicated account, delete if duplicated
-3. register methods now
-    Enrollment endpoint will be used which was extracted befre
-    response of registeration methods is not critical
-
-4. Register totp method
-    totp method registeration will be extracted from details body
-    Will give:
-        - period - ##
-        - secret key url
-        - secret key
-        - digits
-        - algorithm
-        - username
-
-*/
+import { getDeviceId } from '../../services';
 
 async function initiate(scanned) {
     const resultObj = {
@@ -83,6 +47,7 @@ async function initiate(scanned) {
             rooted
         } = await utilities.getDeviceInfo();
         const { pushToken } = await push.getFirebaseToken();
+
         const data = {
             code: scanned.code,
             OSVersion: osVersion,
@@ -92,7 +57,8 @@ async function initiate(scanned) {
             deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
             deviceName: name,
             deviceRooted: rooted,
-            pushToken: pushToken
+            pushToken: pushToken,
+            deviceId: await (await getDeviceId()).id
         };
 
         //ignore ssl option should be here

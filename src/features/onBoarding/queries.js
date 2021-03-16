@@ -86,7 +86,7 @@ const methodTableQuery = `
 `;
 
 const methodsPopulate = `
-        INSERT 
+        INSERT INTO methods (method_name) VALUES (?), (?), (?);
 `;
 
 const accountMethodsTableQuery = `

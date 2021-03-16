@@ -16,6 +16,21 @@ async function getTransactionEndpoint(accId) {
     }
 }
 
+async function getDeviceId() {
+    const query = `SELECT id FROM app_meta`;
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query);
+        let id;
+        for (let i = 0; i < result.rows.length; i++) {
+            id = result.rows.item(i).id;
+        }
+        return Promise.resolve({ id });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 async function getToken(accId) {
     const query = `SELECT token, endpoint, refresh_token, expires_at FROM tokens WHERE account_id = ?`;
     const params = [accId];
@@ -112,7 +127,8 @@ export default {
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB,
-    getTransactionEndpoint
+    getTransactionEndpoint,
+    getDeviceId
 };
 
 export {
@@ -121,5 +137,6 @@ export {
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB,
-    getTransactionEndpoint
+    getTransactionEndpoint,
+    getDeviceId
 };

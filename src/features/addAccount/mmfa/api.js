@@ -15,12 +15,14 @@ async function getDetails({ endpoint, ignoreSSL }) {
 
 async function getToken({ endpoint, data, ignoreSSL }) {
     const rnFetch = getFetchInstance({ ignoreSSL });
+    console.warn(data.deviceId);
     const body = {
         grant_type: 'authorization_code',
         code: data?.code,
         client_id: 'AuthenticatorClient',
         scope: 'mmfaAuth',
         device_type: data?.deviceType,
+        device_id: data?.deviceId,
         front_camera_support: data?.frontCamera,
         os_version: data?.OSVersion,
         device_name: data?.deviceName,
