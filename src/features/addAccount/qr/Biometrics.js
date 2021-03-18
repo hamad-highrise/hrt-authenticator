@@ -13,7 +13,14 @@ import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { biometrics } from '../../../native-services';
 
-const BiometricOption = ({ endpoint, token, name, issuer, ...props }) => {
+const BiometricOption = ({
+    endpoint,
+    token,
+    name,
+    issuer,
+    accId,
+    ...props
+}) => {
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -37,7 +44,8 @@ const BiometricOption = ({ endpoint, token, name, issuer, ...props }) => {
                     endpoint,
                     token,
                     name,
-                    issuer
+                    issuer,
+                    accId
                 });
                 if (result && result.respInfo.status === 200) {
                     navigator.goToRoot(props.componentId);

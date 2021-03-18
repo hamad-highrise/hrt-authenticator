@@ -33,7 +33,8 @@ const QRScan = (props) => {
                                 endpoint: result.enrollmentEndpoint,
                                 token: result.token,
                                 name: result.accountName,
-                                issuer: result.issuer
+                                issuer: result.issuer,
+                                accId: result.insertId
                             }
                         );
                     } else alert(result.message);

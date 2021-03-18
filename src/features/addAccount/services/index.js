@@ -1,5 +1,5 @@
 import db from './queries';
-const { isUnique } = db;
+const { isUnique, addMethod } = db;
 
 async function createAccount({ account, token }) {
     try {
@@ -15,4 +15,4 @@ async function createAccount({ account, token }) {
     }
 }
 
-export { createAccount, isUnique };
+export { createAccount, isUnique, addMethod };

@@ -2,7 +2,7 @@ import { Platform } from 'react-native';
 import { registerTotp, registerUserPresence } from './registerMethods';
 import { getDetails, getToken } from './api';
 import { push, biometrics, utilities } from '../../../native-services';
-import { createAccount, isUnique } from '../services'; //folder related services
+import { createAccount, isUnique, addMethod } from '../services'; //folder related services
 import parser from '../qr/parser';
 import { getDeviceId } from '../../services';
 
@@ -11,7 +11,8 @@ async function initiate(scanned) {
         message: 'OKAY',
         enrollmentEndpoint: '',
         token: '',
-        accountName: ''
+        accountName: '',
+        insertId: 0
     };
     const isValidMmfaObj =
         scanned?.code && scanned?.details_url && scanned?.options;
@@ -71,6 +72,7 @@ async function initiate(scanned) {
             resultObj.message === 'ERROR_FETCHING_TOKEN';
             return resultObj;
         }
+
         const tokenObj = await tokenResult.json();
 
         const totpResult = await registerTotp({
@@ -81,6 +83,7 @@ async function initiate(scanned) {
             resultObj.message == 'ERROR_REGISTERING_TOTP';
             return resultObj;
         }
+
         const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
         const account = {
             name: parsedData.label.account,
@@ -98,27 +101,31 @@ async function initiate(scanned) {
             tokenEndpoint
         };
 
+        if (await isUnique(account)) {
+            const insertId = await createAccount({ account, token });
+            resultObj.insertId = insertId;
+        } else {
+            resultObj.message = 'DUPLICATE_ACCOUNT';
+            //here start remove account flow
+        }
+
         const presenceResult = await registerUserPresence({
             endpoint: enrollmentEndpoint,
             token: token.token,
             name: account.name,
-            issuer: account.issuer
+            issuer: account.issuer,
+            accId: resultObj.insertId
         });
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
             return resultObj;
         }
-        if (await isUnique(account)) {
-            const insertId = await createAccount({ account, token });
-            console.warn(insertId);
-        } else {
-            resultObj.message = 'DUPLICATE_ACCOUNT';
-            //here start remove account flow
-        }
+
         resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
         resultObj.token = token.token;
         resultObj.accountName = account.name;
         resultObj.issuer = account.issuer;
+
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);

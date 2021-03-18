@@ -1,4 +1,5 @@
 import { getFetchInstance, constants } from '../../services';
+import { addMethod } from '../services';
 import { biometrics, keyGen } from '../../../native-services';
 
 async function registerTotp({ endpoint, token }) {
@@ -15,7 +16,7 @@ async function registerTotp({ endpoint, token }) {
     }
 }
 
-async function registerUserPresence({ endpoint, token, name, issuer }) {
+async function registerUserPresence({ endpoint, token, name, issuer, accId }) {
     const insecureFetch = getFetchInstance();
     const keyHandle =
         name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
@@ -52,13 +53,18 @@ async function registerUserPresence({ endpoint, token, name, issuer }) {
             },
             body
         );
+        addMethod({
+            method: constants.ACCOUNT_METHODS.USER_PRESENCE,
+            accId,
+            keyHandle
+        });
         return Promise.resolve(result);
     } catch (error) {
         return Promise.reject(error);
     }
 }
 
-async function registerBiometrics({ endpoint, token, name, issuer }) {
+async function registerBiometrics({ endpoint, token, name, issuer, accId }) {
     const insecureFetch = getFetchInstance();
     const keyHandle =
         name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
@@ -105,6 +111,11 @@ async function registerBiometrics({ endpoint, token, name, issuer }) {
                 },
                 body
             );
+            addMethod({
+                method: constants.ACCOUNT_METHODS.FINGERPRINT,
+                accId,
+                keyHandle
+            });
             return Promise.resolve(result);
         }
         return Promise.resolve();
