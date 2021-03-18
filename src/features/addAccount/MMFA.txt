@@ -1,0 +1,36 @@
+/*
+1. Fetch Details from server
+    Details fetching url will be extracted from scanned qr code.
+    Will give:
+        - transaction endpoint - ""
+        - metadata - {}
+        - discovery mechanisms - ["", "",...,""]
+        - enrollment endpoint - ""
+        - totp endpoint - ""
+        - token endpoint - ""
+Further, token will be compulsory for any other operation
+
+2. Get Token
+    Endpoint will be extracted from details result
+    Refresh token will also provide the same result
+    Will give:
+        - access token - ""
+        - refresh toke - ""
+        - authenticator id - ""
+        - expires in - ##
+    TODO: Need to check duplicated account, delete if duplicated
+3. register methods now
+    Enrollment endpoint will be used which was extracted befre
+    response of registeration methods is not critical
+
+4. Register totp method
+    totp method registeration will be extracted from details body
+    Will give:
+        - period - ##
+        - secret key url
+        - secret key
+        - digits
+        - algorithm
+        - username
+
+*/

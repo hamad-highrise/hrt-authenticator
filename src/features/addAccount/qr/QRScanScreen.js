@@ -6,7 +6,7 @@ import { TopNavbar, LoadingIndicator } from '../../../components';
 import initiateSamAccount from '../mmfa/initiate';
 import { createAccount } from '../services';
 import { isUnique } from '../services/queries';
-import { vibrate } from '../../../util/utilities';
+import { vibrate } from '../../../native-services/utilities';
 
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
@@ -31,7 +31,10 @@ const QRScan = (props) => {
                             {
                                 title: result.accountName,
                                 endpoint: result.enrollmentEndpoint,
-                                token: result.token
+                                token: result.token,
+                                name: result.accountName,
+                                issuer: result.issuer,
+                                accId: result.insertId
                             }
                         );
                     } else alert(result.message);
