@@ -109,7 +109,8 @@ async function initiate(scanned) {
             return resultObj;
         }
         if (await isUnique(account)) {
-            createAccount({ account, token });
+            const insertId = await createAccount({ account, token });
+            console.warn(insertId);
         } else {
             resultObj.message = 'DUPLICATE_ACCOUNT';
             //here start remove account flow

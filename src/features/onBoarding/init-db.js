@@ -16,6 +16,7 @@ async function initiateDb() {
             'uuid-' + (await (await utilities.getUUID()).uuid),
             constants.APP_INFO.VERSION
         ]);
+
         // await database.executeQuery(queries.methodsPopulate, [
         //     constants.ACCOUNT_METHODS.TOTP,
         //     constants.ACCOUNT_METHODS.USER_PRESENCE,

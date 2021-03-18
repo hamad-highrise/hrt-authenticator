@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "secrets"(
         FOREIGN KEY("account_id") 
             REFERENCES "accounts" ("account_id")
                 ON DELETE CASCADE
-                ON UPDATE NO ACTION
+                
     );
 `;
 
@@ -46,8 +46,8 @@ CREATE TABLE IF NOT EXISTS "options" (
     "ignoreSSL" INTEGER NOT NULL DEFAULT 0,
         FOREIGN KEY("account_id")
             REFERENCES "accounts" ("account_id")
-                ON DELETE CASCADE,
-                ON UPDATE NO ACTION
+                ON DELETE CASCADE
+                
     );
 `;
 
@@ -58,7 +58,7 @@ const authenticatorIdTableQuery = `
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
     );
 `;
 
@@ -74,32 +74,20 @@ const tokenTableQuery = `
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
         );
 `;
 
-//TODO:
-// const methodTableQuery = `
-//     CREATE TABLE IF NOT EXISTS "methods" (
-//         "method_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-//         "method_name" TEXT NOT NULL
-//     );
-// `;
-
-// const methodsPopulate = `
-//         INSERT INTO methods (method_name) VALUES (?), (?), (?);
-// `;
-
 const accountMethodsTableQuery = `
     CREATE TABLE IF NOT EXISTS "methods" (
-        "method_name" INTEGER NOT NULL,
+        "method_name" TEXT NOT NULL,
         "account_id" INTEGER NOT NULL,
         "key_handle" TEXT,
         PRIMARY KEY( method_name, account_id),
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
     );
 `;
 

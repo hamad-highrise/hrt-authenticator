@@ -9,7 +9,7 @@ async function createAccount({ account, token }) {
             await db.saveToken({ ...token, accId: insertId });
             await db.saveAuthId({ authId: account.authId, accId: insertId });
         }
-        return Promise.resolve();
+        return Promise.resolve(insertId);
     } catch (error) {
         return Promise.reject(error);
     }
