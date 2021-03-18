@@ -11,9 +11,9 @@ import PropTypes from 'prop-types';
 import { Button } from '../../../components';
 import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
-import biometric from '../../../native-services/biometrics';
+import { biometrics } from '../../../native-services';
 
-const BiometricOption = ({ endpoint, token, ...props }) => {
+const BiometricOption = ({ endpoint, token, name, issuer, ...props }) => {
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -31,9 +31,14 @@ const BiometricOption = ({ endpoint, token, ...props }) => {
 
     const onPositive = async () => {
         try {
-            const { available, error } = await biometric.isSensorAvailable();
+            const { available, error } = await biometrics.isSensorAvailable();
             if (available) {
-                const result = await registerBiometrics(endpoint, token);
+                const result = await registerBiometrics({
+                    endpoint,
+                    token,
+                    name,
+                    issuer
+                });
                 if (result && result.respInfo.status === 200) {
                     navigator.goToRoot(props.componentId);
                 } else {
@@ -75,7 +80,7 @@ const BiometricOption = ({ endpoint, token, ...props }) => {
                     style={styles.btnInvert}
                 />
             </View>
-            <View style={{ marginBottom: 20 }}/>
+            <View style={{ marginBottom: 20 }} />
         </View>
     );
 };

@@ -1,8 +1,7 @@
-import { getFetchInstance } from '../../services';
-import { createKeys } from '../../../native-services/KeyGen';
-import biometrics from '../../../native-services/biometrics';
+import { getFetchInstance, constants } from '../../services';
+import { biometrics, keyGen } from '../../../native-services';
 
-async function registerTotp(endpoint, token) {
+async function registerTotp({ endpoint, token }) {
     try {
         const insecureFetch = getFetchInstance();
         const result = await insecureFetch('GET', endpoint, {
@@ -16,14 +15,15 @@ async function registerTotp(endpoint, token) {
     }
 }
 
-async function registerUserPresence(endpoint, token) {
+async function registerUserPresence({ endpoint, token, name, issuer }) {
     const insecureFetch = getFetchInstance();
-    const keyHandle = 'Account.' + Date.now() + '.UserPresence';
+    const keyHandle =
+        name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
     const url =
         endpoint +
         `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods`;
     try {
-        const { publicKey } = await createKeys(keyHandle);
+        const { publicKey } = await keyGen.createKeys(keyHandle);
         const body = JSON.stringify({
             schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
             Operations: [
@@ -58,9 +58,10 @@ async function registerUserPresence(endpoint, token) {
     }
 }
 
-async function registerBiometrics(endpoint, token) {
+async function registerBiometrics({ endpoint, token, name, issuer }) {
     const insecureFetch = getFetchInstance();
-    const keyHandle = 'Account.' + Date.now() + '.Biometric';
+    const keyHandle =
+        name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
 
     const url =
         endpoint +

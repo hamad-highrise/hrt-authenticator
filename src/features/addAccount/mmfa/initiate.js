@@ -73,10 +73,10 @@ async function initiate(scanned) {
         }
         const tokenObj = await tokenResult.json();
 
-        const totpResult = await registerTotp(
-            totpEndpoint,
-            tokenObj['access_token']
-        );
+        const totpResult = await registerTotp({
+            endpoint: totpEndpoint,
+            token: tokenObj['access_token']
+        });
         if (!totpResult.respInfo.status === 200) {
             resultObj.message == 'ERROR_REGISTERING_TOTP';
             return resultObj;
@@ -97,11 +97,13 @@ async function initiate(scanned) {
             expiry: getExpiryInSeconds(tokenObj['expires_in']),
             tokenEndpoint
         };
-        const presenceResult = await registerUserPresence(
-            enrollmentEndpoint,
-            token.token
-        );
 
+        const presenceResult = await registerUserPresence({
+            endpoint: enrollmentEndpoint,
+            token: token.token,
+            name: account.name,
+            issuer: account.issuer
+        });
         if (!presenceResult.respInfo.status === 200) {
             resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
             return resultObj;
@@ -115,6 +117,7 @@ async function initiate(scanned) {
         resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
         resultObj.token = token.token;
         resultObj.accountName = account.name;
+        resultObj.issuer = account.issuer;
         return Promise.resolve(resultObj);
     } catch (error) {
         return Promise.reject(error);
