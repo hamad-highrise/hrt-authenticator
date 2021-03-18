@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS "accounts"(
     "type" TEXT NOT NULL DEFAULT "TOTP",
     "transaction_endpoint" TEXT,
     "enrollment_endpoint" TEXT,
-    "ignore_ssl" INTEGER DEFAULT 0
+    "ignore_ssl" INTEGER DEFAULT 0,
+    "methods" TEXT
     );
 `;
 
@@ -78,27 +79,23 @@ const tokenTableQuery = `
 `;
 
 //TODO:
-const methodTableQuery = `
-    CREATE TABLE IF NOT EXISTS "methods" (
-        "method_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        "method_name" TEXT NOT NULL
-    );
-`;
+// const methodTableQuery = `
+//     CREATE TABLE IF NOT EXISTS "methods" (
+//         "method_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+//         "method_name" TEXT NOT NULL
+//     );
+// `;
 
-const methodsPopulate = `
-        INSERT INTO methods (method_name) VALUES (?), (?), (?);
-`;
+// const methodsPopulate = `
+//         INSERT INTO methods (method_name) VALUES (?), (?), (?);
+// `;
 
 const accountMethodsTableQuery = `
-    CREATE TABLE IF NOT EXISTS "accountMethods" (
-        "method_id" INTEGER NOT NULL,
+    CREATE TABLE IF NOT EXISTS "methods" (
+        "method_name" INTEGER NOT NULL,
         "account_id" INTEGER NOT NULL,
-        "enabled" INTEGER DEFAULT 0,
-        "keyHandle" TEXT UNIQUE,
-            FOREIGN KEY("method_id")
-                REFERENCES "methods" ("method_id")
-                    ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+        "key_handle" TEXT,
+        PRIMARY KEY( method_name, account_id),
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
@@ -111,11 +108,9 @@ const queries = {
     accountTableQuery,
     accountOptionsTableQuery,
     accountMethodsTableQuery,
-    methodTableQuery,
     tokenTableQuery,
     authenticatorIdTableQuery,
     accountSecretTableQuery,
-    methodsPopulate,
     appDataPopulate
 };
 

@@ -1,6 +1,5 @@
 import n from './src/navigation';
-import { isInitiated } from './src/util/utilities';
-import { cipher } from './src/util';
+import { isInitiated } from './src/native-services/utilities';
 
 n.registerScreens();
 

@@ -1,4 +1,4 @@
-import Database from '../../util/sqlite/index.new';
+import { Database } from '../../native-services';
 
 async function getAll() {
     const query = `SELECT account_id, account_name, issuer, type FROM accounts`;

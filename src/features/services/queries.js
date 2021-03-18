@@ -1,4 +1,4 @@
-import Database from '../../native-services/sqlite/index.new';
+import { Database } from '../../native-services';
 
 async function getTransactionEndpoint(accId) {
     const query = `SELECT transaction_endpoint FROM accounts WHERE account_id = ?;`;

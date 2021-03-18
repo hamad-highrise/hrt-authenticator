@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Button } from '../../../components';
 import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
-import biometric from '../../../util/biometrics';
+import biometric from '../../../native-services/biometrics';
 
 const BiometricOption = ({ endpoint, token, ...props }) => {
     useEffect(() => {

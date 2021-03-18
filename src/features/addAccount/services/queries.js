@@ -1,4 +1,4 @@
-import Database from '../../../native-services/sqlite/index.new';
+import { Database } from '../../../native-services';
 
 async function createAccountEntry({
     name,
@@ -55,6 +55,28 @@ async function addSecret({ secret, accId, iv }) {
     }
 }
 
+async function addMethod({ method, accId, keyHandle = null }) {
+    const query = `INSERT INTO methods (method_name, acc_id, key_handle) VALUES (?, ?, ?);`;
+    const params = [method, accId, keyHandle];
+    const database = new Database();
+    try {
+        await database.executeQuery(query, params);
+        return Promise.resolve();
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+// async function getMethods(accId) {
+//     const query = `SELECT method_name, key_handle FROM methods WHERE account_id = ?;`;
+//     const params = [accId];
+//     const database = new Database();
+//     try {
+//         const [result] = await database.executeQuery(query, params);
+//         let temp;
+//     } catch (error) {}
+// }
+
 async function saveToken({
     token,
     refreshToken,
@@ -93,7 +115,15 @@ export default {
     saveAuthId,
     saveToken,
     addSecret,
-    isUnique
+    isUnique,
+    addMethod
 };
 
-export { createAccountEntry, saveAuthId, saveToken, addSecret, isUnique };
+export {
+    createAccountEntry,
+    saveAuthId,
+    saveToken,
+    addSecret,
+    isUnique,
+    addMethod
+};

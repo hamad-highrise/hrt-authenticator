@@ -4,7 +4,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import navigator from '../../navigation';
 import { initiateDb } from './init-db';
-import { setInitiated } from '../../util/utilities';
+import { setInitiated } from '../../native-services/utilities';
 import { Button } from '../../components';
 
 const WelcomeScreen = () => {

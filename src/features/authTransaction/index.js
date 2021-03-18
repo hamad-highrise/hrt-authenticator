@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
+import { Database } from '../../native-services';
 const AuthProcess = (props) => {
     const {
         id,
@@ -95,7 +96,7 @@ const AuthProcess = (props) => {
                                     Created On
                                 </Text>
                                 <Text style={styles.SListtitle}>
-                                    {createdAt}
+                                    {new Date(createdAt).toLocaleString()}
                                 </Text>
                                 <View style={styles.bar}></View>
                             </View>
@@ -127,7 +128,9 @@ const AuthProcess = (props) => {
                     ]}
                     onPress={onReject}>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: 'bold',color: 'black' }}>Deny</Text>
+                        <Text style={{ fontWeight: 'bold', color: 'black' }}>
+                            Deny
+                        </Text>
                     </View>
 
                     <Image

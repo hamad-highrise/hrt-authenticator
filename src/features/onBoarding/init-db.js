@@ -1,6 +1,6 @@
-import Database from '../../util/sqlite/index.new';
+import { Database, utilities } from '../../native-services';
 import queries from './queries';
-import { utilities } from '../../util';
+import { constants } from '../services';
 
 async function initiateDb() {
     const database = new Database();
@@ -9,18 +9,18 @@ async function initiateDb() {
         await database.executeQuery(queries.accountTableQuery);
         await database.executeQuery(queries.accountSecretTableQuery);
         await database.executeQuery(queries.tokenTableQuery);
-        await database.executeQuery(queries.methodTableQuery);
+        // await database.executeQuery(queries.methodTableQuery);
         await database.executeQuery(queries.accountMethodsTableQuery);
         await database.executeQuery(queries.authenticatorIdTableQuery);
         await database.executeQuery(queries.appDataPopulate, [
             'uuid-' + (await (await utilities.getUUID()).uuid),
-            '1.0.0'
+            constants.APP_INFO.VERSION
         ]);
-        await database.executeQuery(queries.methodsPopulate, [
-            'TOTP',
-            'FINGERPRINT',
-            'USER_PRESENCE'
-        ]);
+        // await database.executeQuery(queries.methodsPopulate, [
+        //     constants.ACCOUNT_METHODS.TOTP,
+        //     constants.ACCOUNT_METHODS.USER_PRESENCE,
+        //     constants.ACCOUNT_METHODS.FINGERPRINT
+        // ]);
         return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
