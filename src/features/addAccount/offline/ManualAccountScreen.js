@@ -20,7 +20,7 @@ const CodeAccount = (props) => {
 
     const onAddPress = async () => {
         try {
-            if (account.name && account.issuer && account.secret >= 4) {
+            if (account.name && account.issuer && account.secret.length >= 4) {
                 await createAccount({ account: { ...account, type: 'TOTP' } });
                 alert('Account Added');
                 navigator.goToRoot(props.componentId);
