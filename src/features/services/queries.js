@@ -117,6 +117,22 @@ async function getEnrollmentEndpoint(accId) {
     }
 }
 
+async function getMethods(accId) {
+    const query = `SELECT method_name FROM methods WHERE accound_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let temp = [];
+        for (let i = 0; i < result.rows.length; i++) {
+            temp.push(result.rows.item(i).method_name);
+        }
+        return Promise.resolve(temp);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 function getExpiryInSeconds(expiresIn) {
     return Math.floor(Date.now() / 1000) + expiresIn;
 }
@@ -128,7 +144,8 @@ export default {
     getAuthIdByAccount,
     removeAccountDB,
     getTransactionEndpoint,
-    getDeviceId
+    getDeviceId,
+    getMethods
 };
 
 export {
@@ -138,5 +155,6 @@ export {
     getAuthIdByAccount,
     removeAccountDB,
     getTransactionEndpoint,
-    getDeviceId
+    getDeviceId,
+    getMethods
 };

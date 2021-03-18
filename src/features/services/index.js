@@ -154,13 +154,13 @@ async function getToken(accId) {
     }
 }
 
-function isTokenValid(expiresAt) {
-    const currentTime = Math.floor(Date.now() / 1000); //time in seconds
-    return expiresAt > currentTime && expiresAt - currentTime > 5;
-}
-
 export { getToken, removeAccount, getTransactions };
 export { getDeviceId } from './queries';
 export { default as getFetchInstance } from './RNFetch';
 export { default as encodeFormData } from './formData';
 export { default as constants } from './constants';
+
+function isTokenValid(expiresAt) {
+    const currentTime = Math.floor(Date.now() / 1000); //time in seconds
+    return expiresAt > currentTime && expiresAt - currentTime > 5;
+}
