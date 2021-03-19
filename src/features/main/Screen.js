@@ -57,27 +57,30 @@ const Main = (props) => {
         const modified = await Promise.all(
             mAccounts.map(async (account) => {
                 if (account.type === 'SAM') {
-                    const transaction = await checkTransaction({
-                        accId: account['account_id']
-                    });
-                    if (transaction) {
-                        return {
-                            ...account,
-                            transaction: {
-                                available: true,
-                                ...transaction
-                            }
-                        };
-                    } else {
-                        return {
-                            ...account,
-                            transaction: {
-                                available: false
-                            }
-                        };
+                    try {
+                        const transaction = await checkTransaction({
+                            accId: account['account_id']
+                        });
+                        if (transaction) {
+                            return {
+                                ...account,
+                                transaction: {
+                                    available: true,
+                                    ...transaction
+                                }
+                            };
+                        } else {
+                            return {
+                                ...account,
+                                transaction: {
+                                    available: false
+                                }
+                            };
+                        }
+                    } catch (error) {
+                        console.warn(error);
                     }
                 } else {
-                    
                     return account;
                 }
             })

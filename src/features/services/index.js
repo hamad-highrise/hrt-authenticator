@@ -159,6 +159,7 @@ export { getDeviceId } from './queries';
 export { default as getFetchInstance } from './RNFetch';
 export { default as encodeFormData } from './formData';
 export { default as constants } from './constants';
+export { removeDeviceFromSam } from './api';
 
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds
