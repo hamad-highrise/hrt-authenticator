@@ -1,10 +1,8 @@
 import { Platform } from 'react-native';
-import { registerTotp, registerUserPresence } from './registerMethods';
 import api from './api';
 import methods from './registerMethods';
 import { push, biometrics, utilities } from '../../../native-services';
-import { createAccount, isUnique, addMethod } from '../services'; //folder related services
-import parser from '../qr/parser';
+import { createAccount, isUnique } from '../services'; //folder related services
 import { constants, getDeviceId } from '../../services';
 
 async function initiate(scanned) {
@@ -82,17 +80,18 @@ async function initiate(scanned) {
             tokenEndpoint
         };
 
-        await createAccount({ account, token });
+        const accId = await createAccount({ account, token });
 
-        const presenceResult = await registerUserPresence({
+        const registered = await userPresenceRegistration({
             endpoint: enrollmentEndpoint,
-            token: token.token,
-            name: account.name,
-            issuer: account.issuer,
-            accId: resultObj.insertId
+            token: tokenT.accessToken,
+            name: tokenT.accountName,
+            issuer: serviceName,
+            accId: accId
         });
-        if (!presenceResult.respInfo.status === 200) {
-            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
+
+        if (!registered) {
+            resultObj.message = constants.ERROR_MESSAGES.USER_PRESENCE_REGISTER;
             return resultObj;
         }
 
@@ -100,6 +99,7 @@ async function initiate(scanned) {
         resultObj.token = token.token;
         resultObj.accountName = account.name;
         resultObj.issuer = account.issuer;
+        resultObj.insertId = accId;
 
         return Promise.resolve(resultObj);
     } catch (error) {
@@ -126,7 +126,30 @@ async function totpRegistraion({ endpoint, token }) {
     }
 }
 
-async function userPresenceRegistration({ endpoint, token }) {}
+async function userPresenceRegistration({
+    endpoint,
+    token,
+    name,
+    issuer,
+    accId
+}) {
+    try {
+        const result = await methods.registerUserPresence({
+            endpoint,
+            token,
+            name,
+            issuer,
+            accId
+        });
+        if (result.respInfo.status !== 200) {
+            console.warn(result.json());
+            return Promise.resolve();
+        }
+        return Promise.resolve(true);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 
 async function getDetails({ endpoint, ignoreSSL }) {
     try {
