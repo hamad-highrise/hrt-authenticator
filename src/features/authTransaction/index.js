@@ -1,5 +1,5 @@
-import React, {useState} from 'react';
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 import { authTransaction, rejectTransaction } from './services';
 import PropTypes from 'prop-types';
 import navigator from '../../navigation';
@@ -38,17 +38,67 @@ const AuthProcess = (props) => {
     const [viewDetails, setFragment] = useState('YES');
     const onDetailsSelect = () => setFragment('NO');
     const onBackSelect = () => setFragment('YES');
+
+    const fadeViewDetailsLEFT = useRef(new Animated.Value(0)).current;
+    const fadeViewDetailsOPA = useRef(new Animated.Value(1)).current;
+    const fadeDetailsLEFT = useRef(new Animated.Value(-350)).current;
+    const fadeDetailsOPA = useRef(new Animated.Value(0)).current;
+    const fadeIn = () => {
+        // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
+        Animated.timing(fadeViewDetailsLEFT, {
+            toValue: 350,
+            duration: 250
+        }).start(() => {
+            setFragment('NO');
+            Animated.timing(fadeDetailsOPA, {
+                toValue: 1,
+                duration: 250
+            }).start();
+            // slide right to left -350 to 0
+            Animated.timing(fadeDetailsLEFT, {
+                toValue: 0,
+                duration: 250
+            }).start();
+        });
+        Animated.timing(fadeViewDetailsOPA, {
+            toValue: 0,
+            duration: 250
+        }).start();
+    };
+    const fadeOut = () => {
+        // Will change fadeViewDetailsLEFT value -350 to 0 in 2 seconds
+        Animated.timing(fadeDetailsLEFT, {
+            toValue: -350,
+            duration: 250
+        }).start(() => {
+            setFragment('YES');
+            Animated.timing(fadeViewDetailsLEFT, {
+                toValue: 1,
+                duration: 250
+            }).start();
+
+            Animated.timing(fadeViewDetailsOPA, {
+                toValue: 1,
+                duration: 250
+            }).start();
+        });
+        Animated.timing(fadeDetailsOPA, {
+            toValue: 1,
+            duration: 250
+        }).start();
+    };
     return (
         <View style={styles.container}>
             <View>
                 {viewDetails == 'YES' ? (
-                    <View
-                        style={{
-                            marginTop: 50,
-                            paddingTop: 25,
-                            paddingRight: 25,
-                            paddingLeft: 25
-                        }}>
+                    <Animated.View
+                        style={[
+                            styles.fadingContainer,
+                            {
+                                left: fadeViewDetailsLEFT,
+                                opacity: fadeViewDetailsOPA
+                            }
+                        ]}>
                         <View style={{ paddingLeft: 20, paddingRight: 20 }}>
                             <Text style={styles.welcome}>
                                 Please verify using fingerprint
@@ -61,7 +111,8 @@ const AuthProcess = (props) => {
                         <View style={{ marginTop: 30 }} />
                         <TouchableOpacity
                             style={styles.listitem}
-                            onPress={onDetailsSelect}>
+                            // onPress={onDetailsSelect}
+                            onPress={fadeIn}>
                             <View style={styles.listitemView}>
                                 <Text style={styles.listitemText}>
                                     View details
@@ -72,13 +123,17 @@ const AuthProcess = (props) => {
                                 />
                             </View>
                         </TouchableOpacity>
-                    </View>
+                    </Animated.View>
                 ) : (
-                    <View>
+                    <Animated.View
+                        style={{
+                            left: fadeDetailsLEFT,
+                            opacity: fadeDetailsOPA
+                        }}>
                         <TopNavbar
                             title="Request details"
                             RightIcon="NO"
-                            imageBackOnPress={onBackSelect}></TopNavbar>
+                            imageBackOnPress={fadeOut}></TopNavbar>
                         <View
                             style={{
                                 padding: '9%'
@@ -107,10 +162,17 @@ const AuthProcess = (props) => {
                                 <View style={styles.bar}></View>
                             </View>
                         </View>
-                    </View>
+                    </Animated.View>
                 )}
             </View>
-
+            {/* <View style={styles.buttonRow}>
+                <View>
+                    <Text onPress={fadeIn}>Fade In</Text>
+                </View>
+                <View>
+                    <Text onPress={fadeOut}>Fade Out</Text>
+                </View>
+            </View> */}
             <View
                 style={{
                     flex: 1,
@@ -127,9 +189,11 @@ const AuthProcess = (props) => {
                             paddingLeft: 20
                         }
                     ]}
-                    onPress={() => alert('Approve')}>
+                    onPress={() => alert('Deny')}>
                     <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: 'bold',color: 'black' }}>Deny</Text>
+                        <Text style={{ fontWeight: 'bold', color: 'black' }}>
+                            Deny
+                        </Text>
                     </View>
 
                     <Image
