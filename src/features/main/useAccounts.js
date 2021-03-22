@@ -40,19 +40,9 @@ function useAccounts(componentId) {
                 accId,
                 ignoreSSL
             });
-            if (success) {
-                if (result?.transaction) {
-                    if (
-                        (await getMethods(accId)).includes(
-                            result.transaction?.method
-                        )
-                    ) {
-                        return Promise.resolve(result.transaction);
-                    } else {
-                        return Promise.resolve();
-                    }
-                }
-            } else return Promise.resolve();
+            return success && result?.transaction
+                ? Promise.resolve(result.transaction)
+                : Promise.resolve();
         } catch (error) {
             return Promise.reject(error);
         }

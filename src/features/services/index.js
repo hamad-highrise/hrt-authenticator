@@ -21,11 +21,16 @@ async function getTransactions({ accId, secure }) {
                         'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
                     ]
                 );
-                return Promise.resolve({
-                    transaction: processed,
-                    success: true,
-                    message: 'SUCCESS'
-                });
+                return (await db.getMethods(accId)).includes(processed.method)
+                    ? Promise.resolve({
+                          transaction: processed,
+                          success: true,
+                          message: 'SUCCESS'
+                      })
+                    : Promise.resolve({
+                          message: 'UNREGISTERED_METHODS',
+                          success: true
+                      });
             } else {
                 return Promise.resolve({
                     success: false,
