@@ -80,17 +80,16 @@ export default StyleSheet.create({
     fadingContainer: {
         paddingVertical: 8,
         paddingHorizontal: 16,
-        // backgroundColor: "powderblue"
-      },
-      fadingText: {
-        fontSize: 28,
-        textAlign: "center",
-        margin: 10,
 
         marginTop: 50,
         paddingTop: 25,
         paddingRight: 25,
         paddingLeft: 25,
-        backgroundColor: 'pink'
+        paddingBottom: 25,
+      },
+      fadingText: {
+        fontSize: 28,
+        textAlign: "center",
+        margin: 10,
       },
 });

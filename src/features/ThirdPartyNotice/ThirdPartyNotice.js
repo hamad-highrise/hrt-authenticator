@@ -3,14 +3,11 @@ import {
     View,
     StyleSheet,
     Text,
-    Image,
     Dimensions,
     ScrollView,
     SafeAreaView,
     TouchableOpacity
 } from 'react-native';
-import { Button } from '../../components';
-import PropTypes from 'prop-types';
 
 const ThirdPartyNotice = () => {
     return (
@@ -25,7 +22,7 @@ const ThirdPartyNotice = () => {
                         fontWeight: 'bold',
                         color: '#424c58'
                     }}>
-                    Privacy Policy
+                    Third Party Notice
                 </Text>
             </View>
             <View style={styles.container}>
