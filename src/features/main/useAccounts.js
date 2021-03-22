@@ -3,7 +3,7 @@ import {
     useNavigationComponentDidAppear,
     useNavigationComponentDidDisappear
 } from 'react-native-navigation-hooks/dist';
-import { constants, getMethods, getTransactions } from '../services';
+import { constants, getTransactions } from '../services';
 import queries from './queries';
 
 function useAccounts(componentId) {

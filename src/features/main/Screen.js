@@ -12,7 +12,7 @@ const Main = (props) => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
     const onItemPress = ({
-        account_id: id,
+        account_id: accId,
         account_name: name,
         issuer,
         secret,
@@ -20,7 +20,7 @@ const Main = (props) => {
         transaction
     }) => {
         navigation.goTo(props.componentId, navigation.screenIds.accessCode, {
-            id,
+            accId,
             name,
             issuer,
             secret,

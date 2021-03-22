@@ -6,10 +6,10 @@ import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
-import { Database } from '../../native-services';
+
 const AuthProcess = (props) => {
     const {
-        id,
+        accId,
         message,
         endpoint,
         componentId,
@@ -18,7 +18,7 @@ const AuthProcess = (props) => {
     } = props;
     const onApproveBiometric = async () => {
         try {
-            const authResult = await authTransaction(id, endpoint);
+            const authResult = await authTransaction(accId, endpoint);
         } catch (error) {
             alert(error);
         } finally {
@@ -28,7 +28,7 @@ const AuthProcess = (props) => {
     const onReject = async () => {
         try {
             const authResult = await rejectTransaction({
-                accId: id,
+                accId,
                 tEndpoint: endpoint
             });
         } catch (error) {
@@ -223,7 +223,7 @@ const AuthProcess = (props) => {
 };
 
 AuthProcess.propTypes = {
-    id: PropTypes.number.isRequired,
+    accId: PropTypes.number.isRequired,
     message: PropTypes.string,
     endpoint: PropTypes.string.isRequired
 };
