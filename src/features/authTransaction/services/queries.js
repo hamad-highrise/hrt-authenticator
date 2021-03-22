@@ -1,4 +1,4 @@
-import Database from '../../../util/sqlite/index.new';
+import { Database } from '../../../native-services';
 
 async function getTokenByAccount(accId) {
     const database = new Database();

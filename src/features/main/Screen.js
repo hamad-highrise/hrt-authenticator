@@ -53,6 +53,7 @@ const Main = (props) => {
 
     const checker = async () => {
         const mAccounts = await queries.getAll();
+        setAccounts(mAccounts);
         const modified = await Promise.all(
             mAccounts.map(async (account) => {
                 if (account.type === 'SAM') {
@@ -76,6 +77,7 @@ const Main = (props) => {
                         };
                     }
                 } else {
+                    
                     return account;
                 }
             })

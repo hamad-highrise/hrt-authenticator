@@ -1,5 +1,6 @@
 import n from './src/navigation';
-import { isInitiated } from './src/util/utilities';
+import { isInitiated } from './src/native-services/utilities';
+
 n.registerScreens();
 
 (async () => {
@@ -7,6 +8,7 @@ n.registerScreens();
         n.setRoot();
         (await isInitiated()) && n.setMainRoot();
     } catch (error) {
+        console.warn(error);
         alert('Error initating app');
     }
 })();

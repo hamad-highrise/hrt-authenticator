@@ -15,35 +15,31 @@ import styles from './styles';
 import TOTPGenerator from './totp';
 import { AccessCodeFragment, SettingsFragment } from './components';
 import { removeAccount, getTransactions } from '../services';
+import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
 
 const AccessCode = (props) => {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
+    let transInterval;
     const { transaction } = props;
 
     const appState = useRef(AppState.currentState);
+
     useEffect(() => {
         //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
-        props?.transaction?.available &&
-            navigator.goTo(
-                props.componentId,
-                navigator.screenIds.authTransaction,
-                {
-                    id: props.id,
-                    message: transaction.displayMessage,
-                    endpoint: transaction.requestUrl,
-                    createdAt: transaction.createdAt,
-                    transactionId: transaction.transactionId
-                }
-            );
+        props?.transaction?.available
+            ? goToAuthScreen()
+            : (transInterval = setInterval(getTran, 2000));
         AppState.addEventListener('change', handleAppStateChange);
-        const x = setInterval(timer, 1000);
+        const otpInterval = setInterval(timer, 1000);
+
         updateOtp();
         return () => {
             //Here listeners are being removed on component unmount
             AppState.removeEventListener('change', handleAppStateChange);
-            clearInterval(x);
+            clearInterval(otpInterval);
+            clearInterval(transInterval);
         };
     }, []);
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -62,11 +58,23 @@ const AccessCode = (props) => {
         outputRange: ['0deg', '180deg']
     });
 
+    const goToAuthScreen = () => {
+        console.warn(transaction);
+        navigator.goTo(props.componentId, navigator.screenIds.authTransaction, {
+            id: props.id,
+            message: transaction.displayMessage,
+            endpoint: transaction.requestUrl,
+            createdAt: transaction.createdAt,
+            transactionId: transaction.transactionId
+        });
+    };
+
     const getTran = async () => {
         try {
             const result = await getTransactions({ accId: props.id });
             if (result.success) {
                 if (result.transaction) {
+                    clearInterval(transInterval);
                     const {
                         displayMessage,
                         requestUrl,

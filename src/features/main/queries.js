@@ -1,4 +1,4 @@
-import Database from '../../util/sqlite/index.new';
+import { Database } from '../../native-services';
 
 async function getAll() {
     const query = `SELECT account_id, account_name, issuer, type FROM accounts`;
@@ -9,7 +9,19 @@ async function getAll() {
         for (let i = 0; i < result.rows.length; i++) {
             temp.push(result.rows.item(i));
         }
-        return Promise.resolve(temp);
+
+        return Promise.resolve(
+            temp.map((account) => {
+                if (account.type === 'SAM') {
+                    return {
+                        ...account,
+                        transaction: {
+                            available: false
+                        }
+                    };
+                } else return account;
+            })
+        );
     } catch (error) {
         return Promise.reject(error);
     }
