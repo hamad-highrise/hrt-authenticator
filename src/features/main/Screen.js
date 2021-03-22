@@ -19,14 +19,31 @@ const Main = (props) => {
         type,
         transaction
     }) => {
-        navigation.goTo(props.componentId, navigation.screenIds.accessCode, {
-            accId,
-            name,
-            issuer,
-            secret,
-            type,
-            transaction
-        });
+        if (transaction && transaction.available) {
+            navigation.goTo(
+                props.componentId,
+                navigation.screenIds.authTransaction,
+                {
+                    accId,
+                    message: transaction.displayMessage,
+                    endpoint: transaction.requestUrl,
+                    createdAt: transaction.createdAt,
+                    transactionId: transaction.transactionId
+                }
+            );
+        } else
+            navigation.goTo(
+                props.componentId,
+                navigation.screenIds.accessCode,
+                {
+                    accId,
+                    name,
+                    issuer,
+                    secret,
+                    type,
+                    transaction
+                }
+            );
     };
     const onPressHandlerAccessCode = () => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);

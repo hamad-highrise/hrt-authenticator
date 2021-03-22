@@ -21,7 +21,8 @@ async function getTransactions({ accId, secure }) {
                         'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
                     ]
                 );
-                return (await db.getMethods(accId)).includes(processed?.method)
+                const registeredMethods = await db.getMethods(accId);
+                return registeredMethods.includes(processed?.method)
                     ? Promise.resolve({
                           transaction: processed,
                           success: true,

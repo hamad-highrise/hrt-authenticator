@@ -13,7 +13,7 @@ function useAccounts(componentId) {
 
     useEffect(() => {
         checker();
-        const id = setInterval(checker, 1000 * 10);
+        const id = setInterval(checker, 1000 * 5);
         transactionCheckIntervalRef.current = id;
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
@@ -27,12 +27,12 @@ function useAccounts(componentId) {
         { componentId }
     );
 
-    useNavigationComponentDidDisappear(
-        () => {
-            clearInterval(transactionCheckIntervalRef.current);
-        },
-        { componentId }
-    );
+    // useNavigationComponentDidDisappear(
+    //     () => {
+    //         clearInterval(transactionCheckIntervalRef.current);
+    //     },
+    //     { componentId }
+    // );
 
     const checkTransaction = async ({ accId, ignoreSSL }) => {
         try {
@@ -40,9 +40,11 @@ function useAccounts(componentId) {
                 accId,
                 ignoreSSL
             });
-            return success && result?.transaction
-                ? Promise.resolve(result.transaction)
-                : Promise.resolve();
+            if (success) {
+                if (result?.transaction)
+                    return Promise.resolve(result.transaction);
+                else return Promise.resolve();
+            } else return Promise.resolve();
         } catch (error) {
             return Promise.reject(error);
         }
