@@ -1,3 +1,5 @@
+import constants from './constants';
+
 function processTransaction({ attributesPending, transactionsPending }) {
     if (attributesPending.length && transactionsPending.length) {
         const {
@@ -26,9 +28,11 @@ function processTransaction({ attributesPending, transactionsPending }) {
 
 function translateMethod(policyURI) {
     const arr = policyURI.split(':');
-    return arr.includes('mmfa_fingerprint_response')
-        ? 'FINGERPRINT'
-        : 'USER_PRESENCE';
+    if (arr.includes('mmfa_fingerprint_response'))
+        return constants.ACCOUNT_METHODS.FINGERPRINT;
+    else if (arr.includes('mmfa_user_presence_response'))
+        return constants.ACCOUNT_METHODS.USER_PRESENCE;
+    else return null;
 }
 
 export default { processTransaction };

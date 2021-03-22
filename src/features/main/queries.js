@@ -17,7 +17,8 @@ async function getAll() {
                         ...account,
                         transaction: {
                             available: false
-                        }
+                        },
+                        error: false
                     };
                 } else return account;
             })

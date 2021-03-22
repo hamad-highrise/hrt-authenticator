@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 
@@ -50,44 +49,52 @@ const AuthProcess = (props) => {
         // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
         Animated.timing(fadeViewDetailsLEFT, {
             toValue: 350,
-            duration: 250
+            duration: 250,
+            useNativeDriver: false
         }).start(() => {
             setFragment('NO');
             Animated.timing(fadeDetailsOPA, {
                 toValue: 1,
-                duration: 250
+                duration: 250,
+                useNativeDriver: false
             }).start();
             // slide right to left -350 to 0
             Animated.timing(fadeDetailsLEFT, {
                 toValue: 0,
-                duration: 250
+                duration: 250,
+                useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeViewDetailsOPA, {
             toValue: 0,
-            duration: 250
+            duration: 250,
+            useNativeDriver: false
         }).start();
     };
     const fadeOut = () => {
         // Will change fadeViewDetailsLEFT value -350 to 0 in 2 seconds
         Animated.timing(fadeDetailsLEFT, {
             toValue: -350,
-            duration: 250
+            duration: 250,
+            useNativeDriver: false
         }).start(() => {
             setFragment('YES');
             Animated.timing(fadeViewDetailsLEFT, {
                 toValue: 1,
-                duration: 250
+                duration: 250,
+                useNativeDriver: false
             }).start();
 
             Animated.timing(fadeViewDetailsOPA, {
                 toValue: 1,
-                duration: 250
+                duration: 250,
+                useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeDetailsOPA, {
             toValue: 1,
-            duration: 250
+            duration: 250,
+            useNativeDriver: false
         }).start();
     };
     return (
@@ -166,14 +173,6 @@ const AuthProcess = (props) => {
                     </Animated.View>
                 )}
             </View>
-            {/* <View style={styles.buttonRow}>
-                <View>
-                    <Text onPress={fadeIn}>Fade In</Text>
-                </View>
-                <View>
-                    <Text onPress={fadeOut}>Fade Out</Text>
-                </View>
-            </View> */}
             <View
                 style={{
                     flex: 1,
@@ -190,9 +189,7 @@ const AuthProcess = (props) => {
                             paddingLeft: 20
                         }
                     ]}
-
                     onPress={onReject}>
-
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold', color: 'black' }}>
                             Deny
