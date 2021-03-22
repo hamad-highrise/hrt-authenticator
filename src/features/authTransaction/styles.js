@@ -76,5 +76,21 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         width: '50%',
         height: 60
-    }
+    },
+    fadingContainer: {
+        paddingVertical: 8,
+        paddingHorizontal: 16,
+        // backgroundColor: "powderblue"
+      },
+      fadingText: {
+        fontSize: 28,
+        textAlign: "center",
+        margin: 10,
+
+        marginTop: 50,
+        paddingTop: 25,
+        paddingRight: 25,
+        paddingLeft: 25,
+        backgroundColor: 'pink'
+      },
 });
