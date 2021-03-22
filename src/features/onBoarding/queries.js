@@ -18,7 +18,8 @@ CREATE TABLE IF NOT EXISTS "accounts"(
     "type" TEXT NOT NULL DEFAULT "TOTP",
     "transaction_endpoint" TEXT,
     "enrollment_endpoint" TEXT,
-    "ignore_ssl" INTEGER DEFAULT 0
+    "ignore_ssl" INTEGER DEFAULT 0,
+    "methods" TEXT
     );
 `;
 
@@ -31,7 +32,7 @@ CREATE TABLE IF NOT EXISTS "secrets"(
         FOREIGN KEY("account_id") 
             REFERENCES "accounts" ("account_id")
                 ON DELETE CASCADE
-                ON UPDATE NO ACTION
+                
     );
 `;
 
@@ -45,8 +46,8 @@ CREATE TABLE IF NOT EXISTS "options" (
     "ignoreSSL" INTEGER NOT NULL DEFAULT 0,
         FOREIGN KEY("account_id")
             REFERENCES "accounts" ("account_id")
-                ON DELETE CASCADE,
-                ON UPDATE NO ACTION
+                ON DELETE CASCADE
+                
     );
 `;
 
@@ -57,7 +58,7 @@ const authenticatorIdTableQuery = `
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
     );
 `;
 
@@ -73,34 +74,20 @@ const tokenTableQuery = `
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
         );
 `;
 
-//TODO:
-const methodTableQuery = `
-    CREATE TABLE IF NOT EXISTS "methods" (
-        "method_id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-        "method_name" TEXT NOT NULL
-    );
-`;
-
-const methodsPopulate = ``;
-
 const accountMethodsTableQuery = `
-    CREATE TABLE IF NOT EXISTS "accountMethods" (
-        "method_id" INTEGER NOT NULL,
+    CREATE TABLE IF NOT EXISTS "methods" (
+        "method_name" TEXT NOT NULL,
         "account_id" INTEGER NOT NULL,
-        "enabled" INTEGER DEFAULT 0,
-        "keyHandle" TEXT UNIQUE,
-            FOREIGN KEY("method_id")
-                REFERENCES "methods" ("method_id")
-                    ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+        "key_handle" TEXT,
+        PRIMARY KEY( method_name, account_id),
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")
                     ON DELETE CASCADE
-                    ON UPDATE NO ACTION
+                    
     );
 `;
 
@@ -109,11 +96,9 @@ const queries = {
     accountTableQuery,
     accountOptionsTableQuery,
     accountMethodsTableQuery,
-    methodTableQuery,
     tokenTableQuery,
     authenticatorIdTableQuery,
     accountSecretTableQuery,
-    methodsPopulate,
     appDataPopulate
 };
 

@@ -1,6 +1,6 @@
-import { UniqueIdProvider } from 'react-native-navigation/lib/dist/adapters/UniqueIdProvider';
-import Database from '../../util/sqlite/index.new';
+import { Database, utilities } from '../../native-services';
 import queries from './queries';
+import { constants } from '../services';
 
 async function initiateDb() {
     const database = new Database();
@@ -9,12 +9,18 @@ async function initiateDb() {
         await database.executeQuery(queries.accountTableQuery);
         await database.executeQuery(queries.accountSecretTableQuery);
         await database.executeQuery(queries.tokenTableQuery);
-        await database.executeQuery(queries.methodTableQuery);
+        // await database.executeQuery(queries.methodTableQuery);
         await database.executeQuery(queries.accountMethodsTableQuery);
         await database.executeQuery(queries.authenticatorIdTableQuery);
-        // database.executeQuery(queries.appDataPopulate, [
-        //     '' + Date.now(),
-        //     '1.0.0'
+        await database.executeQuery(queries.appDataPopulate, [
+            'uuid-' + (await (await utilities.getUUID()).uuid),
+            constants.APP_INFO.VERSION
+        ]);
+
+        // await database.executeQuery(queries.methodsPopulate, [
+        //     constants.ACCOUNT_METHODS.TOTP,
+        //     constants.ACCOUNT_METHODS.USER_PRESENCE,
+        //     constants.ACCOUNT_METHODS.FINGERPRINT
         // ]);
         return Promise.resolve();
     } catch (error) {

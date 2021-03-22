@@ -1,8 +1,8 @@
 import { getTransactionData, authenticateTransaction } from './api';
 import { getTokenByAccount } from './queries';
 import { getToken } from '../../services';
-import biometrics from '../../../util/biometrics';
-import keyGen from '../../../util/KeyGen';
+import { biometrics, keyGen } from '../../../native-services';
+
 
 async function authTransaction(accId, tEndpoint) {
     let result;

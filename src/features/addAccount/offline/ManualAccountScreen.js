@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { Button, TextInput, TopNavbar } from '../../../components';
 import navigator from '../../../navigation';
@@ -12,8 +11,6 @@ const CodeAccount = (props) => {
         secret: ''
     });
 
-    const regexForSecret = /^[0-9A-F]$/;
-
     const onChangeHandler = (name) => (value) => {
         setAccount((account) => ({
             ...account,
@@ -21,14 +18,15 @@ const CodeAccount = (props) => {
         }));
     };
 
-
     const onAddPress = async () => {
         try {
-            await createAccount({ account });
-            alert('Account Added');
+            if (account.name && account.issuer && account.secret.length >= 4) {
+                await createAccount({ account: { ...account, type: 'TOTP' } });
+                alert('Account Added');
+                navigator.goToRoot(props.componentId);
+            } else alert('Invalid Data or empty fields');
         } catch (error) {
             alert('Error');
-        } finally {
             navigator.goToRoot(props.componentId);
         }
     };
@@ -36,7 +34,6 @@ const CodeAccount = (props) => {
     return (
         <View style={{ flex: 1 }}>
             <TopNavbar title="Account By Code" />
-  
 
             <View style={styles.container}>
                 <View style={styles.top}>
@@ -47,32 +44,35 @@ const CodeAccount = (props) => {
                     </View>
                 </View>
 
-
                 <View>
                     <View>
                         <Text style={styles.SListtitle}>Company name</Text>
                         <TextInput
                             placeholder="Company name"
                             style={styles.listitemInput}
+                            onChangeText={onChangeHandler('issuer')}
                         />
                         <View style={styles.bar}></View>
                     </View>
                     <View>
                         <Text style={styles.SListtitle}>Account</Text>
-                            <TextInput
-                                placeholder="Account"
-                                style={styles.listitemInput}
-                            />
+                        <TextInput
+                            placeholder="Account"
+                            style={styles.listitemInput}
+                            onChangeText={onChangeHandler('name')}
+                        />
                         <View style={styles.bar}></View>
                     </View>
 
                     <View>
                         <Text style={styles.SListtitle}>Account code</Text>
-                        
-                            <TextInput
-                                placeholder="Account code"
-                                style={styles.listitemInput}
-                            />
+
+                        <TextInput
+                            placeholder="Account code"
+                            style={styles.listitemInput}
+                            onChangeText={onChangeHandler('secret')}
+                            autoCapitalize
+                        />
                         <View style={styles.bar}></View>
                     </View>
                     <Text
@@ -85,7 +85,6 @@ const CodeAccount = (props) => {
                         }}>
                         4 - 50 numbers or letters.
                     </Text>
-                   
                 </View>
 
                 <View style={styles.bottom}>
@@ -147,9 +146,9 @@ const styles = StyleSheet.create({
         color: '#424c58',
         marginLeft: 10,
         marginRight: 10,
-        marginBottom: -10,
+        marginBottom: -10
     },
-    listitemInput:{
+    listitemInput: {
         marginBottom: -15,
         fontSize: 16,
         marginLeft: 20
@@ -167,8 +166,8 @@ const styles = StyleSheet.create({
         height: 25
     },
     bottom: {
-        marginTop: '25%',
-    },
+        marginTop: '25%'
+    }
 });
 
 export default CodeAccount;

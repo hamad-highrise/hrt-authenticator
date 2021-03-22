@@ -1,4 +1,4 @@
-import Database from '../../util/sqlite/index.new';
+import { Database } from '../../native-services';
 
 async function getTransactionEndpoint(accId) {
     const query = `SELECT transaction_endpoint FROM accounts WHERE account_id = ?;`;
@@ -11,6 +11,21 @@ async function getTransactionEndpoint(accId) {
             transaction_endpoint = result.rows.item(i).transaction_endpoint;
         }
         return Promise.resolve({ transactionEndpoint: transaction_endpoint });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+async function getDeviceId() {
+    const query = `SELECT id FROM app_meta`;
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query);
+        let id;
+        for (let i = 0; i < result.rows.length; i++) {
+            id = result.rows.item(i).id;
+        }
+        return Promise.resolve({ id });
     } catch (error) {
         return Promise.reject(error);
     }
@@ -102,6 +117,22 @@ async function getEnrollmentEndpoint(accId) {
     }
 }
 
+async function getMethods(accId) {
+    const query = `SELECT method_name FROM methods WHERE accound_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let temp = [];
+        for (let i = 0; i < result.rows.length; i++) {
+            temp.push(result.rows.item(i).method_name);
+        }
+        return Promise.resolve(temp);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
 function getExpiryInSeconds(expiresIn) {
     return Math.floor(Date.now() / 1000) + expiresIn;
 }
@@ -112,7 +143,9 @@ export default {
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB,
-    getTransactionEndpoint
+    getTransactionEndpoint,
+    getDeviceId,
+    getMethods
 };
 
 export {
@@ -121,5 +154,7 @@ export {
     getEnrollmentEndpoint,
     getAuthIdByAccount,
     removeAccountDB,
-    getTransactionEndpoint
+    getTransactionEndpoint,
+    getDeviceId,
+    getMethods
 };
