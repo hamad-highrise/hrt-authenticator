@@ -45,7 +45,7 @@ async function isUnique({ name, issuer }) {
 
 async function addSecret({ secret, accId }) {
     const query = `INSERT INTO secrets (secret, account_id) VALUES (?, ?);`;
-    const params = [secret, iv, accId];
+    const params = [secret, accId];
     const database = new Database();
     try {
         await database.executeQuery(query, params);
@@ -72,13 +72,12 @@ async function saveToken({
     refreshToken,
     tokenEndpoint,
     expiry,
-    iv,
     accId
 }) {
     const query = `INSERT INTO 
-    tokens (token, refresh_token, expires_at, endpoint, account_id, iv) 
-    VALUES (?, ?, ?, ?, ?, ?);`;
-    const params = [token, refreshToken, expiry, tokenEndpoint, accId, iv];
+    tokens (token, refresh_token, expires_at, endpoint, account_id) 
+    VALUES (?, ?, ?, ?, ?);`;
+    const params = [token, refreshToken, expiry, tokenEndpoint, accId];
     const database = new Database();
     try {
         await database.executeQuery(query, params);
