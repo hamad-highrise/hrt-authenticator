@@ -14,7 +14,7 @@ const ErrorScreen = (props) => {
             <View style={{ marginTop: 20 }}></View>
             <Image
                 style={styles.image}
-                source={require('../../assets/images/ErrorScreen.png')}></Image>
+                source={require('../../assets/images/ErrorScreen2.png')}></Image>
             <View>
                 <Text style={styles.welcome}>
                     Oops! Somthing went wrong here

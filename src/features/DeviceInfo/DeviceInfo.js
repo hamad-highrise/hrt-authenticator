@@ -32,7 +32,7 @@ const DeviceInfo = (props) => {
     const onPressHandlerWelcome = useCallback(() => {
         navigation.goTo(
             props.componentId,
-            navigation.screenIds.authTransaction
+            navigation.screenIds.welcome
         );
     }, [props.componentId]);
     const onPressHandlerAuthTransaction = useCallback(() => {

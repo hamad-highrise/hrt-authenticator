@@ -3,14 +3,11 @@ import {
     View,
     StyleSheet,
     Text,
-    Image,
     Dimensions,
     ScrollView,
     SafeAreaView,
     TouchableOpacity
 } from 'react-native';
-import { Button } from '../../components';
-import PropTypes from 'prop-types';
 
 const PrivacyPolicy = () => {
     return (
