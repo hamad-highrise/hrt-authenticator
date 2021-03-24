@@ -1,4 +1,3 @@
-
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 
@@ -7,10 +6,10 @@ import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
-import { Database } from '../../native-services';
+
 const AuthProcess = (props) => {
     const {
-        id,
+        accId,
         message,
         endpoint,
         componentId,
@@ -19,7 +18,7 @@ const AuthProcess = (props) => {
     } = props;
     const onApproveBiometric = async () => {
         try {
-            const authResult = await authTransaction(id, endpoint);
+            const authResult = await authTransaction(accId, endpoint);
         } catch (error) {
             alert(error);
         } finally {
@@ -29,7 +28,7 @@ const AuthProcess = (props) => {
     const onReject = async () => {
         try {
             const authResult = await rejectTransaction({
-                accId: id,
+                accId,
                 tEndpoint: endpoint
             });
         } catch (error) {
@@ -49,6 +48,7 @@ const AuthProcess = (props) => {
     const fadeIn = () => {
         // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
         Animated.timing(fadeViewDetailsLEFT, {
+
             toValue: 380,
             duration: 50,
             useNativeDriver: false
@@ -56,46 +56,59 @@ const AuthProcess = (props) => {
             // setFragment('NO');
             Animated.timing(fadeDetailsOPA, {
                 toValue: 1,
+
                 duration: 201,
+
                 useNativeDriver: false
             }).start();
             setFragment('NO');
             // slide right to left -390 to 0
             Animated.timing(fadeDetailsLEFT, {
                 toValue: 0,
+
                 duration: 50,
+
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeViewDetailsOPA, {
             toValue: 0,
+
             duration: 201,
+
             useNativeDriver: false
         }).start();
     };
     const fadeOut = () => {
         // Will change fadeViewDetailsLEFT value -390 to 0 in 2 seconds
         Animated.timing(fadeDetailsLEFT, {
+
             toValue: -390,
             duration: 50,
+
             useNativeDriver: false
         }).start(() => {
             setFragment('YES');
             Animated.timing(fadeViewDetailsLEFT, {
                 toValue: 1,
+
                 duration: 50,
+
                 useNativeDriver: false
             }).start();
 
             Animated.timing(fadeViewDetailsOPA, {
                 toValue: 1,
+
                 duration: 201,
+
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeDetailsOPA, {
             toValue: 1,
             duration: 201,
+
             useNativeDriver: false
         }).start();
     };
@@ -175,14 +188,6 @@ const AuthProcess = (props) => {
                     </Animated.View>
                 )}
             </View>
-            {/* <View style={styles.buttonRow}>
-                <View>
-                    <Text onPress={fadeIn}>Fade In</Text>
-                </View>
-                <View>
-                    <Text onPress={fadeOut}>Fade Out</Text>
-                </View>
-            </View> */}
             <View
                 style={{
                     flex: 1,
@@ -199,9 +204,7 @@ const AuthProcess = (props) => {
                             paddingLeft: 20
                         }
                     ]}
-
                     onPress={onReject}>
-
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold', color: 'black' }}>
                             Deny
@@ -235,7 +238,7 @@ const AuthProcess = (props) => {
 };
 
 AuthProcess.propTypes = {
-    id: PropTypes.number.isRequired,
+    accId: PropTypes.number.isRequired,
     message: PropTypes.string,
     endpoint: PropTypes.string.isRequired
 };

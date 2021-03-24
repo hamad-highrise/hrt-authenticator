@@ -15,7 +15,6 @@ async function getDetails({ endpoint, ignoreSSL }) {
 
 async function getToken({ endpoint, data, ignoreSSL }) {
     const rnFetch = getFetchInstance({ ignoreSSL });
-    console.warn(data.deviceId);
     const body = {
         grant_type: 'authorization_code',
         code: data?.code,

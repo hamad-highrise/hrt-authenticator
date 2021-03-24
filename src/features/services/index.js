@@ -21,11 +21,17 @@ async function getTransactions({ accId, secure }) {
                         'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
                     ]
                 );
-                return Promise.resolve({
-                    transaction: processed,
-                    success: true,
-                    message: 'SUCCESS'
-                });
+                const registeredMethods = await db.getMethods(accId);
+                return registeredMethods.includes(processed?.method)
+                    ? Promise.resolve({
+                          transaction: processed,
+                          success: true,
+                          message: 'SUCCESS'
+                      })
+                    : Promise.resolve({
+                          message: 'UNREGISTERED_METHODS',
+                          success: true
+                      });
             } else {
                 return Promise.resolve({
                     success: false,
@@ -155,10 +161,11 @@ async function getToken(accId) {
 }
 
 export { getToken, removeAccount, getTransactions };
-export { getDeviceId } from './queries';
+export { getDeviceId, getMethods } from './queries';
 export { default as getFetchInstance } from './RNFetch';
 export { default as encodeFormData } from './formData';
 export { default as constants } from './constants';
+export { removeDeviceFromSam } from './api';
 
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds

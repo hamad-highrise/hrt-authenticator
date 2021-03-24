@@ -118,7 +118,7 @@ async function getEnrollmentEndpoint(accId) {
 }
 
 async function getMethods(accId) {
-    const query = `SELECT method_name FROM methods WHERE accound_id = ?;`;
+    const query = `SELECT method_name FROM methods WHERE account_id = ?;`;
     const params = [accId];
     const database = new Database();
     try {

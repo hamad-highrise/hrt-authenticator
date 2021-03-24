@@ -1,4 +1,7 @@
-import React, { useEffect, useRef, useState } from 'react';
+
+import React from 'react';
+
+
 import {
     View,
     Text,
@@ -8,41 +11,31 @@ import {
     Animated,
     Easing
 } from 'react-native';
+
 import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import TOTPGenerator from './totp';
 import { AccessCodeFragment, SettingsFragment } from './components';
 import { removeAccount, getTransactions } from '../services';
-import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
+import useAccessCode from './useAccessCode';
 
 const AccessCode = (props) => {
-    const [counter, setCounter] = useState(0);
-    const [otp, setOTP] = useState('######');
-    const [fragment, setFragment] = useState('CODE');
-    let transInterval;
+    // let transInterval;
+    const {
+        otp,
+        counter,
+        fragment,
+        onCodeSelect,
+        onSettingsSelect,
+        transactionCheck
+    } = useAccessCode(props);
     const { transaction } = props;
 
-    const appState = useRef(AppState.currentState);
 
-    useEffect(() => {
-        //App state event listener, in case if app goes to background and comes to foreground. User get to see the updated OTP
-        props?.transaction?.available
-            ? goToAuthScreen()
-            : (transInterval = setInterval(getTran, 2000));
-        AppState.addEventListener('change', handleAppStateChange);
-        const otpInterval = setInterval(timer, 1000);
 
-        updateOtp();
-        return () => {
-            //Here listeners are being removed on component unmount
-            AppState.removeEventListener('change', handleAppStateChange);
-            clearInterval(otpInterval);
-            clearInterval(transInterval);
-        };
-    }, []);
     var spinValue = useRef(new Animated.Value(0)).current;
+
     const onBackPress = () => {
         Animated.timing(spinValue, {
             toValue: 1,
@@ -69,42 +62,12 @@ const AccessCode = (props) => {
         });
     };
 
-    const getTran = async () => {
+    const onRefereshClick = () => {
         try {
-            const result = await getTransactions({ accId: props.id });
-            if (result.success) {
-                if (result.transaction) {
-                    clearInterval(transInterval);
-                    const {
-                        displayMessage,
-                        requestUrl,
-                        createdAt,
-                        transactionId
-                    } = result.transaction;
-                    navigator.goTo(
-                        props.componentId,
-                        navigator.screenIds.authTransaction,
-                        {
-                            id: props.id,
-                            message: displayMessage,
-                            endpoint: requestUrl,
-                            createdAt,
-                            transactionId
-                        }
-                    );
-                }
-            } else if (result.message === 'SERVER_NO_DEVICE') {
-                alert('Device has been removed');
-            } else {
-                alert('UNKNOWN');
-            }
+            transactionCheck();
         } catch (error) {
             alert(error);
         }
-    };
-
-    const onRefereshClick = () => {
-        getTran();
     };
 
     const handleRemoveAccount = async () => {
@@ -119,36 +82,6 @@ const AccessCode = (props) => {
             console.warn(error);
         }
     };
-
-    const handleAppStateChange = (nextAppState) => {
-        if (
-            //inactive of iOS and background for android
-            appState.current.match(/inactive|background/) &&
-            nextAppState === 'active'
-        ) {
-            updateOtp();
-        }
-        appState.current = nextAppState;
-    };
-
-    const updateOtp = () => {
-        try {
-            setOTP(TOTPGenerator(props.secret));
-        } catch (error) {
-            setFragment('SETTINGS');
-            alert(
-                'Account have invalid secret. Delete the account and enter a valid Secret.'
-            );
-        }
-    };
-    const timer = (TOTP_PERIOD = 30) => {
-        //function executes every second and checks if specific time period is passed and updates the otp.
-        let epoch = Math.round(new Date().getTime() / 1000.0);
-        setCounter(TOTP_PERIOD - (epoch % TOTP_PERIOD));
-        if (epoch % TOTP_PERIOD == 0) updateOtp();
-    };
-    const onCodeSelect = () => setFragment('CODE');
-    const onSettingsSelect = () => setFragment('SETTINGS');
 
     return (
         <View style={styles.container}>

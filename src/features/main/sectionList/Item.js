@@ -4,7 +4,7 @@ import styles from './styles';
 import accountQueries from '../queries';
 
 const Item = ({ account, onPress }) => {
-    const onAccountPress = async () => {
+    const onItemPress = async () => {
         try {
             const secret = await accountQueries.getSecretByAccountId(
                 account['account_id']
@@ -15,7 +15,7 @@ const Item = ({ account, onPress }) => {
         }
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onAccountPress}>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
             <Text style={styles.SListheader}>{account['account_name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (
@@ -24,7 +24,7 @@ const Item = ({ account, onPress }) => {
             {false && (
                 <View>
                     <Text style={styles.errorText}>
-                        Please contact HBL PIM{account['issuer']} support ❗
+                        Please contact {account['issuer']} support ❗
                     </Text>
                 </View>
             )}

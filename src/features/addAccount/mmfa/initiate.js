@@ -1,10 +1,9 @@
 import { Platform } from 'react-native';
-import { registerTotp, registerUserPresence } from './registerMethods';
-import { getDetails, getToken } from './api';
+import api from './api';
+import methods from './registerMethods';
 import { push, biometrics, utilities } from '../../../native-services';
-import { createAccount, isUnique, addMethod } from '../services'; //folder related services
-import parser from '../qr/parser';
-import { getDeviceId } from '../../services';
+import { createAccount, isUnique } from '../services'; //folder related services
+import { constants, getDeviceId } from '../../services';
 
 async function initiate(scanned) {
     const resultObj = {
@@ -21,13 +20,10 @@ async function initiate(scanned) {
         return resultObj;
     }
     try {
-        //ignore ssl option
-        const detailsResult = await getDetails({
-            endpoint: scanned['details_url']
-        });
+        const details = await getDetails({ endpoint: scanned['details_url'] });
 
-        if (detailsResult.respInfo.status !== 200) {
-            resultObj.message === 'ERROR_FETCHING_DETAILS';
+        if (!details) {
+            resultObj.message = constants.ERROR_MESSAGES.DETAILS_FETCH;
             return resultObj;
         }
 
@@ -36,88 +32,66 @@ async function initiate(scanned) {
             totpEndpoint,
             enrollmentEndpoint,
             transactionEndpoint,
-            methodsSupported,
-            serviceName
-        } = parseDetails(detailsResult.json());
+            serviceName,
+            methodsSupported
+        } = details;
 
-        //device information
-        const {
-            osVersion,
-            frontCameraAvailable,
-            name,
-            rooted
-        } = await utilities.getDeviceInfo();
-        const { pushToken } = await push.getFirebaseToken();
+        const data = await getData();
+        //set code from scanned QR code
+        data['code'] = scanned.code;
 
-        const data = {
-            code: scanned.code,
-            OSVersion: osVersion,
-            frontCamera: frontCameraAvailable,
-            fingerprintSupport: await (await biometrics.isSensorAvailable())
-                .available,
-            deviceType: Platform.OS === 'android' ? 'Android' : 'iOS',
-            deviceName: name,
-            deviceRooted: rooted,
-            pushToken: pushToken,
-            deviceId: await (await getDeviceId()).id
-        };
+        const tokenT = await getToken({ endpoint: tokenEndpoint, data });
 
-        //ignore ssl option should be here
-        const tokenResult = await getToken({
-            endpoint: tokenEndpoint,
-            data
-        });
-
-        if (!tokenResult.respInfo.status === 200) {
-            resultObj.message === 'ERROR_FETCHING_TOKEN';
+        if (!tokenT) {
+            resultObj.message = constants.ERROR_MESSAGES.TOKEN_FETCH;
             return resultObj;
         }
 
-        const tokenObj = await tokenResult.json();
+        if (
+            !(await isUnique({ name: tokenT.accountName, issuer: serviceName }))
+        ) {
+            resultObj.message = constants.ERROR_MESSAGES.DUPLICATE_ACCOUNT;
+            return Promise.resolve(resultObj);
+        }
 
-        const totpResult = await registerTotp({
+        const totp = await totpRegistraion({
             endpoint: totpEndpoint,
-            token: tokenObj['access_token']
+            token: tokenT.accessToken
         });
-        if (!totpResult.respInfo.status === 200) {
-            resultObj.message == 'ERROR_REGISTERING_TOTP';
+
+        if (!totp) {
+            resultObj.message = constants.ERROR_MESSAGES.TOTP_REGISTER;
             return resultObj;
         }
 
-        const parsedData = parser.uriParser(totpResult.json()['secretKeyUrl']);
         const account = {
-            name: parsedData.label.account,
+            name: tokenT.accountName,
             issuer: serviceName,
-            secret: parsedData.query.secret,
+            secret: totp.secretKey,
             type: 'SAM',
             transactionEndpoint,
             enrollmentEndpoint,
-            authId: tokenObj['authenticator_id']
+            authId: tokenT.authenticatorId
         };
         const token = {
-            token: tokenObj['access_token'],
-            refreshToken: tokenObj['refresh_token'],
-            expiry: getExpiryInSeconds(tokenObj['expires_in']),
+            token: tokenT.accessToken,
+            refreshToken: tokenT.refreshToken,
+            expiry: tokenT.expiry,
             tokenEndpoint
         };
 
-        if (await isUnique(account)) {
-            const insertId = await createAccount({ account, token });
-            resultObj.insertId = insertId;
-        } else {
-            resultObj.message = 'DUPLICATE_ACCOUNT';
-            //here start remove account flow
-        }
+        const accId = await createAccount({ account, token });
 
-        const presenceResult = await registerUserPresence({
+        const registered = await userPresenceRegistration({
             endpoint: enrollmentEndpoint,
-            token: token.token,
-            name: account.name,
-            issuer: account.issuer,
-            accId: resultObj.insertId
+            token: tokenT.accessToken,
+            name: tokenT.accountName,
+            issuer: serviceName,
+            accId: accId
         });
-        if (!presenceResult.respInfo.status === 200) {
-            resultObj.message = 'ERROR_REGISTERING_USER_PRESENCE';
+
+        if (!registered) {
+            resultObj.message = constants.ERROR_MESSAGES.USER_PRESENCE_REGISTER;
             return resultObj;
         }
 
@@ -125,6 +99,7 @@ async function initiate(scanned) {
         resultObj.token = token.token;
         resultObj.accountName = account.name;
         resultObj.issuer = account.issuer;
+        resultObj.insertId = accId;
 
         return Promise.resolve(resultObj);
     } catch (error) {
@@ -132,45 +107,118 @@ async function initiate(scanned) {
     }
 }
 
-function parseToken(tokenResponse) {
-    const {
-        access_token: accessToken,
-        refresh_token: refreshToken,
-        authenticator_id: authenticatorId,
-        expires_in
-    } = tokenResponse;
-    return {
-        accessToken,
-        refreshToken,
-        expiry: getExpiryInSeconds(expires_in),
-        authenticatorId
-    };
+async function totpRegistraion({ endpoint, token }) {
+    try {
+        const result = await methods.registerTotp({ endpoint, token });
+        if (result.respInfo.status !== 200) {
+            console.warn(result.json());
+            return Promise.resolve();
+        }
+        const totp = await result.json();
+        return Promise.resolve({
+            period: totp['period'],
+            digit: totp['digits'],
+            secretKey: totp['secretKey'],
+            algorithm: totp['algorithm']
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
-function parseDetails(detailsResponse) {
-    const {
-        totp_shared_secret_endpoint: totpEndpoint,
-        enrollment_endpoint: enrollmentEndpoint,
-        authntrxn_endpoint: transactionEndpoint,
-        token_endpoint: tokenEndpoint,
-        metadata: { service_name: serviceName },
-        discovery_mechanisms
-    } = detailsResponse;
+async function userPresenceRegistration({
+    endpoint,
+    token,
+    name,
+    issuer,
+    accId
+}) {
+    try {
+        const result = await methods.registerUserPresence({
+            endpoint,
+            token,
+            name,
+            issuer,
+            accId
+        });
+        if (result.respInfo.status !== 200) {
+            console.warn(result.json());
+            return Promise.resolve();
+        }
+        return Promise.resolve(true);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 
-    //will translate discovery mechanisims
-    const methodsSupported = discovery_mechanisms.map((mech) => {
-        const splitted = mech.split(':');
-        return splitted[splitted.length - 1];
-    });
+async function getDetails({ endpoint, ignoreSSL }) {
+    try {
+        const result = await api.getDetails({ endpoint, ignoreSSL });
+        if (result.respInfo.status !== 200) {
+            console.warn(result.json());
+            return Promise.resolve();
+        }
+        const details = await result.json();
+        return Promise.resolve({
+            totpEndpoint: details['totp_shared_secret_endpoint'],
+            enrollmentEndpoint: details['enrollment_endpoint'],
+            transactionEndpoint: details['authntrxn_endpoint'],
+            tokenEndpoint: details['token_endpoint'],
+            serviceName: details['metadata']['service_name'],
+            methodsSupported: details['discovery_mechanisms'].map((mech) =>
+                mech.split(':').pop()
+            )
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
 
-    return {
-        transactionEndpoint,
-        enrollmentEndpoint,
-        tokenEndpoint,
-        totpEndpoint,
-        serviceName,
-        methodsSupported
-    };
+async function getToken({ endpoint, data, ignoreSSL }) {
+    try {
+        const result = await api.getToken({ endpoint, data, ignoreSSL });
+        if (result.respInfo.status !== 200) {
+            console.warn(result.json());
+            return Promise.resolve();
+        }
+        const token = await result.json();
+        return Promise.resolve({
+            accessToken: token['access_token'],
+            refreshToken: token['refresh_token'],
+            expiry: getExpiryInSeconds(token['expires_in']),
+            endpoint,
+            authenticatorId: token['authenticator_id'],
+            accountName: token['display_name']
+        });
+    } catch (error) {}
+}
+
+async function getData() {
+    try {
+        const {
+            osVersion,
+            frontCameraAvailable,
+            name,
+            rooted
+        } = await utilities.getDeviceInfo();
+        const { pushToken } = await push.getFirebaseToken();
+        const { id: deviceId } = await getDeviceId();
+        const {
+            available: fingerprintSupport
+        } = await biometrics.isSensorAvailable();
+        return Promise.resolve({
+            OSVersion: osVersion,
+            frontCamera: frontCameraAvailable,
+            deviceName: name,
+            deviceRooted: rooted,
+            pushToken,
+            deviceId,
+            fingerprintSupport,
+            deviceType: Platform.OS === 'android' ? 'Android' : 'iOS'
+        });
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 function getExpiryInSeconds(expiresIn) {

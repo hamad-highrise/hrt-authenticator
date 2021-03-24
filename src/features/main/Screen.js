@@ -1,109 +1,49 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
-import queries from './queries';
-import {
-    useNavigationComponentDidAppear,
-    useNavigationComponentDidDisappear
-} from 'react-native-navigation-hooks';
-import { getTransactions } from '../services';
+import useAccounts from './useAccounts';
 
 const Main = (props) => {
-    const [accounts, setAccounts] = useState([]);
-    let x;
-    useEffect(() => {
-        checker();
-        x = setInterval(checker, 1000 * 10);
-        return () => {
-            clearInterval(x);
-        };
-    }, []);
-
-    useNavigationComponentDidAppear(
-        () => {
-            checker();
-        },
-        { componentId: props.componentId }
-    );
-
-    useNavigationComponentDidDisappear(
-        () => {
-            clearInterval(x);
-        },
-        { componentId: props.componentId }
-    );
-
-    const checkTransaction = async ({ accId, secure }) => {
-        try {
-            const { success, message, ...result } = await getTransactions({
-                accId,
-                secure
-            });
-            if (success) {
-                if (result?.transaction) {
-                    return Promise.resolve(result.transaction);
-                }
-            } else return Promise.resolve();
-        } catch (error) {
-            return Promise.reject(error);
-        }
-    };
-
-    const checker = async () => {
-        const mAccounts = await queries.getAll();
-        setAccounts(mAccounts);
-        const modified = await Promise.all(
-            mAccounts.map(async (account) => {
-                if (account.type === 'SAM') {
-                    const transaction = await checkTransaction({
-                        accId: account['account_id']
-                    });
-                    if (transaction) {
-                        return {
-                            ...account,
-                            transaction: {
-                                available: true,
-                                ...transaction
-                            }
-                        };
-                    } else {
-                        return {
-                            ...account,
-                            transaction: {
-                                available: false
-                            }
-                        };
-                    }
-                } else {
-                    
-                    return account;
-                }
-            })
-        );
-        setAccounts(modified);
-    };
+    const { accounts, error } = useAccounts(props.componentId);
 
     const onPressHandler = () => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
     const onItemPress = ({
-        account_id: id,
+        account_id: accId,
         account_name: name,
         issuer,
         secret,
         type,
         transaction
     }) => {
-        navigation.goTo(props.componentId, navigation.screenIds.accessCode, {
-            id,
-            name,
-            issuer,
-            secret,
-            type,
-            transaction
-        });
+        if (transaction && transaction.available) {
+            navigation.goTo(
+                props.componentId,
+                navigation.screenIds.authTransaction,
+                {
+                    accId,
+                    message: transaction.displayMessage,
+                    endpoint: transaction.requestUrl,
+                    createdAt: transaction.createdAt,
+                    transactionId: transaction.transactionId
+                }
+            );
+        } else
+            navigation.goTo(
+                props.componentId,
+                navigation.screenIds.accessCode,
+                {
+                    accId,
+                    name,
+                    issuer,
+                    secret,
+                    type,
+                    transaction
+                }
+            );
     };
     const onPressHandlerAccessCode = () => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
