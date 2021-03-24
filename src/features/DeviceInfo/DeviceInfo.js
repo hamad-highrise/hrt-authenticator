@@ -1,21 +1,19 @@
-import React, { useCallback } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import React, { useCallback, useState } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    Modal,
+    SafeAreaView,
+    ScrollView,
+    Dimensions,
+    Linking
+} from 'react-native';
 import { TopNavbar } from '../../components';
-import { Navigation } from 'react-native-navigation';
 import navigation from '../../navigation';
 const DeviceInfo = (props) => {
-    const AccountConnected = () => {
-        Navigation.push(props.componentId, {
-            component: {
-                name: 'authenticator.NotifyAccountConnected',
-                options: {
-                    topBar: {
-                        visible: false
-                    }
-                }
-            }
-        });
-    };
     const onPressHandleProcessComplete = useCallback(() => {
         navigation.goTo(
             props.componentId,
@@ -30,10 +28,7 @@ const DeviceInfo = (props) => {
     }, [props.componentId]);
 
     const onPressHandlerWelcome = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.welcome
-        );
+        navigation.goTo(props.componentId, navigation.screenIds.welcome);
     }, [props.componentId]);
     const onPressHandlerAuthTransaction = useCallback(() => {
         navigation.goTo(
@@ -53,9 +48,11 @@ const DeviceInfo = (props) => {
     const onPressHandlerGetStarted = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.getstarted);
     }, [props.componentId]);
-    const onPressHandlerprivacypolicy = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.privacypolicy);
+    const onPressHandlerNotifySuccess = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.notifysuccess);
     }, [props.componentId]);
+    const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(false);
+
     const onPressHandlertermandcondition = useCallback(() => {
         navigation.goTo(
             props.componentId,
@@ -111,7 +108,7 @@ const DeviceInfo = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={()=> alert('go to browser')}>
+                    onPress={() => {Linking.openURL('https://highrisetechnologies.com/');}}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             IBM Security Verify User Guide
@@ -250,6 +247,20 @@ const DeviceInfo = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
+                
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerNotifySuccess}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                        onPressHandlerNotifySuccess
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
                     onPress={onPressHandlerError}>
@@ -278,7 +289,7 @@ const DeviceInfo = (props) => {
                 </TouchableOpacity>
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={onPressHandlerprivacypolicy}>
+                    onPress={() => privacypolicysetModalVisible(true)}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             onPressHandlerprivacypolicy
@@ -289,6 +300,96 @@ const DeviceInfo = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
+                {/* test case modal */}
+                <Modal
+                    animationType="slide"
+                    transparent={true}
+                    visible={privacypolicymodalVisible}
+                    onRequestClose={() => {
+                        privacypolicysetModalVisible(
+                            !privacypolicymodalVisible
+                        );
+                    }}>
+                    <View style={{ backgroundColor: 'white' }}>
+                        <View>
+                            <Text
+                                style={{
+                                    alignSelf: 'center',
+                                    fontSize: 18,
+                                    marginTop: 15,
+                                    marginVertical: 10,
+                                    fontWeight: 'bold',
+                                    color: '#424c58'
+                                }}>
+                                Privacy Policy
+                            </Text>
+                        </View>
+                        <View style={styles.containerr}>
+                            <SafeAreaView>
+                                <ScrollView
+                                    style={{
+                                        height:
+                                            Dimensions.get('window').height *
+                                            0.76
+                                    }}>
+                                    <Text style={styles.content}>
+                                        This IBM Mobile Application Privacy
+                                        Statement ("Mobile Privacy Statement")
+                                        explains the data IBM may collect on
+                                        behalf of the entity that entitles you
+                                        to use this IBM product offering. This
+                                        Mobile Privacy Statement only applies to
+                                        the information IBM may collect on
+                                        behalf of that entity. It does not apply
+                                        to the information that entity may
+                                        collect for its own use.
+                                    </Text>
+
+                                    <Text style={styles.content}>
+                                        Downloading, accessing, or otherwise
+                                        using the App indicates that you have
+                                        read this Mobile Privacy Statement and
+                                        consent to its terms. If you do not
+                                        consent to the terms of this Mobile
+                                        Privacy Statement, do not proceed to
+                                        download, access, or otherwise use the
+                                        App.
+                                    </Text>
+                                    <Text style={styles.content}>
+                                        IBM may collect the following
+                                        information through the App:
+                                        {'\n'}
+                                        <Text>{'\u2022'}</Text> Personal
+                                        information you may provide to download
+                                        and use the App, including your email
+                                        address, name, and password{'\n'}
+                                        <Text>{'\u2022'}</Text> Information
+                                        about your usage of the App, including
+                                        crash logs and usage statistics
+                                        <Text>{'\u2022'}</Text> Information
+                                        about your device and its interaction
+                                        with the App. including the type of
+                                        mobile device you use with the App, its
+                                        unique user ID, IP address, and
+                                        operating system, and the type of mobile
+                                        Internet browsers in use
+                                    </Text>
+                                </ScrollView>
+                            </SafeAreaView>
+                            <View style={{ margin: 10 }} />
+                            <TouchableOpacity
+                                onPress={() =>
+                                    privacypolicysetModalVisible(
+                                        !privacypolicymodalVisible
+                                    )
+                                }
+                                style={styles.btnInvert}>
+                                <Text style={styles.label}>Close</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </Modal>
+                {/* end test case modal */}
                 <TouchableOpacity
                     style={styles.listitem}
                     onPress={onPressHandlertermandcondition}>
@@ -374,6 +475,29 @@ const styles = StyleSheet.create({
     img: {
         width: 20,
         height: 20
+    },
+    containerr: {
+        justifyContent: 'space-between',
+        margin: 19,
+        marginTop: 10
+    },
+    content: {
+        fontSize: 15,
+        lineHeight: 22,
+        color: 'black',
+        marginBottom: 10
+    },
+    btnInvert: {
+        marginVertical: 10,
+        paddingHorizontal: 15,
+        width: Dimensions.get('window').width * 0.25,
+        alignSelf: 'flex-end'
+    },
+    label: {
+        fontSize: 18,
+        color: 'black',
+        marginLeft: 15,
+        fontWeight: 'bold'
     }
 });
 
