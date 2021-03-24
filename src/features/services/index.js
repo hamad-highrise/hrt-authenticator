@@ -1,6 +1,7 @@
 import apiRequests from './api';
 import db from './queries';
 import { processTransaction } from './transaction';
+import { cipher } from '../../native-services';
 
 async function getTransactions({ accId, secure }) {
     try {

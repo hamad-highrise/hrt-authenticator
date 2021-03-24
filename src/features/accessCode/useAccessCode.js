@@ -60,7 +60,6 @@ function useAccessCode({ secret, type, componentId, accId }) {
 
     const checkTransaction = async () => {
         try {
-            console.warn(accId);
             const { success, message, ...result } = await getTransactions({
                 accId
             });

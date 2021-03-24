@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from 'react';
-import { Navigation } from 'react-native-navigation';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
 import { constants, getTransactions } from '../services';
 import queries from './queries';

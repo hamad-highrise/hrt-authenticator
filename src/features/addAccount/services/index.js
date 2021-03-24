@@ -1,10 +1,16 @@
+import { cipher } from '../../../native-services';
+import constants from '../../services/constants';
 import db from './queries';
 const { isUnique, addMethod } = db;
 
 async function createAccount({ account, token }) {
     try {
         const { insertId } = await db.createAccountEntry(account);
-        await db.addSecret({ secret: account.secret, accId: insertId });
+        const { iv, encrypted: secret } = await cipher.encrypt({
+            payload: account.secret,
+            keyAlias: constants.KEY_ALIAS.SECRET
+        });
+        await db.addSecret({ secret, accId: insertId, iv });
         if (account.type === 'SAM') {
             await db.saveToken({ ...token, accId: insertId });
             await db.saveAuthId({ authId: account.authId, accId: insertId });
