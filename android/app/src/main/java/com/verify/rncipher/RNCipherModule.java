@@ -1,7 +1,6 @@
 package com.verify.rncipher;
 
 import android.util.Log;
-import android.util.Pair;
 
 import androidx.annotation.NonNull;
 
@@ -29,10 +28,9 @@ public class RNCipherModule extends ReactContextBaseJavaModule {
         final String keyAlias = params.getString("keyAlias");
         final String payload = params.getString("payload");
         try {
-            Pair pair = cipher.encrypt(keyAlias, payload);
+            String cipherText = cipher.encrypt(keyAlias, payload);
             WritableMap result = new WritableNativeMap();
-            result.putString("encrypted", (String) pair.first);
-            result.putString("iv", (String) pair.second);
+            result.putString("cipherText", cipherText);
             promise.resolve(result);
         } catch (Exception e) {
             Log.d(TAG, String.valueOf(e));
@@ -44,11 +42,11 @@ public class RNCipherModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void decrypt(final ReadableMap params, final Promise promise) {
         final String keyAlias = params.getString("keyAlias");
-        final String encrypted = params.getString("encrypted");
-        final String iv = params.getString("iv");
+        final String cipherText = params.getString("cipherText");
+
         try {
 
-            String decrypted = cipher.decrypt(keyAlias, encrypted, iv);
+            String decrypted = cipher.decrypt(keyAlias, cipherText);
             WritableMap result = new WritableNativeMap();
             result.putString("decrypted", decrypted);
             Log.d("DECRYPT", "SUCCESS");

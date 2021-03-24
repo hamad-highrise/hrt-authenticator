@@ -8,17 +8,13 @@ import constants from '../../services/constants';
 const Item = ({ account, onPress }) => {
     const onItemPress = async () => {
         try {
-            const {
-                encryptedSecret,
-                iv
-            } = await accountQueries.getSecretByAccountId(
+            const secret = await accountQueries.getSecretByAccountId(
                 account['account_id']
             );
 
             const { decrypted } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.SECRET,
-                encrypted: encryptedSecret,
-                iv
+                cipherText: secret
             });
 
             onPress({ ...account, secret: decrypted });
