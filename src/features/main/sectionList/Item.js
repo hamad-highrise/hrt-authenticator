@@ -1,7 +1,9 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
+import { cipher } from '../../../native-services';
 import accountQueries from '../queries';
+import constants from '../../services/constants';
 
 const Item = ({ account, onPress }) => {
     const onItemPress = async () => {
@@ -9,8 +11,15 @@ const Item = ({ account, onPress }) => {
             const secret = await accountQueries.getSecretByAccountId(
                 account['account_id']
             );
-            onPress({ ...account, secret });
+
+            const { decrypted } = await cipher.decrypt({
+                keyAlias: constants.KEY_ALIAS.SECRET,
+                cipherText: secret
+            });
+
+            onPress({ ...account, secret: decrypted });
         } catch (error) {
+            console.warn(error);
             alert(error);
         }
     };

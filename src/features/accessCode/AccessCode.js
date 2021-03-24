@@ -59,7 +59,7 @@ const AccessCode = (props) => {
     const handleRemoveAccount = async () => {
         try {
             const result = await removeAccount({
-                accId: props.id,
+                accId: props.accId,
                 type: props.type
             });
             navigator.goToRoot(props.componentId);

@@ -4,7 +4,6 @@ import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;
 import android.util.Base64;
-import android.util.Pair;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -30,7 +29,7 @@ public class RNCipher {
     private final String TRANSFORMATION_ALGORITHM = "AES/CBC/NoPadding";
 
 
-    public Pair<String, String> encrypt(final String keyAlias, String payload)
+    public String encrypt(final String keyAlias, String payload)
             throws CertificateException, NoSuchAlgorithmException, KeyStoreException,
             IOException, UnrecoverableEntryException, NoSuchProviderException,
             InvalidAlgorithmParameterException, NoSuchPaddingException, InvalidKeyException,
@@ -50,20 +49,21 @@ public class RNCipher {
         byte[] iv = cipher.getIV();
         String encodedIV = Base64.encodeToString(iv, Base64.NO_WRAP);
         String encodedEncrypted = Base64.encodeToString(encrypted, Base64.NO_WRAP);
-        return new Pair<>(encodedEncrypted, encodedIV);
+        return encodedIV + ':' + encodedEncrypted;
     }
 
-    public String decrypt(final String keyAlias, final String encryptedPayload, final String iv)
+    public String decrypt(final String keyAlias, final String encryptedPayload)
             throws NoSuchPaddingException, NoSuchAlgorithmException, CertificateException,
             UnrecoverableEntryException, KeyStoreException, IOException, InvalidKeyException,
             InvalidAlgorithmParameterException, BadPaddingException, IllegalBlockSizeException {
         //
         Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
         SecretKey secretKey = getSecretKey(keyAlias);
-        IvParameterSpec ivParameterSpec = new IvParameterSpec(Base64.decode(iv, Base64.NO_WRAP));
+        final String[] payload = encryptedPayload.split(":");
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(Base64.decode(payload[0], Base64.NO_WRAP));
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
-        final byte[] decrypted = cipher.doFinal(Base64.decode(encryptedPayload, Base64.NO_WRAP));
-        return new String(decrypted);
+        final byte[] decrypted = cipher.doFinal(Base64.decode(payload[1], Base64.NO_WRAP));
+        return new String(decrypted).trim();
     }
 
 

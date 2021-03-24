@@ -27,7 +27,6 @@ const accountSecretTableQuery = `
 CREATE TABLE IF NOT EXISTS "secrets"(
     "secret_id" INTEGER NOT NULL UNIQUE PRIMARY KEY AUTOINCREMENT,
     "secret" TEXT NOT NULL,
-    "iv" TEXT,
     "account_id" INTEGER NOT NULL,
         FOREIGN KEY("account_id") 
             REFERENCES "accounts" ("account_id")
@@ -69,7 +68,6 @@ const tokenTableQuery = `
         "refresh_token" TEXT NOT NULL UNIQUE,
         "expires_at" INTEGER NOT NULL,
         "endpoint" TEXT NOT NULL,
-        "iv" TEXT,
         "account_id" INTEGER NOT NULL,
             FOREIGN KEY("account_id")
                 REFERENCES "accounts" ("account_id")

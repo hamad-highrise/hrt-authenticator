@@ -43,8 +43,8 @@ async function isUnique({ name, issuer }) {
     }
 }
 
-async function addSecret({ secret, accId, iv }) {
-    const query = `INSERT INTO secrets (secret, iv, account_id) VALUES (?, ?, ?);`;
+async function addSecret({ secret, accId }) {
+    const query = `INSERT INTO secrets (secret, account_id) VALUES (?, ?);`;
     const params = [secret, iv, accId];
     const database = new Database();
     try {

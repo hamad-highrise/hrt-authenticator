@@ -24,7 +24,7 @@ async function getTransactionData(endpoint, token) {
                 requestUrl: endpoint.split('?')[0]
             });
         } else {
-            return Promise.reject(new Error('NOT_200'));
+            return Promise.reject(new Error('NOT_200_TRANSACTION_DATA'));
         }
     } catch (error) {
         return Promise.reject(error);

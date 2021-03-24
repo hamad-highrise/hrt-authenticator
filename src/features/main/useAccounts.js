@@ -1,8 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-    useNavigationComponentDidAppear,
-    useNavigationComponentDidDisappear
-} from 'react-native-navigation-hooks/dist';
+import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
 import { constants, getTransactions } from '../services';
 import queries from './queries';
 
@@ -12,27 +9,34 @@ function useAccounts(componentId) {
     const transactionCheckIntervalRef = useRef();
 
     useEffect(() => {
-        checker();
-        const id = setInterval(checker, 1000 * 5);
-        transactionCheckIntervalRef.current = id;
+        loadAccounts();
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
         };
     }, []);
 
+    useEffect(() => {
+        transactionCheckIntervalRef.current &&
+            clearInterval(transactionCheckIntervalRef.current);
+        const id = setInterval(checker, 1000 * 5);
+        transactionCheckIntervalRef.current = id;
+    }, [accounts.length]);
+
     useNavigationComponentDidAppear(
         () => {
-            checker();
+            loadAccounts();
         },
         { componentId }
     );
 
-    // useNavigationComponentDidDisappear(
-    //     () => {
-    //         clearInterval(transactionCheckIntervalRef.current);
-    //     },
-    //     { componentId }
-    // );
+    const loadAccounts = async () => {
+        try {
+            const mAccounts = await queries.getAll();
+            setAccounts(mAccounts);
+        } catch (error) {
+            setError(error);
+        }
+    };
 
     const checkTransaction = async ({ accId, ignoreSSL }) => {
         try {
@@ -52,10 +56,8 @@ function useAccounts(componentId) {
 
     const checker = async () => {
         try {
-            const mAccounts = await queries.getAll();
-            setAccounts(mAccounts);
             const checkedAccounts = await Promise.all(
-                mAccounts.map(async (account) => {
+                accounts.map(async (account) => {
                     if (account.type === constants.ACCOUNT_TYPES.SAM) {
                         try {
                             const transaction = await checkTransaction({
@@ -79,6 +81,7 @@ function useAccounts(componentId) {
                     } else return account;
                 })
             );
+
             setAccounts(checkedAccounts);
         } catch (error) {
             setError(error);
