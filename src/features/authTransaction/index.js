@@ -43,57 +43,72 @@ const AuthProcess = (props) => {
 
     const fadeViewDetailsLEFT = useRef(new Animated.Value(0)).current;
     const fadeViewDetailsOPA = useRef(new Animated.Value(1)).current;
-    const fadeDetailsLEFT = useRef(new Animated.Value(-350)).current;
+    const fadeDetailsLEFT = useRef(new Animated.Value(-390)).current;
     const fadeDetailsOPA = useRef(new Animated.Value(0)).current;
     const fadeIn = () => {
         // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
         Animated.timing(fadeViewDetailsLEFT, {
-            toValue: 350,
-            duration: 250,
+
+            toValue: 380,
+            duration: 50,
             useNativeDriver: false
         }).start(() => {
-            setFragment('NO');
+            // setFragment('NO');
             Animated.timing(fadeDetailsOPA, {
                 toValue: 1,
-                duration: 250,
+
+                duration: 201,
+
                 useNativeDriver: false
             }).start();
-            // slide right to left -350 to 0
+            setFragment('NO');
+            // slide right to left -390 to 0
             Animated.timing(fadeDetailsLEFT, {
                 toValue: 0,
-                duration: 250,
+
+                duration: 50,
+
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeViewDetailsOPA, {
             toValue: 0,
-            duration: 250,
+
+            duration: 201,
+
             useNativeDriver: false
         }).start();
     };
     const fadeOut = () => {
-        // Will change fadeViewDetailsLEFT value -350 to 0 in 2 seconds
+        // Will change fadeViewDetailsLEFT value -390 to 0 in 2 seconds
         Animated.timing(fadeDetailsLEFT, {
-            toValue: -350,
-            duration: 250,
+
+            toValue: -390,
+            duration: 50,
+
             useNativeDriver: false
         }).start(() => {
             setFragment('YES');
             Animated.timing(fadeViewDetailsLEFT, {
                 toValue: 1,
-                duration: 250,
+
+                duration: 50,
+
                 useNativeDriver: false
             }).start();
 
             Animated.timing(fadeViewDetailsOPA, {
                 toValue: 1,
-                duration: 250,
+
+                duration: 201,
+
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeDetailsOPA, {
             toValue: 1,
-            duration: 250,
+            duration: 201,
+
             useNativeDriver: false
         }).start();
     };

@@ -15,7 +15,7 @@ const IconButton = ({ children, onPress, param }) => {
 
 IconButton.propTypes = {
   children: PropTypes.node.isRequired,
-  onPress: PropTypes.func.isRequired,
+  onPress: PropTypes.func,
   param: PropTypes.any
 };
 

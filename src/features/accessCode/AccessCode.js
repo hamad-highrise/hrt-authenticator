@@ -1,5 +1,17 @@
+
 import React from 'react';
-import { View, Text, Image, TouchableOpacity } from 'react-native';
+
+
+import {
+    View,
+    Text,
+    Image,
+    AppState,
+    TouchableOpacity,
+    Animated,
+    Easing
+} from 'react-native';
+
 import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
@@ -20,9 +32,24 @@ const AccessCode = (props) => {
     } = useAccessCode(props);
     const { transaction } = props;
 
+
+
+    var spinValue = useRef(new Animated.Value(0)).current;
+
     const onBackPress = () => {
-        navigator.goBack(props.componentId);
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1000,
+            easing: Easing.linear,
+            useNativeDriver: false
+        }).start();
+        // navigator.goBack(props.componentId);
     };
+    // spinValue = new Animated.Value(0);
+    const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '180deg']
+    });
 
     const goToAuthScreen = () => {
         console.warn(transaction);
@@ -59,34 +86,35 @@ const AccessCode = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.header}>
-                <View style={{ backgroundColor: 'black', height: 54 }}>
-                    <IconButton onPress={onBackPress}>
-                        <Image
-                            source={require('../../assets/icons/backarrowinvert.png')}
-                            style={{
-                                width: 25,
-                                height: 35,
-                                marginLeft: 6,
-                                marginTop: 10
-                            }}
-                        />
-                    </IconButton>
-                </View>
-
-                <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Access Code</Text>
-                </View>
-                <View style={{ backgroundColor: 'black', height: 54 }}>
+                <View
+                    style={{ height: 52 }}
+                    style={{ transform: [{ rotate: '180deg' }] }}>
                     <IconButton onPress={onRefereshClick}>
                         <Image
-                            source={require('../../assets/icons/refreshinvert.png')}
+                            source={require('../../assets/icons/backarrowblack.png')}
                             style={[
                                 styles.iconBtn,
                                 {
                                     marginLeft: 9,
-                                    marginTop: 12,
-                                    width: 25,
-                                    height: 30
+                                    marginTop: 6
+                                }
+                            ]}
+                        />
+                    </IconButton>
+                </View>
+                <View style={styles.title}>
+                    <Text style={styles.titleMainText}></Text>
+                </View>
+                <View style={{ height: 52 }}>
+                    <IconButton onPress={onBackPress}>
+                        <Animated.Image
+                            source={require('../../assets/icons/refreshinvertblack.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 6,
+                                    marginTop: 10,
+                                    transform: [{ rotate: spin }]
                                 }
                             ]}
                         />

@@ -12,14 +12,14 @@ export default StyleSheet.create({
         height: 53,
         alignItems: 'center',
         justifyContent: 'space-between',
-        borderBottomColor: '#525961',
+        borderBottomColor: 'lightgrey',
         borderBottomWidth: 1,
-        backgroundColor: 'black',
+        backgroundColor: 'white',
         padding: -50,
         margin: -30
     },
     titleMainText: {
-        color: 'white',
+        color: 'black',
         justifyContent: 'center',
         fontSize: 18,
         fontWeight: 'bold'
@@ -34,8 +34,8 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     iconBtn: {
-        width: 37,
-        height: 37
+        width: 25,
+        height: 30
     },
     top: {
         flex: 0.1,
