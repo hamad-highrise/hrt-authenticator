@@ -1,12 +1,8 @@
-
-import React from 'react';
-
-
+import React, { useRef } from 'react';
 import {
     View,
     Text,
     Image,
-    AppState,
     TouchableOpacity,
     Animated,
     Easing
@@ -17,7 +13,7 @@ import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './components';
-import { removeAccount, getTransactions } from '../services';
+import { removeAccount } from '../services';
 import useAccessCode from './useAccessCode';
 
 const AccessCode = (props) => {
@@ -30,39 +26,29 @@ const AccessCode = (props) => {
         onSettingsSelect,
         transactionCheck
     } = useAccessCode(props);
-    const { transaction } = props;
-
-
 
     var spinValue = useRef(new Animated.Value(0)).current;
 
     const onBackPress = () => {
-        Animated.timing(spinValue, {
-            toValue: 1,
-            duration: 1000,
-            easing: Easing.linear,
-            useNativeDriver: false
-        }).start();
-        // navigator.goBack(props.componentId);
+        navigator.goBack(props.componentId);
     };
-    // spinValue = new Animated.Value(0);
+
     const spin = spinValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '180deg']
+        outputRange: ['0deg', '360deg']
     });
 
-    const goToAuthScreen = () => {
-        console.warn(transaction);
-        navigator.goTo(props.componentId, navigator.screenIds.authTransaction, {
-            id: props.id,
-            message: transaction.displayMessage,
-            endpoint: transaction.requestUrl,
-            createdAt: transaction.createdAt,
-            transactionId: transaction.transactionId
-        });
-    };
-
     const onRefereshClick = () => {
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: false
+        }).start((res) => {
+            if (res.finished) {
+                spinValue.setValue(0);
+            }
+        });
         try {
             transactionCheck();
         } catch (error) {
@@ -89,7 +75,7 @@ const AccessCode = (props) => {
                 <View
                     style={{ height: 52 }}
                     style={{ transform: [{ rotate: '180deg' }] }}>
-                    <IconButton onPress={onRefereshClick}>
+                    <IconButton onPress={onBackPress}>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}
                             style={[
@@ -103,10 +89,10 @@ const AccessCode = (props) => {
                     </IconButton>
                 </View>
                 <View style={styles.title}>
-                    <Text style={styles.titleMainText}></Text>
+                    <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
                 <View style={{ height: 52 }}>
-                    <IconButton onPress={onBackPress}>
+                    <IconButton onPress={onRefereshClick}>
                         <Animated.Image
                             source={require('../../assets/icons/refreshinvertblack.png')}
                             style={[
