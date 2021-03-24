@@ -64,7 +64,6 @@ function useAccounts(componentId) {
                             const transaction = await checkTransaction({
                                 accId: account['account_id']
                             });
-                            console.warn(transaction);
                             return transaction
                                 ? {
                                       ...account,
