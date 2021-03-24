@@ -20,6 +20,7 @@ import {
     SecurityAssessmentScreen
 } from '../features';
 import { SplashScreen } from '../features/Splash';
+import { NotifySuccessScreen } from '../features/NotifySuccess';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -52,6 +53,7 @@ function registerScreens() {
     Navigation.registerComponent(screensId.termandcondition, () => TermAndConditionScreen);
     Navigation.registerComponent(screensId.thirdpartynotice, () => ThirdPartyNoticeScreen);
     Navigation.registerComponent(screensId.securityassessment, () => SecurityAssessmentScreen);
+    Navigation.registerComponent(screensId.notifysuccess, () => NotifySuccessScreen);
 }
 
 export default registerScreens;

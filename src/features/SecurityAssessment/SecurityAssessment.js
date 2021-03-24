@@ -1,9 +1,51 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Image, Dimensions } from 'react-native';
-import { Button } from '../../components';
-import PropTypes from 'prop-types';
+import React, { useState, useRef } from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    TouchableOpacity,
+    Image,
+    Switch,
+    Dimensions,
+    Animated
+} from 'react-native';
 import { TopNavbar } from '../../components';
 const SecurityAssessment = () => {
+    const fadeAnim = useRef(new Animated.Value(-20)).current;
+    const fadeAnimOPA = useRef(new Animated.Value(0)).current;
+
+    var mode = 1;
+    const fadeOut = () => {
+        console.log(mode);
+        if (mode == 1) {
+            Animated.timing(fadeAnim, {
+                toValue: 12,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+            Animated.timing(fadeAnimOPA, {
+                toValue: 1,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+            mode = 2;
+        } else {
+            Animated.timing(fadeAnim, {
+                toValue: -20,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+            Animated.timing(fadeAnimOPA, {
+                toValue: 0,
+                duration: 500,
+                useNativeDriver: false
+            }).start();
+            mode = 1;
+        }
+    };
+
+    const [isEnabled, setIsEnabled] = useState(false);
+    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
     return (
         <View style={styles.container}>
             <TopNavbar title="" onPress={() => alert('nothing')}></TopNavbar>
@@ -14,102 +56,116 @@ const SecurityAssessment = () => {
             </Text>
             <View
                 style={{
-                    backgroundColor: '#d3d3d380',
                     borderColor: 'grey',
                     borderBottomWidth: 1,
                     borderTopWidth: 1
                 }}>
                 {/* li */}
-                                
-                <TouchableOpacity
-                    style={styles.listitem}>
+
+                <TouchableOpacity style={styles.listitem} onPress={fadeOut}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Android version up to date
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={require('../../assets/icons/exclamation.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}>
+                <Animated.View
+                    style={{
+                        marginVertical: fadeAnim,
+                        opacity: fadeAnimOPA,
+                        marginHorizontal: 20
+                    }}>
+                    <Text style={{ fontSize: 16 }}>
+                        A new Android version is available. Please update your
+                        device.
+                    </Text>
+                </Animated.View>
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Device not rooted
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={require('../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    >
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                           Biometrics enrolled
+                            Biometrics enrolled
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={require('../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    >
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                           Device security is enabled
+                            Device security is enabled
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={require('../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    >
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             IBM Security Verify up to date
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={require('../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                
+
                 {/* end li */}
-                
             </View>
 
-            <View style={{
+            <View
+                style={{
                     backgroundColor: '#d3d3d380',
                     borderColor: 'grey',
                     borderBottomWidth: 1,
                     borderTopWidth: 1,
-                    marginTop:150,
+                    marginTop: 110
                 }}>
-                <TouchableOpacity
-                    style={styles.listitemBottom}
-                    >
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            IBM Security Verify up to date
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
+                <TouchableOpacity style={styles.listitemBottom}>
+                    <View
+                        style={[
+                            styles.listitemView,
+                            { width: Dimensions.get('window').width * 0.8 }
+                        ]}>
+                        <View>
+                            <Text style={styles.listitemTextBottom}>
+                                IBM Security Verify up to date
+                            </Text>
+                            <Text style={styles.listitemSubTextBottom}>
+                                Stop other applications from capturing your
+                                sensitive screens
+                            </Text>
+                        </View>
+
+                        <Switch
+                            trackColor={{ false: '#767577', true: '#81b0ff' }}
+                            thumbColor={isEnabled ? '#0f62fe' : '#f4f3f4'}
+                            ios_backgroundColor="#3e3e3e"
+                            onValueChange={toggleSwitch}
+                            value={isEnabled}
                         />
                     </View>
                 </TouchableOpacity>
-                </View>
+            </View>
         </View>
     );
 };
@@ -128,22 +184,20 @@ const styles = StyleSheet.create({
         fontSize: 18
     },
     listitem: {
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        // backgroundColor: '#f8f8f8',
+        padding: 12,
         borderBottomWidth: 1,
         borderColor: 'lightgrey',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        backgroundColor: '#d3d3d380'
     },
     listitemView: {
         flexDirection: 'row',
         justifyContent: 'space-between',
-        alignItems: 'center'
+        alignItems: 'center',
+        paddingRight: 8
     },
     listitemText: {
         fontSize: 17,
-
         color: '#424c58'
     },
     listitemID: {
@@ -154,13 +208,19 @@ const styles = StyleSheet.create({
         width: 20,
         height: 20
     },
-    listitemBottom:{
+    listitemBottom: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
-        // borderBottomWidth: 1,
-        // borderColor: 'lightgrey',
         justifyContent: 'space-between',
-        marginVertical:30,
+        marginVertical: 10
+    },
+    listitemTextBottom: {
+        fontSize: 16,
+        color: '#424c58'
+    },
+    listitemSubTextBottom: {
+        fontSize: 14,
+        color: '#424c5899'
     }
 });

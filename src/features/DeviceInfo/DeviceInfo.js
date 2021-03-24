@@ -48,6 +48,9 @@ const DeviceInfo = (props) => {
     const onPressHandlerGetStarted = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.getstarted);
     }, [props.componentId]);
+    const onPressHandlerNotifySuccess = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.notifysuccess);
+    }, [props.componentId]);
     const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(false);
 
     const onPressHandlertermandcondition = useCallback(() => {
@@ -237,6 +240,20 @@ const DeviceInfo = (props) => {
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             onPressHandlerGetStarted
+                        </Text>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+                
+                <TouchableOpacity
+                    style={styles.listitem}
+                    onPress={onPressHandlerNotifySuccess}>
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>
+                        onPressHandlerNotifySuccess
                         </Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}
