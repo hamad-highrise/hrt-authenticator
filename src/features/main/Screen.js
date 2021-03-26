@@ -94,7 +94,6 @@ Main.options = {
 const styles = StyleSheet.create({
     container: {
         flex: 1
-        // backgroundColor: 'black'
     },
     header: {
         flexDirection: 'row',
@@ -114,28 +113,6 @@ const styles = StyleSheet.create({
         width: 37,
         height: 37
     },
-    SListitem: {
-        // backgroundColor: 'white',
-        padding: 20,
-        marginVertical: 0.12,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        paddingRight: 28
-    },
-    SListheader: {
-        fontSize: 20,
-        padding: 9,
-        backgroundColor: '#424c58',
-        color: '#b5b6bd',
-        fontWeight: 'bold',
-        alignSelf: 'center',
-        lineHeight: 25
-    },
-    SListtitle: {
-        fontSize: 20,
-        color: '#424c58',
-        fontWeight: 'bold'
-    }
 });
 
 export default Main;

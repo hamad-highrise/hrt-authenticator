@@ -76,31 +76,14 @@ export default TermAndCondition;
 
 const styles = StyleSheet.create({
     container: {
-        // alignItems: 'center'
         margin: 25,
         marginTop: 10
-    },
-    heading: {
-        fontSize: 30,
-        marginLeft: 50,
-        marginTop: 20,
-        marginRight: 30,
-        marginBottom: 30,
-        lineHeight: 35
-    },
-    image: {
-        width: Dimensions.get('window').width * 0.6,
-        height: Dimensions.get('window').height * 0.3,
-        alignItems: 'center'
     },
     btnInvert: {
         paddingVertical: 18,
         paddingHorizontal: 15,
         width: Dimensions.get('window').width * 0.25,
         alignSelf: 'flex-end'
-    },
-    title: {
-        marginLeft: 20
     },
     content: {
         fontSize: 15,
