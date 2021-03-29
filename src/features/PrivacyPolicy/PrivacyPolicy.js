@@ -99,9 +99,6 @@ const styles = StyleSheet.create({
         width: Dimensions.get('window').width * 0.25,
         alignSelf: 'flex-end'
     },
-    title: {
-        marginLeft: 20
-    },
     content: {
         fontSize: 15,
         lineHeight: 22,

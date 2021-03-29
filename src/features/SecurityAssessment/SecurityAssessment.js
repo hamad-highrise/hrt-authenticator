@@ -48,7 +48,7 @@ const SecurityAssessment = () => {
     const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
     return (
         <View style={styles.container}>
-            <TopNavbar title="" onPress={() => alert('nothing')}></TopNavbar>
+            <TopNavbar title="" onPress={() => alert('nothing')} imageBackOnPress={() => navigation.goBack(props.componentId)}></TopNavbar>
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
@@ -179,10 +179,6 @@ const styles = StyleSheet.create({
     title: {
         marginLeft: 20
     },
-    titleText: {
-        color: 'black',
-        fontSize: 18
-    },
     listitem: {
         padding: 12,
         borderBottomWidth: 1,
@@ -199,10 +195,6 @@ const styles = StyleSheet.create({
     listitemText: {
         fontSize: 17,
         color: '#424c58'
-    },
-    listitemID: {
-        fontSize: 12,
-        flex: 1
     },
     img: {
         width: 20,

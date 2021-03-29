@@ -73,7 +73,7 @@ const DeviceInfo = (props) => {
     }, [props.componentId]);
     return (
         <View style={styles.container}>
-            <TopNavbar title="" onPress={() => alert('zxcvb')}></TopNavbar>
+            <TopNavbar title="" imageBackOnPress={() => navigation.goBack(props.componentId)}></TopNavbar>
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
@@ -445,15 +445,10 @@ const styles = StyleSheet.create({
     title: {
         marginLeft: 20
     },
-    titleText: {
-        color: 'black',
-        fontSize: 18
-    },
     listitem: {
         padding: 10,
         marginLeft: 10,
         marginRight: 10,
-        // backgroundColor: '#f8f8f8',
         borderBottomWidth: 1,
         borderColor: 'lightgrey',
         justifyContent: 'space-between'
@@ -465,12 +460,7 @@ const styles = StyleSheet.create({
     },
     listitemText: {
         fontSize: 17,
-
         color: '#424c58'
-    },
-    listitemID: {
-        fontSize: 12,
-        flex: 1
     },
     img: {
         width: 20,
