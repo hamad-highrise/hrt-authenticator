@@ -1,31 +1,29 @@
 import React, { useCallback } from 'react';
-import navigation from '../../navigation';
+import navigator from '../../../navigation';
 import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { Button } from '../../components';
+import { Button } from '../../../components';
 
-const ProcessComplete = ({ props, title }) => {
-    // const onPressHandlerMain = useCallback(() => {
-    //     navigation.goTo(props.componentId, navigation.screenIds.main);
-    // }, [props.componentId]);
+const ProcessComplete = ({ title, ...props }) => {
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../../assets/images/trophy.png')}
+                source={require('../../../assets/images/trophy.png')}
             />
             <View>
                 <Text style={styles.welcome}>You're done!</Text>
                 <Text style={styles.instructions}>
-                    You can now use this app with your {title} account to verify
-                    your identity.
+                    You can now use this app with your
+                    <Text style={{ fontWeight: 'bold' }}> {title} </Text>
+                    account to verify your identity.
                 </Text>
             </View>
 
             <View style={{ marginTop: 110, marginBottom: 100 }}>
                 <Button
                     title="Done"
-                    onPress={()=>alert("Go to Main Screen")}
+                    onPress={() => navigator.goToRoot(props.componentId)}
                     style={styles.btn}
                 />
             </View>

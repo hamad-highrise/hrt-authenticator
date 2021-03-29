@@ -12,15 +12,9 @@ import { Button } from '../../../components';
 import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { biometrics } from '../../../native-services';
+import { getToken, getEnrollmentEndpoint } from '../../services';
 
-const BiometricOption = ({
-    endpoint,
-    token,
-    name,
-    issuer,
-    accId,
-    ...props
-}) => {
+const BiometricOption = ({ accId, ...props }) => {
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -40,24 +34,30 @@ const BiometricOption = ({
         try {
             const { available, error } = await biometrics.isSensorAvailable();
             if (available) {
-                const result = await registerBiometrics({
-                    endpoint,
-                    token,
-                    name,
-                    issuer,
-                    accId
-                });
-                if (result && result.respInfo.status === 200) {
-                    navigator.goToRoot(props.componentId);
-                } else {
-                    alert('Error registering biometrics');
-                }
+                const { success, token } = await getToken(accId);
+                if (success) {
+                    const { enrollmentEndpoint } = await getEnrollmentEndpoint(
+                        accId
+                    );
+                    const result = await registerBiometrics({
+                        endpoint: enrollmentEndpoint,
+                        token,
+                        accId
+                    });
+                    if (result && result.respInfo.status === 200) {
+                        navigator.goTo(
+                            props.componentId,
+                            navigator.screenIds.complete
+                        );
+                    } else {
+                        alert('Error registering biometrics');
+                    }
+                } else alert('TOKEN ERROR');
             } else {
                 alert(JSON.stringify(error));
             }
         } catch (error) {
             alert(error);
-        } finally {
             navigator.goToRoot(props.componentId);
         }
     };
@@ -79,7 +79,7 @@ const BiometricOption = ({
                 <Button
                     title="Use Biometric"
                     style={styles.btn}
-                    onPress={() => onPositive(endpoint, token)}
+                    onPress={onPositive}
                 />
                 <View style={{ margin: 10 }} />
                 <Button

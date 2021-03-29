@@ -68,7 +68,7 @@ async function initiate(scanned) {
             name: tokenT.accountName,
             issuer: serviceName,
             secret: totp.secretKey,
-            type: 'SAM',
+            type: constants.ACCOUNT_TYPES.SAM,
             transactionEndpoint,
             enrollmentEndpoint,
             authId: tokenT.authenticatorId

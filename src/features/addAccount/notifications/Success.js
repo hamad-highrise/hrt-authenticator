@@ -1,30 +1,85 @@
-import React from 'react';
-// import { Navigation } from 'react-native-navigation';
-import { Text, Image, View } from 'react-native';
+import React, { useEffect } from 'react';
+import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
-import styles from './styles';
-const NotifyProcessComplete = ({ props, title }) => {
+import navigator from '../../../navigation';
+import { constants } from '../../services';
+
+const NotifySuccess = ({ title, type, ...props }) => {
+    useEffect(() => {
+        init();
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            goBack
+        );
+        return () => {
+            backHandler.remove();
+        };
+    }, []);
+
+    const init = () => {
+        setTimeout(() => {
+            if (type === constants.ACCOUNT_TYPES.SAM) {
+                navigator.goTo(
+                    props.componentId,
+                    navigator.screenIds.biometricOption,
+                    {
+                        title: props.title,
+                        accId: props.accId
+                    }
+                );
+            } else navigator.goToRoot(props.componentId);
+        }, 3000);
+    };
+
+    const goBack = () => {
+        navigator.goToRoot(props.componentId);
+        return true;
+    };
+
     return (
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../../assets/icons/tick.png')}></Image>
-            <Text style={styles.welcome}>You're done!</Text>
-            <Text style={styles.instructions}>
-                You can now use this app with your {title} account to verify
-                your identity
-            </Text>
+                source={require('../../../assets/icons/tick.png')}></Image>
+            <View>
+                <Text style={styles.instructions}>
+                    This device and your
+                    <Text style={{ fontWeight: 'bold' }}> {title} </Text>
+                    account are now connected.
+                </Text>
+            </View>
         </View>
     );
 };
-
-NotifyProcessComplete.propTypes = {
-    title: PropTypes.string,
-    styles: PropTypes.any
+NotifySuccess.propTypes = {
+    title: PropTypes.string
 };
 
-NotifyProcessComplete.defaultProps = {
-    title: 'HBL SAM'
+NotifySuccess.defaultProps = {
+    title: 'SAMPLE'
 };
 
-export default NotifyProcessComplete;
+export default NotifySuccess;
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        paddingRight: 25,
+        paddingLeft: 25
+    },
+    instructions: {
+        textAlign: 'center',
+        marginLeft: 20,
+        color: 'black',
+        marginBottom: 5,
+        fontSize: 18,
+        paddingRight: 26
+    },
+    image: {
+        width: 150,
+        height: 150
+    }
+});

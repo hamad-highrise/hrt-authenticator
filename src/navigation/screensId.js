@@ -13,12 +13,13 @@ const screensIdentifiers = Object.freeze({
     deviceInfo: 'authenticator.DeviceInfoScreen',
     getstarted: 'authenticator.GetStartedScreen',
     error: 'authenticator.ErrorScreen',
-    processcomplete: 'authenticator.ProcessComplete',
+    complete: 'authenticator.ProcessComplete',
     privacypolicy: 'authenticator.PrivacyPolicyScreen',
     termandcondition: 'authenticator.TermAndConditionScreen',
     thirdpartynotice: 'authenticator.ThirdPartyNoticeScreen',
     securityassessment: 'authenticator.SecurityAssessmentScreen',
-    notifysuccess: 'authenticator.NotifySuccessScreen'
+    notifysuccess: 'authenticator.NotifySuccessScreen',
+    success: 'authenticator.SuccessScreen'
 });
 
 export default screensIdentifiers;
