@@ -1,6 +1,6 @@
 import { getFetchInstance, constants } from '../../services';
 import { addMethod } from '../services';
-import { biometrics, keyGen } from '../../../native-services';
+import { biometrics, keyGen, utilities } from '../../../native-services';
 
 async function registerTotp({ endpoint, token }) {
     try {
@@ -16,10 +16,10 @@ async function registerTotp({ endpoint, token }) {
     }
 }
 
-async function registerUserPresence({ endpoint, token, name, issuer, accId }) {
+async function registerUserPresence({ endpoint, token, accId }) {
     const insecureFetch = getFetchInstance();
-    const keyHandle =
-        name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
+    const { uuid } = await utilities.getUUID();
+    const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
     const url =
         endpoint +
         `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:userPresenceMethods`;
@@ -64,17 +64,15 @@ async function registerUserPresence({ endpoint, token, name, issuer, accId }) {
     }
 }
 
-async function registerBiometrics({ endpoint, token, name, issuer, accId }) {
+async function registerBiometrics({ endpoint, token, accId }) {
     const insecureFetch = getFetchInstance();
-    const keyHandle =
-        name + '.' + issuer + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
+    const { uuid } = await utilities.getUUID();
+    const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
 
     const url =
         endpoint +
         `?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:fingerprintMethods`;
     try {
-        // const {} = await biometrics.
-
         const { success } = await biometrics.showBiometricPrompt({
             promptMessage: 'Please verify your fingerprint',
             cancelButtonText: 'Cancel'

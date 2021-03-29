@@ -4,11 +4,10 @@ import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar, LoadingIndicator } from '../../../components';
 import initiateSamAccount from '../mmfa/initiate';
-import { createAccount } from '../services';
-import { isUnique } from '../services/queries';
+import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import navigation from '../../../navigation';
+import { constants } from '../../services';
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
@@ -28,14 +27,13 @@ const QRScan = (props) => {
                     if (result.message === 'OKAY') {
                         navigator.goTo(
                             props.componentId,
-                            navigator.screenIds.biometricOption,
+                            navigator.screenIds.success,
                             {
                                 title: result.accountName,
                                 endpoint: result.enrollmentEndpoint,
                                 token: result.token,
-                                name: result.accountName,
-                                issuer: result.issuer,
-                                accId: result.insertId
+                                accId: result.insertId,
+                                type: constants.ACCOUNT_TYPES.SAM
                             }
                         );
                     } else alert(result.message);
@@ -49,14 +47,23 @@ const QRScan = (props) => {
                 const account = {
                     name: parsedData.label.account,
                     issuer: parsedData.label.issuer,
-                    secret: parsedData.query.secret
+                    secret: parsedData.query.secret,
+                    type: constants.ACCOUNT_TYPES.TOTP
                 };
                 if (await isUnique(account)) {
-                    createAccount({ account });
+                    await createAccount({ account });
+                    navigator.goTo(
+                        props.componentId,
+                        navigator.screenIds.success,
+                        {
+                            title: account.name,
+                            type: constants.ACCOUNT_TYPES.TOTP
+                        }
+                    );
                 } else {
                     alert('Duplicate Account');
+                    navigator.goToRoot(props.componentId);
                 }
-                navigator.goToRoot(props.componentId);
             }
         }
     };
@@ -70,7 +77,12 @@ const QRScan = (props) => {
                 <LoadingIndicator show={loading} />
             ) : (
                 <>
-                    <TopNavbar title="Scan QR code"  imageBackOnPress={() => navigation.goBack(props.componentId)}/>
+                    <TopNavbar
+                        title="Scan QR code"
+                        imageBackOnPress={() =>
+                            navigator.goBack(props.componentId)
+                        }
+                    />
                     <QRCodeReader
                         captureAudio={false}
                         style={{

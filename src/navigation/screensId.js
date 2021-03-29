@@ -18,7 +18,8 @@ const screensIdentifiers = Object.freeze({
     termandcondition: 'authenticator.TermAndConditionScreen',
     thirdpartynotice: 'authenticator.ThirdPartyNoticeScreen',
     securityassessment: 'authenticator.SecurityAssessmentScreen',
-    notifysuccess: 'authenticator.NotifySuccessScreen'
+    notifysuccess: 'authenticator.NotifySuccessScreen',
+    success: 'authenticator.SuccessScreen'
 });
 
 export default screensIdentifiers;

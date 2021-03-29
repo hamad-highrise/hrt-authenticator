@@ -13,14 +13,13 @@ import {
     DeviceInfoScreen,
     GetStartedScreen,
     ErrorScreen,
-    ProcessComplete,
     PrivacyPolicyScreen,
     TermAndConditionScreen,
     ThirdPartyNoticeScreen,
-    SecurityAssessmentScreen
+    SecurityAssessmentScreen,
+    SuccessScreen
 } from '../features';
 import { SplashScreen } from '../features/Splash';
-import { NotifySuccessScreen } from '../features/NotifySuccess';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -48,12 +47,24 @@ function registerScreens() {
     Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
     Navigation.registerComponent(screensId.splash, () => SplashScreen);
     Navigation.registerComponent(screensId.error, () => ErrorScreen);
-    Navigation.registerComponent(screensId.processcomplete, () => ProcessComplete);
-    Navigation.registerComponent(screensId.privacypolicy, ()=>PrivacyPolicyScreen);
-    Navigation.registerComponent(screensId.termandcondition, () => TermAndConditionScreen);
-    Navigation.registerComponent(screensId.thirdpartynotice, () => ThirdPartyNoticeScreen);
-    Navigation.registerComponent(screensId.securityassessment, () => SecurityAssessmentScreen);
-    Navigation.registerComponent(screensId.notifysuccess, () => NotifySuccessScreen);
+    Navigation.registerComponent(
+        screensId.privacypolicy,
+        () => PrivacyPolicyScreen
+    );
+    Navigation.registerComponent(
+        screensId.termandcondition,
+        () => TermAndConditionScreen
+    );
+    Navigation.registerComponent(
+        screensId.thirdpartynotice,
+        () => ThirdPartyNoticeScreen
+    );
+    Navigation.registerComponent(
+        screensId.securityassessment,
+        () => SecurityAssessmentScreen
+    );
+
+    Navigation.registerComponent(screensId.success, () => SuccessScreen);
 }
 
 export default registerScreens;

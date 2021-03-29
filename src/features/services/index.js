@@ -162,7 +162,7 @@ async function getToken(accId) {
 }
 
 export { getToken, removeAccount, getTransactions };
-export { getDeviceId, getMethods } from './queries';
+export { getDeviceId, getMethods, getEnrollmentEndpoint } from './queries';
 export { default as getFetchInstance } from './RNFetch';
 export { default as encodeFormData } from './formData';
 export { default as constants } from './constants';

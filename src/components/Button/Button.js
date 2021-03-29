@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text, Dimensions } from 'react-native';
+import { TouchableOpacity, StyleSheet, Text } from 'react-native';
 import PropTypes from 'prop-types';
 
 const AndroidButton = ({ title, onPress, style, param }) => {
