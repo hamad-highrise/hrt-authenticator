@@ -30,8 +30,6 @@ const QRScan = (props) => {
                             navigator.screenIds.success,
                             {
                                 title: result.accountName,
-                                endpoint: result.enrollmentEndpoint,
-                                token: result.token,
                                 accId: result.insertId,
                                 type: constants.ACCOUNT_TYPES.SAM
                             }

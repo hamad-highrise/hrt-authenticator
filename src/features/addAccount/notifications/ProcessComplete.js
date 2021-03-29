@@ -4,10 +4,7 @@ import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../../components';
 
-const ProcessComplete = ({ props, title }) => {
-    // const onPressHandlerMain = useCallback(() => {
-    //     navigation.goTo(props.componentId, navigation.screenIds.main);
-    // }, [props.componentId]);
+const ProcessComplete = ({ title, ...props }) => {
     return (
         <View style={styles.container}>
             <Image

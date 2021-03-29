@@ -24,8 +24,6 @@ const NotifySuccess = ({ title, type, ...props }) => {
                     navigator.screenIds.biometricOption,
                     {
                         title: props.title,
-                        endpoint: props.endpoint,
-                        token: props.token,
                         accId: props.accId
                     }
                 );

@@ -14,7 +14,7 @@ import { registerBiometrics } from './../mmfa/registerMethods';
 import { biometrics } from '../../../native-services';
 import { getToken, getEnrollmentEndpoint } from '../../services';
 
-const BiometricOption = ({ endpoint, accId, token, ...props }) => {
+const BiometricOption = ({ accId, ...props }) => {
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
