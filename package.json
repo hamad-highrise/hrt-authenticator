@@ -20,7 +20,10 @@
     "react-native-polyfill": "^1.2.1",
     "react-native-sqlite-storage": "^5.0.0",
     "react-native-url-polyfill": "^1.2.0",
+    "react-redux": "^7.2.3",
     "react-refresh": "^0.9.0",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
     "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
