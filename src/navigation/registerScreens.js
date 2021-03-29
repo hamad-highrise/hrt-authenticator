@@ -17,7 +17,8 @@ import {
     TermAndConditionScreen,
     ThirdPartyNoticeScreen,
     SecurityAssessmentScreen,
-    SuccessScreen
+    SuccessScreen,
+    CompletionScreen
 } from '../features';
 import { SplashScreen } from '../features/Splash';
 
@@ -65,6 +66,7 @@ function registerScreens() {
     );
 
     Navigation.registerComponent(screensId.success, () => SuccessScreen);
+    Navigation.registerComponent(screensId.complete, () => CompletionScreen);
 }
 
 export default registerScreens;

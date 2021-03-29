@@ -45,7 +45,10 @@ const BiometricOption = ({ accId, ...props }) => {
                         accId
                     });
                     if (result && result.respInfo.status === 200) {
-                        navigator.goToRoot(props.componentId);
+                        navigator.goTo(
+                            props.componentId,
+                            navigator.screenIds.complete
+                        );
                     } else {
                         alert('Error registering biometrics');
                     }
@@ -55,7 +58,6 @@ const BiometricOption = ({ accId, ...props }) => {
             }
         } catch (error) {
             alert(error);
-        } finally {
             navigator.goToRoot(props.componentId);
         }
     };
