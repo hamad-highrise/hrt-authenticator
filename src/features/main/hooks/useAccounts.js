@@ -1,14 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
 import { useDispatch, useSelector } from 'react-redux';
-import { constants, getTransactions } from '../services';
+import { constants, getTransactions } from '../../services';
 import actions from '../services/actions';
 
 function useAccounts(componentId) {
     const accounts = useSelector(({ main }) => main.accounts);
-    const [err, setError] = useState({});
-    const transactionCheckIntervalRef = useRef();
     const dispatch = useDispatch();
+    const transactionCheckIntervalRef = useRef();
 
     useEffect(() => {
         loadAccounts();
@@ -78,13 +77,11 @@ function useAccounts(componentId) {
                     } else return account;
                 })
             );
-
-            setAccounts(checkedAccounts);
         } catch (error) {
-            setError(error);
+            alert(`UseAccounts ERR`);
         }
     };
-    return { accounts, error: err };
+    return { accounts };
 }
 
 export default useAccounts;

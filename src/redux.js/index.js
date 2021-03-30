@@ -1,29 +1,13 @@
-import { combineReducers, createStore } from 'redux';
+import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { alertReducer } from '../features/alert';
-
-const rootReducer = combineReducers({ alert: alertReducer });
+import { mainReducer } from '../features/index.reducers';
+import thunk from 'redux-thunk';
+const rootReducer = combineReducers({ alert: alertReducer, main: mainReducer });
 
 const initialState = {
     main: {
-        selected: {
-            account: {},
-            options: {},
-            secret: ''
-        },
-        accounts: [
-            {
-                id: 0,
-                name: 'Test Account',
-                issuer: 'Test Issuer',
-                type: 'SAM'
-            },
-            {
-                id: 1,
-                name: 'Test Account 1',
-                issuer: 'Test Issuer 1',
-                type: 'SAM'
-            }
-        ]
+        selected: {},
+        accounts: []
     },
     alert: {
         loading: false,
@@ -33,3 +17,5 @@ const initialState = {
         }
     }
 };
+
+export default createStore(rootReducer, initialState, applyMiddleware(thunk));

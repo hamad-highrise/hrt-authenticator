@@ -1,16 +1,18 @@
+import actions from '../../alert/action';
 import constants from './constants';
 
 const initialState = {
-    allAccounts: [{ name: '', issuer: '', ignoreSSL: true }],
-    selected: { name: '', issuer: '', ignoreSSL: true }
+    accounts: [],
+    selected: {}
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
         case constants.LOAD_ALL:
+            // console.warn(action.payload, 'payload');
             return {
                 ...state,
-                allAccounts: action.payload.accounts
+                accounts: action.payload.accounts
             };
         case constants.SELECT_ACCOUNT:
             return {

@@ -3,7 +3,7 @@ import constants from './constants';
 const initialState = {
     loading: false,
     error: {
-        isOccured: false,
+        isOccurred: false,
         data: {}
     }
 };

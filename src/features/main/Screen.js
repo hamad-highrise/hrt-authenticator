@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
-import useAccounts from './useAccounts';
+// import useAccounts from './useAccounts';
+import { useSelector } from 'react-redux';
+import { useAccounts } from './hooks';
 
 const Main = (props) => {
-    const { accounts, error } = useAccounts(props.componentId);
+    const { accounts } = useAccounts(props.componentId);
 
     const onPressHandler = () => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
@@ -70,6 +72,7 @@ const Main = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>HRT Security Verify</Text>
                 </View>
+
                 <View>
                     <IconButton onPress={onPressHandler}>
                         <Image
@@ -112,7 +115,7 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
-    },
+    }
 });
 
 export default Main;

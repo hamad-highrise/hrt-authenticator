@@ -7,9 +7,10 @@ function getAllAccounts() {
         dispatch(alertActions.request());
         try {
             const accounts = await queries.getAll();
-            dispatch({ type: constants.LOAD_ALL, payload: accounts });
+            dispatch({ type: constants.LOAD_ALL, payload: { accounts } });
             dispatch(alertActions.success());
         } catch (error) {
+            console.warn(error);
             dispatch(alertActions.failure(error));
         }
     };
