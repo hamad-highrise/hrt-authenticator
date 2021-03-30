@@ -11,12 +11,12 @@ const Item = ({ account, onPress }) => {
     const dispatch = useDispatch();
 
     const onItemPress = () => {
-        dispatch(mainActions.selectAccount(account['account_id']));
+        dispatch(mainActions.selectAccount(account['id']));
         onPress({ ...account });
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
-            <Text style={styles.SListheader}>{account['account_name']}</Text>
+            <Text style={styles.SListheader}>{account['name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>

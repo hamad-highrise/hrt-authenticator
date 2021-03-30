@@ -11,6 +11,7 @@ import { getSecret, totpGenerator } from '../services';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
+    
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
@@ -52,7 +53,7 @@ function useAccessCode({ componentId }) {
 
     const updateOtp = async () => {
         try {
-            const secret = await getSecret(selected['account_id']);
+            const secret = await getSecret(selected['id']);
             setOTP(totpGenerator(secret));
         } catch (error) {
             setFragment('SETTINGS');
@@ -68,7 +69,7 @@ function useAccessCode({ componentId }) {
     const checkTransaction = async () => {
         try {
             const { success, message, ...result } = await getTransactions({
-                accId: selected['account_id']
+                accId: selected['id']
             });
             return success && result?.transaction
                 ? Promise.resolve(result.transaction)
@@ -88,7 +89,7 @@ function useAccessCode({ componentId }) {
                         componentId,
                         navigator.screenIds.authTransaction,
                         {
-                            accId: selected['account_id'],
+                            accId: selected['id'],
                             message: transaction.displayMessage,
                             endpoint: transaction.requestUrl,
                             createdAt: transaction.createdAt,
@@ -105,7 +106,7 @@ function useAccessCode({ componentId }) {
     const removeAccount = async () => {
         try {
             const result = await remove({
-                accId: selected['account_id'],
+                accId: selected['id'],
                 type: selected['type']
             });
             navigator.goToRoot(componentId);

@@ -1,7 +1,7 @@
 import { Database } from '../../native-services';
 
 async function getAll() {
-    const query = `SELECT account_id, account_name, issuer, type FROM accounts`;
+    const query = `SELECT account_id AS id, account_name AS name, issuer, type FROM accounts`;
     const database = new Database();
     try {
         const [result] = await database.executeQuery(query);
@@ -9,7 +9,7 @@ async function getAll() {
         for (let i = 0; i < result.rows.length; i++) {
             temp.push(result.rows.item(i));
         }
-
+        console.warn(temp);
         return Promise.resolve(
             temp.map((account) => {
                 if (account.type === 'SAM') {

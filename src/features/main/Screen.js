@@ -12,8 +12,8 @@ const Main = (props) => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     };
     const onItemPress = ({
-        account_id: accId,
-        account_name: name,
+        id: accId,
+        name,
         issuer,
         secret,
         type,

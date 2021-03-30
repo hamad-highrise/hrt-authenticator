@@ -77,21 +77,23 @@ const AccessCode = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
-                <View style={{ height: 52 }}>
-                    <IconButton onPress={onRefereshClick}>
-                        <Animated.Image
-                            source={require('../../assets/icons/refreshinvertblack.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 6,
-                                    marginTop: 10,
-                                    transform: [{ rotate: spin }]
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
+                {true && (
+                    <View style={{ height: 52 }}>
+                        <IconButton onPress={onRefereshClick}>
+                            <Animated.Image
+                                source={require('../../assets/icons/refreshinvertblack.png')}
+                                style={[
+                                    styles.iconBtn,
+                                    {
+                                        marginLeft: 6,
+                                        marginTop: 10,
+                                        transform: [{ rotate: spin }]
+                                    }
+                                ]}
+                            />
+                        </IconButton>
+                    </View>
+                )}
             </View>
 
             {/* <View style={{ margin: 0 }}></View> */}

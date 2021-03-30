@@ -16,7 +16,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 selected: state.accounts.find(
-                    (account) => account['account_id'] === action.payload.accId
+                    (account) => account['id'] === action.payload.accId
                 )
             };
         case constants.UNSELECT_ACCOUNT:

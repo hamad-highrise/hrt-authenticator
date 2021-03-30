@@ -49,7 +49,7 @@ const AccountList = ({ accounts, onListItemPress }) => {
                 style={{ backgroundColor: 'white' }}
                 sections={structuredAccounts}
                 ItemSeparatorComponent={() => <ListItemSeparator />}
-                keyExtractor={(item, index) => item['account_id'] + index}
+                keyExtractor={(item, index) => item['id'] + index}
                 renderItem={({ item }) => (
                     <ListItem account={item} onPress={onListItemPress} />
                 )}

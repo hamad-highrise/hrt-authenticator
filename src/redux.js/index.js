@@ -7,7 +7,8 @@ const rootReducer = combineReducers({ alert: alertReducer, main: mainReducer });
 const initialState = {
     main: {
         selected: {},
-        accounts: []
+        accounts: [],
+        transactions: []
     },
     alert: {
         loading: false,

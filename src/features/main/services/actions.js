@@ -23,6 +23,8 @@ function selectAccount(accId) {
     };
 }
 
+function setTransactions(transaction){}
+
 const actions = { getAllAccounts, selectAccount };
 
 export default actions;
