@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { useSelector } from 'react-redux';
 import navigator from '../../../navigation';
-import { constants, getTransactions } from '../../services';
-import TOTPGenerator from '../totp';
-import { getSecret } from '../services';
+import {
+    constants,
+    getTransactions,
+    removeAccount as remove
+} from '../../services';
+import { getSecret, totpGenerator } from '../services';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
@@ -49,8 +52,8 @@ function useAccessCode({ componentId }) {
 
     const updateOtp = async () => {
         try {
-            const s = await getSecret(selected['account_id']);
-            setOTP(TOTPGenerator(s));
+            const secret = await getSecret(selected['account_id']);
+            setOTP(totpGenerator(secret));
         } catch (error) {
             setFragment('SETTINGS');
             alert(
@@ -99,13 +102,27 @@ function useAccessCode({ componentId }) {
         }
     };
 
+    const removeAccount = async () => {
+        try {
+            const result = await remove({
+                accId: selected['account_id'],
+                type: selected['type']
+            });
+            navigator.goToRoot(componentId);
+            alert(JSON.stringify(result));
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
     return {
         otp,
         counter,
         fragment,
         onCodeSelect,
         onSettingsSelect,
-        transactionCheck: checker
+        transactionCheck: checker,
+        removeAccount
     };
 }
 

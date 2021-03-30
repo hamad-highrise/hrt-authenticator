@@ -17,3 +17,4 @@ async function getSecret(accId) {
 
 export default { getSecret };
 export { getSecret };
+export { default as totpGenerator } from './totp';

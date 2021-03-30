@@ -9,30 +9,13 @@ import { mainActions } from '../services';
 
 const Item = ({ account, onPress }) => {
     const dispatch = useDispatch();
-    const onItemPress = async () => {
-        try {
-            const secret = await accountQueries.getSecretByAccountId(
-                account['account_id']
-            );
 
-            const { decrypted } = await cipher.decrypt({
-                keyAlias: constants.KEY_ALIAS.SECRET,
-                cipherText: secret
-            });
-
-            onPress({ ...account, secret: decrypted });
-        } catch (error) {
-            console.warn(error);
-            alert(error);
-        }
-    };
-
-    const onItemPressRed = () => {
+    const onItemPress = () => {
         dispatch(mainActions.selectAccount(account['account_id']));
         onPress({ ...account });
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPressRed}>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
             <Text style={styles.SListheader}>{account['account_name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (

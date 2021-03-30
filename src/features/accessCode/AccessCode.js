@@ -13,19 +13,17 @@ import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
-import { removeAccount } from '../services';
-// import useAccessCode from './useAccessCode';
 import { useAccessCode } from './hooks';
 
 const AccessCode = (props) => {
-    // let transInterval;
     const {
         otp,
         counter,
         fragment,
         onCodeSelect,
         onSettingsSelect,
-        transactionCheck
+        transactionCheck,
+        removeAccount
     } = useAccessCode(props);
 
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -54,19 +52,6 @@ const AccessCode = (props) => {
             transactionCheck();
         } catch (error) {
             alert(error);
-        }
-    };
-
-    const handleRemoveAccount = async () => {
-        try {
-            const result = await removeAccount({
-                accId: props.accId,
-                type: props.type
-            });
-            navigator.goToRoot(props.componentId);
-            alert(JSON.stringify(result));
-        } catch (error) {
-            console.warn(error);
         }
     };
 
@@ -166,7 +151,7 @@ const AccessCode = (props) => {
                 {fragment == 'CODE' ? (
                     <AccessCodeFragment otp={otp} counter={counter} />
                 ) : (
-                    <SettingsFragment removeAccount={handleRemoveAccount} />
+                    <SettingsFragment removeAccount={removeAccount} />
                 )}
             </View>
 

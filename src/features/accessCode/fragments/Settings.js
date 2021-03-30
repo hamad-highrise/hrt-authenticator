@@ -1,20 +1,13 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Button } from '../../../components';
 import styles from '../styles';
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    KeyboardAvoidingView,
-    TextInput,
-    Alert
-} from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
+import { useSelector } from 'react-redux';
+import { constants } from '../../services';
 
 const Settings = ({ removeAccount }) => {
-    const [AccType, setFunc] = useState('Normal');
-
-    const onRemovePress = async () => {
+    const selected = useSelector(({ main }) => main.selected);
+    const onRemovePress = () => {
         Alert.alert(
             'Delete Account',
             `This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?`,
@@ -25,7 +18,7 @@ const Settings = ({ removeAccount }) => {
                     style: 'cancel'
                 },
                 {
-                    text: 'Yes, delete',
+                    text: 'Yes, Delete',
                     onPress: removeAccount,
                     style: 'destructive'
                 }
@@ -35,43 +28,21 @@ const Settings = ({ removeAccount }) => {
 
     return (
         <View>
-            <KeyboardAvoidingView
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                {AccType == 'NormalX' ? (
-                    <TouchableOpacity
-                        style={styles.listitem}
-                        onPress={() => alert('zxcvbnm')}>
-                        <View style={styles.listitemView}>
-                            <TextInput
-                                placeholder="Account Name"
-                                style={{
-                                    marginBottom: -20,
-                                    fontSize: 18,
-                                    fontWeight: 'bold',
-                                    marginLeft: -10
-                                }}
-                            />
-                            <Image
-                                source={require('../../../assets/icons/edit2.png')}
-                                style={styles.imgg}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                ) : (
-                    <TouchableOpacity
-                        style={styles.listitem}
-                        // onPress={onPressHandlerBiometricEdits}
-                    >
-                        <View style={styles.listitemView}>
-                            <Text style={styles.listitemText}>Biometric</Text>
-                            <Image
-                                source={require('../../../assets/icons/backarrowblack.png')}
-                                style={styles.img}
-                            />
-                        </View>
-                    </TouchableOpacity>
-                )}
-            </KeyboardAvoidingView>
+            {selected['type'] === constants.ACCOUNT_TYPES.SAM && (
+                <TouchableOpacity
+                    style={styles.listitem}
+                    // onPress={onPressHandlerBiometricEdits}
+                >
+                    <View style={styles.listitemView}>
+                        <Text style={styles.listitemText}>Biometric</Text>
+                        <Image
+                            source={require('../../../assets/icons/backarrowblack.png')}
+                            style={styles.img}
+                        />
+                    </View>
+                </TouchableOpacity>
+            )}
+
             <View style={{ margin: 10 }} />
             <View>
                 <Button
@@ -84,7 +55,7 @@ const Settings = ({ removeAccount }) => {
                         marginTop: 12,
                         alignSelf: 'center',
                         fontSize: 16,
-                        paddingHorizontal: 12,
+                        paddingHorizontal: 12
                     }}>
                     Removing this account may prevent you from verifying in the
                     future.

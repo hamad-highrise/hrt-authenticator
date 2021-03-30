@@ -3,8 +3,6 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
-// import useAccounts from './useAccounts';
-import { useSelector } from 'react-redux';
 import { useAccounts } from './hooks';
 
 const Main = (props) => {
