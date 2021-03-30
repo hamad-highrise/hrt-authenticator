@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { useSelector } from 'react-redux';
-import navigator from '../../navigation';
-import { constants, getTransactions } from '../services';
-import TOTPGenerator from './totp';
+import navigator from '../../../navigation';
+import { constants, getTransactions } from '../../services';
+import TOTPGenerator from '../totp';
+import { getSecret } from '../services';
 
-function useAccessCode({ secret, type, componentId, accId }) {
+function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
@@ -46,9 +47,10 @@ function useAccessCode({ secret, type, componentId, accId }) {
         }
     };
 
-    const updateOtp = () => {
+    const updateOtp = async () => {
         try {
-            setOTP(TOTPGenerator(secret));
+            const s = await getSecret(selected['account_id']);
+            setOTP(TOTPGenerator(s));
         } catch (error) {
             setFragment('SETTINGS');
             alert(
@@ -63,7 +65,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
     const checkTransaction = async () => {
         try {
             const { success, message, ...result } = await getTransactions({
-                accId
+                accId: selected['account_id']
             });
             return success && result?.transaction
                 ? Promise.resolve(result.transaction)
@@ -74,7 +76,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
     };
 
     const checker = async () => {
-        if (type === constants.ACCOUNT_TYPES.SAM) {
+        if (selected['type'] === constants.ACCOUNT_TYPES.SAM) {
             try {
                 const transaction = await checkTransaction();
                 if (transaction) {
@@ -83,7 +85,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
                         componentId,
                         navigator.screenIds.authTransaction,
                         {
-                            accId,
+                            accId: selected['account_id'],
                             message: transaction.displayMessage,
                             endpoint: transaction.requestUrl,
                             createdAt: transaction.createdAt,

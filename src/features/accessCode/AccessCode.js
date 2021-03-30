@@ -12,9 +12,10 @@ import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { AccessCodeFragment, SettingsFragment } from './components';
+import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { removeAccount } from '../services';
-import useAccessCode from './useAccessCode';
+// import useAccessCode from './useAccessCode';
+import { useAccessCode } from './hooks';
 
 const AccessCode = (props) => {
     // let transInterval;

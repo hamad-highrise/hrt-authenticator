@@ -1,4 +1,3 @@
-import actions from '../../alert/action';
 import constants from './constants';
 
 const initialState = {
@@ -8,16 +7,22 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case constants.LOAD_ALL:
-            // console.warn(action.payload, 'payload');
+        case constants.INIT:
             return {
-                ...state,
+                selected: {},
                 accounts: action.payload.accounts
             };
         case constants.SELECT_ACCOUNT:
             return {
                 ...state,
-                selected: action.payload.account
+                selected: state.accounts.find(
+                    (account) => account['account_id'] === action.payload.accId
+                )
+            };
+        case constants.UNSELECT_ACCOUNT:
+            return {
+                ...state,
+                selected: {}
             };
         default:
             return state;

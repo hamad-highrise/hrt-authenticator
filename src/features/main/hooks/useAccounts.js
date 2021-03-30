@@ -2,7 +2,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
 import { useDispatch, useSelector } from 'react-redux';
 import { constants, getTransactions } from '../../services';
-import actions from '../services/actions';
+import { mainActions } from '../services';
 
 function useAccounts(componentId) {
     const accounts = useSelector(({ main }) => main.accounts);
@@ -31,7 +31,7 @@ function useAccounts(componentId) {
     );
 
     const loadAccounts = () => {
-        dispatch(actions.getAllAccounts());
+        dispatch(mainActions.getAllAccounts());
     };
 
     const checkTransaction = async ({ accId, ignoreSSL }) => {

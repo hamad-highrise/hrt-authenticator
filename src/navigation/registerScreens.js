@@ -45,7 +45,11 @@ function registerScreens() {
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
     Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
-    Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
+    Navigation.registerComponent(screensId.accessCode, () => (props) => (
+        <Provider store={store}>
+            <CodeScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.authTransaction, () => AuthScreen);
     Navigation.registerComponent(
         screensId.biometricOption,

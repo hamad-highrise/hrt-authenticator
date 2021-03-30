@@ -7,7 +7,7 @@ function getAllAccounts() {
         dispatch(alertActions.request());
         try {
             const accounts = await queries.getAll();
-            dispatch({ type: constants.LOAD_ALL, payload: { accounts } });
+            dispatch({ type: constants.INIT, payload: { accounts } });
             dispatch(alertActions.success());
         } catch (error) {
             console.warn(error);
@@ -16,8 +16,11 @@ function getAllAccounts() {
     };
 }
 
-function selectAccount() {
-    return async (dispatch) => {};
+function selectAccount(accId) {
+    return {
+        type: constants.SELECT_ACCOUNT,
+        payload: { accId }
+    };
 }
 
 const actions = { getAllAccounts, selectAccount };

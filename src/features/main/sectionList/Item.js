@@ -4,8 +4,11 @@ import styles from './styles';
 import { cipher } from '../../../native-services';
 import accountQueries from '../queries';
 import constants from '../../services/constants';
+import { useDispatch } from 'react-redux';
+import { mainActions } from '../services';
 
 const Item = ({ account, onPress }) => {
+    const dispatch = useDispatch();
     const onItemPress = async () => {
         try {
             const secret = await accountQueries.getSecretByAccountId(
@@ -23,8 +26,13 @@ const Item = ({ account, onPress }) => {
             alert(error);
         }
     };
+
+    const onItemPressRed = () => {
+        dispatch(mainActions.selectAccount(account['account_id']));
+        onPress({ ...account });
+    };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPressRed}>
             <Text style={styles.SListheader}>{account['account_name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (
