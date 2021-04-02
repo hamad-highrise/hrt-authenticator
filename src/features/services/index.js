@@ -23,14 +23,17 @@ async function getTransactions({ accId, secure }) {
                     ]
                 );
                 const registeredMethods = await db.getMethods(accId);
-                return registeredMethods.includes(processed?.method)
+                const { authenticatorId } = await db.getAuthIdByAccount(accId);
+
+                return registeredMethods.includes(processed?.method) &&
+                    authenticatorId === processed.authenticatorId
                     ? Promise.resolve({
                           transaction: processed,
                           success: true,
                           message: 'SUCCESS'
                       })
                     : Promise.resolve({
-                          message: 'UNREGISTERED_METHODS',
+                          message: 'UNREGISTERED_METHODS_OR_NOT_EXCLUSIVE',
                           success: true
                       });
             } else {

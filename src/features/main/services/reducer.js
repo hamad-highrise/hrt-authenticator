@@ -19,6 +19,23 @@ const reducer = (state = initialState, action) => {
                     (account) => account['id'] === action.payload.accId
                 )
             };
+        case constants.SET_TRANSACTION:
+            return {
+                ...state,
+                accounts: [
+                    ...state.accounts.filter(
+                        (account) => account['id'] !== action.payload.accId
+                    ),
+                    {
+                        ...state.accounts.find(
+                            (account) => account['id'] === action.payload.accId
+                        ),
+                        transaction: {
+                            ...action.payload.transaction
+                        }
+                    }
+                ]
+            };
         case constants.UNSELECT_ACCOUNT:
             return {
                 ...state,

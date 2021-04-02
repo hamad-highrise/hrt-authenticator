@@ -1,6 +1,7 @@
 import constants from './constants';
 import { alertActions } from '../../alert';
 import queries from './queries';
+import { getTransactions } from '../../services';
 
 function getAllAccounts() {
     return async (dispatch) => {
@@ -23,8 +24,46 @@ function selectAccount(accId) {
     };
 }
 
-function setTransactions(transaction){}
+function checkTransaction({ accId, ignoreSSL }) {
+    return async (dispatch) => {
+        dispatch(alertActions.request());
+        try {
+            const { success, message, ...result } = await getTransactions({
+                accId,
+                ignoreSSL
+            });
+            if (success) {
+                result?.transaction
+                    ? dispatch({
+                          type: constants.SET_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: {
+                                  available: true,
+                                  ...result.transaction
+                              }
+                          }
+                      })
+                    : dispatch({
+                          type: constants.SET_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: { available: false }
+                          }
+                      });
+            }
 
-const actions = { getAllAccounts, selectAccount };
+            dispatch(alertActions.success());
+        } catch (error) {
+            dispatch({
+                type: constants.SET_TRANSACTION,
+                payload: { accId, transaction: { available: false } }
+            });
+            dispatch(alertActions.failure());
+        }
+    };
+}
+
+const actions = { getAllAccounts, selectAccount, checkTransaction };
 
 export default actions;
