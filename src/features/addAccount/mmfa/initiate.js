@@ -1,7 +1,7 @@
 import { Platform } from 'react-native';
 import api from './api';
 import methods from './registerMethods';
-import { push, biometrics, utilities } from '../../../native-services';
+import { push, biometrics, utilities, cipher } from '../../../native-services';
 import { createAccount, isUnique } from '../services'; //folder related services
 import { constants, getDeviceId } from '../../services';
 
@@ -13,12 +13,19 @@ async function initiate(scanned) {
         accountName: '',
         insertId: 0
     };
-    const isValidMmfaObj =
-        scanned?.code && scanned?.details_url && scanned?.options;
+    const isValidMmfaObj = scanned?.code && scanned?.details_url;
+    let ignoreSSL = false;
     if (!isValidMmfaObj) {
         resultObj.message = 'INVALID_MMFA_OBJECT';
         return resultObj;
     }
+    if (scanned?.options) {
+        const splitted = scanned.options.split('=');
+        if (splitted.shift() === 'ignoreSslCerts') {
+            ignoreSSL = splitted.shift() == 'true'; // not strict identity
+        }
+    }
+
     try {
         const details = await getDetails({ endpoint: scanned['details_url'] });
 
@@ -56,7 +63,7 @@ async function initiate(scanned) {
 
         const totp = await totpRegistraion({
             endpoint: totpEndpoint,
-            token: tokenT.accessToken
+            token: tokenT.unsafeToken
         });
 
         if (!totp) {
@@ -84,7 +91,7 @@ async function initiate(scanned) {
 
         const registered = await userPresenceRegistration({
             endpoint: enrollmentEndpoint,
-            token: tokenT.accessToken,
+            token: tokenT.unsafeToken,
             name: tokenT.accountName,
             issuer: serviceName,
             accId: accId
@@ -182,15 +189,27 @@ async function getToken({ endpoint, data, ignoreSSL }) {
             return Promise.resolve();
         }
         const token = await result.json();
+        const { cipherText: encryptedToken } = await cipher.encrypt({
+            keyAlias: constants.KEY_ALIAS.token,
+            payload: token['access_token']
+        });
+        const { cipherText: encryptedRefreshToken } = await cipher.encrypt({
+            keyAlias: constants.KEY_ALIAS.token,
+            payload: token['refresh_token']
+        });
+
         return Promise.resolve({
-            accessToken: token['access_token'],
-            refreshToken: token['refresh_token'],
+            accessToken: encryptedToken,
+            unsafeToken: token['access_token'],
+            refreshToken: encryptedRefreshToken,
             expiry: getExpiryInSeconds(token['expires_in']),
             endpoint,
             authenticatorId: token['authenticator_id'],
             accountName: token['display_name']
         });
-    } catch (error) {}
+    } catch (error) {
+        return Promise.reject(error);
+    }
 }
 
 async function getData() {

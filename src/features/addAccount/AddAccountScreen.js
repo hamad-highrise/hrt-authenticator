@@ -31,7 +31,7 @@ const AddScreen = (props) => {
                         style={styles.image}
                     />
                 </View>
-                <View style={{marginTop:20}}>
+                <View style={{ marginTop: 20 }}>
                     <Button
                         title="Scan QR Code"
                         style={styles.btn}

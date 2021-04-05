@@ -1,8 +1,6 @@
 import { getTransactionData, authenticateTransaction } from './api';
-import { getTokenByAccount } from './queries';
 import { getToken } from '../../services';
 import { biometrics, keyGen } from '../../../native-services';
-
 
 async function authTransaction(accId, tEndpoint) {
     let result;
@@ -69,7 +67,7 @@ async function authTransaction(accId, tEndpoint) {
 async function rejectTransaction({ accId, tEndpoint }) {
     let result;
     try {
-        const { token } = await getTokenByAccount(accId);
+        const { token } = await getToken(accId);
         const transaction = await getTransactionData(tEndpoint, token);
         if (transaction.message === 'SUCCESS') {
             const { challenge, requestUrl, state } = transaction;

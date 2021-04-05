@@ -2,6 +2,7 @@ import apiRequests from './api';
 import db from './queries';
 import { processTransaction } from './transaction';
 import { cipher } from '../../native-services';
+import constants from './constants';
 
 async function getTransactions({ accId, secure }) {
     try {
@@ -120,23 +121,45 @@ async function getToken(accId) {
         //TODO: Only token expiry is being handeled here. Need to implement device deletion on individual requests to server.
         if (!isTokenValid(expiresAt)) {
             //here token expiry will be handled
+            const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
+                keyAlias: constants.KEY_ALIAS.token,
+                cipherText: refreshToken
+            });
             const result = await apiRequests.getRefreshedToken({
                 endpoint,
-                refreshToken,
+                refreshToken: decryptedRefreshToken,
                 secure: false
             });
             if (result.respInfo.status === 200) {
                 //token has been refreshed successfully
                 const {
-                    access_token: token,
-                    refresh_token: refreshToken,
+                    access_token: updatedAccessToken,
+                    refresh_token: updatedRefreshToken,
                     expires_in: expiry
                 } = result.json();
-                db.updateTokenDb({ token, refreshToken, expiry, accId });
+                //
+                const { cipherText: encryptedToken } = await cipher.encrypt({
+                    keyAlias: constants.KEY_ALIAS.token,
+                    payload: updatedAccessToken
+                });
+                //
+                const {
+                    cipherText: encryptedRefreshToken
+                } = await cipher.encrypt({
+                    keyAlias: constants.KEY_ALIAS.token,
+                    payload: updatedRefreshToken
+                });
+                //
+                await db.updateTokenDb({
+                    token: encryptedToken,
+                    refreshToken: encryptedRefreshToken,
+                    expiry: getExpiryInSeconds(expiry),
+                    accId
+                });
                 return Promise.resolve({
                     success: true,
                     message: 'OKAY',
-                    token
+                    token: updatedAccessToken
                 });
             } else if (result.respInfo.status === 400) {
                 //Device has been manually removed from SAM
@@ -153,10 +176,14 @@ async function getToken(accId) {
             }
         } else {
             //token is valid
+            const { decrypted: decryptedToken } = await cipher.decrypt({
+                keyAlias: constants.KEY_ALIAS.token,
+                cipherText: token
+            });
             return Promise.resolve({
                 success: true,
                 message: 'OKAY',
-                token
+                token: decryptedToken
             });
         }
     } catch (error) {
@@ -174,4 +201,8 @@ export { removeDeviceFromSam } from './api';
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds
     return expiresAt > currentTime && expiresAt - currentTime > 5;
+}
+
+function getExpiryInSeconds(expiresIn) {
+    return Math.floor(Date.now() / 1000) + expiresIn;
 }
