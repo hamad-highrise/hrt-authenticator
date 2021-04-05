@@ -1,36 +1,38 @@
 import { useEffect, useRef } from 'react';
-import { useNavigationComponentDidAppear } from 'react-native-navigation-hooks/dist';
+import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { constants, getTransactions } from '../../services';
 import { mainActions } from '../services';
+import navigator from '../../../navigation';
 
-function useAccounts(componentId) {
+function useAccounts() {
     const accounts = useSelector(({ main }) => main.accounts);
     const dispatch = useDispatch();
     const transactionCheckIntervalRef = useRef();
 
     useEffect(() => {
         loadAccounts();
+        const appearListener = Navigation.events().registerComponentDidAppearListener(
+            ({ componentName }) => {
+                componentName === navigator.screenIds.main && loadAccounts();
+            }
+        );
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
+            appearListener.remove();
         };
     }, []);
 
     useEffect(() => {
         transactionCheckIntervalRef.current &&
             clearInterval(transactionCheckIntervalRef.current);
-        const id = setInterval(checkerX, 1000 * 5);
-        transactionCheckIntervalRef.current = id;
+        if (accounts.length > 0)
+            transactionCheckIntervalRef.current = setInterval(
+                transactionChecker,
+                1000 * 5
+            );
     }, [accounts.length]);
 
-    useNavigationComponentDidAppear(
-        () => {
-            loadAccounts();
-        },
-        { componentId }
-    );
-
-    const checkerX = () => {
+    const transactionChecker = () => {
         accounts.forEach((account) => {
             dispatch(mainActions.checkTransaction({ accId: account['id'] }));
         });
@@ -44,50 +46,3 @@ function useAccounts(componentId) {
 }
 
 export default useAccounts;
-
-const checker = async () => {
-    try {
-        const checkedAccounts = await Promise.all(
-            accounts.map(async (account) => {
-                if (account.type === constants.ACCOUNT_TYPES.SAM) {
-                    try {
-                        const transaction = await checkTransaction({
-                            accId: account['id']
-                        });
-                        return transaction
-                            ? {
-                                  ...account,
-                                  transaction: {
-                                      available: true,
-                                      ...transaction
-                                  }
-                              }
-                            : account;
-                    } catch (error) {
-                        return {
-                            ...account,
-                            error: true
-                        };
-                    }
-                } else return account;
-            })
-        );
-    } catch (error) {
-        alert(`UseAccounts ERR`);
-    }
-};
-
-const checkTransaction = async ({ accId, ignoreSSL }) => {
-    try {
-        const { success, message, ...result } = await getTransactions({
-            accId,
-            ignoreSSL
-        });
-        if (success) {
-            if (result?.transaction) return Promise.resolve(result.transaction);
-            else return Promise.resolve();
-        } else return Promise.resolve();
-    } catch (error) {
-        return Promise.reject(error);
-    }
-};

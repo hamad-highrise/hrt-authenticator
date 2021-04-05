@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
-
 import { authTransaction, rejectTransaction } from './services';
 import PropTypes from 'prop-types';
 import navigator from '../../navigation';
@@ -16,7 +15,7 @@ const AuthProcess = (props) => {
         createdAt,
         transactionId
     } = props;
-    const onApproveBiometric = async () => {
+    const onApprove = async () => {
         try {
             const authResult = await authTransaction(accId, endpoint);
         } catch (error) {
@@ -38,8 +37,6 @@ const AuthProcess = (props) => {
         }
     };
     const [viewDetails, setFragment] = useState('YES');
-    const onDetailsSelect = () => setFragment('NO');
-    const onBackSelect = () => setFragment('YES');
 
     const fadeViewDetailsLEFT = useRef(new Animated.Value(0)).current;
     const fadeViewDetailsOPA = useRef(new Animated.Value(1)).current;
@@ -48,7 +45,6 @@ const AuthProcess = (props) => {
     const fadeIn = () => {
         // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
         Animated.timing(fadeViewDetailsLEFT, {
-
             toValue: 380,
             duration: 50,
             useNativeDriver: false
@@ -82,7 +78,6 @@ const AuthProcess = (props) => {
     const fadeOut = () => {
         // Will change fadeViewDetailsLEFT value -390 to 0 in 2 seconds
         Animated.timing(fadeDetailsLEFT, {
-
             toValue: -390,
             duration: 50,
 
@@ -222,13 +217,13 @@ const AuthProcess = (props) => {
                         styles.decisionBox,
                         { backgroundColor: 'steelblue', padding: 10 }
                     ]}
-                    onPress={onApproveBiometric}>
+                    onPress={onApprove}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold' }}>Approve</Text>
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/tick.png')}
+                        source={require('../../assets/icons/tick-black.png')}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>
