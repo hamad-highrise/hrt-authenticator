@@ -11,7 +11,7 @@ import { getSecret, totpGenerator } from '../services';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
-    
+
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
@@ -123,7 +123,9 @@ function useAccessCode({ componentId }) {
         onCodeSelect,
         onSettingsSelect,
         transactionCheck: checker,
-        removeAccount
+        removeAccount,
+        accountName: selected['name'],
+        issuer: selected['issuer']
     };
 }
 

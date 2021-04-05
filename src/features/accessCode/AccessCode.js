@@ -23,7 +23,9 @@ const AccessCode = (props) => {
         onCodeSelect,
         onSettingsSelect,
         transactionCheck,
-        removeAccount
+        removeAccount,
+        accountName,
+        issuer
     } = useAccessCode(props);
 
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -99,8 +101,9 @@ const AccessCode = (props) => {
             {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{props.name}</Text>
-                    <Text style={styles.titleIDText}>{props.issuer}</Text>
+                    {}
+                    <Text style={styles.titleText}>{accountName}</Text>
+                    <Text style={styles.titleIDText}>{issuer}</Text>
                 </View>
             </View>
             <View style={styles.middle}>

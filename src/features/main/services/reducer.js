@@ -20,22 +20,25 @@ const reducer = (state = initialState, action) => {
                 )
             };
         case constants.SET_TRANSACTION:
-            return {
-                ...state,
-                accounts: [
-                    ...state.accounts.filter(
-                        (account) => account['id'] !== action.payload.accId
-                    ),
-                    {
-                        ...state.accounts.find(
-                            (account) => account['id'] === action.payload.accId
-                        ),
-                        transaction: {
-                            ...action.payload.transaction
-                        }
-                    }
-                ]
-            };
+            const index = state.accounts.findIndex(
+                (account) => account['id'] === action.payload.accId
+            );
+            return action.payload.transaction.available
+                ? {
+                      ...state,
+                      accounts: [
+                          ...state.accounts.slice(0, index),
+                          {
+                              ...state.accounts[index],
+                              transaction: {
+                                  ...action.payload.transaction
+                              }
+                          },
+                          ...state.accounts.slice(index + 1)
+                      ]
+                  }
+                : state;
+
         case constants.UNSELECT_ACCOUNT:
             return {
                 ...state,

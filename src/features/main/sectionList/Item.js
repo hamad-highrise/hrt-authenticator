@@ -1,9 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
-import { cipher } from '../../../native-services';
-import accountQueries from '../queries';
-import constants from '../../services/constants';
 import { useDispatch } from 'react-redux';
 import { mainActions } from '../services';
 
