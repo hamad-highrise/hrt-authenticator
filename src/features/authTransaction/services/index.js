@@ -2,7 +2,7 @@ import { getTransactionData, authenticateTransaction } from './api';
 import { getToken } from '../../services';
 import { biometrics, keyGen } from '../../../native-services';
 
-async function authTransaction(accId, tEndpoint) {
+async function authTransaction({ accId, tEndpoint }) {
     let result;
     try {
         const { token, success, message } = await getToken(accId);

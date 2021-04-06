@@ -17,7 +17,10 @@ const AuthProcess = (props) => {
     } = props;
     const onApprove = async () => {
         try {
-            const authResult = await authTransaction(accId, endpoint);
+            await authTransaction({
+                accId,
+                tEndpoint: endpoint
+            });
         } catch (error) {
             alert(error);
         } finally {
@@ -26,7 +29,7 @@ const AuthProcess = (props) => {
     };
     const onReject = async () => {
         try {
-            const authResult = await rejectTransaction({
+            await rejectTransaction({
                 accId,
                 tEndpoint: endpoint
             });
@@ -52,26 +55,20 @@ const AuthProcess = (props) => {
             // setFragment('NO');
             Animated.timing(fadeDetailsOPA, {
                 toValue: 1,
-
                 duration: 201,
-
                 useNativeDriver: false
             }).start();
             setFragment('NO');
             // slide right to left -390 to 0
             Animated.timing(fadeDetailsLEFT, {
                 toValue: 0,
-
                 duration: 50,
-
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeViewDetailsOPA, {
             toValue: 0,
-
             duration: 201,
-
             useNativeDriver: false
         }).start();
     };
@@ -161,7 +158,7 @@ const AuthProcess = (props) => {
                                     Confirmation
                                 </Text>
                                 <Text style={styles.SListtitle}>
-                                    {transactionId.split('-')[0]}
+                                    {transactionId}
                                 </Text>
                                 <View style={styles.bar}></View>
                             </View>

@@ -47,7 +47,7 @@ async function getTransactions({ accId, secure }) {
             //evaluate message
             return Promise.resolve({
                 success: false,
-                message: 'TOKEN_ERROR'
+                message
             });
         }
     } catch (error) {
