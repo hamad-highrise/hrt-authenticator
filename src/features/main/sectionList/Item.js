@@ -5,14 +5,8 @@ import { useDispatch } from 'react-redux';
 import { mainActions } from '../services';
 import navigator from '../../../navigation';
 
-const Item = ({ account, onPress, componentId }) => {
+const Item = ({ account, componentId }) => {
     const dispatch = useDispatch();
-
-    const onItemPress = () => {
-        dispatch(mainActions.selectAccount(account['id']));
-        onPress({ ...account });
-    };
-
     const onItemPressX = () => {
         dispatch(mainActions.selectAccount(account['id']));
         account?.transaction?.available
@@ -20,7 +14,7 @@ const Item = ({ account, onPress, componentId }) => {
             : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPressX}>
             <Text style={styles.SListheader}>{account['name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (

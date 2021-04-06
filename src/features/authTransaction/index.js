@@ -1,8 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
-import { authTransaction, rejectTransaction } from './services';
-import PropTypes from 'prop-types';
-import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
 import { useTransaction } from './hooks';

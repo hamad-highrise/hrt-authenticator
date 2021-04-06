@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
@@ -8,43 +8,10 @@ import { useAccounts } from './hooks';
 const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
 
-    const onPressHandler = () => {
+    const onPressHandler = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
-    };
-    const onItemPress = ({
-        id: accId,
-        name,
-        issuer,
-        secret,
-        type,
-        transaction
-    }) => {
-        if (transaction && transaction.available) {
-            navigation.goTo(
-                props.componentId,
-                navigation.screenIds.authTransaction,
-                {
-                    accId,
-                    message: transaction.displayMessage,
-                    endpoint: transaction.requestUrl,
-                    createdAt: transaction.createdAt,
-                    transactionId: transaction.transactionId
-                }
-            );
-        } else
-            navigation.goTo(
-                props.componentId,
-                navigation.screenIds.accessCode,
-                {
-                    accId,
-                    name,
-                    issuer,
-                    secret,
-                    type,
-                    transaction
-                }
-            );
-    };
+    }, [props.componentId]);
+
     const onPressHandlerAccessCode = () => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
     };
@@ -83,7 +50,6 @@ const Main = (props) => {
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
             <AccountList
                 accounts={accounts}
-                onListItemPress={onItemPress}
                 componentId={props.componentId} // for the sake of navigation
             />
         </View>

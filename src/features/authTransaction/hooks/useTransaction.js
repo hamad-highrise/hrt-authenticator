@@ -37,6 +37,8 @@ function useTransaction({ componentId }) {
             dispatch(alertActions.success());
         } catch (error) {
             dispatch(alertActions.failure(error));
+        } finally {
+            navigator.goToRoot(componentId);
         }
     };
 
