@@ -6,7 +6,7 @@ import SectionHeader from './Header';
 import ListItemSeparator from './Separator';
 import styles from './styles';
 
-const AccountList = ({ accounts, onListItemPress }) => {
+const AccountList = ({ accounts, onListItemPress, componentId }) => {
     const structuredAccounts = accounts.reduce(
         (prev, account) => {
             let [mmfa, totp] = prev;
@@ -51,7 +51,11 @@ const AccountList = ({ accounts, onListItemPress }) => {
                 ItemSeparatorComponent={() => <ListItemSeparator />}
                 keyExtractor={(item, index) => item['id'] + index}
                 renderItem={({ item }) => (
-                    <ListItem account={item} onPress={onListItemPress} />
+                    <ListItem
+                        account={item}
+                        onPress={onListItemPress}
+                        componentId={componentId} // for the sake of navigation
+                    />
                 )}
                 renderSectionHeader={({ section }) => (
                     <SectionHeader title={section.title} />

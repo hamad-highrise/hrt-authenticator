@@ -81,7 +81,11 @@ const Main = (props) => {
                 </View>
             </View>
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
-            <AccountList accounts={accounts} onListItemPress={onItemPress} />
+            <AccountList
+                accounts={accounts}
+                onListItemPress={onItemPress}
+                componentId={props.componentId} // for the sake of navigation
+            />
         </View>
     );
 };

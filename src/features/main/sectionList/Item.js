@@ -3,13 +3,21 @@ import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { mainActions } from '../services';
+import navigator from '../../../navigation';
 
-const Item = ({ account, onPress }) => {
+const Item = ({ account, onPress, componentId }) => {
     const dispatch = useDispatch();
 
     const onItemPress = () => {
         dispatch(mainActions.selectAccount(account['id']));
         onPress({ ...account });
+    };
+
+    const onItemPressX = () => {
+        dispatch(mainActions.selectAccount(account['id']));
+        account?.transaction?.available
+            ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
+            : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>

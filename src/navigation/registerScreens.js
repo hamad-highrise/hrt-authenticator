@@ -50,7 +50,11 @@ function registerScreens() {
             <CodeScreen {...props} />
         </Provider>
     ));
-    Navigation.registerComponent(screensId.authTransaction, () => AuthScreen);
+    Navigation.registerComponent(screensId.authTransaction, () => (props) => (
+        <Provider store={store}>
+            <AuthScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(
         screensId.biometricOption,
         () => BiometricOption

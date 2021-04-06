@@ -5,42 +5,18 @@ import PropTypes from 'prop-types';
 import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
+import { useTransaction } from './hooks';
 
 const AuthProcess = (props) => {
     const {
-        accId,
         message,
-        endpoint,
-        componentId,
         createdAt,
-        transactionId
-    } = props;
-    const onApprove = async () => {
-        try {
-            await authTransaction({
-                accId,
-                tEndpoint: endpoint
-            });
-        } catch (error) {
-            alert(error);
-        } finally {
-            navigator.goToRoot(componentId);
-        }
-    };
-    const onReject = async () => {
-        try {
-            await rejectTransaction({
-                accId,
-                tEndpoint: endpoint
-            });
-        } catch (error) {
-            alert(error);
-        } finally {
-            navigator.goToRoot(componentId);
-        }
-    };
-    const [viewDetails, setFragment] = useState('YES');
+        transactionId,
+        onApprove,
+        onReject
+    } = useTransaction(props);
 
+    const [viewDetails, setFragment] = useState('YES');
     const fadeViewDetailsLEFT = useRef(new Animated.Value(0)).current;
     const fadeViewDetailsOPA = useRef(new Animated.Value(1)).current;
     const fadeDetailsLEFT = useRef(new Animated.Value(-390)).current;
@@ -227,16 +203,6 @@ const AuthProcess = (props) => {
             </View>
         </View>
     );
-};
-
-AuthProcess.propTypes = {
-    accId: PropTypes.number.isRequired,
-    message: PropTypes.string,
-    endpoint: PropTypes.string.isRequired
-};
-
-AuthProcess.defaultProps = {
-    message: 'Default Message'
 };
 
 AuthProcess.options = {
