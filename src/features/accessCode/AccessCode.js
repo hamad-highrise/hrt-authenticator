@@ -14,6 +14,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
+import { constants } from '../services';
 
 const AccessCode = (props) => {
     const {
@@ -24,8 +25,7 @@ const AccessCode = (props) => {
         onSettingsSelect,
         transactionCheck,
         removeAccount,
-        accountName,
-        issuer
+        account
     } = useAccessCode(props);
 
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -79,7 +79,7 @@ const AccessCode = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
-                {true && (
+                {account['type'] === constants.ACCOUNT_TYPES.SAM && (
                     <View style={{ height: 52 }}>
                         <IconButton onPress={onRefereshClick}>
                             <Animated.Image
@@ -101,9 +101,8 @@ const AccessCode = (props) => {
             {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
-                    {}
-                    <Text style={styles.titleText}>{accountName}</Text>
-                    <Text style={styles.titleIDText}>{issuer}</Text>
+                    <Text style={styles.titleText}>{account.name}</Text>
+                    <Text style={styles.titleIDText}>{account.issuer}</Text>
                 </View>
             </View>
             <View style={styles.middle}>

@@ -1,3 +1,4 @@
+import { act } from 'react-test-renderer';
 import constants from './constants';
 
 const initialState = {
@@ -23,21 +24,28 @@ const reducer = (state = initialState, action) => {
             const index = state.accounts.findIndex(
                 (account) => account['id'] === action.payload.accId
             );
-            return action.payload.transaction.available
-                ? {
-                      ...state,
-                      accounts: [
-                          ...state.accounts.slice(0, index),
-                          {
-                              ...state.accounts[index],
-                              transaction: {
-                                  ...action.payload.transaction
-                              }
-                          },
-                          ...state.accounts.slice(index + 1)
-                      ]
-                  }
-                : state;
+            return {
+                ...state,
+                accounts: [
+                    ...state.accounts.slice(0, index),
+                    {
+                        ...state.accounts[index],
+                        transaction: {
+                            ...action.payload.transaction
+                        }
+                    },
+                    ...state.accounts.slice(index + 1)
+                ]
+            };
+
+        case constants.SET_SELECTED_ACCOUNT_TRANSACTION:
+            return {
+                ...state,
+                selected: {
+                    ...state.selected,
+                    transaction: { ...action.payload.transaction }
+                }
+            };
 
         case constants.UNSELECT_ACCOUNT:
             return {

@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { mainActions } from '../services';
 import navigator from '../../../navigation';
 
+const CHECKTYPE = 'MULTI';
+
 function useAccounts() {
     const accounts = useSelector(({ main }) => main.accounts);
     const dispatch = useDispatch();
@@ -34,7 +36,12 @@ function useAccounts() {
 
     const transactionChecker = () => {
         accounts.forEach((account) => {
-            dispatch(mainActions.checkTransaction({ accId: account['id'] }));
+            dispatch(
+                mainActions.checkTransaction({
+                    accId: account['id'],
+                    checkType: CHECKTYPE
+                })
+            );
         });
     };
 
