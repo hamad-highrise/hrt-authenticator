@@ -1,39 +1,74 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import { useSelector } from 'react-redux';
+import { Navigation } from 'react-native-navigation';
+import { useDispatch, useSelector } from 'react-redux';
 import navigator from '../../../navigation';
-import {
-    constants,
-    getTransactions,
-    removeAccount as remove
-} from '../../services';
+import { mainActions } from '../../main/services';
+import { constants, removeAccount as remove } from '../../services';
 import { getSecret, totpGenerator } from '../services';
+
+const CHECKTYPE = 'SELECTED';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
-
+    const dispatch = useDispatch();
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
     const otpIntervalRef = useRef();
     const transactionIntervalRef = useRef();
-    const onScreenRef = useRef();
+    let onScreen = useRef().current;
     const appState = useRef(AppState.currentState);
 
     useEffect(() => {
+        //initiate
         updateOtp();
-        onScreenRef.current = true;
-        AppState.addEventListener('change', handleAppStateChange);
+    }, []);
+
+    useEffect(() => {
+        //intervals
         otpIntervalRef.current = setInterval(timer, 1000);
-        transactionIntervalRef.current = setInterval(checker, 3000);
+        //if account type is sam, register an interval
+        selected['type'] === constants.ACCOUNT_TYPES.SAM &&
+            (transactionIntervalRef.current = setInterval(checker, 3000));
         return () => {
-            AppState.removeEventListener('change', handleAppStateChange);
             clearInterval(transactionIntervalRef.current);
             clearInterval(otpIntervalRef.current);
         };
     }, []);
 
-    const handleAppStateChange = (nextAppState) => {
+    useEffect(() => {
+        //listeners
+        AppState.addEventListener('change', onAppStateChange);
+        const appear = Navigation.events().registerComponentDidAppearListener(
+            onAppear
+        );
+        const disappear = Navigation.events().registerComponentDidDisappearListener(
+            onDisappear
+        );
+        return () => {
+            //remove listeners
+            AppState.removeEventListener('change', onAppStateChange);
+            appear.remove();
+            disappear.remove();
+        };
+    }, []);
+
+    useEffect(() => {
+        selected['type'] === constants.ACCOUNT_TYPES.SAM &&
+            selected.transaction.available &&
+            navigator.goTo(componentId, navigator.screenIds.authTransaction);
+    }, [selected?.transaction?.available]);
+
+    const onAppear = ({ componentName }) => {
+        navigator.screenIds.accessCode === componentName && (onScreen = true);
+    };
+
+    const onDisappear = ({ componentName }) => {
+        navigator.screenIds.accessCode === componentName && (onScreen = false);
+    };
+
+    const onAppStateChange = (nextAppState) => {
         if (
             appState.current.match(/inactive|background/) &&
             nextAppState === 'active'
@@ -66,41 +101,13 @@ function useAccessCode({ componentId }) {
     const onCodeSelect = () => setFragment('CODE');
     const onSettingsSelect = () => setFragment('SETTINGS');
 
-    const checkTransaction = async () => {
-        try {
-            const { success, message, ...result } = await getTransactions({
-                accId: selected['id']
-            });
-            return success && result?.transaction
-                ? Promise.resolve(result.transaction)
-                : Promise.resolve();
-        } catch (error) {
-            return Promise.reject(error);
-        }
-    };
-
-    const checker = async () => {
-        if (selected['type'] === constants.ACCOUNT_TYPES.SAM) {
-            try {
-                const transaction = await checkTransaction();
-                if (transaction) {
-                    clearInterval(transactionIntervalRef.current);
-                    navigator.goTo(
-                        componentId,
-                        navigator.screenIds.authTransaction,
-                        {
-                            accId: selected['id'],
-                            message: transaction.displayMessage,
-                            endpoint: transaction.requestUrl,
-                            createdAt: transaction.createdAt,
-                            transactionId: transaction.transactionId
-                        }
-                    );
-                }
-            } catch (error) {
-                return Promise.reject(error);
-            }
-        }
+    const checker = () => {
+        dispatch(
+            mainActions.checkTransaction({
+                accId: selected['id'],
+                checkType: CHECKTYPE
+            })
+        );
     };
 
     const removeAccount = async () => {
@@ -124,8 +131,11 @@ function useAccessCode({ componentId }) {
         onSettingsSelect,
         transactionCheck: checker,
         removeAccount,
-        accountName: selected['name'],
-        issuer: selected['issuer']
+        account: {
+            name: selected['name'],
+            issuer: selected['issuer'],
+            type: selected['type']
+        }
     };
 }
 

@@ -9,7 +9,6 @@ function useTransaction({ componentId }) {
     let transaction;
     if (selected?.transaction?.available) {
         transaction = selected.transaction;
-        console.warn(transaction);
     }
 
     const onApprove = async () => {

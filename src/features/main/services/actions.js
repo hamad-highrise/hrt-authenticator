@@ -24,7 +24,7 @@ function selectAccount(accId) {
     };
 }
 
-function checkTransaction({ accId, ignoreSSL }) {
+function checkTransaction({ accId, ignoreSSL, checkType = 'MULTI' }) {
     return async (dispatch) => {
         dispatch(alertActions.request());
         try {
@@ -33,24 +33,47 @@ function checkTransaction({ accId, ignoreSSL }) {
                 ignoreSSL
             });
             if (success) {
-                result?.transaction
-                    ? dispatch({
-                          type: constants.SET_TRANSACTION,
-                          payload: {
-                              accId,
-                              transaction: {
-                                  available: true,
-                                  ...result.transaction
+                if (checkType === 'MULTI') {
+                    result?.transaction
+                        ? dispatch({
+                              type: constants.SET_TRANSACTION,
+                              payload: {
+                                  accId,
+                                  transaction: {
+                                      available: true,
+                                      ...result.transaction
+                                  }
                               }
-                          }
-                      })
-                    : dispatch({
-                          type: constants.SET_TRANSACTION,
-                          payload: {
-                              accId,
-                              transaction: { available: false }
-                          }
-                      });
+                          })
+                        : dispatch({
+                              type: constants.SET_TRANSACTION,
+                              payload: {
+                                  accId,
+                                  transaction: { available: false }
+                              }
+                          });
+                } else if (checkType === 'SELECTED') {
+                    result?.transaction
+                        ? dispatch({
+                              type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
+                              payload: {
+                                  accId,
+                                  transaction: {
+                                      available: true,
+                                      ...result.transaction
+                                  }
+                              }
+                          })
+                        : dispatch({
+                              type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
+                              payload: {
+                                  accId,
+                                  transaction: {
+                                      available: false
+                                  }
+                              }
+                          });
+                }
             }
 
             dispatch(alertActions.success());
