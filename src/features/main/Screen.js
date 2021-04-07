@@ -1,50 +1,17 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
-import useAccounts from './useAccounts';
+import { useAccounts } from './hooks';
 
 const Main = (props) => {
-    const { accounts, error } = useAccounts(props.componentId);
+    const { accounts } = useAccounts(props.componentId);
 
-    const onPressHandler = () => {
+    const onPressHandler = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
-    };
-    const onItemPress = ({
-        account_id: accId,
-        account_name: name,
-        issuer,
-        secret,
-        type,
-        transaction
-    }) => {
-        if (transaction && transaction.available) {
-            navigation.goTo(
-                props.componentId,
-                navigation.screenIds.authTransaction,
-                {
-                    accId,
-                    message: transaction.displayMessage,
-                    endpoint: transaction.requestUrl,
-                    createdAt: transaction.createdAt,
-                    transactionId: transaction.transactionId
-                }
-            );
-        } else
-            navigation.goTo(
-                props.componentId,
-                navigation.screenIds.accessCode,
-                {
-                    accId,
-                    name,
-                    issuer,
-                    secret,
-                    type,
-                    transaction
-                }
-            );
-    };
+    }, [props.componentId]);
+
     const onPressHandlerAccessCode = () => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
     };
@@ -70,6 +37,7 @@ const Main = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleText}>HRT Security Verify</Text>
                 </View>
+
                 <View>
                     <IconButton onPress={onPressHandler}>
                         <Image
@@ -80,7 +48,10 @@ const Main = (props) => {
                 </View>
             </View>
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
-            <AccountList accounts={accounts} onListItemPress={onItemPress} />
+            <AccountList
+                accounts={accounts}
+                componentId={props.componentId} // for the sake of navigation
+            />
         </View>
     );
 };
@@ -112,7 +83,7 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
-    },
+    }
 });
 
 export default Main;

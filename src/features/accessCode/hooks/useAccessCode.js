@@ -1,10 +1,17 @@
 import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import navigator from '../../navigation';
-import { constants, getTransactions } from '../services';
-import TOTPGenerator from './totp';
+import { useSelector } from 'react-redux';
+import navigator from '../../../navigation';
+import {
+    constants,
+    getTransactions,
+    removeAccount as remove
+} from '../../services';
+import { getSecret, totpGenerator } from '../services';
 
-function useAccessCode({ secret, type, componentId, accId }) {
+function useAccessCode({ componentId }) {
+    const selected = useSelector(({ main }) => main.selected);
+
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
@@ -44,9 +51,10 @@ function useAccessCode({ secret, type, componentId, accId }) {
         }
     };
 
-    const updateOtp = () => {
+    const updateOtp = async () => {
         try {
-            setOTP(TOTPGenerator(secret));
+            const secret = await getSecret(selected['id']);
+            setOTP(totpGenerator(secret));
         } catch (error) {
             setFragment('SETTINGS');
             alert(
@@ -61,7 +69,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
     const checkTransaction = async () => {
         try {
             const { success, message, ...result } = await getTransactions({
-                accId
+                accId: selected['id']
             });
             return success && result?.transaction
                 ? Promise.resolve(result.transaction)
@@ -72,7 +80,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
     };
 
     const checker = async () => {
-        if (type === constants.ACCOUNT_TYPES.SAM) {
+        if (selected['type'] === constants.ACCOUNT_TYPES.SAM) {
             try {
                 const transaction = await checkTransaction();
                 if (transaction) {
@@ -81,7 +89,7 @@ function useAccessCode({ secret, type, componentId, accId }) {
                         componentId,
                         navigator.screenIds.authTransaction,
                         {
-                            accId,
+                            accId: selected['id'],
                             message: transaction.displayMessage,
                             endpoint: transaction.requestUrl,
                             createdAt: transaction.createdAt,
@@ -95,13 +103,29 @@ function useAccessCode({ secret, type, componentId, accId }) {
         }
     };
 
+    const removeAccount = async () => {
+        try {
+            const result = await remove({
+                accId: selected['id'],
+                type: selected['type']
+            });
+            navigator.goToRoot(componentId);
+            alert(JSON.stringify(result));
+        } catch (error) {
+            console.warn(error);
+        }
+    };
+
     return {
         otp,
         counter,
         fragment,
         onCodeSelect,
         onSettingsSelect,
-        transactionCheck: checker
+        transactionCheck: checker,
+        removeAccount,
+        accountName: selected['name'],
+        issuer: selected['issuer']
     };
 }
 

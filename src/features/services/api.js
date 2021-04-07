@@ -3,8 +3,8 @@ import { encodeFormData } from './formData';
 import utilities from '../../native-services/utilities';
 import { Platform } from 'react-native';
 
-async function getPendingTransactions({ endpoint, token, secure }) {
-    const rnFetch = getFetchInstance({ secure });
+async function getPendingTransactions({ endpoint, token, ignoreSSL }) {
+    const rnFetch = getFetchInstance({ ignoreSSL });
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -18,8 +18,8 @@ async function getPendingTransactions({ endpoint, token, secure }) {
     }
 }
 
-async function removeDeviceFromSam({ endpoint, authId, token, secure }) {
-    const rnFetch = getFetchInstance({ secure });
+async function removeDeviceFromSam({ endpoint, authId, token, ignoreSSL }) {
+    const rnFetch = getFetchInstance({ ignoreSSL });
     const url =
         endpoint +
         '?attributes=urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator:authenticators';
@@ -51,7 +51,7 @@ async function removeDeviceFromSam({ endpoint, authId, token, secure }) {
     }
 }
 
-async function unregisterTotp({ endpoint, token, secure }) {
+async function unregisterTotp({ endpoint, token, ignoreSSL }) {
     const body = JSON.stringify({
         schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
         Operations: [
@@ -67,7 +67,7 @@ async function unregisterTotp({ endpoint, token, secure }) {
         'Content-Type': 'application/json',
         Authorization: 'Bearer ' + token
     };
-    const rnFetch = getFetchInstance({ secure });
+    const rnFetch = getFetchInstance({ ignoreSSL });
     try {
         const result = await rnFetch('PATCH', endpoint, headers, body);
         return Promise.resolve(result);
@@ -76,12 +76,12 @@ async function unregisterTotp({ endpoint, token, secure }) {
     }
 }
 
-async function getRefreshedToken({ endpoint, refreshToken, secure }) {
+async function getRefreshedToken({ endpoint, refreshToken, ignoreSSL }) {
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
     };
-    const rnFetch = getFetchInstance({ secure });
+    const rnFetch = getFetchInstance({ ignoreSSL });
     try {
         const info = await utilities.getDeviceInfo();
         const body = {

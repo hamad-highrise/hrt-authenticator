@@ -12,19 +12,20 @@ import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
 import styles from './styles';
-import { AccessCodeFragment, SettingsFragment } from './components';
-import { removeAccount } from '../services';
-import useAccessCode from './useAccessCode';
+import { AccessCodeFragment, SettingsFragment } from './fragments';
+import { useAccessCode } from './hooks';
 
 const AccessCode = (props) => {
-    // let transInterval;
     const {
         otp,
         counter,
         fragment,
         onCodeSelect,
         onSettingsSelect,
-        transactionCheck
+        transactionCheck,
+        removeAccount,
+        accountName,
+        issuer
     } = useAccessCode(props);
 
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -56,19 +57,6 @@ const AccessCode = (props) => {
         }
     };
 
-    const handleRemoveAccount = async () => {
-        try {
-            const result = await removeAccount({
-                accId: props.accId,
-                type: props.type
-            });
-            navigator.goToRoot(props.componentId);
-            alert(JSON.stringify(result));
-        } catch (error) {
-            console.warn(error);
-        }
-    };
-
     return (
         <View style={styles.container}>
             <View style={styles.header}>
@@ -91,28 +79,31 @@ const AccessCode = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
-                <View style={{ height: 52 }}>
-                    <IconButton onPress={onRefereshClick}>
-                        <Animated.Image
-                            source={require('../../assets/icons/refreshinvertblack.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 6,
-                                    marginTop: 10,
-                                    transform: [{ rotate: spin }]
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
+                {true && (
+                    <View style={{ height: 52 }}>
+                        <IconButton onPress={onRefereshClick}>
+                            <Animated.Image
+                                source={require('../../assets/icons/refreshinvertblack.png')}
+                                style={[
+                                    styles.iconBtn,
+                                    {
+                                        marginLeft: 6,
+                                        marginTop: 10,
+                                        transform: [{ rotate: spin }]
+                                    }
+                                ]}
+                            />
+                        </IconButton>
+                    </View>
+                )}
             </View>
 
             {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{props.name}</Text>
-                    <Text style={styles.titleIDText}>{props.issuer}</Text>
+                    {}
+                    <Text style={styles.titleText}>{accountName}</Text>
+                    <Text style={styles.titleIDText}>{issuer}</Text>
                 </View>
             </View>
             <View style={styles.middle}>
@@ -165,7 +156,7 @@ const AccessCode = (props) => {
                 {fragment == 'CODE' ? (
                     <AccessCodeFragment otp={otp} counter={counter} />
                 ) : (
-                    <SettingsFragment removeAccount={handleRemoveAccount} />
+                    <SettingsFragment removeAccount={removeAccount} />
                 )}
             </View>
 

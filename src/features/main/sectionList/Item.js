@@ -1,31 +1,21 @@
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
-import { cipher } from '../../../native-services';
-import accountQueries from '../queries';
-import constants from '../../services/constants';
+import { useDispatch } from 'react-redux';
+import { mainActions } from '../services';
+import navigator from '../../../navigation';
 
-const Item = ({ account, onPress }) => {
-    const onItemPress = async () => {
-        try {
-            const secret = await accountQueries.getSecretByAccountId(
-                account['account_id']
-            );
-
-            const { decrypted } = await cipher.decrypt({
-                keyAlias: constants.KEY_ALIAS.SECRET,
-                cipherText: secret
-            });
-
-            onPress({ ...account, secret: decrypted });
-        } catch (error) {
-            console.warn(error);
-            alert(error);
-        }
+const Item = ({ account, componentId }) => {
+    const dispatch = useDispatch();
+    const onItemPressX = () => {
+        dispatch(mainActions.selectAccount(account['id']));
+        account?.transaction?.available
+            ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
+            : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
-            <Text style={styles.SListheader}>{account['account_name']}</Text>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPressX}>
+            <Text style={styles.SListheader}>{account['name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>

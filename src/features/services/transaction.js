@@ -7,6 +7,12 @@ function processTransaction({ attributesPending, transactionsPending }) {
         } = attributesPending.find(
             (attribute) => attribute['name'] === 'mmfa.request.context.message'
         );
+
+        const {
+            values: [authenticatorId]
+        } = attributesPending.find(
+            (attribute) => attribute['name'] === 'mmfa.request.authenticator.id'
+        );
         const [transaction] = transactionsPending;
 
         const {
@@ -21,7 +27,8 @@ function processTransaction({ attributesPending, transactionsPending }) {
             displayMessage: displayMessage,
             requestUrl: requestUrl,
             createdAt,
-            method: translateMethod(authnPolicyURI)
+            method: translateMethod(authnPolicyURI),
+            authenticatorId
         };
     } else return null;
 }

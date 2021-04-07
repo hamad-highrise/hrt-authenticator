@@ -1,4 +1,4 @@
-import { getFetchInstance, encodeFormData } from '../../services';
+import { getFetchInstance, encodeFormData, constants } from '../../services';
 
 async function getDetails({ endpoint, ignoreSSL }) {
     const rnFetch = getFetchInstance({ ignoreSSL });
@@ -26,7 +26,7 @@ async function getToken({ endpoint, data, ignoreSSL }) {
         os_version: data?.OSVersion,
         device_name: data?.deviceName,
         device_rooted: data?.deviceRooted,
-        application_id: 'com.verify',
+        application_id: constants.APP_INFO.APPLICATION_ID,
         platform_type: data?.deviceType,
         push_token: data?.pushToken
     };

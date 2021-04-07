@@ -1,5 +1,8 @@
+import React from 'react';
 import { Navigation } from 'react-native-navigation';
 import screensId from './screensId';
+import { Provider } from 'react-redux';
+import store from '../redux.js';
 import {
     WelcomeScreen,
     EmptyStateScreen,
@@ -34,12 +37,24 @@ function registerScreens() {
     //Register the screens here
     Navigation.registerComponent(screensId.emptyState, () => EmptyStateScreen);
     Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
-    Navigation.registerComponent(screensId.main, () => MainScreen);
+    Navigation.registerComponent(screensId.main, () => (props) => (
+        <Provider store={store}>
+            <MainScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
     Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
-    Navigation.registerComponent(screensId.accessCode, () => CodeScreen);
-    Navigation.registerComponent(screensId.authTransaction, () => AuthScreen);
+    Navigation.registerComponent(screensId.accessCode, () => (props) => (
+        <Provider store={store}>
+            <CodeScreen {...props} />
+        </Provider>
+    ));
+    Navigation.registerComponent(screensId.authTransaction, () => (props) => (
+        <Provider store={store}>
+            <AuthScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(
         screensId.biometricOption,
         () => BiometricOption

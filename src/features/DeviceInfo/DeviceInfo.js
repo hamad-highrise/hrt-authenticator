@@ -8,8 +8,7 @@ import {
     Modal,
     SafeAreaView,
     ScrollView,
-    Dimensions,
-    Linking
+    Dimensions
 } from 'react-native';
 import { TopNavbar } from '../../components';
 import navigation from '../../navigation';
@@ -30,12 +29,7 @@ const DeviceInfo = (props) => {
     const onPressHandlerWelcome = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.welcome);
     }, [props.componentId]);
-    const onPressHandlerAuthTransaction = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.authTransaction
-        );
-    }, [props.componentId]);
+
     const onPressHandlerSplashScreen = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.splash);
     }, [props.componentId]);
@@ -51,7 +45,9 @@ const DeviceInfo = (props) => {
     const onPressHandlerNotifySuccess = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.notifysuccess);
     }, [props.componentId]);
-    const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(false);
+    const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(
+        false
+    );
 
     const onPressHandlertermandcondition = useCallback(() => {
         navigation.goTo(
@@ -73,7 +69,11 @@ const DeviceInfo = (props) => {
     }, [props.componentId]);
     return (
         <View style={styles.container}>
-            <TopNavbar title="" imageBackOnPress={() => navigation.goBack(props.componentId)}></TopNavbar>
+            <TopNavbar
+                title=""
+                imageBackOnPress={() =>
+                    navigation.goBack(props.componentId)
+                }></TopNavbar>
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
@@ -86,93 +86,6 @@ const DeviceInfo = (props) => {
                     borderBottomWidth: 1,
                     borderTopWidth: 1
                 }}>
-                {/* li */}
-                {/*                 
-                <TouchableOpacity
-                    style={styles.listitem}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Version
-                        </Text>
-                        <Text style={styles.listitemText}>2.4.5</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            IBM Security Verify SDK version
-                        </Text>
-                        <Text style={styles.listitemText}>2.1.2</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={() => {Linking.openURL('https://highrisetechnologies.com/');}}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            IBM Security Verify User Guide
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={()=> alert('go to next screen')}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Terms and Conditions
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={()=> alert('go to next screen')}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Privacy Policy
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={()=> alert('go to next screen')}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Third Party Notices
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={()=> alert('go to next screen')}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                           Security Assessment
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                 */}
-                {/* end li */}
                 {/* REMOVE BELOW RECORDs */}
                 <TouchableOpacity
                     style={styles.listitem}
@@ -192,19 +105,6 @@ const DeviceInfo = (props) => {
                             {/* Remove this record */}onPressHandlerWelcome
                         </Text>
                         <Text style={styles.listitemText}>2.1.2</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerAuthTransaction}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            {/* Privacy Policy */}onPressHandlerAuthTransaction
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity
@@ -247,13 +147,13 @@ const DeviceInfo = (props) => {
                         />
                     </View>
                 </TouchableOpacity>
-                
+
                 <TouchableOpacity
                     style={styles.listitem}
                     onPress={onPressHandlerNotifySuccess}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                        onPressHandlerNotifySuccess
+                            onPressHandlerNotifySuccess
                         </Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}

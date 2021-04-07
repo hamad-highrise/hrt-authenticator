@@ -8,10 +8,20 @@ export default ({ otp, counter }) => (
             radius={140}
             percent={(counter / 30) * 100}
             color="#0f62fe99">
-            <Text style={{ fontWeight: 'bold', fontSize: 42, letterSpacing: 7 }}>
-                {otp.split('').join('')}
+            {otp !== '######' && (
+                <Text
+                    style={{
+                        fontWeight: 'bold',
+                        fontSize: 42,
+                        letterSpacing: 7
+                    }}>
+                    {otp.split('').join('')}
+                </Text>
+            )}
+
+            <Text style={{ marginTop: 20, fontSize: 15 }}>
+                {counter} seconds
             </Text>
-            <Text style={{marginTop:20, fontSize: 15 }}>{counter} seconds</Text>
         </PercentageCircle>
     </View>
 );

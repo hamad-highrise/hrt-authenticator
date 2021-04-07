@@ -1,46 +1,19 @@
 import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
-
-import { authTransaction, rejectTransaction } from './services';
-import PropTypes from 'prop-types';
-import navigator from '../../navigation';
 import styles from './styles';
 import { TopNavbar } from '../../components';
+import { useTransaction } from './hooks';
 
 const AuthProcess = (props) => {
     const {
-        accId,
         message,
-        endpoint,
-        componentId,
         createdAt,
-        transactionId
-    } = props;
-    const onApproveBiometric = async () => {
-        try {
-            const authResult = await authTransaction(accId, endpoint);
-        } catch (error) {
-            alert(error);
-        } finally {
-            navigator.goToRoot(componentId);
-        }
-    };
-    const onReject = async () => {
-        try {
-            const authResult = await rejectTransaction({
-                accId,
-                tEndpoint: endpoint
-            });
-        } catch (error) {
-            alert(error);
-        } finally {
-            navigator.goToRoot(componentId);
-        }
-    };
-    const [viewDetails, setFragment] = useState('YES');
-    const onDetailsSelect = () => setFragment('NO');
-    const onBackSelect = () => setFragment('YES');
+        transactionId,
+        onApprove,
+        onReject
+    } = useTransaction(props);
 
+    const [viewDetails, setFragment] = useState('YES');
     const fadeViewDetailsLEFT = useRef(new Animated.Value(0)).current;
     const fadeViewDetailsOPA = useRef(new Animated.Value(1)).current;
     const fadeDetailsLEFT = useRef(new Animated.Value(-390)).current;
@@ -48,7 +21,6 @@ const AuthProcess = (props) => {
     const fadeIn = () => {
         // Will change fadeViewDetailsLEFT value to 1 in 5 seconds
         Animated.timing(fadeViewDetailsLEFT, {
-
             toValue: 380,
             duration: 50,
             useNativeDriver: false
@@ -56,33 +28,26 @@ const AuthProcess = (props) => {
             // setFragment('NO');
             Animated.timing(fadeDetailsOPA, {
                 toValue: 1,
-
                 duration: 201,
-
                 useNativeDriver: false
             }).start();
             setFragment('NO');
             // slide right to left -390 to 0
             Animated.timing(fadeDetailsLEFT, {
                 toValue: 0,
-
                 duration: 50,
-
                 useNativeDriver: false
             }).start();
         });
         Animated.timing(fadeViewDetailsOPA, {
             toValue: 0,
-
             duration: 201,
-
             useNativeDriver: false
         }).start();
     };
     const fadeOut = () => {
         // Will change fadeViewDetailsLEFT value -390 to 0 in 2 seconds
         Animated.timing(fadeDetailsLEFT, {
-
             toValue: -390,
             duration: 50,
 
@@ -166,7 +131,7 @@ const AuthProcess = (props) => {
                                     Confirmation
                                 </Text>
                                 <Text style={styles.SListtitle}>
-                                    {transactionId.split('-')[0]}
+                                    {transactionId}
                                 </Text>
                                 <View style={styles.bar}></View>
                             </View>
@@ -222,29 +187,19 @@ const AuthProcess = (props) => {
                         styles.decisionBox,
                         { backgroundColor: 'steelblue', padding: 10 }
                     ]}
-                    onPress={onApproveBiometric}>
+                    onPress={onApprove}>
                     <View style={{ marginTop: 10 }}>
                         <Text style={{ fontWeight: 'bold' }}>Approve</Text>
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/tick.png')}
+                        source={require('../../assets/icons/tick-black.png')}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>
             </View>
         </View>
     );
-};
-
-AuthProcess.propTypes = {
-    accId: PropTypes.number.isRequired,
-    message: PropTypes.string,
-    endpoint: PropTypes.string.isRequired
-};
-
-AuthProcess.defaultProps = {
-    message: 'Default Message'
 };
 
 AuthProcess.options = {

@@ -3,7 +3,7 @@ import { RNCamera as QRCodeReader } from 'react-native-camera';
 import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar, LoadingIndicator } from '../../../components';
-import initiateSamAccount from '../mmfa/initiate';
+import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { View, StyleSheet, Dimensions } from 'react-native';

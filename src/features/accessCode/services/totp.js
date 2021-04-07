@@ -8,7 +8,7 @@ import JsSHA from 'jssha';
  * @returns OTP valid for a specific period
  */
 
-const tokenGen = (secret, options = {}) => {
+const totpGenerator = (secret, options = {}) => {
     let epoch, time, shaObj, hmac, offset, otp;
     //unpacking the options
     options.period = options.period || 30;
@@ -60,4 +60,4 @@ function leftpad(str, len, pad) {
     return str;
 }
 
-export default tokenGen;
+export default totpGenerator;
