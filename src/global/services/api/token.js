@@ -14,6 +14,7 @@ async function getRefreshedToken({ endpoint, formEncodedBody, ignoreSsl }) {
             headers,
             formEncodedBody
         );
+        return result;
     } catch (error) {
         throw new SAMError({ message: error.message });
     }

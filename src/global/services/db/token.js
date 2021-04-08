@@ -1,10 +1,11 @@
 import { Database } from '../../../native-services';
+import { DatabaseError } from '../../errors';
 
 /**
  * Resolves in to an Object with Token properties.
- * @param {Number} accId - Account ID fow which token is required.
+ * @param {Number} accId - Account ID for which token is required.
  * @returns Promise<{}>
- * @throws Error
+ * @throws DatabaseError
  */
 
 async function getToken(accId) {
@@ -24,14 +25,14 @@ async function getToken(accId) {
             expiresAt: temp['expires_at']
         };
     } catch (error) {
-        throw error;
+        throw new DatabaseError({ message: error.message });
     }
 }
 
 /**
  * Updates the token.
  * @param {{token: String, refreshToken: String, expiry: Number, accId: Number}} param0 - Expiry will be in Epoch (In Seconds) at which token will expire.
- * @throws Error
+ * @throws DatabaseError
  */
 
 async function updateTokenDb({ token, refreshToken, expiry, accId }) {
@@ -47,7 +48,7 @@ async function updateTokenDb({ token, refreshToken, expiry, accId }) {
         await database.executeQuery(query, params);
         return;
     } catch (error) {
-        throw error;
+        throw new DatabaseError({ message: error.message });
     }
 }
 
