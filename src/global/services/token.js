@@ -30,6 +30,7 @@ async function getAccessToken(accId) {
             });
             return decryptedAccessToken;
         } else {
+            // TODO: Convert to a local function.
             //token has been expired
             const { refreshToken, endpoint } = token;
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
@@ -70,9 +71,7 @@ async function getAccessToken(accId) {
                     expiry: getTokenExpiryInEpochSeconds(expiresAfter)
                 });
 
-                return {
-                    accessToken: updatedAccessToken
-                };
+                return updatedAccessToken;
             } else if (result.respInfo.status === 400) {
                 throw result.json()?.operation === 'login'
                     ? new TokenError({

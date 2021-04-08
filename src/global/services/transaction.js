@@ -1,0 +1,56 @@
+import { getAccessToken } from './token';
+import { getTransactionEndpoint } from './db';
+import { getPendingTransactions } from './api';
+
+async function getTransactions({ accId, ignoreSsl }) {
+    let accessToken;
+    let transactionEndpoint;
+    try {
+        accessToken = await getAccessToken(accId);
+        transactionEndpoint = await getTransactionEndpoint(accId);
+    } catch (error) {
+        throw error;
+    }
+}
+
+function processTransaction({ attributesPending, transactionsPending }) {
+    if (attributesPending.length && transactionsPending.length) {
+        const {
+            values: [displayMessage]
+        } = attributesPending.find(
+            (attribute) => attribute['name'] === 'mmfa.request.context.message'
+        );
+
+        const {
+            values: [authenticatorId]
+        } = attributesPending.find(
+            (attribute) => attribute['name'] === 'mmfa.request.authenticator.id'
+        );
+        const [transaction] = transactionsPending;
+
+        const {
+            requestUrl,
+            creationTime: createdAt,
+            transactionId,
+            authnPolicyURI
+        } = transaction;
+
+        return {
+            transactionId,
+            displayMessage: displayMessage,
+            requestUrl: requestUrl,
+            createdAt,
+            method: translateMethod(authnPolicyURI),
+            authenticatorId
+        };
+    } else return null;
+}
+
+function translateMethod(policyURI) {
+    const arr = policyURI.split(':');
+    if (arr.includes('mmfa_fingerprint_response'))
+        return constants.ACCOUNT_METHODS.FINGERPRINT;
+    else if (arr.includes('mmfa_user_presence_response'))
+        return constants.ACCOUNT_METHODS.USER_PRESENCE;
+    else return null;
+}
