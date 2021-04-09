@@ -1,17 +1,41 @@
 import { getAccessToken } from './token';
-import { getTransactionEndpoint } from './db';
+import { getTransactionEndpoint, getMethods } from './db';
 import { getPendingTransactions } from './api';
+import { SAMError, TokenError } from '../errors';
+import { getAuthIdByAccount } from '../util';
 
 async function getTransactions({ accId, ignoreSsl }) {
-    let accessToken;
-    let transactionEndpoint;
+    let transaction;
     try {
-        accessToken = await getAccessToken(accId);
-        transactionEndpoint = await getTransactionEndpoint(accId);
+        const accessToken = await getAccessToken(accId);
+        const transactionEndpoint = await getTransactionEndpoint(accId);
+        const transactionResponse = await getPendingTransactions({
+            endpoint: transactionEndpoint,
+            token: accessToken
+        });
+        if (transactionResponse.respInfo.status === 200) {
+            transaction = processTransaction(
+                transactionResponse.json()[
+                    'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
+                ]
+            );
+        } else if (transactionResponse.respInfo.status === 400) {
+            throw transactionResponse.json().operation === 'login'
+                ? new TokenError({ message: 'DEVICE_REMOVED_MANUALLY' })
+                : new SAMError({ message: transactionResponse.json() });
+        }
+        try {
+            return (await isTransactionValid(transaction)) ? transaction : null;
+        } catch (error) {
+            throw error;
+        }
     } catch (error) {
         throw error;
     }
 }
+
+export default { getTransactions };
+export { getTransactions };
 
 function processTransaction({ attributesPending, transactionsPending }) {
     if (attributesPending.length && transactionsPending.length) {
@@ -53,4 +77,20 @@ function translateMethod(policyURI) {
     else if (arr.includes('mmfa_user_presence_response'))
         return constants.ACCOUNT_METHODS.USER_PRESENCE;
     else return null;
+}
+
+async function isTransactionValid(
+    { method: transactionMethod, authenticatorId: transactionAuthId },
+    accId
+) {
+    try {
+        const registeredMethods = await getMethods(accId);
+        const authenticatorId = await getAuthIdByAccount(accId);
+        return (
+            registeredMethods.includes(transactionMethod) &&
+            transactionAuthId === authenticatorId
+        );
+    } catch (error) {
+        throw error;
+    }
 }

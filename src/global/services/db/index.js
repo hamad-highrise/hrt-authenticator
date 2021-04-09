@@ -1,2 +1,2 @@
 export { getToken, updateTokenDb } from './token';
-export { getTransactionEndpoint } from './transaction';
+export { getTransactionEndpoint, getMethods } from './transaction';
