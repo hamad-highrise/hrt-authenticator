@@ -65,9 +65,9 @@ async function unregisterTotp({ endpoint, token, ignoreSsl = false }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
     try {
         const result = await rnFetch('PATCH', endpoint, headers, body);
-        return Promise.resolve(result);
+        return result;
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 

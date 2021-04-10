@@ -17,5 +17,21 @@ async function getAuthIdByAccount(accId) {
     }
 }
 
-export default { getAuthIdByAccount };
-export { getAuthIdByAccount };
+async function getEnrollmentEndpoint(accId) {
+    const query = `SELECT enrollment_endpoint FROM accounts WHERE account_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let temp;
+        for (let i = 0; i < result.rows.length; i++) {
+            temp = result.rows.item(i).enrollment_endpoint;
+        }
+        return temp;
+    } catch (error) {
+        throw new DatabaseError({ message: 'ENROLLMENT_ENDPOINT_ERROR' });
+    }
+}
+
+export default { getAuthIdByAccount, getEnrollmentEndpoint };
+export { getAuthIdByAccount, getEnrollmentEndpoint };
