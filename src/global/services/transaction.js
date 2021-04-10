@@ -3,6 +3,7 @@ import { getTransactionEndpoint, getMethods } from './db';
 import { getPendingTransactions } from './api';
 import { SAMError, TokenError } from '../errors';
 import { getAuthIdByAccount } from '../util';
+import constants from '../constants';
 
 async function getTransactions({ accId, ignoreSsl }) {
     let transaction;
@@ -14,19 +15,24 @@ async function getTransactions({ accId, ignoreSsl }) {
             token: accessToken,
             ignoreSsl
         });
-        if (transactionResponse.respInfo.status === 200) {
+        const status = transactionResponse.respInfo.status;
+        if ((status >= 200 && status < 300) || status === 304) {
             transaction = processTransaction(
                 transactionResponse.json()[
                     'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
                 ]
             );
-        } else if (transactionResponse.respInfo.status === 400) {
+        } else {
             throw transactionResponse.json().operation === 'login'
                 ? new TokenError({ message: 'DEVICE_REMOVED_MANUALLY' })
-                : new SAMError({ message: transactionResponse.json().message });
+                : new SAMError({
+                      message: transactionResponse.json().error_description
+                  });
         }
         try {
-            return (await isTransactionValid(transaction)) ? transaction : null;
+            return (await isTransactionValid(transaction, accId))
+                ? transaction
+                : null;
         } catch (error) {
             throw error;
         }
@@ -80,17 +86,15 @@ function translateMethod(policyURI) {
     else return null;
 }
 
-async function isTransactionValid(
-    { method: transactionMethod, authenticatorId: transactionAuthId },
-    accId
-) {
+async function isTransactionValid(transaction, accId) {
+    if (!transaction) return;
+    const {
+        method: transactionMethod,
+        authenticatorId: transactionAuthId
+    } = transaction;
     try {
         const registeredMethods = await getMethods(accId);
         const authenticatorId = await getAuthIdByAccount(accId);
-        console.warn(
-            registeredMethods.includes(transactionMethod) &&
-                transactionAuthId === authenticatorId
-        );
         return (
             registeredMethods.includes(transactionMethod) &&
             transactionAuthId === authenticatorId
