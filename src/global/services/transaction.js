@@ -11,7 +11,8 @@ async function getTransactions({ accId, ignoreSsl }) {
         const transactionEndpoint = await getTransactionEndpoint(accId);
         const transactionResponse = await getPendingTransactions({
             endpoint: transactionEndpoint,
-            token: accessToken
+            token: accessToken,
+            ignoreSsl
         });
         if (transactionResponse.respInfo.status === 200) {
             transaction = processTransaction(
@@ -22,7 +23,7 @@ async function getTransactions({ accId, ignoreSsl }) {
         } else if (transactionResponse.respInfo.status === 400) {
             throw transactionResponse.json().operation === 'login'
                 ? new TokenError({ message: 'DEVICE_REMOVED_MANUALLY' })
-                : new SAMError({ message: transactionResponse.json() });
+                : new SAMError({ message: transactionResponse.json().message });
         }
         try {
             return (await isTransactionValid(transaction)) ? transaction : null;
@@ -86,6 +87,10 @@ async function isTransactionValid(
     try {
         const registeredMethods = await getMethods(accId);
         const authenticatorId = await getAuthIdByAccount(accId);
+        console.warn(
+            registeredMethods.includes(transactionMethod) &&
+                transactionAuthId === authenticatorId
+        );
         return (
             registeredMethods.includes(transactionMethod) &&
             transactionAuthId === authenticatorId

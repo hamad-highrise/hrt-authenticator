@@ -7,7 +7,7 @@ import {
     getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds
 } from '../util';
 import constants from '../constants';
-import { NativeError, SAMError, TokenError } from '../errors';
+import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
 import { Platform } from 'react-native';
 
 /**
@@ -26,23 +26,27 @@ async function getAccessToken(accId) {
         if (isTokenValid(expiresAt)) {
             const { decrypted: decryptedAccessToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
-                cipherText: token
+                cipherText: accessToken
             });
             return decryptedAccessToken;
         } else {
             // TODO: Convert to a local function.
             //token has been expired
+
             const { refreshToken, endpoint } = token;
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
                 cipherText: refreshToken
             });
+
             //TODO: get ignoreSsl option
             const body = await getTokenRefreshBody(decryptedRefreshToken);
+
             const result = await getRefreshedToken({
                 endpoint,
                 formEncodedBody: body
             });
+
             if (result.respInfo.status === 200) {
                 const {
                     access_token: updatedAccessToken,
@@ -62,14 +66,17 @@ async function getAccessToken(accId) {
                         payload: updatedRefreshToken
                     });
                     encrypted.refreshToken = result2.cipherText;
+                    await updateTokenDb({
+                        token: encrypted.accessToken,
+                        refreshToken: encrypted.refreshToken,
+                        expiry: getTokenExpiryInEpochSeconds(expiresAfter),
+                        accId
+                    });
                 } catch (error) {
-                    throw new NativeError({ message: 'ENCRYPTION_ERROR' });
+                    throw error instanceof DatabaseError
+                        ? error
+                        : new NativeError({ message: 'ENCRYPTION_ERROR' });
                 }
-                await updateTokenDb({
-                    token: encrypted.accessToken,
-                    refreshToken: encrypted.refreshToken,
-                    expiry: getTokenExpiryInEpochSeconds(expiresAfter)
-                });
 
                 return updatedAccessToken;
             } else if (result.respInfo.status === 400) {
@@ -77,10 +84,13 @@ async function getAccessToken(accId) {
                     ? new TokenError({
                           message: 'ACCOUNT_DELETED_MANUALLY'
                       })
-                    : new SAMError({ message: 'BAD_REQUEST' });
+                    : new SAMError({
+                          message: result.json()?.error_description
+                      });
             }
         }
     } catch (error) {
+        console.warn(error);
         throw error;
     }
 }
@@ -91,7 +101,7 @@ export { getAccessToken };
 // TODO: Generalize it for access token as well as for refresh token and
 // Shift to some general folder
 
-async function getTokenRefreshBody({ refreshToken }) {
+async function getTokenRefreshBody(refreshToken) {
     let deviceData;
     try {
         deviceData = await utilities.getDeviceInfo();

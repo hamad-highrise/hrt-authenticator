@@ -10,10 +10,9 @@ async function getPendingTransactions({ endpoint, token, ignoreSsl }) {
     };
     try {
         const result = await rnFetch('GET', endpoint, headers);
-        if (result.respInfo.status === 200) return result;
-        else throw new SAMError({ message: result.json() });
+        return result;
     } catch (error) {
-        throw error;
+        throw new SAMError({ message: error });
     }
 }
 

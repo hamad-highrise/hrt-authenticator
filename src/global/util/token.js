@@ -6,7 +6,8 @@
 
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds
-    return expiresAt > currentTime && expiresAt - currentTime > 5;
+    const valid = expiresAt > currentTime && expiresAt - currentTime > 5;
+    return valid;
 }
 
 /**
