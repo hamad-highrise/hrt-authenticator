@@ -39,7 +39,7 @@ function useAccounts() {
         accounts.forEach((account) => {
             account['type'] === constants.ACCOUNT_TYPES.SAM &&
                 dispatch(
-                    mainActions.checkTransactionX({
+                    mainActions.checkTransaction({
                         accId: account['id'],
                         checkType: CHECKTYPE
                     })

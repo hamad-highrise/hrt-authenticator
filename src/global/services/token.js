@@ -4,7 +4,8 @@ import { biometrics, cipher, push, utilities } from '../../native-services';
 import {
     isTokenValid,
     encodeToFormData,
-    getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds
+    getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds,
+    getDeviceId
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
@@ -12,7 +13,7 @@ import { Platform } from 'react-native';
 
 /**
  * Gives the token for the given account ID. If token has been expired, it will refresh it and return upated token.
- * **WARNING:** Device deletion hav to be handeled separately.
+ * **WARNING:** Device deletion have to be handeled separately.
  * @param {Number} accId - Account ID for which Access token is required.
  * @returns Access Token
  */
@@ -90,7 +91,6 @@ async function getAccessToken(accId) {
             }
         }
     } catch (error) {
-        console.warn(error);
         throw error;
     }
 }
@@ -109,7 +109,13 @@ async function getTokenRefreshBody(refreshToken) {
             await biometrics.isSensorAvailable()
         ).available;
         const { pushToken } = await push.getFirebaseToken();
-        deviceData = { ...deviceData, pushToken, isFingerprintSupported };
+        const deviceId = await getDeviceId();
+        deviceData = {
+            ...deviceData,
+            pushToken,
+            isFingerprintSupported,
+            deviceId
+        };
     } catch (error) {
         throw new NativeError({ message: 'Error getting device info.' });
     }
@@ -120,7 +126,7 @@ async function getTokenRefreshBody(refreshToken) {
         scope: 'mmfaAuthn',
         front_camera_support: deviceData.frontCameraAvailable,
         tenant_id: '',
-        device_id: '',
+        device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
         device_type: deviceData.type,
         application_id: constants.APP_INFO.APPLICATION_ID,

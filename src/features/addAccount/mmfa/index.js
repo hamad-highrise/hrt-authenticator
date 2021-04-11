@@ -4,7 +4,7 @@ import methods from './registerMethods';
 import { push, biometrics, utilities, cipher } from '../../../native-services';
 import { createAccount, isUnique } from '../services'; //folder related services
 import { constants, getDeviceId } from '../../services';
-import { getTokenExpiryInSeconds } from '../../../global';
+import { utils } from '../../../global';
 
 async function initiate(scanned) {
     const resultObj = {
@@ -203,7 +203,7 @@ async function getToken({ endpoint, data, ignoreSSL }) {
             accessToken: encryptedToken,
             unsafeToken: token['access_token'],
             refreshToken: encryptedRefreshToken,
-            expiry: getTokenExpiryInSeconds(token['expires_in']),
+            expiry: utils.getTokenExpiryInSeconds(token['expires_in']),
             endpoint,
             authenticatorId: token['authenticator_id'],
             accountName: token['display_name']

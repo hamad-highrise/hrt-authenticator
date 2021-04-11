@@ -33,5 +33,20 @@ async function getEnrollmentEndpoint(accId) {
     }
 }
 
-export default { getAuthIdByAccount, getEnrollmentEndpoint };
-export { getAuthIdByAccount, getEnrollmentEndpoint };
+async function getDeviceId() {
+    const query = `SELECT id FROM app_meta`;
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query);
+        let id;
+        for (let i = 0; i < result.rows.length; i++) {
+            id = result.rows.item(i).id;
+        }
+        return id;
+    } catch (error) {
+        throw new DatabaseError({ message: 'DEVICE_ID_ERROR' });
+    }
+}
+
+export default { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId };
+export { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId };
