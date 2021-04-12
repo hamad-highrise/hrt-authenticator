@@ -29,7 +29,18 @@ function getTokenExpiryInSeconds(expiresIn) {
     return Math.floor(Date.now() / 1000) + expiresIn;
 }
 
-async function getTokenRequestBody({ refreshToken, code }) {
+/**
+ *
+ * @param {{(code|refreshToken): String, accountName?: String, tenantId?: String}} param0 -
+ * @returns
+ */
+
+async function getTokenRequestBody({
+    refreshToken,
+    code,
+    accountName = '',
+    tenenatId = ''
+}) {
     let deviceData;
     try {
         deviceData = await utilities.getDeviceInfo();
@@ -48,11 +59,13 @@ async function getTokenRequestBody({ refreshToken, code }) {
         throw new NativeError({ message: 'Error getting device info.' });
     }
 
+    // following are the requires attribures for token. Some attributes are added on request type
+    // i.e. Refresh Token or get a new token
     const raw = {
         client_id: 'AuthenticatorClient',
         scope: 'mmfaAuthn',
         front_camera_support: deviceData.frontCameraAvailable,
-        tenant_id: '',
+        tenant_id: tenenatId,
         device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
         device_type: deviceData.type,
@@ -61,15 +74,15 @@ async function getTokenRequestBody({ refreshToken, code }) {
         device_name: deviceData.name,
         platform_type: Platform.OS === 'android' ? 'Android' : 'iOS',
         face_support: false,
-        account_name: '',
+        account_name: accountName,
         fingerprint_support: deviceData.isFingerprintSupported,
         push_token: deviceData.pushToken
     };
 
-    //for initial token
+    //for initially requesting a token
     code && ((raw['grant_type'] = 'authorization_code'), (raw['code'] = code));
 
-    //for refresh token
+    //for refreshing the token
     refreshToken &&
         ((raw['grant_type'] = 'refresh_token'),
         (raw['refresh_token'] = refreshToken));
