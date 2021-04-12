@@ -2,9 +2,8 @@ import React from 'react';
 import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from '../../components';
-import navigation from '../../navigation';
 
-const ErrorScreen = (props) => {
+const ErrorScreen = ({ message, reset, ...props }) => {
     return (
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}></View>
@@ -15,12 +14,10 @@ const ErrorScreen = (props) => {
                 <Text style={styles.welcome}>
                     Oops! Somthing went wrong here
                 </Text>
+                <Text>Default Message</Text>
+                {alert(message)}
             </View>
-            <Button
-                title="Back to accounts"
-                onPress={() => navigation.goBack(props.componentId)}
-                style={styles.btn}
-            />
+            <Button title="OKAY" onPress={reset} style={styles.btn} />
             <View style={{ marginBottom: 20 }}></View>
         </View>
     );

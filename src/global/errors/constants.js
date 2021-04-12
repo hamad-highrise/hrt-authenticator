@@ -5,4 +5,10 @@ const name = Object.freeze({
     NATIVE: 'NATIVE_MODULE_ERROR'
 });
 
-export default { name };
+const messages = Object.freeze({
+    token: tokenMessages
+});
+
+const tokenMessages = Object.freeze({});
+
+export default { name, messages };

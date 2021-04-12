@@ -1,8 +1,9 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import screensId from './screensId';
+
 import { Provider } from 'react-redux';
 import store from '../redux.js';
+import screensId from './screensId';
 import {
     WelcomeScreen,
     EmptyStateScreen,
@@ -24,6 +25,7 @@ import {
     CompletionScreen
 } from '../features';
 import { SplashScreen } from '../features/Splash';
+import { APIErrorBoundry } from '../features/errorBoundry';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -39,7 +41,9 @@ function registerScreens() {
     Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => (props) => (
         <Provider store={store}>
-            <MainScreen {...props} />
+            <APIErrorBoundry {...props}>
+                <MainScreen {...props} />
+            </APIErrorBoundry>
         </Provider>
     ));
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);

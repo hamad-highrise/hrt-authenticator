@@ -12,7 +12,7 @@ const initialState = {
     alert: {
         loading: false,
         error: {
-            isOccurred: false,
+            hasOccurred: false,
             data: {}
         }
     }

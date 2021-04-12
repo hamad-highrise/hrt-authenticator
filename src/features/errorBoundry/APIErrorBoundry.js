@@ -1,20 +1,21 @@
-import { useSelector } from 'react-redux';
-import { View, Text } from 'react-native';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { alertActions } from '../alert';
+
+import ErrorScreen from './ErrorScreen';
 
 function Boundry({ children, ...props }) {
     const { error } = useSelector((state) => state.alert);
+    const dispatch = useDispatch();
 
-    return (
-        <>
-            {!error.isOccurred ? (
-                children(props)
-            ) : (
-                <View>
-                    <Text>An Error occurred!</Text>
-                </View>
-            )}
-        </>
-    );
+    const onReset = () => {
+        dispatch(alertActions.reset());
+    };
+
+    const renderErrorScreen = () => {
+        return <ErrorScreen reset={onReset} message={error.data.message} />;
+    };
+    return <>{!error.hasOccurred ? <>{children}</> : renderErrorScreen()}</>;
 }
 
 export default Boundry;
