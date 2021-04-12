@@ -78,6 +78,7 @@ async function getAccessToken(accId) {
                         accId
                     });
                 } catch (error) {
+                    console.warn(error);
                     throw error instanceof DatabaseError
                         ? error
                         : new NativeError({ message: 'ENCRYPTION_ERROR' });
@@ -95,6 +96,7 @@ async function getAccessToken(accId) {
             }
         }
     } catch (error) {
+        console.warn(error);
         throw error;
     }
 }

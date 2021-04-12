@@ -1,6 +1,8 @@
 import { encodeToFormData } from './formData';
 import { NativeError } from '../errors';
-import { utilities, biometrics } from '../../native-services';
+import { utilities, biometrics, push } from '../../native-services';
+import { getDeviceId } from '../util';
+import constants from '../constants';
 
 /**
  * Evaluate a token and returns a boolean if a token has expired or not.
@@ -10,7 +12,10 @@ import { utilities, biometrics } from '../../native-services';
 
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds
-    const valid = expiresAt > currentTime && expiresAt - currentTime > 5;
+    const TOKEN_EXPIRY_SECONDS_THRESHOLD = 5;
+    const valid =
+        expiresAt > currentTime &&
+        expiresAt - currentTime > TOKEN_EXPIRY_SECONDS_THRESHOLD;
     return valid;
 }
 

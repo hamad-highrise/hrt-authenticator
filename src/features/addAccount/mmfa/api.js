@@ -1,3 +1,4 @@
+import { SAMError } from '../../../global/errors';
 import { getFetchInstance, encodeFormData, constants } from '../../services';
 
 async function getDetails({ endpoint, ignoreSSL }) {
@@ -13,23 +14,9 @@ async function getDetails({ endpoint, ignoreSSL }) {
     }
 }
 
-async function getToken({ endpoint, data, ignoreSSL }) {
+async function getToken({ endpoint, formEncodedData, ignoreSSL }) {
     const rnFetch = getFetchInstance({ ignoreSSL });
-    const body = {
-        grant_type: 'authorization_code',
-        code: data?.code,
-        client_id: 'AuthenticatorClient',
-        scope: 'mmfaAuth',
-        device_type: data?.deviceType,
-        device_id: data?.deviceId,
-        front_camera_support: data?.frontCamera,
-        os_version: data?.OSVersion,
-        device_name: data?.deviceName,
-        device_rooted: data?.deviceRooted,
-        application_id: constants.APP_INFO.APPLICATION_ID,
-        platform_type: data?.deviceType,
-        push_token: data?.pushToken
-    };
+
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded'
@@ -39,11 +26,11 @@ async function getToken({ endpoint, data, ignoreSSL }) {
             'POST',
             endpoint,
             headers,
-            encodeFormData(body)
+            formEncodedData
         );
-        return Promise.resolve(result);
+        return result;
     } catch (error) {
-        return Promise.reject(error);
+        throw new SAMError({ message: error });
     }
 }
 

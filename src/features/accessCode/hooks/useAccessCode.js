@@ -4,9 +4,8 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import navigator from '../../../navigation';
 import { mainActions } from '../../main/services';
-import { constants, removeAccount as remove } from '../../services';
 import { getSecret, totpGenerator } from '../services';
-import { services } from '../../../global';
+import { services, constants } from '../../../global';
 
 const CHECKTYPE = 'SELECTED';
 

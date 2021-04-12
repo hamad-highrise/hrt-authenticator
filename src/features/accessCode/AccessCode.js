@@ -7,7 +7,6 @@ import {
     Animated,
     Easing
 } from 'react-native';
-
 import { IconButton } from '../../components';
 import navigator from '../../navigation';
 import PropTypes from 'prop-types';
@@ -46,9 +45,7 @@ const AccessCode = (props) => {
             easing: Easing.linear,
             useNativeDriver: false
         }).start((res) => {
-            if (res.finished) {
-                spinValue.setValue(0);
-            }
+            res.finished && spinValue.setValue(0);
         });
         try {
             transactionCheck();
