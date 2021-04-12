@@ -3,7 +3,7 @@ import constants from './constants';
 const initialState = {
     loading: false,
     error: {
-        isOccurred: false,
+        hasOccurred: false,
         data: {}
     }
 };
@@ -26,8 +26,16 @@ function reducer(state = initialState, action) {
                 loading: false,
                 error: {
                     ...state.error,
-                    isOccured: true,
+                    hasOccurred: true,
                     data: action.payload
+                }
+            };
+        case constants.RESET:
+            return {
+                loading: false,
+                error: {
+                    hasOccurred: false,
+                    data: {}
                 }
             };
         default:

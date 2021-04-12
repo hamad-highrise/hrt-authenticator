@@ -3,6 +3,7 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import { mainActions } from '../services';
 import navigator from '../../../navigation';
+import constants from '../../../global/constants';
 
 const CHECKTYPE = 'MULTI';
 
@@ -36,12 +37,13 @@ function useAccounts() {
 
     const transactionChecker = () => {
         accounts.forEach((account) => {
-            dispatch(
-                mainActions.checkTransaction({
-                    accId: account['id'],
-                    checkType: CHECKTYPE
-                })
-            );
+            account['type'] === constants.ACCOUNT_TYPES.SAM &&
+                dispatch(
+                    mainActions.checkTransaction({
+                        accId: account['id'],
+                        checkType: CHECKTYPE
+                    })
+                );
         });
     };
 

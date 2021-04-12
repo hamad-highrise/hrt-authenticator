@@ -4,8 +4,8 @@ import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 import navigator from '../../../navigation';
 import { mainActions } from '../../main/services';
-import { constants, removeAccount as remove } from '../../services';
 import { getSecret, totpGenerator } from '../services';
+import { services, constants } from '../../../global';
 
 const CHECKTYPE = 'SELECTED';
 
@@ -112,14 +112,15 @@ function useAccessCode({ componentId }) {
 
     const removeAccount = async () => {
         try {
-            const result = await remove({
+            await services.removeAccount({
                 accId: selected['id'],
-                type: selected['type']
+                type: selected['type'],
+                ignoreSsl: true
             });
-            navigator.goToRoot(componentId);
-            alert(JSON.stringify(result));
         } catch (error) {
             console.warn(error);
+        } finally {
+            navigator.goToRoot(componentId);
         }
     };
 

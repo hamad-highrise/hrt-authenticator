@@ -1,7 +1,7 @@
 import constants from './constants';
 import { alertActions } from '../../alert';
 import queries from './queries';
-import { getTransactions } from '../../services';
+import { services } from '../../../global';
 
 function getAllAccounts() {
     return async (dispatch) => {
@@ -24,69 +24,68 @@ function selectAccount(accId) {
     };
 }
 
-function checkTransaction({ accId, ignoreSSL, checkType = 'MULTI' }) {
+function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
     return async (dispatch) => {
         dispatch(alertActions.request());
         try {
-            const { success, message, ...result } = await getTransactions({
+            const transaction = await services.getTransactions({
                 accId,
-                ignoreSSL
+                ignoreSsl
             });
-            if (success) {
-                if (checkType === 'MULTI') {
-                    result?.transaction
-                        ? dispatch({
-                              type: constants.SET_TRANSACTION,
-                              payload: {
-                                  accId,
-                                  transaction: {
-                                      available: true,
-                                      ...result.transaction
-                                  }
+            if (checkType === 'MULTI') {
+                transaction
+                    ? dispatch({
+                          type: constants.SET_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: {
+                                  available: true,
+                                  ...transaction
                               }
-                          })
-                        : dispatch({
-                              type: constants.SET_TRANSACTION,
-                              payload: {
-                                  accId,
-                                  transaction: { available: false }
+                          }
+                      })
+                    : dispatch({
+                          type: constants.SET_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: {
+                                  available: false
                               }
-                          });
-                } else if (checkType === 'SELECTED') {
-                    result?.transaction
-                        ? dispatch({
-                              type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
-                              payload: {
-                                  accId,
-                                  transaction: {
-                                      available: true,
-                                      ...result.transaction
-                                  }
+                          }
+                      });
+            } else if (checkType === 'SELECTED') {
+                transaction
+                    ? dispatch({
+                          type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: {
+                                  available: true,
+                                  ...result.transaction
                               }
-                          })
-                        : dispatch({
-                              type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
-                              payload: {
-                                  accId,
-                                  transaction: {
-                                      available: false
-                                  }
+                          }
+                      })
+                    : dispatch({
+                          type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
+                          payload: {
+                              accId,
+                              transaction: {
+                                  available: false
                               }
-                          });
-                }
+                          }
+                      });
             }
-
             dispatch(alertActions.success());
         } catch (error) {
-            dispatch({
-                type: constants.SET_TRANSACTION,
-                payload: { accId, transaction: { available: false } }
-            });
-            dispatch(alertActions.failure());
+            dispatch(alertActions.failure(error));
         }
     };
 }
 
-const actions = { getAllAccounts, selectAccount, checkTransaction };
+const actions = {
+    getAllAccounts,
+    selectAccount,
+    checkTransaction
+};
 
 export default actions;

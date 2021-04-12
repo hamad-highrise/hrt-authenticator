@@ -1,4 +1,3 @@
-import { act } from 'react-test-renderer';
 import constants from './constants';
 
 const initialState = {

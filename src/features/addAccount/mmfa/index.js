@@ -1,9 +1,9 @@
-import { Platform } from 'react-native';
 import api from './api';
 import methods from './registerMethods';
-import { push, biometrics, utilities, cipher } from '../../../native-services';
+import { cipher } from '../../../native-services';
 import { createAccount, isUnique } from '../services'; //folder related services
-import { constants, getDeviceId } from '../../services';
+
+import { utils, constants } from '../../../global';
 
 async function initiate(scanned) {
     const resultObj = {
@@ -14,7 +14,7 @@ async function initiate(scanned) {
         insertId: 0
     };
     const isValidMmfaObj = scanned?.code && scanned?.details_url;
-    let ignoreSSL = false;
+    let ignoreSsl = false;
     if (!isValidMmfaObj) {
         resultObj.message = 'INVALID_MMFA_OBJECT';
         return resultObj;
@@ -22,7 +22,7 @@ async function initiate(scanned) {
     if (scanned?.options) {
         const splitted = scanned.options.split('=');
         if (splitted.shift() === 'ignoreSslCerts') {
-            ignoreSSL = splitted.shift() == 'true'; // not strict identity
+            ignoreSsl = splitted.shift() == 'true'; // not strict identity
         }
     }
 
@@ -43,11 +43,10 @@ async function initiate(scanned) {
             methodsSupported
         } = details;
 
-        const data = await getData();
-        //set code from scanned QR code
-        data['code'] = scanned.code;
-
-        const tokenT = await getToken({ endpoint: tokenEndpoint, data });
+        const tokenT = await getToken({
+            endpoint: tokenEndpoint,
+            code: scanned.code
+        });
 
         if (!tokenT) {
             resultObj.message = constants.ERROR_MESSAGES.TOKEN_FETCH;
@@ -181,20 +180,25 @@ async function getDetails({ endpoint, ignoreSSL }) {
     }
 }
 
-async function getToken({ endpoint, data, ignoreSSL }) {
+async function getToken({ endpoint, code, ignoreSSL }) {
     try {
-        const result = await api.getToken({ endpoint, data, ignoreSSL });
+        const body = await utils.getTokenRequestBody({ code });
+        const result = await api.getToken({
+            endpoint,
+            formEncodedData: body,
+            ignoreSSL
+        });
+        console.warn(result.json());
         if (result.respInfo.status !== 200) {
-            console.warn(result.json());
             return Promise.resolve();
         }
         const token = await result.json();
         const { cipherText: encryptedToken } = await cipher.encrypt({
-            keyAlias: constants.KEY_ALIAS.token,
+            keyAlias: constants.KEY_ALIAS.TOKEN,
             payload: token['access_token']
         });
         const { cipherText: encryptedRefreshToken } = await cipher.encrypt({
-            keyAlias: constants.KEY_ALIAS.token,
+            keyAlias: constants.KEY_ALIAS.TOKEN,
             payload: token['refresh_token']
         });
 
@@ -202,7 +206,7 @@ async function getToken({ endpoint, data, ignoreSSL }) {
             accessToken: encryptedToken,
             unsafeToken: token['access_token'],
             refreshToken: encryptedRefreshToken,
-            expiry: getExpiryInSeconds(token['expires_in']),
+            expiry: utils.getTokenExpiryInSeconds(token['expires_in']),
             endpoint,
             authenticatorId: token['authenticator_id'],
             accountName: token['display_name']
@@ -210,38 +214,6 @@ async function getToken({ endpoint, data, ignoreSSL }) {
     } catch (error) {
         return Promise.reject(error);
     }
-}
-
-async function getData() {
-    try {
-        const {
-            osVersion,
-            frontCameraAvailable,
-            name,
-            rooted
-        } = await utilities.getDeviceInfo();
-        const { pushToken } = await push.getFirebaseToken();
-        const { id: deviceId } = await getDeviceId();
-        const {
-            available: fingerprintSupport
-        } = await biometrics.isSensorAvailable();
-        return Promise.resolve({
-            OSVersion: osVersion,
-            frontCamera: frontCameraAvailable,
-            deviceName: name,
-            deviceRooted: rooted,
-            pushToken,
-            deviceId,
-            fingerprintSupport,
-            deviceType: Platform.OS === 'android' ? 'Android' : 'iOS'
-        });
-    } catch (error) {
-        return Promise.reject(error);
-    }
-}
-
-function getExpiryInSeconds(expiresIn) {
-    return Math.floor(Date.now() / 1000) + expiresIn;
 }
 
 export default initiate;

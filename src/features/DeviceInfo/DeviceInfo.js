@@ -92,7 +92,7 @@ const DeviceInfo = (props) => {
                     onPress={onPressHandleBiometricOption}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            onPressHandleBiometricOption
+                           Version
                         </Text>
                         <Text style={styles.listitemText}>2.4.5</Text>
                     </View>
