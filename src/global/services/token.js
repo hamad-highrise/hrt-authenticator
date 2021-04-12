@@ -1,11 +1,12 @@
 import { getToken as getTokenFromDb, updateTokenDb } from './db';
 import { getRefreshedToken } from './api';
-import { biometrics, cipher, push, utilities } from '../../native-services';
+import { cipher } from '../../native-services';
 import {
     isTokenValid,
     encodeToFormData,
     getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds,
-    getDeviceId
+    getDeviceId,
+    getTokenRequestBody
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
@@ -41,7 +42,10 @@ async function getAccessToken(accId) {
             });
 
             //TODO: get ignoreSsl option
-            const body = await getTokenRefreshBody(decryptedRefreshToken);
+
+            const body = await getTokenRequestBody({
+                refreshToken: decryptedRefreshToken
+            });
 
             const result = await getRefreshedToken({
                 endpoint,
@@ -97,46 +101,3 @@ async function getAccessToken(accId) {
 
 export default { getAccessToken };
 export { getAccessToken };
-
-// TODO: Generalize it for access token as well as for refresh token and
-// Shift to some general folder
-
-async function getTokenRefreshBody(refreshToken) {
-    let deviceData;
-    try {
-        deviceData = await utilities.getDeviceInfo();
-        const isFingerprintSupported = await (
-            await biometrics.isSensorAvailable()
-        ).available;
-        const { pushToken } = await push.getFirebaseToken();
-        const deviceId = await getDeviceId();
-        deviceData = {
-            ...deviceData,
-            pushToken,
-            isFingerprintSupported,
-            deviceId
-        };
-    } catch (error) {
-        throw new NativeError({ message: 'Error getting device info.' });
-    }
-    const raw = {
-        refresh_token: refreshToken,
-        client_id: 'AuthenticatorClient',
-        grant_type: 'refresh_token',
-        scope: 'mmfaAuthn',
-        front_camera_support: deviceData.frontCameraAvailable,
-        tenant_id: '',
-        device_id: deviceData.deviceId,
-        os_version: deviceData.osVersion,
-        device_type: deviceData.type,
-        application_id: constants.APP_INFO.APPLICATION_ID,
-        device_rooted: deviceData.rooted,
-        device_name: deviceData.name,
-        platform_type: Platform.OS === 'android' ? 'Android' : 'iOS',
-        face_support: false,
-        account_name: '',
-        fingerprint_support: deviceData.isFingerprintSupported,
-        push_token: deviceData.pushToken
-    };
-    return encodeToFormData(raw);
-}
