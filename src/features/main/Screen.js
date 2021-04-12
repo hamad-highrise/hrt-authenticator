@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
     const isConnected = useSelector(({ alert }) => alert.isConnected);
+    
 
     const onPressHandler = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);

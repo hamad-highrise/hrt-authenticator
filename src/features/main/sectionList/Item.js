@@ -13,6 +13,22 @@ const Item = ({ account, componentId }) => {
             ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
             : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
+
+    const renderErrorMessage = () => {
+        return (
+            account['error'] && (
+                <View>
+                    <Text style={styles.errorText}>
+                        An error has occurred
+                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
+                            {' '}
+                            !
+                        </Text>
+                    </Text>
+                </View>
+            )
+        );
+    };
     return (
         <TouchableOpacity style={styles.SListitem} onPress={onItemPressX}>
             <Text style={styles.SListheader}>{account['name']}</Text>
@@ -20,13 +36,7 @@ const Item = ({ account, componentId }) => {
             {account.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
-            {false && (
-                <View>
-                    <Text style={styles.errorText}>
-                        Please contact {account['issuer']} support ❗
-                    </Text>
-                </View>
-            )}
+            {renderErrorMessage()}
         </TouchableOpacity>
     );
 };

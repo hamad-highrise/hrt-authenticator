@@ -28,7 +28,7 @@ function reducer(state = initialState, action) {
                 error: {
                     ...state.error,
                     hasOccurred: true,
-                    data: action.payload
+                    data: action.payload.error
                 }
             };
         case constants.RESET:

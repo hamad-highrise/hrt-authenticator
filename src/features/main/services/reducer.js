@@ -46,6 +46,39 @@ const reducer = (state = initialState, action) => {
                 }
             };
 
+        case constants.SET_ERROR:
+            const sIndex = state.accounts.findIndex(
+                (account) => account['id'] === action.payload.accId
+            );
+            return {
+                ...state,
+                accounts: [
+                    ...state.accounts.slice(0, sIndex),
+                    {
+                        ...state.accounts[sIndex],
+                        transaction: {
+                            available: false
+                        },
+                        error: true
+                    },
+                    ...state.accounts.slice(sIndex + 1)
+                ]
+            };
+        case constants.RESET_ERROR:
+            const rIndex = state.accounts.findIndex(
+                (account) => account['id'] === action.payload.accId
+            );
+            return {
+                ...state,
+                accounts: [
+                    ...state.accounts.slice(0, rIndex),
+                    {
+                        ...state.accounts[rIndex],
+                        error: false
+                    },
+                    ...state.accounts.slice(rIndex + 1)
+                ]
+            };
         case constants.UNSELECT_ACCOUNT:
             return {
                 ...state,
