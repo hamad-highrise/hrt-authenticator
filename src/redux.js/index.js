@@ -10,6 +10,7 @@ const initialState = {
         accounts: []
     },
     alert: {
+        isConnected: true,
         loading: false,
         error: {
             hasOccurred: false,

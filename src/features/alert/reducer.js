@@ -1,6 +1,7 @@
 import constants from './constants';
 
 const initialState = {
+    isConnected: true,
     loading: false,
     error: {
         hasOccurred: false,
@@ -38,6 +39,9 @@ function reducer(state = initialState, action) {
                     data: {}
                 }
             };
+
+        case constants.NET_STATE:
+            return;
         default:
             return state;
     }
