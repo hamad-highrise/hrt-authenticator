@@ -74,6 +74,9 @@ const reducer = (state = initialState, action) => {
                     ...state.accounts.slice(0, rIndex),
                     {
                         ...state.accounts[rIndex],
+                        transaction: {
+                            available: false
+                        },
                         error: false
                     },
                     ...state.accounts.slice(rIndex + 1)

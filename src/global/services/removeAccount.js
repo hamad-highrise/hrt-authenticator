@@ -11,6 +11,7 @@ async function removeAccount({ accId, type, ignoreSsl }) {
             (await sAMAccountRemove({ accId, ignoreSsl }));
         await removeAccountFromDB(accId);
     } catch (error) {
+        error instanceof TokenError && (await removeAccountFromDB(accId));
         throw error;
     }
 }

@@ -15,20 +15,19 @@ function Boundry({ children, ...props }) {
     };
 
     const renderErrorScreen = () => {
-        console.warn(error.data);
-        
         return <ErrorScreen reset={onReset} message={error.data.message} />;
     };
-    return (
-        <>
+    return children;
+}
+
+export default Boundry;
+{
+    /* <>
             {error.hasOccurred &&
             error.data.name !== errors.errorConstants.name.NETWORK ? (
                 renderErrorScreen()
             ) : (
                 <>{children}</>
             )}
-        </>
-    );
+        </> */
 }
-
-export default Boundry;
