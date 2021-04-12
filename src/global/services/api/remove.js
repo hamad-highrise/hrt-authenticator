@@ -1,3 +1,4 @@
+import { NetworkError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
 /**
@@ -42,7 +43,7 @@ async function removeDeviceFromSam({
         const result = await rnFetch('PATCH', endpoint, headers, body);
         return result;
     } catch (error) {
-        throw error;
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
@@ -67,7 +68,7 @@ async function unregisterTotp({ endpoint, token, ignoreSsl = false }) {
         const result = await rnFetch('PATCH', endpoint, headers, body);
         return result;
     } catch (error) {
-        throw error;
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 

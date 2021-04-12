@@ -33,6 +33,7 @@ function reducer(state = initialState, action) {
             };
         case constants.RESET:
             return {
+                ...state,
                 loading: false,
                 error: {
                     hasOccurred: false,
@@ -41,7 +42,10 @@ function reducer(state = initialState, action) {
             };
 
         case constants.NET_STATE:
-            return;
+            return {
+                ...state,
+                isConnected: action.payload.isConnected
+            };
         default:
             return state;
     }

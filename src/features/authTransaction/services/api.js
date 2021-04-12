@@ -1,3 +1,4 @@
+import { NetworkError } from '../../../global/errors';
 import { getFetchInstance } from '../../services';
 
 async function getTransactionData(endpoint, token) {
@@ -27,7 +28,7 @@ async function getTransactionData(endpoint, token) {
             return Promise.reject(new Error('NOT_200_TRANSACTION_DATA'));
         }
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
@@ -52,7 +53,7 @@ async function authenticateTransaction(endpoint, token, state, signedPayload) {
             return Promise.resolve({ message: 'NOT_AUTHENTICATED' });
         }
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 

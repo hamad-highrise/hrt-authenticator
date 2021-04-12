@@ -1,4 +1,4 @@
-import { SAMError } from '../../errors';
+import { NetworkError, SAMError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
 async function getPendingTransactions({ endpoint, token, ignoreSsl }) {
@@ -12,7 +12,7 @@ async function getPendingTransactions({ endpoint, token, ignoreSsl }) {
         const result = await rnFetch('GET', endpoint, headers);
         return result;
     } catch (error) {
-        throw new SAMError({ message: error });
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 

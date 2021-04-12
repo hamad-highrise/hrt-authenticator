@@ -4,9 +4,11 @@ import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
+import { useSelector } from 'react-redux';
 
 const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
+    const isConnected = useSelector(({ alert }) => alert.isConnected);
 
     const onPressHandler = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
@@ -48,10 +50,25 @@ const Main = (props) => {
                 </View>
             </View>
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
+
             <AccountList
                 accounts={accounts}
                 componentId={props.componentId} // for the sake of navigation
             />
+            {!isConnected && (
+                <View
+                    style={{
+                        backgroundColor: 'orange',
+                        width: '100%',
+                        height: 35,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Text style={{ fontFamily: 'monospace', color: 'white' }}>
+                        No Internet
+                    </Text>
+                </View>
+            )}
         </View>
     );
 };

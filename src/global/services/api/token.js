@@ -1,4 +1,4 @@
-import { SAMError } from '../../errors';
+import { NetworkError, SAMError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
 async function getRefreshedToken({ endpoint, formEncodedBody, ignoreSsl }) {
@@ -16,7 +16,7 @@ async function getRefreshedToken({ endpoint, formEncodedBody, ignoreSsl }) {
         );
         return result;
     } catch (error) {
-        throw new SAMError({ message: error.message });
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 

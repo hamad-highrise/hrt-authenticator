@@ -1,6 +1,7 @@
 import { getFetchInstance, constants } from '../../services';
 import { addMethod } from '../services';
 import { biometrics, keyGen, utilities } from '../../../native-services';
+import { NetworkError } from '../../../global/errors';
 
 async function registerTotp({ endpoint, token }) {
     try {
@@ -12,7 +13,7 @@ async function registerTotp({ endpoint, token }) {
         });
         return Promise.resolve(result);
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
@@ -60,7 +61,7 @@ async function registerUserPresence({ endpoint, token, accId }) {
         });
         return Promise.resolve(result);
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
