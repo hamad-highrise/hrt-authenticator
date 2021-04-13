@@ -1,24 +1,25 @@
-import { getFetchInstance, constants } from '../../services';
-import { addMethod } from '../services';
 import { biometrics, keyGen, utilities } from '../../../native-services';
-import { NetworkError } from '../../../global/errors';
+import { utils, errors, constants } from '../../../global';
 
-async function registerTotp({ endpoint, token }) {
+const { getFetchInstance, addMethod } = utils;
+const { NetworkError } = errors;
+
+async function registerTotp({ endpoint, token, ignoreSsl }) {
     try {
-        const insecureFetch = getFetchInstance();
-        const result = await insecureFetch('GET', endpoint, {
+        const rnFetch = getFetchInstance({ ignoreSsl });
+        const result = await rnFetch('GET', endpoint, {
             Accept: 'application/json',
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         });
-        return Promise.resolve(result);
+        return result;
     } catch (error) {
         throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
-async function registerUserPresence({ endpoint, token, accId }) {
-    const insecureFetch = getFetchInstance();
+async function registerUserPresence({ endpoint, token, accId, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
     const { uuid } = await utilities.getUUID();
     const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
     const url =
@@ -44,7 +45,7 @@ async function registerUserPresence({ endpoint, token, accId }) {
                 }
             ]
         });
-        const result = await insecureFetch(
+        const result = await rnFetch(
             'PATCH',
             url,
             {
@@ -59,14 +60,14 @@ async function registerUserPresence({ endpoint, token, accId }) {
             accId,
             keyHandle
         });
-        return Promise.resolve(result);
+        return result;
     } catch (error) {
         throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
 async function registerBiometrics({ endpoint, token, accId }) {
-    const insecureFetch = getFetchInstance();
+    const rnFetch = getFetchInstance();
     const { uuid } = await utilities.getUUID();
     const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
 
@@ -100,7 +101,7 @@ async function registerBiometrics({ endpoint, token, accId }) {
                     }
                 ]
             });
-            const result = await insecureFetch(
+            const result = await rnFetch(
                 'PATCH',
                 url,
                 {
@@ -110,7 +111,7 @@ async function registerBiometrics({ endpoint, token, accId }) {
                 },
                 body
             );
-            addMethod({
+            await addMethod({
                 method: constants.ACCOUNT_METHODS.FINGERPRINT,
                 accId,
                 keyHandle

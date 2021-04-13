@@ -1,8 +1,8 @@
 import api from './api';
 import methods from './registerMethods';
 import { cipher } from '../../../native-services';
-import { createAccount, isUnique } from '../services'; //folder related services
 
+import { createAccount, isUnique } from '../services'; //folder related services
 import { utils, constants } from '../../../global';
 
 async function initiate(scanned) {

@@ -8,5 +8,6 @@ export {
 export {
     getAuthIdByAccount,
     getEnrollmentEndpoint,
-    getDeviceId
+    getDeviceId,
+    addMethod
 } from './queries';

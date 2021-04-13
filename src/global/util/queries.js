@@ -48,5 +48,22 @@ async function getDeviceId() {
     }
 }
 
-export default { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId };
-export { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId };
+async function addMethod({ accId, method, keyHandle }) {
+    const query = `INSERT INTO methods (method_name, account_id, key_handle) VALUES (?,?,?);`;
+    const params = [method, accId, keyHandle];
+    const databse = new Database();
+    try {
+        await databse.executeQuery(query, params);
+        return;
+    } catch (error) {
+        throw new DatabaseError({ message: 'ADD_METHOD_ERROR' });
+    }
+}
+
+export default {
+    getAuthIdByAccount,
+    getEnrollmentEndpoint,
+    getDeviceId,
+    addMethod
+};
+export { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId, addMethod };
