@@ -1,4 +1,4 @@
-const name = Object.freeze({
+const errorName = Object.freeze({
     DB: 'DB_ERROR',
     SAM: 'SAM_ERROR',
     TOKEN: 'TOKEN_ERROR',
@@ -6,10 +6,13 @@ const name = Object.freeze({
     NETWORK: 'NETWORK_ERROR'
 });
 
-const messages = Object.freeze({
-    token: tokenMessages
+const defaultMessages = Object.freeze({
+    DB: 'An error occurred while accessing storage.',
+    SAM: 'Please contact SAM Support.',
+    TOKEN:
+        'Device may have been removed manually. Delete Locally and add again.',
+    NATIVE: 'An error occurred while accessing device info.',
+    NETWORK: 'Not able to reach server.'
 });
 
-const tokenMessages = Object.freeze({});
-
-export default { name, messages };
+export default { name: errorName, defaultMessages };

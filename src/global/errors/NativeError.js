@@ -1,8 +1,15 @@
 import constants from './constants';
+const { defaultMessages, name } = constants;
 
-function NativeError({ message = 'Unknown Error!' }) {
-    this.name = constants.name.NATIVE;
+const MESSAGE = 'NATIVE_FUNCTIONALITY_ERROR';
+
+function NativeError({
+    message = MESSAGE,
+    displayMessage = defaultMessages.NATIVE
+}) {
+    this.name = name.NATIVE;
     this.message = message;
+    this.displayMessage = displayMessage;
 }
 
 NativeError.prototype = new Error();

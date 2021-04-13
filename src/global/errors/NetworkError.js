@@ -1,8 +1,15 @@
 import constants from './constants';
+const { defaultMessages, name } = constants;
 
-function NetworkError({ message = 'Unknown Error!' }) {
-    this.name = constants.name.NETWORK;
-    this.message = 'Connectivity Problem';
+const MESSAGE = 'CONNECTIVITY_PROBLEM';
+
+function NetworkError({
+    message = MESSAGE,
+    displayMessage = defaultMessages.NETWORK
+}) {
+    this.name = name.NETWORK;
+    this.message = message;
+    this.displayMessage = displayMessage;
 }
 
 NetworkError.prototype = new Error();
