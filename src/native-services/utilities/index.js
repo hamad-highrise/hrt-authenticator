@@ -1,12 +1,13 @@
 import utilities from './native/index.android';
 import { Vibration } from 'react-native';
+import { NativeError } from '../../global/errors';
 
 async function preventScreenshot() {
     try {
         await utilities.preventScreenshot();
-        return Promise.resolve();
+        return;
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'PREVENT_SS_ERROR' });
     }
 }
 
@@ -14,33 +15,33 @@ async function getDeviceInfo() {
     try {
         const info = await utilities.getDeviceInfo();
         const { type, oSVersion, frontCameraAvailable, name, rooted } = info;
-        return Promise.resolve({
+        return {
             type,
             osVersion: oSVersion,
             frontCameraAvailable,
             name,
             rooted
-        });
+        };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'DEVICE_DETAILS_ERROR' });
     }
 }
 
 async function isInitiated() {
     try {
         const { initiated } = await utilities.isInitiated();
-        return Promise.resolve(initiated);
+        return initiated;
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'IS_INITIATED_ERROR' });
     }
 }
 
 async function setInitiated() {
     try {
         await utilities.setInitiated();
-        return Promise.resolve();
+        return;
     } catch (error) {
-        return Promise.reject();
+        throw new NativeError({ message: 'SET_INITIATED_ERROR' });
     }
 }
 
@@ -51,9 +52,9 @@ function vibrate() {
 async function getUUID() {
     try {
         const { uuid } = await utilities.getUUID();
-        return Promise.resolve({ uuid });
+        return { uuid };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'UUID_GENERATION_ERROR' });
     }
 }
 

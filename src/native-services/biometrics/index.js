@@ -1,11 +1,12 @@
+import { NativeError } from '../../global/errors';
 import native from './native';
 
 async function isSensorAvailable() {
     try {
         const { available, error } = await native.isSensorAvailable();
-        return Promise.resolve({ available, error });
+        return { available, error };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'SENSOR_CHECK_ERROR' });
     }
 }
 
@@ -15,18 +16,18 @@ async function showBiometricPrompt({ promptMessage, cancelButtonText }) {
             promptMessage,
             cancelButtonText
         });
-        return Promise.resolve({ success, error });
+        return { success, error };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'SHOW_BIOMETRIC_PROMPT_ERROR' });
     }
 }
 
 async function createBiomerticKey(keyHandle) {
     try {
         const result = await native.createBiomerticKey(keyHandle);
-        return Promise.resolve({ publicKey: result.publicKey });
+        return { publicKey: result.publicKey };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'CREATE_BIOMETRIC_KEYS_ERROR' });
     }
 }
 
@@ -43,9 +44,9 @@ async function signPayload({
             keyHandle,
             payload
         });
-        return Promise.resolve({ success, signature });
+        return { success, signature };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'SIGN_PAYLOAD_ERROR' });
     }
 }
 

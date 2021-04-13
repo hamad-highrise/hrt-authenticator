@@ -1,11 +1,12 @@
+import { NativeError } from '../../global/errors';
 import native from './native';
 
 async function getFirebaseToken() {
     try {
         const { pushToken } = await native.getFirebaseToken();
-        return Promise.resolve({ pushToken });
+        return { pushToken };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'PUSH_TOKEN_ERROR' });
     }
 }
 

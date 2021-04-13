@@ -13,6 +13,10 @@ import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { biometrics } from '../../../native-services';
 import { getToken, getEnrollmentEndpoint } from '../../services';
+import { services, utils } from '../../../global';
+
+const { getAccessToken } = services;
+const { getEnrollmentEndpoint } = utils;
 
 const BiometricOption = ({ accId, ...props }) => {
     useEffect(() => {
@@ -28,6 +32,13 @@ const BiometricOption = ({ accId, ...props }) => {
     const goBack = () => {
         navigator.goToRoot(props.componentId);
         return true;
+    };
+
+    const onPositiveX = async () => {
+        let biometricAvailable;
+        try {
+            
+        } catch (error) {}
     };
 
     const onPositive = async () => {

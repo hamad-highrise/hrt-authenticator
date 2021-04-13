@@ -1,11 +1,12 @@
+import { NativeError } from '../../global/errors';
 import native from './native';
 
 async function createKeys(keyHandle) {
     try {
         const { publicKey } = await native.createKeys(keyHandle);
-        return Promise.resolve({ publicKey });
+        return { publicKey };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'CREATE_KEYS_ERROR' });
     }
 }
 
@@ -15,9 +16,9 @@ async function signPayload({ keyHandle, payload }) {
             keyHandle,
             payload
         });
-        return Promise.resolve({ success, signature });
+        return { success, signature };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'SIGN_PAYLOAD_ERROR' });
     }
 }
 

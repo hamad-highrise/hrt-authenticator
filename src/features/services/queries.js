@@ -133,9 +133,7 @@ async function getMethods(accId) {
     }
 }
 
-function getExpiryInSeconds(expiresIn) {
-    return Math.floor(Date.now() / 1000) + expiresIn;
-}
+
 
 export default {
     getToken,
