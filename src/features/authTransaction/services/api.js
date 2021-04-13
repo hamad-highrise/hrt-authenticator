@@ -1,8 +1,48 @@
-import { NetworkError } from '../../../global/errors';
-import { getFetchInstance } from '../../services';
+import { utils, errors } from '../../../global';
 
-async function getTransactionData(endpoint, token) {
-    const insecureFetch = getFetchInstance();
+const { getFetchInstance } = utils;
+const { NetworkError } = errors;
+
+async function getTransactionDataX({ endpoint, token, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
+    const headers = {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    };
+    try {
+        const data = await rnFetch('POST', endpoint, headers);
+        return data;
+    } catch (error) {
+        throw new NetworkError({ message: 'ERROR_GETTING_TRANSACTION_DATA' });
+    }
+}
+
+async function respondTransaction({
+    endpoint,
+    token,
+    stateId,
+    signedPayload,
+    ignoreSsl
+}) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
+    const body = JSON.stringify({ signedChallenge: signedPayload });
+    const endUrl = endpoint + '?StateId=' + stateId;
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+    };
+    try {
+        const result = await rnFetch('PUT', endUrl, headers, body);
+        return result;
+    } catch (error) {
+        throw new NetworkError({ message: 'ERROR_RESPONDIN_TRANSACTION' });
+    }
+}
+
+async function getTransactionData({ endpoint, token, ignoreSsl }) {
+    const insecureFetch = getFetchInstance({ ignoreSsl });
     try {
         const data = await insecureFetch('POST', endpoint, {
             Accept: 'application/json',
@@ -32,30 +72,5 @@ async function getTransactionData(endpoint, token) {
     }
 }
 
-async function authenticateTransaction(endpoint, token, state, signedPayload) {
-    const insecureFetch = getFetchInstance();
-    const body = JSON.stringify({ signedChallenge: signedPayload });
-    const endUrl = endpoint + '?StateId=' + state;
-    try {
-        const authResult = await insecureFetch(
-            'PUT',
-            endUrl,
-            {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            },
-            body
-        );
-        if (authResult.respInfo.status === 204) {
-            return Promise.resolve({ message: 'AUTHENTICATED' });
-        } else {
-            return Promise.resolve({ message: 'NOT_AUTHENTICATED' });
-        }
-    } catch (error) {
-        throw new NetworkError({ message: 'Unable to connect to server!' });
-    }
-}
-
-export default { authenticateTransaction, getTransactionData };
-export { authenticateTransaction, getTransactionData };
+export default { getTransactionData, getTransactionDataX, respondTransaction };
+export { respondTransaction, getTransactionData, getTransactionDataX };
