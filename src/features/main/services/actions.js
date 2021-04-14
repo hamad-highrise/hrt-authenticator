@@ -31,7 +31,7 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
                 accId,
                 ignoreSsl
             });
-            
+
             if (checkType === 'MULTI') {
                 transaction
                     ? dispatch({
@@ -58,17 +58,15 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
                     ? dispatch({
                           type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
                           payload: {
-                              accId,
                               transaction: {
                                   available: true,
-                                  ...result.transaction
+                                  ...transaction
                               }
                           }
                       })
                     : dispatch({
                           type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
                           payload: {
-                              accId,
                               transaction: {
                                   available: false
                               }

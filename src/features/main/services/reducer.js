@@ -68,6 +68,7 @@ const reducer = (state = initialState, action) => {
             const rIndex = state.accounts.findIndex(
                 (account) => account['id'] === action.payload.accId
             );
+
             return {
                 ...state,
                 accounts: [
