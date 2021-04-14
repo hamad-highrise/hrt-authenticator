@@ -5,7 +5,6 @@ export * from './accessCode';
 export { default as AuthScreen } from './authTransaction';
 export { DeviceInfoScreen } from './DeviceInfo';
 export { GetStartedScreen } from './GetStarted';
-export { SplashScreen } from './Splash';
 export { ErrorScreen } from './ErrorScreen';
 export { PrivacyPolicyScreen } from './PrivacyPolicy';
 export { TermAndConditionScreen } from './TermAndCondition';

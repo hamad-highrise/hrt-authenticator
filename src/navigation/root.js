@@ -1,49 +1,110 @@
 import screensId from './screensId';
+import { Navigation } from 'react-native-navigation';
 
-const mainRoot = {
-    root: {
-        stack: {
-            children: [
-                {
-                    component: {
-                        name: screensId.main
-                    }
-                }
-            ]
+const setInitialRoot = () => {
+    Navigation.setDefaultOptions({
+        animations: {
+            setRoot: {
+                waitForRender: true
+            }
+        },
+        topBar: {
+            visible: false
         }
-    }
+    });
+    Navigation.events().registerAppLaunchedListener(() => {
+        Navigation.setRoot({
+            root: {
+                stack: {
+                    children: [
+                        {
+                            component: {
+                                name: screensId.splash
+                            }
+                        }
+                    ]
+                }
+            }
+        });
+    });
 };
 
-const emptyStateRoot = {
-    root: {
-        stack: {
-            children: [
-                {
-                    component: {
-                        name: screensId.emptyState
-                    }
-                }
-            ]
+const setEmptyStateRoot = () => {
+    Navigation.setDefaultOptions({
+        animations: {
+            setRoot: {
+                waitForRender: true
+            }
+        },
+        topBar: {
+            visible: false
         }
-    }
+    });
+    Navigation.setRoot({
+        root: {
+            stack: {
+                children: [
+                    {
+                        component: {
+                            name: screensId.emptyState
+                        }
+                    }
+                ]
+            }
+        }
+    });
 };
 
-const onBoardingRoot = {
-    root: {
-        stack: {
-            children: [
-                {
-                    component: {
-                        name: screensId.welcome
-                    }
-                }
-            ]
+const setOnBoardingRoot = () => {
+    Navigation.setDefaultOptions({
+        animations: {
+            setRoot: {
+                waitForRender: true
+            }
+        },
+        topBar: {
+            visible: false
         }
-    }
+    });
+    Navigation.setRoot({
+        root: {
+            stack: {
+                children: [
+                    {
+                        component: {
+                            name: screensId.welcome
+                        }
+                    }
+                ]
+            }
+        }
+    });
 };
 
-const getMainRoot = () => mainRoot;
-const getOnBoardingRoot = () => onBoardingRoot;
-const getEmptyStateRoot = () => emptyStateRoot;
+const setMainRoot = () => {
+    Navigation.setDefaultOptions({
+        animations: {
+            setRoot: {
+                waitForRender: true
+            }
+        },
+        topBar: {
+            visible: false
+        }
+    });
+    Navigation.setRoot({
+        root: {
+            stack: {
+                children: [
+                    {
+                        component: {
+                            name: screensId.main
+                        }
+                    }
+                ]
+            }
+        }
+    });
+};
 
-export { getOnBoardingRoot, getMainRoot, getEmptyStateRoot };
+export { setInitialRoot, setEmptyStateRoot, setOnBoardingRoot, setMainRoot };

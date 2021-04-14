@@ -21,28 +21,6 @@ const AccountList = ({ accounts, onListItemPress, componentId }) => {
         ]
     );
 
-    const renderNoContent = ({ section }) => {
-        if (!section.data.length)
-            return (
-                <View
-                    style={{
-                        backgroundColor: 'orange',
-                        flex: 1,
-                        justifyContent: 'center',
-                        alignItems: 'center'
-                    }}>
-                    <Text
-                        style={{
-                            fontFamily: 'monospace',
-                            color: 'white'
-                        }}>
-                        No Content!
-                    </Text>
-                </View>
-            );
-        return null;
-    };
-
     return (
         <View style={styles.listContainer}>
             <SectionList
@@ -57,10 +35,11 @@ const AccountList = ({ accounts, onListItemPress, componentId }) => {
                         componentId={componentId} // for the sake of navigation
                     />
                 )}
-                renderSectionHeader={({ section }) => (
-                    <SectionHeader title={section.title} />
-                )}
-                renderSectionFooter={renderNoContent}
+                renderSectionHeader={({ section }) =>
+                    section.data.length > 0 ? (
+                        <SectionHeader title={section.title} />
+                    ) : null
+                }
             />
         </View>
     );

@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import navigator from '../../../navigation';
 import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
@@ -23,7 +23,9 @@ const ProcessComplete = ({ title, ...props }) => {
             <View style={{ marginTop: 110, marginBottom: 100 }}>
                 <Button
                     title="Done"
-                    onPress={() => navigator.goToRoot(props.componentId)}
+                    onPress={() => {
+                        navigator.goToRoot(props.componentId);
+                    }}
                     style={styles.btn}
                 />
             </View>

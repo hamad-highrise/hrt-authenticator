@@ -7,7 +7,7 @@ const rootReducer = combineReducers({ alert: alertReducer, main: mainReducer });
 const initialState = {
     main: {
         selected: {},
-        accounts: []
+        accounts: null
     },
     alert: {
         isConnected: true,

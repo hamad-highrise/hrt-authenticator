@@ -37,7 +37,6 @@ const BiometricOption = ({ accId, ...props }) => {
     const onPositiveX = async () => {
         let biometricAvailable;
         try {
-            
         } catch (error) {}
     };
 

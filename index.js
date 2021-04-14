@@ -16,12 +16,4 @@ NetInfo.addEventListener((status) => {
     store.dispatch(alertActions.netStateChanged(status.isConnected));
 });
 
-(async () => {
-    try {
-        n.setRoot();
-        (await isInitiated()) && n.setMainRoot();
-    } catch (error) {
-        console.warn(error);
-        alert('Error initating app');
-    }
-})();
+n.setInitialRoot();

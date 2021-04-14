@@ -22,10 +22,12 @@ import {
     ThirdPartyNoticeScreen,
     SecurityAssessmentScreen,
     SuccessScreen,
-    CompletionScreen
+    CompletionScreen,
+    SplashScreen
 } from '../features';
-import { SplashScreen } from '../features/Splash';
+
 import { APIErrorBoundry } from '../features/errorBoundry';
+import { View, Text } from 'react-native';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -65,7 +67,11 @@ function registerScreens() {
     );
     Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
     Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
-    Navigation.registerComponent(screensId.splash, () => SplashScreen);
+    Navigation.registerComponent(screensId.splash, () => (props) => (
+        <Provider store={store}>
+            <SplashScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.error, () => ErrorScreen);
     Navigation.registerComponent(
         screensId.privacypolicy,
