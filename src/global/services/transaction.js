@@ -15,6 +15,7 @@ async function getTransactions({ accId, ignoreSsl }) {
             token: accessToken,
             ignoreSsl
         });
+
         const status = transactionResponse.respInfo.status;
         if ((status >= 200 && status < 300) || status === 304) {
             transaction = processTransaction(

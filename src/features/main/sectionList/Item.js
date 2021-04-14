@@ -7,7 +7,7 @@ import navigator from '../../../navigation';
 
 const Item = ({ account, componentId }) => {
     const dispatch = useDispatch();
-    const onItemPressX = () => {
+    const onItemPress = () => {
         dispatch(mainActions.selectAccount(account['id']));
         account?.transaction?.available
             ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
@@ -30,7 +30,7 @@ const Item = ({ account, componentId }) => {
         );
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPressX}>
+        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
             <Text style={styles.SListheader}>{account['name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
             {account.transaction?.available && (

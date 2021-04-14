@@ -1,7 +1,7 @@
 import api from './api';
 import { biometrics, keyGen } from '../../../native-services';
 
-import { services, utils, errors } from '../../../global';
+import { services, errors } from '../../../global';
 
 const { TokenError, SAMError } = errors;
 const { getAccessToken } = services;

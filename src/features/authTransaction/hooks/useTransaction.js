@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { alertActions } from '../../alert';
-import { authTransaction, rejectTransaction } from '../services';
+import { approveTransaction, denyTransaction } from '../services';
 import navigator from '../../../navigation';
 
 function useTransaction({ componentId }) {
@@ -14,9 +14,9 @@ function useTransaction({ componentId }) {
     const onApprove = async () => {
         try {
             dispatch(alertActions.request());
-            await authTransaction({
+            await approveTransaction({
                 accId: selected['id'],
-                tEndpoint: transaction.requestUrl
+                endpoint: transaction.requestUrl
             });
             dispatch(alertActions.success());
         } catch (error) {
@@ -29,9 +29,9 @@ function useTransaction({ componentId }) {
     const onReject = async () => {
         try {
             dispatch(alertActions.request());
-            await rejectTransaction({
+            await denyTransaction({
                 accId: selected['id'],
-                tEndpoint: transaction.requestUrl
+                endpoint: transaction.requestUrl
             });
             dispatch(alertActions.success());
         } catch (error) {

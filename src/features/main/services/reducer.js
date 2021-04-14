@@ -75,7 +75,7 @@ const reducer = (state = initialState, action) => {
                     {
                         ...state.accounts[rIndex],
                         transaction: {
-                            available: false
+                            ...state.accounts[rIndex].transaction
                         },
                         error: false
                     },

@@ -16,7 +16,7 @@ import { getToken, getEnrollmentEndpoint } from '../../services';
 import { services, utils } from '../../../global';
 
 const { getAccessToken } = services;
-const { getEnrollmentEndpoint } = utils;
+// const { getEnrollmentEndpoint } = utils;
 
 const BiometricOption = ({ accId, ...props }) => {
     useEffect(() => {

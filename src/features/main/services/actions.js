@@ -31,6 +31,7 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
                 accId,
                 ignoreSsl
             });
+            
             if (checkType === 'MULTI') {
                 transaction
                     ? dispatch({
