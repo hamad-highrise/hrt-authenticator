@@ -3,8 +3,9 @@ import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import navigator from '../../../navigation';
 import { constants } from '../../services';
+import { biometrics } from '../../../native-services';
 
-const NotifySuccess = ({ title, type, ...props }) => {
+const NotifySuccess = ({ title, type, methods, ...props }) => {
     useEffect(() => {
         init();
         const backHandler = BackHandler.addEventListener(
@@ -17,16 +18,21 @@ const NotifySuccess = ({ title, type, ...props }) => {
     }, []);
 
     const init = () => {
-        setTimeout(() => {
-            if (type === constants.ACCOUNT_TYPES.SAM) {
-                navigator.goTo(
-                    props.componentId,
-                    navigator.screenIds.biometricOption,
-                    {
-                        title: props.title,
-                        accId: props.accId
-                    }
-                );
+        setTimeout(async () => {
+            if (
+                type === constants.ACCOUNT_TYPES.SAM &&
+                methods.includes('fingerprint')
+            ) {
+                const { available } = await biometrics.isSensorAvailable();
+                available &&
+                    navigator.goTo(
+                        props.componentId,
+                        navigator.screenIds.biometricOption,
+                        {
+                            title: props.accountName,
+                            accId: props.accId
+                        }
+                    );
             } else navigator.goToRoot(props.componentId);
         }, 3000);
     };

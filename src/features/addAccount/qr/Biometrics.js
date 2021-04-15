@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
     Dimensions,
     Text,
@@ -8,20 +8,19 @@ import {
     BackHandler
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+
 import { Button, LoadingIndicator } from '../../../components';
 import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
-import { biometrics } from '../../../native-services';
-// import { getToken, getEnrollmentEndpoint } from '../../services';
 import { services, utils } from '../../../global';
-import { useDispatch, useSelector } from 'react-redux';
 import { alertActions } from '../../alert';
 
 const { getAccessToken } = services;
 const { getEnrollmentEndpoint } = utils;
 
 const BiometricOption = ({ accId, accountName, ...props }) => {
-    const { loading } = useSelector(({ alert }) => alert);
+    const [loading, setLoading] = useState(false);
     const dispatch = useDispatch();
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
@@ -38,8 +37,15 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
         return true;
     };
 
-    const onPositiveX = async () => {
+    const onNegative = () => {
+        navigator.goTo(props.componentId, navigator.screenIds.complete, {
+            title: accountName
+        });
+    };
+
+    const onPositive = async () => {
         try {
+            setLoading(true);
             dispatch(alertActions.request());
             const accessToke = await getAccessToken(accId);
             const enrollmentEndpoint = await getEnrollmentEndpoint(accId);
@@ -49,10 +55,12 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
                 accId
             });
             dispatch(alertActions.success());
+            setLoading(false);
             navigator.goTo(props.componentId, navigator.screenIds.complete, {
                 title: accountName
             });
         } catch (error) {
+            setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
             dispatch(alertActions.failure(error, accId));
             navigator.goToRoot(props.componentId);
@@ -79,12 +87,12 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
                 <Button
                     title="Use Biometric"
                     style={styles.btn}
-                    onPress={onPositiveX}
+                    onPress={onPositive}
                 />
                 <View style={{ margin: 10 }} />
                 <Button
                     title="No, Thanks"
-                    onPress={goBack}
+                    onPress={onNegative}
                     style={styles.btnInvert}
                 />
             </View>
@@ -93,7 +101,7 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
     );
 };
 BiometricOption.propTypes = {
-    title: PropTypes.string,
+    accountName: PropTypes.string,
     styles: PropTypes.any
 };
 

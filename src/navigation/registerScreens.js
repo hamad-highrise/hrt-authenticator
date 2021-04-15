@@ -49,7 +49,11 @@ function registerScreens() {
         </Provider>
     ));
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
-    Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
+    Navigation.registerComponent(screensId.qrScan, () => (props) => (
+        <Provider store={store}>
+            <QRScanScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
     Navigation.registerComponent(screensId.accessCode, () => (props) => (
         <Provider store={store}>

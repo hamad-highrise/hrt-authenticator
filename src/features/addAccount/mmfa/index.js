@@ -95,11 +95,12 @@ async function initiate(scanned) {
             accId: accId
         });
 
-        resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
-        resultObj.token = token.token;
+        // resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
+        // resultObj.token = token.token;
         resultObj.accountName = account.name;
         resultObj.issuer = account.issuer;
         resultObj.insertId = accId;
+        resultObj.methods = methodsSupported;
 
         return Promise.resolve(resultObj);
     } catch (error) {

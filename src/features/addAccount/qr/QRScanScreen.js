@@ -29,13 +29,17 @@ const QRScan = (props) => {
                             props.componentId,
                             navigator.screenIds.success,
                             {
-                                title: result.accountName,
+                                accountName: result.accountName,
                                 accId: result.insertId,
                                 type: constants.ACCOUNT_TYPES.SAM
                             }
                         );
-                    } else alert(result.message);
+                    } else {
+                        setLoading(false);
+                        alert(result.message);
+                    }
                 } catch (error) {
+                    setLoading(false);
                     alert(JSON.stringify(error));
                     navigator.goToRoot(props.componentId);
                 }
