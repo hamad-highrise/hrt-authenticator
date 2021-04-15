@@ -20,7 +20,6 @@ import {
 } from '../features';
 
 import { APIErrorBoundry } from '../features/errorBoundry';
-import { View, Text } from 'react-native';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
