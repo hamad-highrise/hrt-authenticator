@@ -61,10 +61,11 @@ function registerScreens() {
             <AuthScreen {...props} />
         </Provider>
     ));
-    Navigation.registerComponent(
-        screensId.biometricOption,
-        () => BiometricOption
-    );
+    Navigation.registerComponent(screensId.biometricOption, () => (props) => (
+        <Provider store={store}>
+            <BiometricOption {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
     Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
     Navigation.registerComponent(screensId.splash, () => (props) => (

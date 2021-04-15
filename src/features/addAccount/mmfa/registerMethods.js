@@ -118,7 +118,7 @@ async function registerBiometrics({ endpoint, token, accId }) {
             });
             return;
         }
-        return Promise.resolve();
+        throw new Error('Unable to verify fingerprint.');
     } catch (error) {
         throw error;
     }

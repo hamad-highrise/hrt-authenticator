@@ -8,17 +8,21 @@ import {
     BackHandler
 } from 'react-native';
 import PropTypes from 'prop-types';
-import { Button } from '../../../components';
+import { Button, LoadingIndicator } from '../../../components';
 import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { biometrics } from '../../../native-services';
-import { getToken, getEnrollmentEndpoint } from '../../services';
+// import { getToken, getEnrollmentEndpoint } from '../../services';
 import { services, utils } from '../../../global';
+import { useDispatch, useSelector } from 'react-redux';
+import { alertActions } from '../../alert';
 
 const { getAccessToken } = services;
-// const { getEnrollmentEndpoint } = utils;
+const { getEnrollmentEndpoint } = utils;
 
-const BiometricOption = ({ accId, ...props }) => {
+const BiometricOption = ({ accId, accountName, ...props }) => {
+    const { loading } = useSelector(({ alert }) => alert);
+    const dispatch = useDispatch();
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -35,43 +39,29 @@ const BiometricOption = ({ accId, ...props }) => {
     };
 
     const onPositiveX = async () => {
-        let biometricAvailable;
         try {
-        } catch (error) {}
-    };
-
-    const onPositive = async () => {
-        try {
-            const { available, error } = await biometrics.isSensorAvailable();
-            if (available) {
-                const { success, token } = await getToken(accId);
-                if (success) {
-                    const { enrollmentEndpoint } = await getEnrollmentEndpoint(
-                        accId
-                    );
-                    const result = await registerBiometrics({
-                        endpoint: enrollmentEndpoint,
-                        token,
-                        accId
-                    });
-                    if (result && result.respInfo.status === 200) {
-                        navigator.goTo(
-                            props.componentId,
-                            navigator.screenIds.complete
-                        );
-                    } else {
-                        alert('Error registering biometrics');
-                    }
-                } else alert('TOKEN ERROR');
-            } else {
-                alert(JSON.stringify(error));
-            }
+            dispatch(alertActions.request());
+            const accessToke = await getAccessToken(accId);
+            const enrollmentEndpoint = await getEnrollmentEndpoint(accId);
+            await registerBiometrics({
+                endpoint: enrollmentEndpoint,
+                token: accessToke,
+                accId
+            });
+            dispatch(alertActions.success());
+            navigator.goTo(props.componentId, navigator.screenIds.complete, {
+                title: accountName
+            });
         } catch (error) {
-            alert(error);
+            alert('Unable to register biometrics. Try adding account again.');
+            dispatch(alertActions.failure(error, accId));
             navigator.goToRoot(props.componentId);
         }
     };
-    return (
+
+    return loading ? (
+        <LoadingIndicator show={loading} />
+    ) : (
         <View style={styles.container}>
             <View style={{ marginTop: 20 }}></View>
             <Image
@@ -89,7 +79,7 @@ const BiometricOption = ({ accId, ...props }) => {
                 <Button
                     title="Use Biometric"
                     style={styles.btn}
-                    onPress={onPositive}
+                    onPress={onPositiveX}
                 />
                 <View style={{ margin: 10 }} />
                 <Button

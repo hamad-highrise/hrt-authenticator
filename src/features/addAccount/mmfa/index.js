@@ -89,18 +89,11 @@ async function initiate(scanned) {
 
         const accId = await createAccount({ account, token });
 
-        const registered = await userPresenceRegistration({
+        await userPresenceRegistration({
             endpoint: enrollmentEndpoint,
             token: tokenT.unsafeToken,
-            name: tokenT.accountName,
-            issuer: serviceName,
             accId: accId
         });
-
-        if (!registered) {
-            resultObj.message = constants.ERROR_MESSAGES.USER_PRESENCE_REGISTER;
-            return resultObj;
-        }
 
         resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
         resultObj.token = token.token;

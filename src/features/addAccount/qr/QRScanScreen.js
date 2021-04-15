@@ -59,7 +59,9 @@ const QRScan = (props) => {
                         }
                     );
                 } else {
-                    alert('Duplicate Account');
+                    alert(
+                        'Error: An account can not be registered multiple times.'
+                    );
                     navigator.goToRoot(props.componentId);
                 }
             }
