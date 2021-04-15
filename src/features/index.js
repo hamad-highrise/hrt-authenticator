@@ -3,7 +3,7 @@ export * from './main';
 export * from './addAccount';
 export * from './accessCode';
 export { default as AuthScreen } from './authTransaction';
-export { DeviceInfoScreen } from './DeviceInfo';
+export { DeviceInfoScreen } from './deviceInfo';
 export { GetStartedScreen } from './GetStarted';
 export { ErrorScreen } from './ErrorScreen';
 export { PrivacyPolicyScreen } from './PrivacyPolicy';

@@ -9,8 +9,10 @@ import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
+import { useSelector } from 'react-redux';
 
 const QRScan = (props) => {
+    const { isConnected } = useSelector(({ alert }) => alert);
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -24,26 +26,24 @@ const QRScan = (props) => {
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
                 //MMFA Account is being Started
-                try {
-                    const result = await initiateSamAccount(value);
-                    if (result.message === 'OKAY') {
+                if (isConnected) {
+                    try {
+                        const result = await initiateSamAccount(value);
                         navigator.goTo(
                             props.componentId,
                             navigator.screenIds.success,
                             {
                                 accountName: result.accountName,
                                 accId: result.insertId,
+                                methods: result.methods,
                                 type: constants.ACCOUNT_TYPES.SAM
                             }
                         );
-                    } else {
+                    } catch (error) {
                         setLoading(false);
-                        alert(result.message);
+                        alert(JSON.stringify(error));
+                        navigator.goToRoot(props.componentId);
                     }
-                } catch (error) {
-                    setLoading(false);
-                    alert(JSON.stringify(error));
-                    navigator.goToRoot(props.componentId);
                 }
             } else {
                 //TOTP Account Flow
@@ -54,26 +54,33 @@ const QRScan = (props) => {
                     secret: parsedData.query.secret,
                     type: constants.ACCOUNT_TYPES.TOTP
                 };
-                if (await isUnique(account)) {
-                    await createAccount({ account });
-                    navigator.goTo(
-                        props.componentId,
-                        navigator.screenIds.success,
-                        {
-                            title: account.name,
-                            type: constants.ACCOUNT_TYPES.TOTP
-                        }
-                    );
-                } else {
-                    alert(
-                        'Error: An account can not be registered multiple times.'
-                    );
-                    navigator.goToRoot(props.componentId);
+                try {
+                    if (await isUnique(account)) {
+                        await createAccount({ account });
+                        setLoading(false);
+                        navigator.goTo(
+                            props.componentId,
+                            navigator.screenIds.success,
+                            {
+                                title: account.name,
+                                type: constants.ACCOUNT_TYPES.TOTP
+                            }
+                        );
+                    } else {
+                        setLoading(false);
+                        alert(
+                            'Error: An account can not be registered multiple times.'
+                        );
+                        navigator.goToRoot(props.componentId);
+                    }
+                } catch (error) {
+                    alert('Unable to create account at this time.');
+                    setLoading(false);
                 }
             }
         }
     };
-    const { height, width } = Dimensions.get('window');
+    const { width } = Dimensions.get('window');
     const maskRowHeight = 16;
     const maskColWidth = (width - 300) / 2;
 

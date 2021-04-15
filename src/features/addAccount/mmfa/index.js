@@ -8,9 +8,6 @@ import { SAMError, TokenError } from '../../../global/errors';
 
 async function initiate(scanned) {
     const resultObj = {
-        message: 'OKAY',
-        enrollmentEndpoint: '',
-        token: '',
         accountName: '',
         insertId: 0
     };
@@ -76,6 +73,7 @@ async function initiate(scanned) {
             issuer: serviceName,
             secret: totp.secretKey,
             type: constants.ACCOUNT_TYPES.SAM,
+            ignoreSsl: ignoreSsl,
             transactionEndpoint,
             enrollmentEndpoint,
             authId: tokenT.authenticatorId
@@ -95,15 +93,13 @@ async function initiate(scanned) {
             accId: accId
         });
 
-        // resultObj.enrollmentEndpoint = account.enrollmentEndpoint;
-        // resultObj.token = token.token;
         resultObj.accountName = account.name;
-        resultObj.issuer = account.issuer;
         resultObj.insertId = accId;
         resultObj.methods = methodsSupported;
 
         return Promise.resolve(resultObj);
     } catch (error) {
+        console.warn(error);
         return Promise.reject(error);
     }
 }

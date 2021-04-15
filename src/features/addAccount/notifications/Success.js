@@ -6,7 +6,7 @@ import navigator from '../../../navigation';
 import { constants } from '../../../global';
 import { biometrics } from '../../../native-services';
 
-const NotifySuccess = ({ title, type, methods, ...props }) => {
+const NotifySuccess = ({ accountName, type, methods, ...props }) => {
     useEffect(() => {
         init();
         const backHandler = BackHandler.addEventListener(
@@ -30,7 +30,7 @@ const NotifySuccess = ({ title, type, methods, ...props }) => {
                         props.componentId,
                         navigator.screenIds.biometricOption,
                         {
-                            title: props.accountName,
+                            accountName,
                             accId: props.accId
                         }
                     );
@@ -51,7 +51,7 @@ const NotifySuccess = ({ title, type, methods, ...props }) => {
             <View>
                 <Text style={styles.instructions}>
                     This device and your
-                    <Text style={{ fontWeight: 'bold' }}> {title} </Text>
+                    <Text style={{ fontWeight: 'bold' }}> {accountName} </Text>
                     account are now connected.
                 </Text>
             </View>
