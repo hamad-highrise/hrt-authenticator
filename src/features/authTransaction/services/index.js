@@ -8,7 +8,7 @@ const { getAccessToken } = services;
 
 async function getTransactionData({ endpoint, token, ignoreSsl }) {
     try {
-        const result = await api.getTransactionDataX({
+        const result = await api.getTransactionData({
             endpoint,
             token,
             ignoreSsl
@@ -56,18 +56,18 @@ async function approveTransaction({ accId, endpoint, ignoreSsl }) {
         let result;
         if (types.includes(type)) {
             //if transaction is of fingerprint
-            result =
-                type === 'fingerprint' &&
-                (await biometrics.signPayload({
+            if (type === 'fingerprint')
+                result = await biometrics.signPayload({
                     keyHandle,
                     payload: challenge
-                }));
+                });
             //if transaction is of user presence
-            result =
-                type === 'user_presence' &&
-                (await keyGen.signPayload({ keyHandle, payload: challenge }));
+            if (type === 'user_presence')
+                result = await keyGen.signPayload({
+                    keyHandle,
+                    payload: challenge
+                });
         } else throw new Error('UNKNOWN_TRANSACTION_TYPE');
-
         const auth = await api.respondTransaction({
             endpoint: requestUrl,
             token: accessToken,
@@ -75,6 +75,7 @@ async function approveTransaction({ accId, endpoint, ignoreSsl }) {
             signedPayload: result?.signature
         });
         const { status } = auth.respInfo;
+
         if (status === 204) {
             return;
         } else {

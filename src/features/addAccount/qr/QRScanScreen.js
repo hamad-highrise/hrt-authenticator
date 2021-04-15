@@ -36,7 +36,7 @@ const QRScan = (props) => {
                         );
                     } else alert(result.message);
                 } catch (error) {
-                    alert(JSON.stringify(error + 'Not Okay'));
+                    alert(JSON.stringify(error));
                     navigator.goToRoot(props.componentId);
                 }
             } else {

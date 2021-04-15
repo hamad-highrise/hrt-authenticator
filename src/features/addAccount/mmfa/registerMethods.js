@@ -55,7 +55,7 @@ async function registerUserPresence({ endpoint, token, accId, ignoreSsl }) {
             },
             body
         );
-        addMethod({
+        await addMethod({
             method: constants.ACCOUNT_METHODS.USER_PRESENCE,
             accId,
             keyHandle
@@ -101,7 +101,7 @@ async function registerBiometrics({ endpoint, token, accId }) {
                     }
                 ]
             });
-            const result = await rnFetch(
+            await rnFetch(
                 'PATCH',
                 url,
                 {
@@ -116,11 +116,11 @@ async function registerBiometrics({ endpoint, token, accId }) {
                 accId,
                 keyHandle
             });
-            return Promise.resolve(result);
+            return;
         }
         return Promise.resolve();
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 

@@ -4,6 +4,7 @@ import { cipher } from '../../../native-services';
 
 import { createAccount, isUnique } from '../services'; //folder related services
 import { utils, constants } from '../../../global';
+import { SAMError, TokenError } from '../../../global/errors';
 
 async function initiate(scanned) {
     const resultObj = {
@@ -117,43 +118,44 @@ async function totpRegistraion({ endpoint, token }) {
     try {
         const result = await methods.registerTotp({ endpoint, token });
         if (result.respInfo.status !== 200) {
-            console.warn(result.json());
-            return Promise.resolve();
+            if (result.respInfo.status >= 400 && result.respInfo.status < 500)
+                throw new TokenError({
+                    message: 'ERROR_REGISTERING_TOTP',
+                    displayMessage:
+                        'An error was occurred while registering TOTP.'
+                });
+
+            if (result.respInfo.status >= 500)
+                throw new SAMError({
+                    message: 'ERROR_REGISTERING_TOTP',
+                    displayMessage: 'An error occurred while registering TOTP.'
+                });
         }
         const totp = await result.json();
-        return Promise.resolve({
+        return {
             period: totp['period'],
             digit: totp['digits'],
             secretKey: totp['secretKey'],
             algorithm: totp['algorithm']
-        });
+        };
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 
-async function userPresenceRegistration({
-    endpoint,
-    token,
-    name,
-    issuer,
-    accId
-}) {
+async function userPresenceRegistration({ endpoint, token, accId }) {
     try {
         const result = await methods.registerUserPresence({
             endpoint,
             token,
-            name,
-            issuer,
             accId
         });
         if (result.respInfo.status !== 200) {
-            console.warn(result.json());
-            return Promise.resolve();
+            throw new SAMError({ message: 'ERROR_REGISTERING_USER_PRESENCE' });
         }
-        return Promise.resolve(true);
+        return;
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 
@@ -161,11 +163,13 @@ async function getDetails({ endpoint, ignoreSSL }) {
     try {
         const result = await api.getDetails({ endpoint, ignoreSSL });
         if (result.respInfo.status !== 200) {
-            console.warn(result.json());
-            return Promise.resolve();
+            throw new SAMError({
+                message: 'ERROR_GETTING_SAM_DETAILS',
+                displayMessage: 'Unable to get details from SAM.'
+            });
         }
         const details = await result.json();
-        return Promise.resolve({
+        return {
             totpEndpoint: details['totp_shared_secret_endpoint'],
             enrollmentEndpoint: details['enrollment_endpoint'],
             transactionEndpoint: details['authntrxn_endpoint'],
@@ -174,9 +178,9 @@ async function getDetails({ endpoint, ignoreSSL }) {
             methodsSupported: details['discovery_mechanisms'].map((mech) =>
                 mech.split(':').pop()
             )
-        });
+        };
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 
@@ -188,9 +192,9 @@ async function getToken({ endpoint, code, ignoreSSL }) {
             formEncodedData: body,
             ignoreSSL
         });
-        console.warn(result.json());
+
         if (result.respInfo.status !== 200) {
-            return Promise.resolve();
+            throw new SAMError({ message: 'ERROR_FETCHING_TOKEN' });
         }
         const token = await result.json();
         const { cipherText: encryptedToken } = await cipher.encrypt({
@@ -202,7 +206,7 @@ async function getToken({ endpoint, code, ignoreSSL }) {
             payload: token['refresh_token']
         });
 
-        return Promise.resolve({
+        return {
             accessToken: encryptedToken,
             unsafeToken: token['access_token'],
             refreshToken: encryptedRefreshToken,
@@ -210,9 +214,9 @@ async function getToken({ endpoint, code, ignoreSSL }) {
             endpoint,
             authenticatorId: token['authenticator_id'],
             accountName: token['display_name']
-        });
+        };
     } catch (error) {
-        return Promise.reject(error);
+        throw error;
     }
 }
 
