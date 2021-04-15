@@ -1,13 +1,15 @@
 import React, { useState } from 'react';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
+
 import parser from './parser';
 import navigator from '../../../navigation';
 import { TopNavbar, LoadingIndicator } from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
-import { View, StyleSheet, Dimensions } from 'react-native';
-import { constants } from '../../services';
+import { constants } from '../../../global';
+
 const QRScan = (props) => {
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);

@@ -3,7 +3,7 @@ import { Button } from '../../../components';
 import styles from '../styles';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
-import { constants } from '../../services';
+import { constants } from '../../../global';
 
 const Settings = ({ removeAccount }) => {
     const selected = useSelector(({ main }) => main.selected);

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
+
 import navigator from '../../../navigation';
-import { constants } from '../../services';
+import { constants } from '../../../global';
 import { biometrics } from '../../../native-services';
 
 const NotifySuccess = ({ title, type, methods, ...props }) => {

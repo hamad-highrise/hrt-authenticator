@@ -7,13 +7,14 @@ import {
     Animated,
     Easing
 } from 'react-native';
+import PropTypes from 'prop-types';
+
 import { IconButton } from '../../components';
 import navigator from '../../navigation';
-import PropTypes from 'prop-types';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
-import { constants } from '../services';
+import { constants } from '../../global';
 
 const AccessCode = (props) => {
     const {

@@ -1,5 +1,5 @@
 import { cipher } from '../../../native-services';
-import { constants } from '../../services';
+import { constants } from '../../../global';
 import { getSecretByAccountId } from './queries';
 
 async function getSecret(accId) {
