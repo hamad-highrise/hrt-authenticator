@@ -1,5 +1,10 @@
 import { Navigation } from 'react-native-navigation';
-import { getOnBoardingRoot, getMainRoot, getEmptyStateRoot } from './root';
+import {
+    setMainRoot,
+    setOnBoardingRoot,
+    setEmptyStateRoot,
+    setInitialRoot
+} from './root';
 import registerScreens from './registerScreens';
 import screenIds from './screensId';
 
@@ -17,52 +22,12 @@ const goTo = (componentId, destinationName, props = {}) => {
         });
     else {
         const error = new Error('Destination Name is not correct');
-        console.warn(error);
         alert(error.message);
     }
 };
 
 const goToRoot = (componentId) => {
     Navigation.popToRoot(componentId);
-};
-
-const setRoot = () => {
-    Navigation.setDefaultOptions({
-        topBar: {
-            visible: false
-        }
-    });
-    Navigation.events().registerAppLaunchedListener(() => {
-        Navigation.setRoot({
-            root: {
-                stack: {
-                    children: [
-                        {
-                            component: {
-                                name: screenIds.welcome
-                            }
-                        }
-                    ]
-                }
-            }
-        });
-    });
-};
-
-const setMainRoot = () => {
-    Navigation.setRoot({
-        root: {
-            stack: {
-                children: [
-                    {
-                        component: {
-                            name: screenIds.main
-                        }
-                    }
-                ]
-            }
-        }
-    });
 };
 
 const navigator = {
@@ -72,7 +37,9 @@ const navigator = {
     registerScreens,
     screenIds,
     setMainRoot,
-    setRoot
+    setInitialRoot,
+    setEmptyStateRoot,
+    setOnBoardingRoot
 };
 
 export default navigator;

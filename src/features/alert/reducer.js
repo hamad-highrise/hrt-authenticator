@@ -1,6 +1,7 @@
 import constants from './constants';
 
 const initialState = {
+    isConnected: true,
     loading: false,
     error: {
         hasOccurred: false,
@@ -27,16 +28,23 @@ function reducer(state = initialState, action) {
                 error: {
                     ...state.error,
                     hasOccurred: true,
-                    data: action.payload
+                    data: action.payload.error
                 }
             };
         case constants.RESET:
             return {
+                ...state,
                 loading: false,
                 error: {
                     hasOccurred: false,
                     data: {}
                 }
+            };
+
+        case constants.NET_STATE:
+            return {
+                ...state,
+                isConnected: action.payload.isConnected
             };
         default:
             return state;

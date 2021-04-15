@@ -19,7 +19,6 @@ public class AppPackages implements ReactPackage {
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
         modules.add(new CustomUtilities(reactContext));
-//        modules.add(new SecureModule(reactContext));
         modules.add(new RNBiometrics(reactContext));
         modules.add(new CustomKeyGen(reactContext));
         modules.add(new RNPushModule(reactContext));

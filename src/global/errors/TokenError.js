@@ -1,8 +1,15 @@
 import constants from './constants';
+const { defaultMessages, name } = constants;
 
-function TokenError({ message = 'Unknown Error!' }) {
-    this.name = constants.name.TOKEN;
+const MESSAGE = 'ERROR_WHILE_REQUESTING_TOKEN';
+
+function TokenError({
+    message = MESSAGE,
+    displayMessage = defaultMessages.TOKEN
+}) {
+    this.name = name.TOKEN;
     this.message = message;
+    this.displayMessage = displayMessage;
 }
 
 TokenError.prototype = new Error();

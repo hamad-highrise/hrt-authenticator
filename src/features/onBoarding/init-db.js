@@ -1,6 +1,6 @@
 import { Database, utilities } from '../../native-services';
 import queries from './queries';
-import { constants } from '../services';
+import { constants } from '../../global';
 
 async function initiateDb() {
     const database = new Database();

@@ -1,22 +1,23 @@
+import { NativeError } from '../../global/errors';
 import native from './native';
 
 async function encrypt({ keyAlias, payload }) {
     try {
         const { cipherText } = await native.encrypt({ keyAlias, payload });
-        return Promise.resolve({ cipherText });
+        return { cipherText };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'ENCRYOTION_ERROR' });
     }
 }
 
 async function decrypt({ keyAlias, cipherText }) {
     try {
         const { decrypted } = await native.decrypt({ keyAlias, cipherText });
-        return Promise.resolve({
+        return {
             decrypted: decrypted.trim() /* trim will remove any padding added */
-        });
+        };
     } catch (error) {
-        return Promise.reject(error);
+        throw new NativeError({ message: 'DECRYPTION_ERROR' });
     }
 }
 

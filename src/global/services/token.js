@@ -3,14 +3,12 @@ import { getRefreshedToken } from './api';
 import { cipher } from '../../native-services';
 import {
     isTokenValid,
-    encodeToFormData,
     getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds,
-    getDeviceId,
     getTokenRequestBody
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
-import { Platform } from 'react-native';
+
 
 /**
  * Gives the token for the given account ID. If token has been expired, it will refresh it and return upated token.
@@ -51,8 +49,8 @@ async function getAccessToken(accId) {
                 endpoint,
                 formEncodedBody: body
             });
-
-            if (result.respInfo.status === 200) {
+            const { status } = result.respInfo;
+            if ((status >= 200 && status < 299) || status === 304) {
                 const {
                     access_token: updatedAccessToken,
                     refresh_token: updatedRefreshToken,
@@ -78,25 +76,23 @@ async function getAccessToken(accId) {
                         accId
                     });
                 } catch (error) {
-                    console.warn(error);
                     throw error instanceof DatabaseError
                         ? error
                         : new NativeError({ message: 'ENCRYPTION_ERROR' });
                 }
 
                 return updatedAccessToken;
-            } else if (result.respInfo.status === 400) {
-                throw result.json()?.operation === 'login'
-                    ? new TokenError({
-                          message: 'ACCOUNT_DELETED_MANUALLY'
-                      })
-                    : new SAMError({
-                          message: result.json()?.error_description
-                      });
+            } else {
+                if (status >= 500)
+                    throw new SAMError({
+                        message: result.json()?.error_description
+                    });
+                throw new TokenError({
+                    message: 'ACCOUNT_DELETED_MANUALLY'
+                });
             }
         }
     } catch (error) {
-        console.warn(error);
         throw error;
     }
 }

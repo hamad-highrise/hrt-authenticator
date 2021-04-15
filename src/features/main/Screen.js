@@ -1,20 +1,25 @@
-import React, { useCallback } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useCallback, useEffect } from 'react';
+import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
+import { useSelector } from 'react-redux';
+import EmptyState from './EmptyState';
 
 const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
+    const isConnected = useSelector(({ alert }) => alert.isConnected);
 
     const onPressHandler = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.addAccount);
     }, [props.componentId]);
 
-    const onPressHandlerAccessCode = () => {
+    const onPressHandlerAccessCode = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
-    };
+    }, [props.componentId]);
+
+    useEffect(() => {}, [accounts.length]);
 
     return (
         <View style={styles.container}>
@@ -48,10 +53,30 @@ const Main = (props) => {
                 </View>
             </View>
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
-            <AccountList
-                accounts={accounts}
-                componentId={props.componentId} // for the sake of navigation
-            />
+
+            {accounts.length ? (
+                <AccountList
+                    accounts={accounts}
+                    componentId={props.componentId} // for the sake of navigation
+                />
+            ) : (
+                <EmptyState {...props} />
+            )}
+
+            {!isConnected && (
+                <View
+                    style={{
+                        backgroundColor: 'black',
+                        width: '100%',
+                        height: 35,
+                        justifyContent: 'center',
+                        alignItems: 'center'
+                    }}>
+                    <Text style={{ fontFamily: 'monospace', color: 'white' }}>
+                        No Internet
+                    </Text>
+                </View>
+            )}
         </View>
     );
 };
@@ -83,6 +108,37 @@ const styles = StyleSheet.create({
     iconBtn: {
         width: 37,
         height: 37
+    }
+});
+
+const stylesX = StyleSheet.create({
+    container: {
+        alignItems: 'center'
+    },
+    heading: {
+        fontSize: 30,
+        marginLeft: 50,
+        marginTop: 20,
+        marginRight: 30,
+        marginBottom: 30,
+        lineHeight: 35
+    },
+    image: {
+        width: Dimensions.get('window').width * 0.6,
+        height: Dimensions.get('window').height * 0.3,
+        alignItems: 'center'
+    },
+    btnInvert: {
+        backgroundColor: '#0f62fe',
+        paddingVertical: 23,
+        paddingHorizontal: 12,
+        borderWidth: 0,
+        borderRadius: 0,
+        width: Dimensions.get('window').width * 0.7,
+        alignSelf: 'center'
+    },
+    title: {
+        marginLeft: 20
     }
 });
 

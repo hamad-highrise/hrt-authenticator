@@ -6,7 +6,7 @@ async function createAccountEntry({
     type = 'TOTP',
     transactionEndpoint = null,
     enrollmentEndpoint = null,
-    ignoreSSL = false
+    ignoreSsl = false
 }) {
     const query = `INSERT INTO 
         accounts 
@@ -18,7 +18,7 @@ async function createAccountEntry({
         name,
         issuer,
         type,
-        ignoreSSL,
+        ignoreSsl,
         transactionEndpoint,
         enrollmentEndpoint
     ];

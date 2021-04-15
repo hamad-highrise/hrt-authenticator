@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { utilities } from '../../native-services';
 import {
-    Platform,
     StyleSheet,
     Text,
     View,
@@ -8,8 +8,33 @@ import {
     Image,
     Dimensions
 } from 'react-native';
+import { useDispatch, useSelector } from 'react-redux';
+import { mainActions } from '../main/services';
+import navigator from '../../navigation';
 
 const Splash = (props) => {
+    const dispatch = useDispatch();
+    const { accounts } = useSelector(({ main }) => main);
+    useEffect(() => {
+        init();
+    }, []);
+
+    const init = async () => {
+        if (await utilities.isInitiated()) {
+            dispatch(mainActions.getAllAccounts());
+        } else {
+            navigator.setOnBoardingRoot();
+        }
+    };
+
+    useEffect(() => {
+        setTimeout(() => {
+            if (accounts !== null) {
+                navigator.setMainRoot();
+            }
+        }, 2000);
+    }, [JSON.stringify(accounts)]);
+
     return (
         <View style={styles.container}>
             <StatusBar barStyle="light-content" backgroundColor="#4F6D7A" />
@@ -22,12 +47,11 @@ const Splash = (props) => {
                     source={require('../../assets/images/highrise-logo.png')}
                     style={styles.image}
                 />
-                {/* <Text style={styles.welcome}>AUTHENTICATOR</Text> */}
+                {/* <Text style={{ ...styles.welcome, flex: 3}}>
+                    AUTHENTICATOR
+                </Text> */}
             </View>
             <View>
-                <Text style={{ color: 'black', textAlign: 'center' }}>
-                    from
-                </Text>
                 <Text style={styles.instructions}>HIGHRISE</Text>
                 <Text style={styles.Subinstructions}>TECHNOLOGIES</Text>
             </View>

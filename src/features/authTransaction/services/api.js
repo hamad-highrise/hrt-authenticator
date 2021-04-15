@@ -1,60 +1,45 @@
-import { getFetchInstance } from '../../services';
+import { utils, errors } from '../../../global';
 
-async function getTransactionData(endpoint, token) {
-    const insecureFetch = getFetchInstance();
+const { getFetchInstance } = utils;
+const { NetworkError } = errors;
+
+async function getTransactionData({ endpoint, token, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
+    const headers = {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    };
     try {
-        const data = await insecureFetch('POST', endpoint, {
-            Accept: 'application/json',
-            Authorization: 'Bearer ' + token,
-            'Content-Type': 'application/json'
-        });
-        if (data.respInfo.status === 200) {
-            const {
-                state,
-                type,
-                keyHandles: [keyHandle],
-                serverChallenge
-            } = await data.json();
-            return Promise.resolve({
-                message: 'SUCCESS',
-                state,
-                type,
-                keyHandle,
-                challenge: serverChallenge,
-                requestUrl: endpoint.split('?')[0]
-            });
-        } else {
-            return Promise.reject(new Error('NOT_200_TRANSACTION_DATA'));
-        }
+        const data = await rnFetch('POST', endpoint, headers);
+        return data;
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'ERROR_GETTING_TRANSACTION_DATA' });
     }
 }
 
-async function authenticateTransaction(endpoint, token, state, signedPayload) {
-    const insecureFetch = getFetchInstance();
+async function respondTransaction({
+    endpoint,
+    token,
+    stateId,
+    signedPayload,
+    ignoreSsl
+}) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
     const body = JSON.stringify({ signedChallenge: signedPayload });
-    const endUrl = endpoint + '?StateId=' + state;
+    const endUrl = endpoint + '?StateId=' + stateId;
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+    };
     try {
-        const authResult = await insecureFetch(
-            'PUT',
-            endUrl,
-            {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + token
-            },
-            body
-        );
-        if (authResult.respInfo.status === 204) {
-            return Promise.resolve({ message: 'AUTHENTICATED' });
-        } else {
-            return Promise.resolve({ message: 'NOT_AUTHENTICATED' });
-        }
+        const result = await rnFetch('PUT', endUrl, headers, body);
+        return result;
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'ERROR_RESPONDIN_TRANSACTION' });
     }
 }
 
-export default { authenticateTransaction, getTransactionData };
-export { authenticateTransaction, getTransactionData };
+export default { getTransactionData, respondTransaction };
+export { respondTransaction, getTransactionData };

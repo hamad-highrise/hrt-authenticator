@@ -1,6 +1,7 @@
 import { cipher } from '../../../native-services';
-import constants from '../../services/constants';
+import { constants } from '../../../global';
 import db from './queries';
+
 const { isUnique, addMethod } = db;
 
 async function createAccount({ account, token }) {

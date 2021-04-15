@@ -1,8 +1,12 @@
 import constants from './constants';
+const { defaultMessages, name } = constants;
 
-function DbError({ message = 'Database Error' }) {
-    this.name = constants.name.DB;
+const MESSAGE = 'DATABASE_ACCESS_ERROR';
+
+function DbError({ message = MESSAGE, displayMessage = defaultMessages.DB }) {
+    this.name = name.DB;
     this.message = message;
+    this.displayMessage = displayMessage;
 }
 
 DbError.prototype = new Error();

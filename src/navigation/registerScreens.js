@@ -1,11 +1,11 @@
 import React from 'react';
 import { Navigation } from 'react-native-navigation';
-import screensId from './screensId';
+
 import { Provider } from 'react-redux';
 import store from '../redux.js';
+import screensId from './screensId';
 import {
     WelcomeScreen,
-    EmptyStateScreen,
     MainScreen,
     AddAccountScreen,
     QRScanScreen,
@@ -14,16 +14,12 @@ import {
     AuthScreen,
     BiometricOption,
     DeviceInfoScreen,
-    GetStartedScreen,
-    ErrorScreen,
-    PrivacyPolicyScreen,
-    TermAndConditionScreen,
-    ThirdPartyNoticeScreen,
-    SecurityAssessmentScreen,
     SuccessScreen,
-    CompletionScreen
+    CompletionScreen,
+    SplashScreen
 } from '../features';
-import { SplashScreen } from '../features/Splash';
+
+import { APIErrorBoundry } from '../features/errorBoundry';
 
 /**
  * Function registers defined screens with RN Navigation. New Screen must be added in src/navigation/registerScreens.js.
@@ -35,15 +31,21 @@ import { SplashScreen } from '../features/Splash';
 function registerScreens() {
     //Before registering a screen, add it's identifier in ./screensId.js
     //Register the screens here
-    Navigation.registerComponent(screensId.emptyState, () => EmptyStateScreen);
+
     Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => (props) => (
         <Provider store={store}>
-            <MainScreen {...props} />
+            <APIErrorBoundry {...props}>
+                <MainScreen {...props} />
+            </APIErrorBoundry>
         </Provider>
     ));
     Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
-    Navigation.registerComponent(screensId.qrScan, () => QRScanScreen);
+    Navigation.registerComponent(screensId.qrScan, () => (props) => (
+        <Provider store={store}>
+            <QRScanScreen {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
     Navigation.registerComponent(screensId.accessCode, () => (props) => (
         <Provider store={store}>
@@ -55,31 +57,20 @@ function registerScreens() {
             <AuthScreen {...props} />
         </Provider>
     ));
-    Navigation.registerComponent(
-        screensId.biometricOption,
-        () => BiometricOption
-    );
+    Navigation.registerComponent(screensId.biometricOption, () => (props) => (
+        <Provider store={store}>
+            <BiometricOption {...props} />
+        </Provider>
+    ));
     Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
     Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
-    Navigation.registerComponent(screensId.splash, () => SplashScreen);
-    Navigation.registerComponent(screensId.error, () => ErrorScreen);
-    Navigation.registerComponent(
-        screensId.privacypolicy,
-        () => PrivacyPolicyScreen
-    );
-    Navigation.registerComponent(
-        screensId.termandcondition,
-        () => TermAndConditionScreen
-    );
-    Navigation.registerComponent(
-        screensId.thirdpartynotice,
-        () => ThirdPartyNoticeScreen
-    );
-    Navigation.registerComponent(
-        screensId.securityassessment,
-        () => SecurityAssessmentScreen
-    );
+    Navigation.registerComponent(screensId.splash, () => (props) => (
+        <Provider store={store}>
+            <SplashScreen {...props} />
+        </Provider>
+    ));
 
+    // Notification Screens
     Navigation.registerComponent(screensId.success, () => SuccessScreen);
     Navigation.registerComponent(screensId.complete, () => CompletionScreen);
 }

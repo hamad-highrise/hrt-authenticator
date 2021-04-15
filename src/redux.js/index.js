@@ -7,12 +7,13 @@ const rootReducer = combineReducers({ alert: alertReducer, main: mainReducer });
 const initialState = {
     main: {
         selected: {},
-        accounts: []
+        accounts: null
     },
     alert: {
+        isConnected: null,
         loading: false,
         error: {
-            isOccurred: false,
+            hasOccurred: false,
             data: {}
         }
     }

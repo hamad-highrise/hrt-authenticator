@@ -11,7 +11,6 @@ function getAllAccounts() {
             dispatch({ type: constants.INIT, payload: { accounts } });
             dispatch(alertActions.success());
         } catch (error) {
-            console.warn(error);
             dispatch(alertActions.failure(error));
         }
     };
@@ -32,6 +31,7 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
                 accId,
                 ignoreSsl
             });
+
             if (checkType === 'MULTI') {
                 transaction
                     ? dispatch({
@@ -58,34 +58,50 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
                     ? dispatch({
                           type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
                           payload: {
-                              accId,
                               transaction: {
                                   available: true,
-                                  ...result.transaction
+                                  ...transaction
                               }
                           }
                       })
                     : dispatch({
                           type: constants.SET_SELECTED_ACCOUNT_TRANSACTION,
                           payload: {
-                              accId,
                               transaction: {
                                   available: false
                               }
                           }
                       });
             }
+            dispatch(resetError({ accId }));
             dispatch(alertActions.success());
         } catch (error) {
+            dispatch(setError({ accId }));
             dispatch(alertActions.failure(error));
         }
+    };
+}
+
+function setError({ error, accId }) {
+    return {
+        type: constants.SET_ERROR,
+        payload: { accId, error }
+    };
+}
+
+function resetError({ accId }) {
+    return {
+        type: constants.RESET_ERROR,
+        payload: { accId }
     };
 }
 
 const actions = {
     getAllAccounts,
     selectAccount,
-    checkTransaction
+    checkTransaction,
+    setError,
+    resetError
 };
 
 export default actions;

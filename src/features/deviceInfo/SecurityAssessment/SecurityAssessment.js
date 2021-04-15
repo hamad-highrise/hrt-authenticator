@@ -9,7 +9,7 @@ import {
     Dimensions,
     Animated
 } from 'react-native';
-import { TopNavbar } from '../../components';
+import { TopNavbar } from '../../../components';
 const SecurityAssessment = () => {
     const fadeAnim = useRef(new Animated.Value(-20)).current;
     const fadeAnimOPA = useRef(new Animated.Value(0)).current;

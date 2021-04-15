@@ -1,5 +1,7 @@
-import { SAMError } from '../../../global/errors';
-import { getFetchInstance, encodeFormData, constants } from '../../services';
+import { utils, errors } from '../../../global';
+
+const { getFetchInstance } = utils;
+const { NetworkError } = errors;
 
 async function getDetails({ endpoint, ignoreSSL }) {
     const rnFetch = getFetchInstance({ ignoreSSL });
@@ -8,9 +10,9 @@ async function getDetails({ endpoint, ignoreSSL }) {
     };
     try {
         const result = await rnFetch('GET', endpoint, headers);
-        return Promise.resolve(result);
+        return result;
     } catch (error) {
-        return Promise.reject(error);
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
@@ -30,7 +32,7 @@ async function getToken({ endpoint, formEncodedData, ignoreSSL }) {
         );
         return result;
     } catch (error) {
-        throw new SAMError({ message: error });
+        throw new NetworkError({ message: 'Unable to connect to server!' });
     }
 }
 
