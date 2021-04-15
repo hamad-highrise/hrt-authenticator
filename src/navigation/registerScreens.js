@@ -6,7 +6,6 @@ import store from '../redux.js';
 import screensId from './screensId';
 import {
     WelcomeScreen,
-    EmptyStateScreen,
     MainScreen,
     AddAccountScreen,
     QRScanScreen,
@@ -15,12 +14,6 @@ import {
     AuthScreen,
     BiometricOption,
     DeviceInfoScreen,
-    GetStartedScreen,
-    ErrorScreen,
-    PrivacyPolicyScreen,
-    TermAndConditionScreen,
-    ThirdPartyNoticeScreen,
-    SecurityAssessmentScreen,
     SuccessScreen,
     CompletionScreen,
     SplashScreen
@@ -39,7 +32,7 @@ import { View, Text } from 'react-native';
 function registerScreens() {
     //Before registering a screen, add it's identifier in ./screensId.js
     //Register the screens here
-    Navigation.registerComponent(screensId.emptyState, () => EmptyStateScreen);
+
     Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => (props) => (
         <Provider store={store}>
@@ -77,24 +70,8 @@ function registerScreens() {
             <SplashScreen {...props} />
         </Provider>
     ));
-    Navigation.registerComponent(screensId.error, () => ErrorScreen);
-    Navigation.registerComponent(
-        screensId.privacypolicy,
-        () => PrivacyPolicyScreen
-    );
-    Navigation.registerComponent(
-        screensId.termandcondition,
-        () => TermAndConditionScreen
-    );
-    Navigation.registerComponent(
-        screensId.thirdpartynotice,
-        () => ThirdPartyNoticeScreen
-    );
-    Navigation.registerComponent(
-        screensId.securityassessment,
-        () => SecurityAssessmentScreen
-    );
 
+    // Notification Screens
     Navigation.registerComponent(screensId.success, () => SuccessScreen);
     Navigation.registerComponent(screensId.complete, () => CompletionScreen);
 }

@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import navigation from '../../navigation';
-import { IconButton, Button } from '../../components';
+import { IconButton } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
 import { useSelector } from 'react-redux';
+import EmptyState from './EmptyState';
 
 const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
@@ -53,10 +54,14 @@ const Main = (props) => {
             </View>
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
 
-            <AccountList
-                accounts={accounts}
-                componentId={props.componentId} // for the sake of navigation
-            />
+            {accounts.length ? (
+                <AccountList
+                    accounts={accounts}
+                    componentId={props.componentId} // for the sake of navigation
+                />
+            ) : (
+                <EmptyState {...props} />
+            )}
 
             {!isConnected && (
                 <View

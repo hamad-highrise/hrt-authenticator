@@ -1,23 +1,16 @@
 import React from 'react';
-import {
-    Dimensions,
-    StyleSheet,
-    Text,
-    View,
-    StatusBar,
-    Image
-} from 'react-native';
+import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { Button } from '../../components';
 import navigation from '../../navigation';
 
 const EmptyState = (props) => {
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#555" />
+            {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
             <View style={{ flex: 0.4 }}>
                 <Image
                     source={require('../../assets/images/addAccount.png')}
-                    style={{ width: 150, height: 150, marginTop: 40 }}></Image>
+                    style={{ width: 150, height: 150 }}></Image>
             </View>
             <View style={{ flex: 0.3 }}>
                 <Text style={styles.welcome}>No Account Yet !</Text>
@@ -40,12 +33,6 @@ const EmptyState = (props) => {
     );
 };
 
-EmptyState.options = {
-    topBar: {
-        visible: false
-    }
-};
-
 export default EmptyState;
 
 const styles = StyleSheet.create({
@@ -53,20 +40,21 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#fff',
+        borderTopWidth: 1
     },
     welcome: {
         fontSize: 28,
         textAlign: 'center',
-        margin: 10,
+        // margin: 10,
         color: 'black',
         fontWeight: 'bold'
     },
     instructions: {
         textAlign: 'center',
         fontWeight: 'bold',
-        color: 'lightgrey',
-        marginBottom: 5
+        color: 'lightgrey'
+        // marginBottom: 5
     },
     btn: {
         backgroundColor: '#0f62fe',
@@ -75,7 +63,7 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     bar: {
         alignSelf: 'center',
