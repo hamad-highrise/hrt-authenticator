@@ -92,7 +92,7 @@ function useAccessCode({ componentId }) {
     const updateOtp = async () => {
         try {
             const secret = await getSecret(selected['id']);
-            setOTP(totpGenerator(secret));
+            secret && setOTP(totpGenerator(secret));
         } catch (error) {
             setFragment('SETTINGS');
             alert(
@@ -120,7 +120,7 @@ function useAccessCode({ componentId }) {
             await services.removeAccount({
                 accId: selected['id'],
                 type: selected['type'],
-                ignoreSsl: true
+                ignoreSsl: selected['ignoreSsl']
             });
             setLoading(false);
         } catch (error) {

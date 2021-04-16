@@ -8,7 +8,7 @@ import {
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
-
+import { utils } from '..';
 
 /**
  * Gives the token for the given account ID. If token has been expired, it will refresh it and return upated token.
@@ -34,6 +34,7 @@ async function getAccessToken(accId) {
             //token has been expired
 
             const { refreshToken, endpoint } = token;
+            const ignoreSsl = await utils.getIgnoreSslOption(accId);
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
                 cipherText: refreshToken
@@ -47,7 +48,8 @@ async function getAccessToken(accId) {
 
             const result = await getRefreshedToken({
                 endpoint,
-                formEncodedBody: body
+                formEncodedBody: body,
+                ignoreSsl
             });
             const { status } = result.respInfo;
             if ((status >= 200 && status < 299) || status === 304) {

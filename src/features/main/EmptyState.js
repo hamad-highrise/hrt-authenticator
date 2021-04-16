@@ -10,7 +10,7 @@ const EmptyState = (props) => {
             <View style={{ flex: 0.4 }}>
                 <Image
                     source={require('../../assets/images/addAccount.png')}
-                    style={{ width: 150, height: 150 }}></Image>
+                    style={{ width: 200, height: 200 }}></Image>
             </View>
             <View style={{ flex: 0.3 }}>
                 <Text style={styles.welcome}>No Account Yet !</Text>

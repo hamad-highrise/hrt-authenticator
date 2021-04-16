@@ -1,5 +1,11 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import {
+    View,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+    Text
+} from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 
 import parser from './parser';
@@ -133,6 +139,38 @@ const QRScan = (props) => {
                                     styles.maskFrame
                                 ]}
                             />
+                        </View>
+                        <View
+                            style={{
+                                backgroundColor: 'transparent',
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '15%',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <TouchableOpacity
+                                style={{
+                                    width: '70%',
+                                    backgroundColor: 'grey',
+                                    height: 45,
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    elevation: 15,
+                                    shadowColor: 'grey',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                <Text
+                                    style={{
+                                        fontSize: 20,
+                                        fontWeight: '100'
+                                    }}>
+                                    Enter Code Manually
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </QRCodeReader>
                 </>

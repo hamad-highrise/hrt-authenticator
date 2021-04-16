@@ -47,9 +47,9 @@ const Splash = (props) => {
                     source={require('../../assets/images/highrise-logo.png')}
                     style={styles.image}
                 />
-                {/* <Text style={{ ...styles.welcome, flex: 3}}>
-                    AUTHENTICATOR
-                </Text> */}
+                <Text style={{ ...styles.welcome, fontSize: 30 }}>
+                    HRT Verify
+                </Text>
             </View>
             <View>
                 <Text style={styles.instructions}>HIGHRISE</Text>
@@ -95,7 +95,7 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-condensed'
     },
     image: {
-        width: Dimensions.get('window').width * 0.7,
-        height: 75
+        // width: 300,
+        height: 200
     }
 });
