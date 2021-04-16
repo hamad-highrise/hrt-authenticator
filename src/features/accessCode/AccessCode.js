@@ -49,11 +49,8 @@ const AccessCode = (props) => {
         }).start((res) => {
             res.finished && spinValue.setValue(0);
         });
-        try {
-            transactionCheck();
-        } catch (error) {
-            alert(error);
-        }
+
+        transactionCheck();
     };
 
     return loading && account['type'] === constants.ACCOUNT_TYPES.SAM ? (
