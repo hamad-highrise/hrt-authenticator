@@ -2,10 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import { AppState } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+
 import navigator from '../../../navigation';
 import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
+import { alertActions } from '../../alert';
 
 const CHECKTYPE = 'SELECTED';
 
@@ -15,6 +17,7 @@ function useAccessCode({ componentId }) {
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
+    const [loading, setLoading] = useState(false);
     const otpIntervalRef = useRef();
     const transactionIntervalRef = useRef();
     let onScreen = useRef().current;
@@ -105,21 +108,25 @@ function useAccessCode({ componentId }) {
         dispatch(
             mainActions.checkTransaction({
                 accId: selected['id'],
-                checkType: CHECKTYPE
+                checkType: CHECKTYPE,
+                ignoreSsl: selected['ignoreSsl']
             })
         );
     };
 
     const removeAccount = async () => {
         try {
+            setLoading(true);
             await services.removeAccount({
                 accId: selected['id'],
                 type: selected['type'],
                 ignoreSsl: true
             });
+            setLoading(false);
         } catch (error) {
-            console.warn(error);
+            dispatch(alertActions.failure(error, selected['id']));
         } finally {
+            dispatch(mainActions.getAllAccounts());
             navigator.goToRoot(componentId);
         }
     };
@@ -132,6 +139,7 @@ function useAccessCode({ componentId }) {
         onSettingsSelect,
         transactionCheck: checker,
         removeAccount,
+        loading,
         account: {
             name: selected['name'],
             issuer: selected['issuer'],

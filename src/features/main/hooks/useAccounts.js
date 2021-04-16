@@ -41,7 +41,8 @@ function useAccounts() {
                 dispatch(
                     mainActions.checkTransaction({
                         accId: account['id'],
-                        checkType: CHECKTYPE
+                        checkType: CHECKTYPE,
+                        ignoreSsl: account['ignoreSsl']
                     })
                 );
         });

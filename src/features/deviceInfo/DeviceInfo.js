@@ -87,16 +87,12 @@ const DeviceInfo = (props) => {
                     borderTopWidth: 1
                 }}>
                 {/* REMOVE BELOW RECORDs */}
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandleBiometricOption}>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                           Version
-                        </Text>
+                        <Text style={styles.listitemText}>Version</Text>
                         <Text style={styles.listitemText}>2.4.5</Text>
                     </View>
-                </TouchableOpacity>
+                </View>
                 <TouchableOpacity
                     style={styles.listitem}
                     onPress={onPressHandlerWelcome}>
