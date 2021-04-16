@@ -60,10 +60,33 @@ async function addMethod({ accId, method, keyHandle }) {
     }
 }
 
+async function getIgnoreSslOption(accId) {
+    const query = `SELECT ignore_ssl AS ignoreSsl FROM accounts WHERE account_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let temp;
+        for (let i = 0; i < result.rows.length; i++) {
+            temp = result.rows.item().ignoreSsl;
+        }
+        return temp;
+    } catch (error) {
+        throw new DatabaseError({ message: 'IGNORE_SSL_OPTION_ERROR' });
+    }
+}
+
 export default {
     getAuthIdByAccount,
     getEnrollmentEndpoint,
     getDeviceId,
-    addMethod
+    addMethod,
+    getIgnoreSslOption
 };
-export { getAuthIdByAccount, getEnrollmentEndpoint, getDeviceId, addMethod };
+export {
+    getAuthIdByAccount,
+    getEnrollmentEndpoint,
+    getDeviceId,
+    addMethod,
+    getIgnoreSslOption
+};

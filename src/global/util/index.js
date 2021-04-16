@@ -9,5 +9,6 @@ export {
     getAuthIdByAccount,
     getEnrollmentEndpoint,
     getDeviceId,
-    addMethod
+    addMethod,
+    getIgnoreSslOption
 } from './queries';
