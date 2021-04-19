@@ -9,8 +9,10 @@ import {
     Dimensions,
     Animated
 } from 'react-native';
+import { useDispatch } from 'react-redux';
 
 import { TopNavbar } from '../../../components';
+import { utilities } from '../../../native-services';
 import navigation from '../../../navigation';
 const SecurityAssessment = (props) => {
     const fadeAnim = useRef(new Animated.Value(-20)).current;
@@ -46,7 +48,12 @@ const SecurityAssessment = (props) => {
         }
     };
 
-    const [isEnabled, setIsEnabled] = useState(false);
+    const [isEnabled, setIsEnabled] = useState(true);
+    const [info, setInfo] = useState({
+        rooted: false,
+        biometricEnrolled: true
+    });
+    const init = () => {};
     const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
     return (
         <View style={styles.container}>
@@ -69,7 +76,7 @@ const SecurityAssessment = (props) => {
                 }}>
                 {/* li */}
 
-                <TouchableOpacity style={styles.listitem} onPress={fadeOut}>
+                {/* <TouchableOpacity style={styles.listitem} onPress={fadeOut}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Android version up to date
@@ -90,7 +97,7 @@ const SecurityAssessment = (props) => {
                         A new Android version is available. Please update your
                         device.
                     </Text>
-                </Animated.View>
+                </Animated.View> */}
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
@@ -105,7 +112,7 @@ const SecurityAssessment = (props) => {
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            Biometrics enrolled
+                            Biometrics Enrolled
                         </Text>
                         <Image
                             source={require('../../../assets/icons/tickblack2.png')}
@@ -127,7 +134,7 @@ const SecurityAssessment = (props) => {
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            IBM Security Verify up to date
+                            HRT Verify up to date
                         </Text>
                         <Image
                             source={require('../../../assets/icons/tickblack2.png')}
@@ -147,7 +154,9 @@ const SecurityAssessment = (props) => {
                     borderTopWidth: 1,
                     marginTop: 110
                 }}>
-                <TouchableOpacity style={styles.listitemBottom}>
+                <TouchableOpacity
+                    onPress={() => utilities.preventScreenshot()}
+                    style={styles.listitemBottom}>
                     <View
                         style={[
                             styles.listitemView,
@@ -155,7 +164,7 @@ const SecurityAssessment = (props) => {
                         ]}>
                         <View>
                             <Text style={styles.listitemTextBottom}>
-                                IBM Security Verify up to date
+                                Prevent Screen Capture
                             </Text>
                             <Text style={styles.listitemSubTextBottom}>
                                 Stop other applications from capturing your

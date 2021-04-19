@@ -58,7 +58,7 @@ const DeviceInfo = (props) => {
                 <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Version</Text>
-                        <Text style={styles.listitemText}>2.4.5</Text>
+                        <Text style={styles.listitemText}>1.0.0</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.listitem}>
