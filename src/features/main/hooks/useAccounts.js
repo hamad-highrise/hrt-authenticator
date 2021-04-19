@@ -28,12 +28,12 @@ function useAccounts() {
     useEffect(() => {
         transactionCheckIntervalRef.current &&
             clearInterval(transactionCheckIntervalRef.current);
-        if (accounts.length > 0)
+        if (accounts?.length > 0)
             transactionCheckIntervalRef.current = setInterval(
                 transactionChecker,
                 1000 * 5
             );
-    }, [accounts.length]);
+    }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {
         accounts.forEach((account) => {

@@ -69,7 +69,7 @@ const Main = (props) => {
                     </Text>
                 </View>
             )}
-            {accounts.length ? (
+            {accounts?.length ? (
                 <AccountList
                     accounts={accounts}
                     componentId={props.componentId} // for the sake of navigation

@@ -17,11 +17,6 @@ async function initiateDb() {
             constants.APP_INFO.VERSION
         ]);
 
-        // await database.executeQuery(queries.methodsPopulate, [
-        //     constants.ACCOUNT_METHODS.TOTP,
-        //     constants.ACCOUNT_METHODS.USER_PRESENCE,
-        //     constants.ACCOUNT_METHODS.FINGERPRINT
-        // ]);
         return Promise.resolve();
     } catch (error) {
         return Promise.reject(error);
