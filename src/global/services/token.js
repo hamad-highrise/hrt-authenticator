@@ -1,4 +1,8 @@
-import { getToken as getTokenFromDb, updateTokenDb } from './db';
+import {
+    getToken as getTokenFromDb,
+    removeAccountFromDB,
+    updateTokenDb
+} from './db';
 import { getRefreshedToken } from './api';
 import { cipher } from '../../native-services';
 import {
@@ -89,9 +93,23 @@ async function getAccessToken(accId) {
                     throw new SAMError({
                         message: result.json()?.error_description
                     });
-                throw new TokenError({
-                    message: 'ACCOUNT_DELETED_MANUALLY'
-                });
+                if (status >= 400 && status < 500) {
+                    const errDescription = result.json()['error_description'];
+                    const splitted = errDescription.split(' ');
+                    if (
+                        splitted[0] ===
+                        constants.SAM_ERROR_CODE.AUTH_GRANT_NOT_EXIST
+                    ) {
+                        try {
+                            await removeAccountFromDB(accId);
+                        } catch (error) {
+                            throw error;
+                        }
+                        throw new TokenError({
+                            message: 'DEVICE_DELETED_MANUALLY'
+                        });
+                    }
+                }
             }
         }
     } catch (error) {

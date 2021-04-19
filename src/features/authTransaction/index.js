@@ -3,6 +3,7 @@ import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 import styles from './styles';
 import { TopNavbar } from '../../components';
 import { useTransaction } from './hooks';
+import { useSelector } from 'react-redux';
 
 const AuthProcess = (props) => {
     const {
@@ -10,7 +11,8 @@ const AuthProcess = (props) => {
         createdAt,
         transactionId,
         onApprove,
-        onReject
+        onReject,
+        isConnected
     } = useTransaction(props);
 
     const [viewDetails, setFragment] = useState('YES');
@@ -80,6 +82,21 @@ const AuthProcess = (props) => {
     return (
         <View style={styles.container}>
             <View>
+                {!isConnected && (
+                    <View
+                        style={{
+                            backgroundColor: 'black',
+                            width: '100%',
+                            height: 35,
+                            justifyContent: 'center',
+                            alignItems: 'center'
+                        }}>
+                        <Text
+                            style={{ fontFamily: 'monospace', color: 'white' }}>
+                            No Internet
+                        </Text>
+                    </View>
+                )}
                 {viewDetails == 'YES' ? (
                     <Animated.View
                         style={[

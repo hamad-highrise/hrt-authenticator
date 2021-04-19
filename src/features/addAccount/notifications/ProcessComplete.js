@@ -66,8 +66,9 @@ const styles = StyleSheet.create({
         fontSize: 16
     },
     image: {
+        margin: 20,
         width: 240,
-        height: 300
+        height: 240
     },
     btn: {
         backgroundColor: '#0f62fe',

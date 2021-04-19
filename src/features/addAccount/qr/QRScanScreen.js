@@ -27,12 +27,13 @@ const QRScan = (props) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
-            setLoading(true);
+
             vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
                 //MMFA Account is being Started
                 if (isConnected) {
+                    setLoading(true);
                     try {
                         const result = await initiateSamAccount(value);
                         navigator.goTo(
@@ -47,11 +48,11 @@ const QRScan = (props) => {
                         );
                     } catch (error) {
                         setLoading(false);
-                        alert(JSON.stringify(error));
                         navigator.goToRoot(props.componentId);
                     }
                 }
             } else {
+                setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
                 const account = {
@@ -80,7 +81,7 @@ const QRScan = (props) => {
                         navigator.goToRoot(props.componentId);
                     }
                 } catch (error) {
-                    alert('Unable to create account at this time.');
+                    alert('Unable to register an account.');
                     setLoading(false);
                 }
             }
@@ -102,6 +103,24 @@ const QRScan = (props) => {
                             navigator.goBack(props.componentId)
                         }
                     />
+                    {!isConnected && (
+                        <View
+                            style={{
+                                backgroundColor: 'black',
+                                width: '100%',
+                                height: 35,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <Text
+                                style={{
+                                    fontFamily: 'monospace',
+                                    color: 'white'
+                                }}>
+                                No Internet
+                            </Text>
+                        </View>
+                    )}
                     <QRCodeReader
                         captureAudio={false}
                         style={{

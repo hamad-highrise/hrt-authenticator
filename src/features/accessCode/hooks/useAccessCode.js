@@ -122,23 +122,22 @@ function useAccessCode({ componentId }) {
                 type: selected['type'],
                 ignoreSsl: selected['ignoreSsl']
             });
-            setLoading(false);
             dispatch(mainActions.getAllAccounts());
             setTimeout(() => {
+                setLoading(false);
                 navigator.goToRoot(componentId);
             }, 1000);
         } catch (error) {
-            setLoading(false);
             Alert.alert(
                 'Force Account Deletion',
                 'Unable to remove account from SAM. Delete forcefully?',
                 [
+                    { text: 'Cancel', onPress: () => {}, style: 'cancel' },
                     {
                         text: 'Yes, Delete',
                         onPress: removeAccountFromDB,
                         style: 'destructive'
-                    },
-                    { text: 'Cancel', onPress: () => {}, style: 'cancel' }
+                    }
                 ]
             );
             dispatch(alertActions.failure(error, selected['id']));
@@ -147,15 +146,14 @@ function useAccessCode({ componentId }) {
 
     const removeAccountFromDB = async () => {
         try {
-            setLoading(true);
             await services.removeAccountFromDB(selected['id']);
-            setLoading(false);
         } catch (error) {
             setLoading(false);
             dispatch(alertActions.failure(error, selected['id']));
         } finally {
             dispatch(mainActions.getAllAccounts());
             setTimeout(() => {
+                setLoading(false);
                 navigator.goToRoot(componentId);
             }, 1000);
         }

@@ -30,11 +30,23 @@ const KEY_ALIAS = Object.freeze({
     TOKEN: 'TOKEN12'
 });
 
+const SAM_ERROR_CODE = Object.freeze({
+    AUTH_GRANT_NOT_EXIST: 'FBTOAU211E'
+});
+
 export default {
     ACCOUNT_METHODS,
     ERROR_MESSAGES,
     APP_INFO,
     ACCOUNT_TYPES,
-    KEY_ALIAS
+    KEY_ALIAS,
+    SAM_ERROR_CODE
 };
-export { ACCOUNT_METHODS, ERROR_MESSAGES, APP_INFO, ACCOUNT_TYPES, KEY_ALIAS };
+export {
+    ACCOUNT_METHODS,
+    ERROR_MESSAGES,
+    APP_INFO,
+    ACCOUNT_TYPES,
+    KEY_ALIAS,
+    SAM_ERROR_CODE
+};

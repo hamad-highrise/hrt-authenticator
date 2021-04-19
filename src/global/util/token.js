@@ -13,6 +13,7 @@ import constants from '../constants';
 function isTokenValid(expiresAt) {
     const currentTime = Math.floor(Date.now() / 1000); //time in seconds
     const TOKEN_EXPIRY_SECONDS_THRESHOLD = 5;
+    console.warn(expiresAt - currentTime);
     const valid =
         expiresAt > currentTime &&
         expiresAt - currentTime > TOKEN_EXPIRY_SECONDS_THRESHOLD;
