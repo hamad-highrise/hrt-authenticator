@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { AppState } from 'react-native';
+import { Alert, AppState } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -123,11 +123,41 @@ function useAccessCode({ componentId }) {
                 ignoreSsl: selected['ignoreSsl']
             });
             setLoading(false);
+            dispatch(mainActions.getAllAccounts());
+            setTimeout(() => {
+                navigator.goToRoot(componentId);
+            }, 1000);
         } catch (error) {
+            setLoading(false);
+            Alert.alert(
+                'Force Account Deletion',
+                'Unable to remove account from SAM. Delete forcefully?',
+                [
+                    {
+                        text: 'Yes, Delete',
+                        onPress: removeAccountFromDB,
+                        style: 'destructive'
+                    },
+                    { text: 'Cancel', onPress: () => {}, style: 'cancel' }
+                ]
+            );
+            dispatch(alertActions.failure(error, selected['id']));
+        }
+    };
+
+    const removeAccountFromDB = async () => {
+        try {
+            setLoading(true);
+            await services.removeAccountFromDB(selected['id']);
+            setLoading(false);
+        } catch (error) {
+            setLoading(false);
             dispatch(alertActions.failure(error, selected['id']));
         } finally {
             dispatch(mainActions.getAllAccounts());
-            navigator.goToRoot(componentId);
+            setTimeout(() => {
+                navigator.goToRoot(componentId);
+            }, 1000);
         }
     };
 

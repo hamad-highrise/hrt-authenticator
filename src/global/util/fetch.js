@@ -7,6 +7,7 @@ import RNFetchBlob from 'rn-fetch-blob';
  */
 
 function getFetchInstance({ ignoreSsl = true } = {}) {
+    ignoreSsl = Boolean(ignoreSsl);
     return RNFetchBlob.config({
         trusty: ignoreSsl /* workaround until refactored completely */
     }).fetch;

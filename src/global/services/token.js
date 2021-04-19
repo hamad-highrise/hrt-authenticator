@@ -4,11 +4,11 @@ import { cipher } from '../../native-services';
 import {
     isTokenValid,
     getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds,
-    getTokenRequestBody
+    getTokenRequestBody,
+    getIgnoreSslOption
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
-import { utils } from '..';
 
 /**
  * Gives the token for the given account ID. If token has been expired, it will refresh it and return upated token.
@@ -34,7 +34,7 @@ async function getAccessToken(accId) {
             //token has been expired
 
             const { refreshToken, endpoint } = token;
-            const ignoreSsl = await utils.getIgnoreSslOption(accId);
+            const ignoreSsl = await getIgnoreSslOption(accId);
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
                 cipherText: refreshToken

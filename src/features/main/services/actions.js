@@ -76,6 +76,7 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
             dispatch(resetError({ accId }));
             dispatch(alertActions.success());
         } catch (error) {
+            console.warn(error);
             dispatch(setError({ accId }));
             dispatch(alertActions.failure(error));
         }
