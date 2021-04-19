@@ -21,7 +21,7 @@ const Main = (props) => {
 
     return (
         <View style={styles.container}>
-            {accounts.length ? (
+            {accounts?.length ? (
                 <View style={styles.header}>
                     <View>
                         <IconButton onPress={onDeviceInfo}>

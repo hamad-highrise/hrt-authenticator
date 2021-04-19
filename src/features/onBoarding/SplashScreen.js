@@ -12,6 +12,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { mainActions } from '../main/services';
 import navigator from '../../navigation';
 
+const SET_ROOT_DELAY = 2 * 1000;
+
 const Splash = (props) => {
     const dispatch = useDispatch();
     const { accounts } = useSelector(({ main }) => main);
@@ -23,7 +25,9 @@ const Splash = (props) => {
         if (await utilities.isInitiated()) {
             dispatch(mainActions.getAllAccounts());
         } else {
-            navigator.setOnBoardingRoot();
+            setTimeout(() => {
+                navigator.setOnBoardingRoot();
+            }, SET_ROOT_DELAY);
         }
     };
 
@@ -32,7 +36,7 @@ const Splash = (props) => {
             if (accounts !== null) {
                 navigator.setMainRoot();
             }
-        }, 2000);
+        }, SET_ROOT_DELAY);
     }, [JSON.stringify(accounts)]);
 
     return (
