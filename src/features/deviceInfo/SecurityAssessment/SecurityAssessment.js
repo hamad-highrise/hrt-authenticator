@@ -9,8 +9,10 @@ import {
     Dimensions,
     Animated
 } from 'react-native';
+
 import { TopNavbar } from '../../../components';
-const SecurityAssessment = () => {
+import navigation from '../../../navigation';
+const SecurityAssessment = (props) => {
     const fadeAnim = useRef(new Animated.Value(-20)).current;
     const fadeAnimOPA = useRef(new Animated.Value(0)).current;
 
@@ -48,7 +50,12 @@ const SecurityAssessment = () => {
     const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
     return (
         <View style={styles.container}>
-            <TopNavbar title="" onPress={() => alert('nothing')} imageBackOnPress={() => navigation.goBack(props.componentId)}></TopNavbar>
+            <TopNavbar
+                title=""
+                onPress={() => alert('nothing')}
+                imageBackOnPress={() =>
+                    navigation.goBack(props.componentId)
+                }></TopNavbar>
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
@@ -68,7 +75,7 @@ const SecurityAssessment = () => {
                             Android version up to date
                         </Text>
                         <Image
-                            source={require('../../assets/icons/exclamation.png')}
+                            source={require('../../../assets/icons/exclamation.png')}
                             style={styles.img}
                         />
                     </View>
@@ -90,7 +97,7 @@ const SecurityAssessment = () => {
                             Device not rooted
                         </Text>
                         <Image
-                            source={require('../../assets/icons/tickblack2.png')}
+                            source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
@@ -101,7 +108,7 @@ const SecurityAssessment = () => {
                             Biometrics enrolled
                         </Text>
                         <Image
-                            source={require('../../assets/icons/tickblack2.png')}
+                            source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
@@ -112,7 +119,7 @@ const SecurityAssessment = () => {
                             Device security is enabled
                         </Text>
                         <Image
-                            source={require('../../assets/icons/tickblack2.png')}
+                            source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
@@ -123,7 +130,7 @@ const SecurityAssessment = () => {
                             IBM Security Verify up to date
                         </Text>
                         <Image
-                            source={require('../../assets/icons/tickblack2.png')}
+                            source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>

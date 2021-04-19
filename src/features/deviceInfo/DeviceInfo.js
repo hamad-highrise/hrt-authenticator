@@ -13,38 +13,6 @@ import {
 import { TopNavbar } from '../../components';
 import navigation from '../../navigation';
 const DeviceInfo = (props) => {
-    const onPressHandleProcessComplete = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.processcomplete
-        );
-    }, [props.componentId]);
-    const onPressHandleBiometricOption = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.biometricOption
-        );
-    }, [props.componentId]);
-
-    const onPressHandlerWelcome = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.welcome);
-    }, [props.componentId]);
-
-    const onPressHandlerSplashScreen = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.splash);
-    }, [props.componentId]);
-    const onPressHandlerEmptyState = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.emptyState);
-    }, [props.componentId]);
-    const onPressHandlerError = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.error);
-    }, [props.componentId]);
-    const onPressHandlerGetStarted = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.getstarted);
-    }, [props.componentId]);
-    const onPressHandlerNotifySuccess = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.notifysuccess);
-    }, [props.componentId]);
     const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(
         false
     );
@@ -70,7 +38,7 @@ const DeviceInfo = (props) => {
     return (
         <View style={styles.container}>
             <TopNavbar
-                title=""
+                title="Utilities"
                 imageBackOnPress={() =>
                     navigation.goBack(props.componentId)
                 }></TopNavbar>
@@ -93,49 +61,26 @@ const DeviceInfo = (props) => {
                         <Text style={styles.listitemText}>2.4.5</Text>
                     </View>
                 </View>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerWelcome}>
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            {/* Remove this record */}onPressHandlerWelcome
+                            Terms and Conditions
                         </Text>
-                        <Text style={styles.listitemText}>2.1.2</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerSplashScreen}>
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            {/* Third Party Notices */}
-                            onPressHandlerSplashScreen
-                        </Text>
+                        <Text style={styles.listitemText}>Privacy Policy</Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}
                             style={styles.img}
                         />
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerEmptyState}>
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            {/* Third Party Notices */}onPressHandlerEmptyState
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerGetStarted}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlerGetStarted
+                            Third Party Notices
                         </Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}
@@ -144,58 +89,6 @@ const DeviceInfo = (props) => {
                     </View>
                 </TouchableOpacity>
 
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerNotifySuccess}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlerNotifySuccess
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerError}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlerError
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandleProcessComplete}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandleProcessComplete
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={() => privacypolicysetModalVisible(true)}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlerprivacypolicy
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
                 {/* test case modal */}
                 <Modal
                     animationType="slide"
@@ -288,36 +181,10 @@ const DeviceInfo = (props) => {
                 {/* end test case modal */}
                 <TouchableOpacity
                     style={styles.listitem}
-                    onPress={onPressHandlertermandcondition}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlertermandcondition
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
-                    onPress={onPressHandlerthirdpartynotice}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            onPressHandlerthirdpartynotice
-                        </Text>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity
-                    style={styles.listitem}
                     onPress={onPressHandlersecurityassessment}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            onPressHandlersecurityassessment
+                            Security Assessment
                         </Text>
                         <Image
                             source={require('../../assets/icons/backarrowblack.png')}
