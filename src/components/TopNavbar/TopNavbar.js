@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
     View,
     Image,
@@ -101,17 +101,18 @@ const styles = StyleSheet.create({
         color: 'black',
         justifyContent: 'center',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        zIndex: 10000
     },
     iconBtnContainer: {
         // backgroundColor: 'black',
         // transform:[{rotate:'45deg'}],
-        // height: 55
+        // height: 55,
     },
     iconBtn: {
         width: 25,
         height: 25,
         marginTop: 10
-        // marginLeft: 5
+        // marginLeft: 5,
     }
 });

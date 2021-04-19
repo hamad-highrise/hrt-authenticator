@@ -13,6 +13,7 @@ const CHECKTYPE = 'SELECTED';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
+    const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
@@ -105,13 +106,14 @@ function useAccessCode({ componentId }) {
     const onSettingsSelect = () => setFragment('SETTINGS');
 
     const checker = () => {
-        dispatch(
-            mainActions.checkTransaction({
-                accId: selected['id'],
-                checkType: CHECKTYPE,
-                ignoreSsl: selected['ignoreSsl']
-            })
-        );
+        isConnected &&
+            dispatch(
+                mainActions.checkTransaction({
+                    accId: selected['id'],
+                    checkType: CHECKTYPE,
+                    ignoreSsl: selected['ignoreSsl']
+                })
+            );
     };
 
     const removeAccount = async () => {
@@ -132,7 +134,13 @@ function useAccessCode({ componentId }) {
                 'Force Account Deletion',
                 'Unable to remove account from SAM. Delete forcefully?',
                 [
-                    { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+                    {
+                        text: 'Cancel',
+                        onPress: () => {
+                            setLoading(false);
+                        },
+                        style: 'cancel'
+                    },
                     {
                         text: 'Yes, Delete',
                         onPress: removeAccountFromDB,
@@ -172,7 +180,8 @@ function useAccessCode({ componentId }) {
             name: selected['name'],
             issuer: selected['issuer'],
             type: selected['type']
-        }
+        },
+        isConnected
     };
 }
 

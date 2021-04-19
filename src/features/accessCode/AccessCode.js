@@ -96,7 +96,6 @@ const AccessCode = (props) => {
                 )}
             </View>
 
-            {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{account.name}</Text>

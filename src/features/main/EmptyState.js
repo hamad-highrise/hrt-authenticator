@@ -9,7 +9,7 @@ const EmptyState = (props) => {
             {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
             <View style={{ flex: 0.4 }}>
                 <Image
-                    source={require('../../assets/images/addAccount.png')}
+                    source={require('../../assets/images/AddAccIBM.png')}
                     style={{ width: 200, height: 200 }}></Image>
             </View>
             <View style={{ flex: 0.3 }}>
@@ -24,7 +24,7 @@ const EmptyState = (props) => {
                     onPress={() =>
                         navigation.goTo(
                             props.componentId,
-                            navigation.screenIds.addAccount
+                            navigation.screenIds.qrScan
                         )
                     }
                 />

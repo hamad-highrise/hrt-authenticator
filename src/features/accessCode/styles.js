@@ -38,7 +38,7 @@ export default StyleSheet.create({
         height: 30
     },
     top: {
-        flex: 0.1,
+        flex: 0.1
     },
     titleIDText: {
         fontSize: 22
@@ -51,7 +51,6 @@ export default StyleSheet.create({
     bottom: {
         flex: 0.3
     },
-
 
     slectorContainer: {
         width: Dimensions.get('window').width * 0.4,
@@ -67,14 +66,14 @@ export default StyleSheet.create({
         paddingBottom: 13,
         paddingRight: 20,
         width: '100%',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
     selectorSeparator: {
         width: 0,
         backgroundColor: 'black'
     },
     selected: {
-        backgroundColor: '#0f62fe',
+        backgroundColor: '#0f62fe'
     },
     selectedLeft: {
         borderTopLeftRadius: 7,
@@ -98,7 +97,7 @@ export default StyleSheet.create({
 
     selectorText: {
         fontSize: 15,
-        color: '#0f62fe',
+        color: '#0f62fe'
     },
     selectedText: {
         color: 'white'
@@ -109,7 +108,7 @@ export default StyleSheet.create({
         borderWidth: 0,
         borderRadius: 0,
         width: Dimensions.get('window').width * 0.9,
-        alignSelf: 'center',
+        alignSelf: 'center'
     },
     middles: {
         flex: 0.12
@@ -136,7 +135,7 @@ export default StyleSheet.create({
     },
     img: {
         width: 30,
-        height: 28,
+        height: 28
     },
     imgg: {
         width: 25,

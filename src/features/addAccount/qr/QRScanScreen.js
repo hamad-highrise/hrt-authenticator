@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import {
     View,
     StyleSheet,
@@ -16,12 +16,17 @@ import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import { useSelector } from 'react-redux';
+import navigation from '../../../navigation';
 
 const QRScan = (props) => {
     const { isConnected } = useSelector(({ alert }) => alert);
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    const onManualCodeClick = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.accountForm);
+    }, [props.componentId]);
 
     const barcodeRecognized = async (_barcode) => {
         //Barcode can't be read multiple time
@@ -40,7 +45,7 @@ const QRScan = (props) => {
                             props.componentId,
                             navigator.screenIds.success,
                             {
-                                accountName: result.accountName,
+                                accountName: result.issuer,
                                 accId: result.insertId,
                                 methods: result.methods,
                                 type: constants.ACCOUNT_TYPES.SAM
@@ -171,6 +176,7 @@ const QRScan = (props) => {
                                 alignItems: 'center'
                             }}>
                             <TouchableOpacity
+                                onPress={onManualCodeClick}
                                 style={{
                                     width: '70%',
                                     backgroundColor: 'grey',

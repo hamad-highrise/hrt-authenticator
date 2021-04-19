@@ -12,7 +12,7 @@ const Main = (props) => {
     const isConnected = useSelector(({ alert }) => alert.isConnected);
 
     const onAddAccount = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.addAccount);
+        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
     }, [props.componentId]);
 
     const onDeviceInfo = useCallback(() => {
