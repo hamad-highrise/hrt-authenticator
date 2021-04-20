@@ -10,7 +10,7 @@ import { RNCamera as QRCodeReader } from 'react-native-camera';
 
 import parser from './parser';
 import navigator from '../../../navigation';
-import { TopNavbar, LoadingIndicator } from '../../../components';
+import { TopNavbar, LoadingIndicator, Button } from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
@@ -175,27 +175,15 @@ const QRScan = (props) => {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-                            <TouchableOpacity
+                            <Button
                                 onPress={onManualCodeClick}
+                                label={'Enter Code Manually'}
+                                rippleColor="#ACA8A8"
                                 style={{
-                                    width: '70%',
-                                    backgroundColor: 'grey',
-                                    height: 45,
-                                    borderWidth: 1,
-                                    borderRadius: 5,
-                                    elevation: 15,
-                                    shadowColor: 'grey',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 20,
-                                        fontWeight: '100'
-                                    }}>
-                                    Enter Code Manually
-                                </Text>
-                            </TouchableOpacity>
+                                    width: '90%',
+                                    backgroundColor: 'grey'
+                                }}
+                            />
                         </View>
                     </QRCodeReader>
                 </>

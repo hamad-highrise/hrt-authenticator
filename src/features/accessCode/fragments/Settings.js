@@ -49,6 +49,7 @@ const Settings = ({ removeAccount }) => {
                     label="Remove Account"
                     style={styles.btn}
                     onPress={onRemovePress}
+                    rippleColor="#FF7F7F "
                 />
                 <Text
                     style={{

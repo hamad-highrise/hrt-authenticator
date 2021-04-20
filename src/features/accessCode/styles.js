@@ -104,9 +104,6 @@ export default StyleSheet.create({
     },
     btn: {
         backgroundColor: 'red',
-        paddingVertical: 13,
-        borderWidth: 0,
-        borderRadius: 0,
         width: Dimensions.get('window').width * 0.9,
         alignSelf: 'center'
     },

@@ -94,9 +94,10 @@ const CodeAccount = (props) => {
 
                 <View style={styles.bottom}>
                     <Button
-                        title="Connect"
+                        label="Connect"
                         style={styles.btn}
                         onPress={onAddPress}
+                        rippleColor="#ACA8A8"
                     />
                 </View>
             </View>
@@ -139,11 +140,11 @@ const styles = StyleSheet.create({
     },
     btn: {
         backgroundColor: 'lightgrey',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
+        // paddingVertical: 23,
+        // paddingHorizontal: 12,
+        // borderWidth: 0,
+        // borderRadius: 0,
+        // width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center'
     },
     SListtitle: {
