@@ -19,7 +19,7 @@ const EmptyState = (props) => {
                 </Text>
                 <View style={styles.bar}></View>
                 <Button
-                    title="Connect Account"
+                    label="Connect Account"
                     style={styles.btn}
                     onPress={() =>
                         navigation.goTo(
@@ -57,13 +57,13 @@ const styles = StyleSheet.create({
         // marginBottom: 5
     },
     btn: {
-        backgroundColor: '#0f62fe',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center'
+        // backgroundColor: '#0f62fe',
+        // paddingVertical: 23,
+        // paddingHorizontal: 12,
+        // borderWidth: 0,
+        // borderRadius: 0,
+        // // width: Dimensions.get('window').width * 0.7,
+        // alignSelf: 'center'
     },
     bar: {
         alignSelf: 'center',

@@ -27,7 +27,7 @@ const WelcomeScreen = () => {
             <View>
                 <Text style={styles.welcome}>Welcome To Secure World!</Text>
             </View>
-            <Button style={styles.btn} title="Continue" onPress={onPress} />
+            <Button label="Continue" onPress={onPress} />
             <View style={{ marginBottom: -50 }}></View>
         </View>
     );
