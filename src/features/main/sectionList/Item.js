@@ -33,7 +33,7 @@ const Item = ({ account, componentId }) => {
         <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
             <Text style={styles.SListheader}>{account['name']}</Text>
             <Text style={styles.SListtitle}>{account['issuer']}</Text>
-            {account.transaction?.available && (
+            {account?.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
             {renderErrorMessage()}

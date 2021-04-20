@@ -7,7 +7,6 @@ import screensId from './screensId';
 import {
     WelcomeScreen,
     MainScreen,
-    AddAccountScreen,
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
     CodeScreen,
