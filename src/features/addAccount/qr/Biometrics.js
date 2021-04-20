@@ -85,15 +85,15 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
             {/* <View style={{ margin: 5 }} /> */}
             <View>
                 <Button
-                    title="Use Biometric"
+                    label="Use Biometric"
                     style={styles.btn}
                     onPress={onPositive}
                 />
                 <View style={{ margin: 10 }} />
                 <Button
-                    title="No, Thanks"
+                    label="No, Thanks"
                     onPress={onNegative}
-                    style={styles.btnInvert}
+                    style={styles.negativeButton}
                 />
             </View>
             <View style={{ marginBottom: 20 }} />
@@ -133,22 +133,7 @@ const styles = StyleSheet.create({
         width: 150,
         height: 150
     },
-    btn: {
-        backgroundColor: '#0f62fe',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center'
-    },
-    btnInvert: {
-        backgroundColor: 'lightgrey',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center'
+    negativeButton: {
+        backgroundColor: 'lightgrey'
     }
 });

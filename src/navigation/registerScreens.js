@@ -32,7 +32,6 @@ function registerScreens() {
     //Before registering a screen, add it's identifier in ./screensId.js
     //Register the screens here
 
-    Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
     Navigation.registerComponent(screensId.main, () => (props) => (
         <Provider store={store}>
             <APIErrorBoundry {...props}>
@@ -40,23 +39,7 @@ function registerScreens() {
             </APIErrorBoundry>
         </Provider>
     ));
-    Navigation.registerComponent(screensId.addAccount, () => AddAccountScreen);
-    Navigation.registerComponent(screensId.qrScan, () => (props) => (
-        <Provider store={store}>
-            <QRScanScreen {...props} />
-        </Provider>
-    ));
-    Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
-    Navigation.registerComponent(screensId.accessCode, () => (props) => (
-        <Provider store={store}>
-            <CodeScreen {...props} />
-        </Provider>
-    ));
-    Navigation.registerComponent(screensId.authTransaction, () => (props) => (
-        <Provider store={store}>
-            <AuthScreen {...props} />
-        </Provider>
-    ));
+
     Navigation.registerComponent(screensId.biometricOption, () => (props) => (
         <Provider store={store}>
             <BiometricOption {...props} />
@@ -69,11 +52,31 @@ function registerScreens() {
         </Provider>
     ));
 
+    Navigation.registerComponent(screensId.qrScan, () => (props) => (
+        <Provider store={store}>
+            <QRScanScreen {...props} />
+        </Provider>
+    ));
+
+    Navigation.registerComponent(screensId.accessCode, () => (props) => (
+        <Provider store={store}>
+            <CodeScreen {...props} />
+        </Provider>
+    ));
+
+    Navigation.registerComponent(screensId.authTransaction, () => (props) => (
+        <Provider store={store}>
+            <AuthScreen {...props} />
+        </Provider>
+    ));
+
+    Navigation.registerComponent(screensId.welcome, () => WelcomeScreen);
+    Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
+    Navigation.registerComponent(screensId.accountForm, () => ManualScreen);
+
     // Notification Screens
     Navigation.registerComponent(screensId.success, () => SuccessScreen);
     Navigation.registerComponent(screensId.complete, () => CompletionScreen);
-
-    Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
 
     //
     Navigation.registerComponent(

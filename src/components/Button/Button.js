@@ -4,13 +4,13 @@ import PropTypes from 'prop-types';
 
 import styles from './styles';
 
-const Button = ({ label, onPress, style, params }) => {
+const Button = ({ label, onPress, style, params, rippleColor }) => {
     const onButtonPress = () => {
         onPress && onPress(params);
     };
     return (
         <Pressable
-            android_ripple={{ color: '#6FA0FE' }}
+            android_ripple={{ color: rippleColor }}
             onPress={onButtonPress}
             style={[
                 styles.conatiner,
@@ -26,7 +26,12 @@ Button.propTypes = {
     onPress: PropTypes.func.isRequired,
     label: PropTypes.string.isRequired,
     params: PropTypes.any,
-    style: PropTypes.any
+    style: PropTypes.any,
+    rippleColor: PropTypes.any
+};
+
+Button.defaultProps = {
+    rippleColor: '#6FA0FE'
 };
 
 export default Button;

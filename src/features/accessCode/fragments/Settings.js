@@ -46,7 +46,7 @@ const Settings = ({ removeAccount }) => {
             <View style={{ margin: 10 }} />
             <View>
                 <Button
-                    title="Remove Account"
+                    label="Remove Account"
                     style={styles.btn}
                     onPress={onRemovePress}
                 />

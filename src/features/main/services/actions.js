@@ -78,8 +78,8 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
             dispatch(alertActions.success());
         } catch (error) {
             if (error instanceof TokenError) {
-                error.message === 'DEVICE_DELETE_MANUALLY';
-                dispatch(getAllAccounts());
+                error.message === 'DEVICE_DELETED_MANUALLY' &&
+                    dispatch(getAllAccounts());
             } else {
                 dispatch(setError({ accId }));
                 dispatch(alertActions.failure(error));

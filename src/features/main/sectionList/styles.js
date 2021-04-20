@@ -42,24 +42,23 @@ export default StyleSheet.create({
         marginVertical: 0,
         margin: 5
     },
-    SListheader: {
-        fontSize: 20,
-        padding: 2,
-        color: '#424c58',
-        lineHeight: 25,
-        fontWeight:'bold'
-    },
-    SListtitle: {
-        fontSize: 16,
-        color: 'grey',
-    },
     notificationText: {
         fontSize: 16,
-        color: '#1c6db2',
+        color: '#1c6db2'
     },
     error: {},
     errorText: {
         fontSize: 16,
-        color: '#96281b',
+        color: '#96281b'
+    },
+    issuer: {
+        color: '#424C58',
+        fontWeight: 'bold',
+        fontSize: 20
+    },
+    name: {
+        color: 'grey',
+        fontSize: 16,
+        marginLeft: 1
     }
 });
