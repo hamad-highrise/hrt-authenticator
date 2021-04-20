@@ -13,8 +13,13 @@ const WelcomeScreen = () => {
             await initiateDb();
             await setInitiated();
         } catch (error) {
-            alert(JSON.stringify(error));
+            console.warn(error);
+            alert('An error occured while initializing app.');
         }
+    };
+    const onPress = async () => {
+        await init();
+        navigator.setMainRoot();
     };
     return (
         <View style={styles.container}>
@@ -22,14 +27,7 @@ const WelcomeScreen = () => {
             <View>
                 <Text style={styles.welcome}>Welcome To Secure World!</Text>
             </View>
-            <Button
-                style={styles.btn}
-                title="Continue"
-                onPress={async () => {
-                    await init();
-                    navigator.setMainRoot();
-                }}
-            />
+            <Button style={styles.btn} title="Continue" onPress={onPress} />
             <View style={{ marginBottom: -50 }}></View>
         </View>
     );

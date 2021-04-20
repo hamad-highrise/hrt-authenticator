@@ -26,14 +26,19 @@ const CodeAccount = (props) => {
                 navigator.goToRoot(props.componentId);
             } else alert('Invalid Data or empty fields');
         } catch (error) {
-            alert('Error');
+            alert('Unable to create account');
             navigator.goToRoot(props.componentId);
         }
     };
 
     return (
         <View style={{ flex: 1 }}>
-            <TopNavbar title="Account By Code" />
+            <TopNavbar
+                title="Account By Code"
+                imageBackOnPress={() => {
+                    navigator.goBack(props.componentId);
+                }}
+            />
 
             <View style={styles.container}>
                 <View style={styles.top}>

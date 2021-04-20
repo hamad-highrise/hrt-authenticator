@@ -1,5 +1,12 @@
-import React, { useState } from 'react';
-import { View, Image, Text, StyleSheet, Dimensions, StatusBar} from 'react-native';
+import React from 'react';
+import {
+    View,
+    Image,
+    Text,
+    StyleSheet,
+    Dimensions,
+    StatusBar
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
 
@@ -11,15 +18,12 @@ const TopNavbar = ({
     param,
     RightIcon
 }) => {
-    const [rIcon, setRight] = useState('');
-
     return (
         <View style={styles.container}>
             <StatusBar barStyle="default" backgroundColor="#0f62fe" />
             <View style={styles.header}>
                 {RightIcon == 'YES' ? (
-                    <View
-                        style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
+                    <View style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
                         <IconButton onPress={imageBackOnPress}>
                             <Image
                                 // source={{ uri: {imageUrlRight} }}
@@ -30,7 +34,7 @@ const TopNavbar = ({
                     </View>
                 ) : null}
                 <View style={{ margin: 30 }}>
-                    <Text style={styles.titleMainText}> {title} </Text>
+                    <Text style={styles.titleMainText}>{title}</Text>
                 </View>
 
                 <View style={[styles.iconBtnContainer, { marginRight: 18 }]}>
@@ -75,7 +79,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 12,
         // backgroundColor: 'black',
         borderBottomColor: 'lightgrey',
-        borderBottomWidth: 1,
+        borderBottomWidth: 1
     },
     large: {},
     small: {},
@@ -97,17 +101,18 @@ const styles = StyleSheet.create({
         color: 'black',
         justifyContent: 'center',
         fontSize: 18,
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        zIndex: 10000
     },
     iconBtnContainer: {
         // backgroundColor: 'black',
         // transform:[{rotate:'45deg'}],
-        // height: 55
+        // height: 55,
     },
     iconBtn: {
-        width:25,
+        width: 25,
         height: 25,
-        marginTop: 10,
-        // marginLeft: 5
+        marginTop: 10
+        // marginLeft: 5,
     }
 });

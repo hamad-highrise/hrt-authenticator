@@ -1,14 +1,18 @@
-import { getToken as getTokenFromDb, updateTokenDb } from './db';
+import {
+    getToken as getTokenFromDb,
+    removeAccountFromDB,
+    updateTokenDb
+} from './db';
 import { getRefreshedToken } from './api';
 import { cipher } from '../../native-services';
 import {
     isTokenValid,
     getTokenExpiryInSeconds as getTokenExpiryInEpochSeconds,
-    getTokenRequestBody
+    getTokenRequestBody,
+    getIgnoreSslOption
 } from '../util';
 import constants from '../constants';
 import { DatabaseError, NativeError, SAMError, TokenError } from '../errors';
-
 
 /**
  * Gives the token for the given account ID. If token has been expired, it will refresh it and return upated token.
@@ -34,6 +38,7 @@ async function getAccessToken(accId) {
             //token has been expired
 
             const { refreshToken, endpoint } = token;
+            const ignoreSsl = await getIgnoreSslOption(accId);
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
                 cipherText: refreshToken
@@ -47,7 +52,8 @@ async function getAccessToken(accId) {
 
             const result = await getRefreshedToken({
                 endpoint,
-                formEncodedBody: body
+                formEncodedBody: body,
+                ignoreSsl
             });
             const { status } = result.respInfo;
             if ((status >= 200 && status < 299) || status === 304) {
@@ -87,9 +93,23 @@ async function getAccessToken(accId) {
                     throw new SAMError({
                         message: result.json()?.error_description
                     });
-                throw new TokenError({
-                    message: 'ACCOUNT_DELETED_MANUALLY'
-                });
+                if (status >= 400 && status < 500) {
+                    const errDescription = result.json()['error_description'];
+                    const splitted = errDescription.split(' ');
+                    if (
+                        splitted[0] ===
+                        constants.SAM_ERROR_CODE.AUTH_GRANT_NOT_EXIST
+                    ) {
+                        try {
+                            await removeAccountFromDB(accId);
+                        } catch (error) {
+                            throw error;
+                        }
+                        throw new TokenError({
+                            message: 'DEVICE_DELETED_MANUALLY'
+                        });
+                    }
+                }
             }
         }
     } catch (error) {

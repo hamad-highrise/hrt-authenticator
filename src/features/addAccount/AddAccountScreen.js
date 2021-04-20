@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
     },
     image: {
         width: Dimensions.get('window').width * 0.8,
-        height: Dimensions.get('window').height * 0.36,
+        height: Dimensions.get('window').height * 0.4,
         alignItems: 'center'
     },
     btn: {

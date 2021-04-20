@@ -94,6 +94,7 @@ async function initiate(scanned) {
         });
 
         resultObj.accountName = account.name;
+        resultObj.issuer = account.issuer;
         resultObj.insertId = accId;
         resultObj.methods = methodsSupported;
 

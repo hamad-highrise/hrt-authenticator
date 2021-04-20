@@ -66,9 +66,10 @@ async function getIgnoreSslOption(accId) {
     const database = new Database();
     try {
         const [result] = await database.executeQuery(query, params);
+
         let temp;
         for (let i = 0; i < result.rows.length; i++) {
-            temp = result.rows.item().ignoreSsl;
+            temp = result.rows.item(i).ignoreSsl;
         }
         return temp;
     } catch (error) {

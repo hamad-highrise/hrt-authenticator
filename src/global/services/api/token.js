@@ -1,4 +1,4 @@
-import { NetworkError, SAMError } from '../../errors';
+import { NetworkError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
 async function getRefreshedToken({ endpoint, formEncodedBody, ignoreSsl }) {

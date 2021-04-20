@@ -2,6 +2,7 @@ import constants from './constants';
 import { alertActions } from '../../alert';
 import queries from './queries';
 import { services } from '../../../global';
+import { TokenError } from '../../../global/errors';
 
 function getAllAccounts() {
     return async (dispatch) => {
@@ -76,8 +77,13 @@ function checkTransaction({ accId, ignoreSsl, checkType = 'MULTI' }) {
             dispatch(resetError({ accId }));
             dispatch(alertActions.success());
         } catch (error) {
-            dispatch(setError({ accId }));
-            dispatch(alertActions.failure(error));
+            if (error instanceof TokenError) {
+                error.message === 'DEVICE_DELETE_MANUALLY';
+                dispatch(getAllAccounts());
+            } else {
+                dispatch(setError({ accId }));
+                dispatch(alertActions.failure(error));
+            }
         }
     };
 }

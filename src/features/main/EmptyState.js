@@ -9,8 +9,8 @@ const EmptyState = (props) => {
             {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
             <View style={{ flex: 0.4 }}>
                 <Image
-                    source={require('../../assets/images/addAccount.png')}
-                    style={{ width: 150, height: 150 }}></Image>
+                    source={require('../../assets/images/AddAccIBM.png')}
+                    style={{ width: 200, height: 200 }}></Image>
             </View>
             <View style={{ flex: 0.3 }}>
                 <Text style={styles.welcome}>No Account Yet !</Text>
@@ -24,7 +24,7 @@ const EmptyState = (props) => {
                     onPress={() =>
                         navigation.goTo(
                             props.componentId,
-                            navigation.screenIds.addAccount
+                            navigation.screenIds.qrScan
                         )
                     }
                 />

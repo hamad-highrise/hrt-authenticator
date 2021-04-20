@@ -9,7 +9,7 @@ import {
 } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { IconButton } from '../../components';
+import { IconButton, LoadingIndicator } from '../../components';
 import navigator from '../../navigation';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
@@ -25,6 +25,7 @@ const AccessCode = (props) => {
         onSettingsSelect,
         transactionCheck,
         removeAccount,
+        loading,
         account
     } = useAccessCode(props);
 
@@ -48,14 +49,13 @@ const AccessCode = (props) => {
         }).start((res) => {
             res.finished && spinValue.setValue(0);
         });
-        try {
-            transactionCheck();
-        } catch (error) {
-            alert(error);
-        }
+
+        transactionCheck();
     };
 
-    return (
+    return loading && account['type'] === constants.ACCOUNT_TYPES.SAM ? (
+        <LoadingIndicator show={loading} />
+    ) : (
         <View style={styles.container}>
             <View style={styles.header}>
                 <View
@@ -96,7 +96,6 @@ const AccessCode = (props) => {
                 )}
             </View>
 
-            {/* <View style={{ margin: 0 }}></View> */}
             <View style={styles.top}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{account.name}</Text>

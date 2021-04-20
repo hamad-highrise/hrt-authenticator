@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import React, { useState, useCallback } from 'react';
+import {
+    View,
+    StyleSheet,
+    Dimensions,
+    TouchableOpacity,
+    Text
+} from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 
 import parser from './parser';
@@ -10,6 +16,7 @@ import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import { useSelector } from 'react-redux';
+import navigation from '../../../navigation';
 
 const QRScan = (props) => {
     const { isConnected } = useSelector(({ alert }) => alert);
@@ -17,23 +24,28 @@ const QRScan = (props) => {
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
 
+    const onManualCodeClick = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.accountForm);
+    }, [props.componentId]);
+
     const barcodeRecognized = async (_barcode) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
-            setLoading(true);
+
             vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
                 //MMFA Account is being Started
                 if (isConnected) {
+                    setLoading(true);
                     try {
                         const result = await initiateSamAccount(value);
                         navigator.goTo(
                             props.componentId,
                             navigator.screenIds.success,
                             {
-                                accountName: result.accountName,
+                                accountName: result.issuer,
                                 accId: result.insertId,
                                 methods: result.methods,
                                 type: constants.ACCOUNT_TYPES.SAM
@@ -41,11 +53,11 @@ const QRScan = (props) => {
                         );
                     } catch (error) {
                         setLoading(false);
-                        alert(JSON.stringify(error));
                         navigator.goToRoot(props.componentId);
                     }
                 }
             } else {
+                setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
                 const account = {
@@ -74,7 +86,7 @@ const QRScan = (props) => {
                         navigator.goToRoot(props.componentId);
                     }
                 } catch (error) {
-                    alert('Unable to create account at this time.');
+                    alert('Unable to register an account.');
                     setLoading(false);
                 }
             }
@@ -96,6 +108,24 @@ const QRScan = (props) => {
                             navigator.goBack(props.componentId)
                         }
                     />
+                    {!isConnected && (
+                        <View
+                            style={{
+                                backgroundColor: 'black',
+                                width: '100%',
+                                height: 35,
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <Text
+                                style={{
+                                    fontFamily: 'monospace',
+                                    color: 'white'
+                                }}>
+                                No Internet
+                            </Text>
+                        </View>
+                    )}
                     <QRCodeReader
                         captureAudio={false}
                         style={{
@@ -133,6 +163,39 @@ const QRScan = (props) => {
                                     styles.maskFrame
                                 ]}
                             />
+                        </View>
+                        <View
+                            style={{
+                                backgroundColor: 'transparent',
+                                position: 'absolute',
+                                bottom: 0,
+                                left: 0,
+                                width: '100%',
+                                height: '15%',
+                                justifyContent: 'center',
+                                alignItems: 'center'
+                            }}>
+                            <TouchableOpacity
+                                onPress={onManualCodeClick}
+                                style={{
+                                    width: '70%',
+                                    backgroundColor: 'grey',
+                                    height: 45,
+                                    borderWidth: 1,
+                                    borderRadius: 5,
+                                    elevation: 15,
+                                    shadowColor: 'grey',
+                                    justifyContent: 'center',
+                                    alignItems: 'center'
+                                }}>
+                                <Text
+                                    style={{
+                                        fontSize: 20,
+                                        fontWeight: '100'
+                                    }}>
+                                    Enter Code Manually
+                                </Text>
+                            </TouchableOpacity>
                         </View>
                     </QRCodeReader>
                 </>

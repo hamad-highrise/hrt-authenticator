@@ -1,20 +1,24 @@
 import { useEffect, useRef, useState } from 'react';
-import { AppState } from 'react-native';
+import { Alert, AppState } from 'react-native';
 import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+
 import navigator from '../../../navigation';
 import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
+import { alertActions } from '../../alert';
 
 const CHECKTYPE = 'SELECTED';
 
 function useAccessCode({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
+    const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
     const [fragment, setFragment] = useState('CODE');
+    const [loading, setLoading] = useState(false);
     const otpIntervalRef = useRef();
     const transactionIntervalRef = useRef();
     let onScreen = useRef().current;
@@ -89,7 +93,7 @@ function useAccessCode({ componentId }) {
     const updateOtp = async () => {
         try {
             const secret = await getSecret(selected['id']);
-            setOTP(totpGenerator(secret));
+            secret && setOTP(totpGenerator(secret));
         } catch (error) {
             setFragment('SETTINGS');
             alert(
@@ -102,25 +106,64 @@ function useAccessCode({ componentId }) {
     const onSettingsSelect = () => setFragment('SETTINGS');
 
     const checker = () => {
-        dispatch(
-            mainActions.checkTransaction({
-                accId: selected['id'],
-                checkType: CHECKTYPE
-            })
-        );
+        isConnected &&
+            dispatch(
+                mainActions.checkTransaction({
+                    accId: selected['id'],
+                    checkType: CHECKTYPE,
+                    ignoreSsl: selected['ignoreSsl']
+                })
+            );
     };
 
     const removeAccount = async () => {
         try {
+            setLoading(true);
             await services.removeAccount({
                 accId: selected['id'],
                 type: selected['type'],
-                ignoreSsl: true
+                ignoreSsl: selected['ignoreSsl']
             });
+            dispatch(mainActions.getAllAccounts());
+            setTimeout(() => {
+                setLoading(false);
+                navigator.goToRoot(componentId);
+            }, 1000);
         } catch (error) {
-            console.warn(error);
+            Alert.alert(
+                'Force Account Deletion',
+                'Unable to remove account from SAM. Delete forcefully?',
+                [
+                    {
+                        text: 'Cancel',
+                        onPress: () => {
+                            setLoading(false);
+                        },
+                        style: 'cancel'
+                    },
+                    {
+                        text: 'Yes, Delete',
+                        onPress: removeAccountFromDB,
+                        style: 'destructive'
+                    }
+                ]
+            );
+            dispatch(alertActions.failure(error, selected['id']));
+        }
+    };
+
+    const removeAccountFromDB = async () => {
+        try {
+            await services.removeAccountFromDB(selected['id']);
+        } catch (error) {
+            setLoading(false);
+            dispatch(alertActions.failure(error, selected['id']));
         } finally {
-            navigator.goToRoot(componentId);
+            dispatch(mainActions.getAllAccounts());
+            setTimeout(() => {
+                setLoading(false);
+                navigator.goToRoot(componentId);
+            }, 1000);
         }
     };
 
@@ -132,11 +175,13 @@ function useAccessCode({ componentId }) {
         onSettingsSelect,
         transactionCheck: checker,
         removeAccount,
+        loading,
         account: {
             name: selected['name'],
             issuer: selected['issuer'],
             type: selected['type']
-        }
+        },
+        isConnected
     };
 }
 

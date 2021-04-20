@@ -5,6 +5,7 @@ import navigator from '../../../navigation';
 
 function useTransaction({ componentId }) {
     const selected = useSelector(({ main }) => main.selected);
+    const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
     let transaction;
     if (selected?.transaction?.available) {
@@ -12,6 +13,7 @@ function useTransaction({ componentId }) {
     }
 
     const onApprove = async () => {
+        !isConnected && navigator.goToRoot(componentId);
         try {
             dispatch(alertActions.request());
             await approveTransaction({
@@ -27,6 +29,7 @@ function useTransaction({ componentId }) {
     };
 
     const onReject = async () => {
+        !isConnected && navigator.goToRoot(componentId);
         try {
             dispatch(alertActions.request());
             await denyTransaction({
@@ -46,7 +49,8 @@ function useTransaction({ componentId }) {
         onReject,
         message: transaction.displayMessage,
         createdAt: transaction.createdAt,
-        transactionId: transaction.transactionId
+        transactionId: transaction.transactionId,
+        isConnected
     };
 }
 

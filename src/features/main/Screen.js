@@ -11,58 +11,50 @@ const Main = (props) => {
     const { accounts } = useAccounts(props.componentId);
     const isConnected = useSelector(({ alert }) => alert.isConnected);
 
-    const onPressHandler = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.addAccount);
+    const onAddAccount = useCallback(() => {
+        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
     }, [props.componentId]);
 
-    const onPressHandlerAccessCode = useCallback(() => {
+    const onDeviceInfo = useCallback(() => {
         navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
     }, [props.componentId]);
 
-    useEffect(() => {}, [accounts.length]);
-
     return (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View>
-                    <IconButton onPress={onPressHandlerAccessCode}>
-                        <Image
-                            source={require('../../assets/icons/settings2black.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 5,
-                                    marginTop: 2
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
+            {accounts?.length ? (
+                <View style={styles.header}>
+                    <View>
+                        <IconButton onPress={onDeviceInfo}>
+                            <Image
+                                source={require('../../assets/icons/settings2black.png')}
+                                style={[
+                                    styles.iconBtn,
+                                    {
+                                        marginLeft: 5,
+                                        marginTop: 2
+                                    }
+                                ]}
+                            />
+                        </IconButton>
+                    </View>
 
-                <View style={styles.title}>
-                    <Text style={styles.titleText}>HRT Security Verify</Text>
-                </View>
+                    <View style={styles.title}>
+                        <Text style={styles.titleText}>
+                            HRT Security Verify
+                        </Text>
+                    </View>
 
-                <View>
-                    <IconButton onPress={onPressHandler}>
-                        <Image
-                            source={require('../../assets/icons/qr_code2.png')}
-                            style={{ marginLeft: -10, marginTop: -3 }}
-                        />
-                    </IconButton>
+                    <View>
+                        <IconButton onPress={onAddAccount}>
+                            <Image
+                                source={require('../../assets/icons/qr_code2.png')}
+                                style={{ marginLeft: -10, marginTop: -3 }}
+                            />
+                        </IconButton>
+                    </View>
                 </View>
-            </View>
+            ) : null}
             <View style={{ marginLeft: 5, marginRight: 5, marginTop: 0 }} />
-
-            {accounts.length ? (
-                <AccountList
-                    accounts={accounts}
-                    componentId={props.componentId} // for the sake of navigation
-                />
-            ) : (
-                <EmptyState {...props} />
-            )}
-
             {!isConnected && (
                 <View
                     style={{
@@ -76,6 +68,14 @@ const Main = (props) => {
                         No Internet
                     </Text>
                 </View>
+            )}
+            {accounts?.length ? (
+                <AccountList
+                    accounts={accounts}
+                    componentId={props.componentId} // for the sake of navigation
+                />
+            ) : (
+                <EmptyState {...props} />
             )}
         </View>
     );
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     title: {
+        textAlign: 'center',
         marginLeft: 20
     },
     titleText: {

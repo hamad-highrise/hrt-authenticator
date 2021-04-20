@@ -1,1 +1,1 @@
-export {default as SecurityAssessmentScreen } from './SecurityAssessment';
+export { default as SecurityAssessmentScreen } from './SecurityAssessment';

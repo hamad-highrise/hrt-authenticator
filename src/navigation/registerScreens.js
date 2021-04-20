@@ -16,7 +16,8 @@ import {
     DeviceInfoScreen,
     SuccessScreen,
     CompletionScreen,
-    SplashScreen
+    SplashScreen,
+    SecurityAssessmentScreen
 } from '../features';
 
 import { APIErrorBoundry } from '../features/errorBoundry';
@@ -62,8 +63,7 @@ function registerScreens() {
             <BiometricOption {...props} />
         </Provider>
     ));
-    Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
-    Navigation.registerComponent(screensId.getstarted, () => GetStartedScreen);
+
     Navigation.registerComponent(screensId.splash, () => (props) => (
         <Provider store={store}>
             <SplashScreen {...props} />
@@ -73,6 +73,14 @@ function registerScreens() {
     // Notification Screens
     Navigation.registerComponent(screensId.success, () => SuccessScreen);
     Navigation.registerComponent(screensId.complete, () => CompletionScreen);
+
+    Navigation.registerComponent(screensId.deviceInfo, () => DeviceInfoScreen);
+
+    //
+    Navigation.registerComponent(
+        screensId.securityassessment,
+        () => SecurityAssessmentScreen
+    );
 }
 
 export default registerScreens;

@@ -28,12 +28,12 @@ function useAccounts() {
     useEffect(() => {
         transactionCheckIntervalRef.current &&
             clearInterval(transactionCheckIntervalRef.current);
-        if (accounts.length > 0)
+        if (accounts?.length > 0)
             transactionCheckIntervalRef.current = setInterval(
                 transactionChecker,
                 1000 * 5
             );
-    }, [accounts.length]);
+    }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {
         accounts.forEach((account) => {
@@ -41,7 +41,8 @@ function useAccounts() {
                 dispatch(
                     mainActions.checkTransaction({
                         accId: account['id'],
-                        checkType: CHECKTYPE
+                        checkType: CHECKTYPE,
+                        ignoreSsl: account['ignoreSsl']
                     })
                 );
         });
