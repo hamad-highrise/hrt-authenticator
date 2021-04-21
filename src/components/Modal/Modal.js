@@ -8,7 +8,7 @@ import {
     View,
     Dimensions
 } from 'react-native';
-import { Button } from '../../components';
+import { Button } from '../Button';
 const myModal = () => {
     const [modalVisible, setModalVisible] = useState(false);
     return (
@@ -23,8 +23,11 @@ const myModal = () => {
                 <View style={styles.centeredView}>
                     <View style={styles.modalView}>
                         <Text style={styles.modalMainText}>WARNING</Text>
-                        <Text style={styles.modalText}>This action is not revertable. Deleting account will prevent you from Authentication. Are you sure?</Text>
-                        <View style={{flexDirection:'row-reverse'}}>
+                        <Text style={styles.modalText}>
+                            This action is not revertable. Deleting account will
+                            prevent you from Authentication. Are you sure?
+                        </Text>
+                        <View style={{ flexDirection: 'row-reverse' }}>
                             <TouchableHighlight
                                 style={styles.btnM}
                                 onPress={() => {
@@ -60,7 +63,6 @@ const myModal = () => {
                     setModalVisible(true);
                 }}
             />
-
         </View>
     );
 };
@@ -77,7 +79,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         // borderRadius: 20,
         padding: 35,
-        width:Dimensions.get('window').width * 0.85,
+        width: Dimensions.get('window').width * 0.85,
         // height:Dimensions.get('window').height * 0.3,
         alignItems: 'flex-start',
         shadowColor: '#000',
@@ -88,8 +90,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        borderBottomColor:'maroon',
-        borderBottomWidth:5,
+        borderBottomColor: 'maroon',
+        borderBottomWidth: 5
     },
     openButton: {
         // backgroundColor: '#F19444',
@@ -116,22 +118,21 @@ const styles = StyleSheet.create({
         textAlign: 'center'
     },
     textStyleInvert: {
-      color: 'black',
-      fontWeight: 'bold',
-      textAlign: 'center'
-  },
+        color: 'black',
+        fontWeight: 'bold',
+        textAlign: 'center'
+    },
     modalMainText: {
         marginBottom: 15,
         // textAlign: 'center',
-        fontSize:20
+        fontSize: 20
     },
     modalText: {
-      marginBottom: 15,
-      // textAlign: 'center'
-      fontSize:18
+        marginBottom: 15,
+        // textAlign: 'center'
+        fontSize: 18
     },
     btnM: {
-      
         backgroundColor: '#a24e12',
         borderRadius: 2,
         paddingVertical: 12,
@@ -145,8 +146,8 @@ const styles = StyleSheet.create({
 
         width: Dimensions.get('window').width * 0.2,
         // alignItems: 'flex-start',
-        borderColor:'#a24e12',
-        borderWidth:2,
+        borderColor: '#a24e12',
+        borderWidth: 2
     },
     btnMInvert: {
         backgroundColor: 'white',
@@ -159,9 +160,9 @@ const styles = StyleSheet.create({
         // alignSelf: 'flex-end',
         textTransform: 'uppercase',
         width: Dimensions.get('window').width * 0.2,
-        borderColor:'orange',
-        borderBottomWidth:2,
-        elevation:2,
+        borderColor: 'orange',
+        borderBottomWidth: 2,
+        elevation: 2
     }
 });
 
