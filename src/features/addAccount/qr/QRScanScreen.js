@@ -1,11 +1,5 @@
 import React, { useState, useCallback } from 'react';
-import {
-    View,
-    StyleSheet,
-    Dimensions,
-    TouchableOpacity,
-    Text
-} from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 
 import parser from './parser';
@@ -60,34 +54,39 @@ const QRScan = (props) => {
                 setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
-                const account = {
-                    name: parsedData.label.account,
-                    issuer: parsedData.label.issuer,
-                    secret: parsedData.query.secret,
-                    type: constants.ACCOUNT_TYPES.TOTP
-                };
-                try {
-                    if (await isUnique(account)) {
-                        await createAccount({ account });
+                if (!parsedData) {
+                    alert('Invalid QR Code');
+                    navigator.goToRoot(props.componentId);
+                } else {
+                    const account = {
+                        name: parsedData.label.account,
+                        issuer: parsedData.label.issuer,
+                        secret: parsedData.query.secret,
+                        type: constants.ACCOUNT_TYPES.TOTP
+                    };
+                    try {
+                        if (await isUnique(account)) {
+                            await createAccount({ account });
+                            setLoading(false);
+                            navigator.goTo(
+                                props.componentId,
+                                navigator.screenIds.success,
+                                {
+                                    title: account.name,
+                                    type: constants.ACCOUNT_TYPES.TOTP
+                                }
+                            );
+                        } else {
+                            setLoading(false);
+                            alert(
+                                'Error: An account can not be registered multiple times.'
+                            );
+                            navigator.goToRoot(props.componentId);
+                        }
+                    } catch (error) {
+                        alert('Unable to register an account.');
                         setLoading(false);
-                        navigator.goTo(
-                            props.componentId,
-                            navigator.screenIds.success,
-                            {
-                                title: account.name,
-                                type: constants.ACCOUNT_TYPES.TOTP
-                            }
-                        );
-                    } else {
-                        setLoading(false);
-                        alert(
-                            'Error: An account can not be registered multiple times.'
-                        );
-                        navigator.goToRoot(props.componentId);
                     }
-                } catch (error) {
-                    alert('Unable to register an account.');
-                    setLoading(false);
                 }
             }
         }

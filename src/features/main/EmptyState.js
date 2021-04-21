@@ -1,35 +1,38 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
-import { Button } from '../../components';
+import { Button, Topbar } from '../../components';
 import navigation from '../../navigation';
 
 const EmptyState = (props) => {
     return (
-        <View style={styles.container}>
-            {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
-            <View style={{ flex: 0.4 }}>
-                <Image
-                    source={require('../../assets/images/AddAccIBM.png')}
-                    style={{ width: 200, height: 200 }}></Image>
+        <>
+            <Topbar title="Test Title" />
+            <View style={styles.container}>
+                {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
+                <View style={{ flex: 0.4 }}>
+                    <Image
+                        source={require('../../assets/images/AddAccIBM.png')}
+                        style={{ width: 200, height: 200 }}></Image>
+                </View>
+                <View style={{ flex: 0.3 }}>
+                    <Text style={styles.welcome}>No Account Yet !</Text>
+                    <Text style={styles.instructions}>
+                        Add your device and see them here
+                    </Text>
+                    <View style={styles.bar}></View>
+                    <Button
+                        label="Connect Account"
+                        style={styles.btn}
+                        onPress={() =>
+                            navigation.goTo(
+                                props.componentId,
+                                navigation.screenIds.qrScan
+                            )
+                        }
+                    />
+                </View>
             </View>
-            <View style={{ flex: 0.3 }}>
-                <Text style={styles.welcome}>No Account Yet !</Text>
-                <Text style={styles.instructions}>
-                    Add your device and see them here
-                </Text>
-                <View style={styles.bar}></View>
-                <Button
-                    label="Connect Account"
-                    style={styles.btn}
-                    onPress={() =>
-                        navigation.goTo(
-                            props.componentId,
-                            navigation.screenIds.qrScan
-                        )
-                    }
-                />
-            </View>
-        </View>
+        </>
     );
 };
 
