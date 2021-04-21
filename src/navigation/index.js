@@ -5,7 +5,6 @@ import {
     setEmptyStateRoot,
     setInitialRoot
 } from './root';
-import registerScreens from './registerScreens';
 import screenIds from './screensId';
 
 const goBack = (componentId) => {
@@ -34,7 +33,6 @@ const navigator = {
     goBack,
     goTo,
     goToRoot,
-    registerScreens,
     screenIds,
     setMainRoot,
     setInitialRoot,

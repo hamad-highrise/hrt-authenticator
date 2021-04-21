@@ -5,7 +5,8 @@ import {
     Text,
     StyleSheet,
     Dimensions,
-    StatusBar
+    StatusBar,
+    SafeAreaView
 } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../../components';
@@ -19,35 +20,42 @@ const TopNavbar = ({
     RightIcon
 }) => {
     return (
-        <View style={styles.container}>
-            <StatusBar barStyle="default" backgroundColor="#0f62fe" />
-            <View style={styles.header}>
-                {RightIcon == 'YES' ? (
-                    <View style={[styles.iconBtnContainer, { marginLeft: 18 }]}>
+        <SafeAreaView>
+            <View style={styles.container}>
+                <StatusBar barStyle="default" backgroundColor="#0f62fe" />
+                <View style={styles.header}>
+                    {RightIcon == 'YES' ? (
+                        <View
+                            style={[
+                                styles.iconBtnContainer,
+                                { marginLeft: 18 }
+                            ]}>
+                            <IconButton onPress={imageBackOnPress}>
+                                <Image
+                                    // source={{ uri: {imageUrlRight} }}
+                                    source={require('../../assets/icons/settings2invert.png')}
+                                    style={styles.iconBtn}
+                                />
+                            </IconButton>
+                        </View>
+                    ) : null}
+                    <View style={{ margin: 30 }}>
+                        <Text style={styles.titleMainText}>{title}</Text>
+                    </View>
+
+                    <View
+                        style={[styles.iconBtnContainer, { marginRight: 18 }]}>
                         <IconButton onPress={imageBackOnPress}>
                             <Image
-                                // source={{ uri: {imageUrlRight} }}
-                                source={require('../../assets/icons/settings2invert.png')}
+                                // source={{ uri: imageUrlBack }}
+                                source={require('../../assets/icons/crossblack.png')}
                                 style={styles.iconBtn}
                             />
                         </IconButton>
                     </View>
-                ) : null}
-                <View style={{ margin: 30 }}>
-                    <Text style={styles.titleMainText}>{title}</Text>
-                </View>
-
-                <View style={[styles.iconBtnContainer, { marginRight: 18 }]}>
-                    <IconButton onPress={imageBackOnPress}>
-                        <Image
-                            // source={{ uri: imageUrlBack }}
-                            source={require('../../assets/icons/crossblack.png')}
-                            style={styles.iconBtn}
-                        />
-                    </IconButton>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -74,23 +82,19 @@ export default TopNavbar;
 
 const styles = StyleSheet.create({
     container: {
-        // elevation: 8,
         paddingVertical: 27,
         paddingHorizontal: 12,
-        // backgroundColor: 'black',
+
         borderBottomColor: 'lightgrey',
         borderBottomWidth: 1
     },
-    large: {},
-    small: {},
+
     header: {
-        // elevation: 10,
         flexDirection: 'row',
         height: 49,
         alignItems: 'center',
         justifyContent: 'space-between',
-        // borderBottomColor: 'lightgrey',
-        // borderBottomWidth: 1,
+
         paddingTop: 10,
         margin: -30
     },
@@ -104,15 +108,10 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         zIndex: 10000
     },
-    iconBtnContainer: {
-        // backgroundColor: 'black',
-        // transform:[{rotate:'45deg'}],
-        // height: 55,
-    },
+    iconBtnContainer: {},
     iconBtn: {
         width: 25,
         height: 25,
         marginTop: 10
-        // marginLeft: 5,
     }
 });
