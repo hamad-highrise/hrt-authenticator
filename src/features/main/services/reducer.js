@@ -59,7 +59,10 @@ const reducer = (state = initialState, action) => {
                         transaction: {
                             available: false
                         },
-                        error: true
+                        error: {
+                            hasOccurred: true,
+                            displayMessage: action.payload.error?.displayMessage
+                        }
                     },
                     ...state.accounts.slice(sIndex + 1)
                 ]
@@ -78,7 +81,9 @@ const reducer = (state = initialState, action) => {
                         transaction: {
                             ...state?.accounts[rIndex]?.transaction
                         },
-                        error: false
+                        error: {
+                            hasOccurred: false
+                        }
                     },
                     ...state.accounts.slice(rIndex + 1)
                 ]

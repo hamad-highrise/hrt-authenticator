@@ -18,7 +18,9 @@ async function getAll() {
                         transaction: {
                             available: false
                         },
-                        error: false
+                        error: {
+                            hasOccurred: false
+                        }
                     };
                 } else return account;
             })
