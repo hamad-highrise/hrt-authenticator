@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-    View,
-    Image,
-    Text,
-    StyleSheet,
-    Dimensions,
-    StatusBar,
-    SafeAreaView
-} from 'react-native';
+import { View, Image, Text, StyleSheet, SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../IconButton';
 
@@ -22,7 +14,6 @@ const TopNavbar = ({
     return (
         <SafeAreaView>
             <View style={styles.container}>
-                <StatusBar barStyle="default" backgroundColor="#0f62fe" />
                 <View style={styles.header}>
                     {RightIcon == 'YES' ? (
                         <View
