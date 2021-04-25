@@ -100,11 +100,6 @@ async function getAccessToken(accId) {
                         splitted[0] ===
                         constants.SAM_ERROR_CODE.AUTH_GRANT_NOT_EXIST
                     ) {
-                        try {
-                            await removeAccountFromDB(accId);
-                        } catch (error) {
-                            throw error;
-                        }
                         throw new TokenError({
                             message: 'DEVICE_DELETED_MANUALLY'
                         });

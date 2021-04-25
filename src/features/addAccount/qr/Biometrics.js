@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {
-    Dimensions,
-    Text,
-    Image,
-    StyleSheet,
-    View,
-    BackHandler
-} from 'react-native';
+import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 

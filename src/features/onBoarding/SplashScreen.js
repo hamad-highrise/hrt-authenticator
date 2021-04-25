@@ -1,13 +1,6 @@
 import React, { useEffect } from 'react';
 import { utilities } from '../../native-services';
-import {
-    StyleSheet,
-    Text,
-    View,
-    StatusBar,
-    Image,
-    Dimensions
-} from 'react-native';
+import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { mainActions } from '../main/services';
@@ -50,7 +43,6 @@ const Splash = (props) => {
 
     return (
         <View style={styles.container}>
-            <StatusBar barStyle="light-content" backgroundColor="#4F6D7A" />
             <View
                 style={{
                     alignItems: 'center',

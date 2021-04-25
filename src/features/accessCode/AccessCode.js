@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { IconButton, LoadingIndicator, Topbar } from '../../components';
+import { IconButton, LoadingIndicator } from '../../components';
 import navigator from '../../navigation';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
