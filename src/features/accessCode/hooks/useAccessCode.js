@@ -126,7 +126,6 @@ function useAccessCode({ componentId }) {
             });
             dispatch(mainActions.getAllAccounts());
             navigator.goToRoot(componentId);
-            
         } catch (error) {
             Alert.alert(
                 'Force Account Deletion',
@@ -155,14 +154,9 @@ function useAccessCode({ componentId }) {
             await services.removeAccountFromDB(selected['id']);
         } catch (error) {
             dispatch(alertActions.failure(error, selected['id']));
-            // setLoading(false);
         } finally {
             dispatch(mainActions.getAllAccounts());
             navigator.goToRoot(componentId);
-            // setTimeout(() => {
-            //     navigator.goToRoot(componentId);
-            //     setLoading(false);
-            // }, 1000);
         }
     };
 

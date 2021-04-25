@@ -52,56 +52,6 @@ export default StyleSheet.create({
         flex: 0.3
     },
 
-    slectorContainer: {
-        width: Dimensions.get('window').width * 0.4,
-        borderRadius: 10,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        backgroundColor: 'white'
-    },
-
-    selector: {
-        paddingLeft: 20,
-        paddingTop: 13,
-        paddingBottom: 13,
-        paddingRight: 20,
-        width: '100%',
-        justifyContent: 'center'
-    },
-    selectorSeparator: {
-        width: 0,
-        backgroundColor: 'black'
-    },
-    selected: {
-        backgroundColor: '#0f62fe'
-    },
-    selectedLeft: {
-        borderTopLeftRadius: 7,
-        borderBottomLeftRadius: 7
-    },
-    selectedRight: {
-        borderTopRightRadius: 7,
-        borderBottomRightRadius: 7
-    },
-    selectedInvert: {
-        backgroundColor: 'lightgrey'
-    },
-    selectedInvertLeft: {
-        borderBottomLeftRadius: 7,
-        borderTopLeftRadius: 7
-    },
-    selectedInvertRight: {
-        borderBottomRightRadius: 7,
-        borderTopRightRadius: 7
-    },
-
-    selectorText: {
-        fontSize: 15,
-        color: '#0f62fe'
-    },
-    selectedText: {
-        color: 'white'
-    },
     btn: {
         backgroundColor: 'red',
         width: Dimensions.get('window').width * 0.9,
@@ -137,5 +87,36 @@ export default StyleSheet.create({
     imgg: {
         width: 25,
         height: 25
+    },
+    selectorContainer: {
+        width: Dimensions.get('window').width * 0.8,
+        borderRadius: 10,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        backgroundColor: 'lightgrey',
+        height: 50
+    },
+    selector: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    left: {
+        borderBottomLeftRadius: 10,
+        borderTopLeftRadius: 10
+    },
+    right: {
+        borderBottomRightRadius: 10,
+        borderTopRightRadius: 10
+    },
+    labelText: {
+        fontSize: 15,
+        color: '#0f62fe'
+    },
+    selected: {
+        backgroundColor: '#0f62fe'
+    },
+    selectedText: {
+        color: 'white'
     }
 });
