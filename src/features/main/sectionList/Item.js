@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, Text, TouchableOpacity, View } from 'react-native';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { mainActions } from '../services';
@@ -30,14 +30,17 @@ const Item = ({ account, componentId }) => {
         );
     };
     return (
-        <TouchableOpacity style={styles.SListitem} onPress={onItemPress}>
-            <Text style={styles.SListheader}>{account['name']}</Text>
-            <Text style={styles.SListtitle}>{account['issuer']}</Text>
-            {account.transaction?.available && (
+        <Pressable
+            style={styles.SListitem}
+            onPress={onItemPress}
+            android_ripple={{ color: 'grey' }}>
+            <Text style={styles.issuer}>{account['issuer']}</Text>
+            <Text style={styles.name}>{account['name']}</Text>
+            {account?.transaction?.available && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
             {renderErrorMessage()}
-        </TouchableOpacity>
+        </Pressable>
     );
 };
 

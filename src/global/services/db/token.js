@@ -18,6 +18,7 @@ async function getToken(accId) {
         for (let i = 0; i < result.rows.length; i++) {
             temp = result.rows.item(i);
         }
+        if (!temp) return;
         return {
             accessToken: temp['token'],
             refreshToken: temp['refresh_token'],

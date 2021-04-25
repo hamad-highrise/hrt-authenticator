@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, SectionList, Text } from 'react-native';
 import PropTypes from 'prop-types';
+
 import ListItem from './Item';
 import SectionHeader from './Header';
 import ListItemSeparator from './Separator';

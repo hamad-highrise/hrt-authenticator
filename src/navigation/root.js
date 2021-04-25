@@ -8,6 +8,7 @@ const setInitialRoot = () => {
                 waitForRender: true
             }
         },
+        
         topBar: {
             visible: false
         }

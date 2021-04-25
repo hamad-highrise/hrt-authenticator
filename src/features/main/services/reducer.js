@@ -74,9 +74,9 @@ const reducer = (state = initialState, action) => {
                 accounts: [
                     ...state.accounts.slice(0, rIndex),
                     {
-                        ...state.accounts[rIndex],
+                        ...state?.accounts[rIndex],
                         transaction: {
-                            ...state.accounts[rIndex].transaction
+                            ...state?.accounts[rIndex]?.transaction
                         },
                         error: false
                     },

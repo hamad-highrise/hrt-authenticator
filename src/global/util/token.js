@@ -1,7 +1,7 @@
 import { encodeToFormData } from './formData';
 import { NativeError } from '../errors';
 import { utilities, biometrics, push } from '../../native-services';
-import { getDeviceId } from '../util';
+import { getDeviceId } from './queries';
 import constants from '../constants';
 
 /**

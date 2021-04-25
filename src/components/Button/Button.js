@@ -1,50 +1,37 @@
 import React from 'react';
-import { TouchableOpacity, StyleSheet, Text } from 'react-native';
+import { Text, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 
-const AndroidButton = ({ title, onPress, style, param }) => {
-    const onButtonPress = () => {
-        onPress(param);
-    };
+import styles from './styles';
 
+const Button = ({ label, onPress, style, params, rippleColor }) => {
+    const onButtonPress = () => {
+        onPress && onPress(params);
+    };
     return (
-        <TouchableOpacity
+        <Pressable
+            android_ripple={{ color: rippleColor }}
             onPress={onButtonPress}
-            style={{ ...styles.container, ...style }}>
-            <Text style={styles.label}>{title}</Text>
-        </TouchableOpacity>
+            style={[
+                styles.conatiner,
+                ...(Array.isArray(style) ? style : []),
+                typeof style === 'object' ? style : {}
+            ]}>
+            <Text style={styles.buttonText}>{label}</Text>
+        </Pressable>
     );
 };
 
-AndroidButton.propTypes = {
+Button.propTypes = {
     onPress: PropTypes.func.isRequired,
-    title: PropTypes.string,
-    param: PropTypes.any,
-    size: PropTypes.string,
-    style: PropTypes.any
+    label: PropTypes.string.isRequired,
+    params: PropTypes.any,
+    style: PropTypes.any,
+    rippleColor: PropTypes.any
 };
 
-AndroidButton.defaultProps = {
-    onPress: () => alert('BUTTON_PRESS_HANDLER_NOT_PROVIDED'),
-    title: 'BUTTON',
-    size: 'small'
+Button.defaultProps = {
+    rippleColor: '#6FA0FE'
 };
 
-export default AndroidButton;
-
-const styles = StyleSheet.create({
-    container: {
-        elevation: 8,
-        backgroundColor: '#009688',
-        borderRadius: 2,
-        paddingVertical: 10,
-        paddingHorizontal: 12
-    },
-    label: {
-        fontSize: 16,
-        color: 'white',
-        marginLeft: 10
-    },
-    large: {},
-    small: {}
-});
+export default Button;

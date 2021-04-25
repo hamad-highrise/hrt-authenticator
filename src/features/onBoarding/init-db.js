@@ -1,6 +1,8 @@
 import { Database, utilities } from '../../native-services';
 import queries from './queries';
-import { constants } from '../../global';
+import { constants, errors } from '../../global';
+
+const { DatabaseError } = errors;
 
 async function initiateDb() {
     const database = new Database();
@@ -9,7 +11,6 @@ async function initiateDb() {
         await database.executeQuery(queries.accountTableQuery);
         await database.executeQuery(queries.accountSecretTableQuery);
         await database.executeQuery(queries.tokenTableQuery);
-        // await database.executeQuery(queries.methodTableQuery);
         await database.executeQuery(queries.accountMethodsTableQuery);
         await database.executeQuery(queries.authenticatorIdTableQuery);
         await database.executeQuery(queries.appDataPopulate, [
@@ -17,9 +18,9 @@ async function initiateDb() {
             constants.APP_INFO.VERSION
         ]);
 
-        return Promise.resolve();
+        return;
     } catch (error) {
-        return Promise.reject(error);
+        throw new DatabaseError({ message: 'ERROR_SETTING_UP_DB' });
     }
 }
 

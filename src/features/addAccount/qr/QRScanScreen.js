@@ -1,16 +1,10 @@
 import React, { useState, useCallback } from 'react';
-import {
-    View,
-    StyleSheet,
-    Dimensions,
-    TouchableOpacity,
-    Text
-} from 'react-native';
+import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
 
 import parser from './parser';
 import navigator from '../../../navigation';
-import { TopNavbar, LoadingIndicator } from '../../../components';
+import { TopNavbar, LoadingIndicator, Button } from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
@@ -60,34 +54,39 @@ const QRScan = (props) => {
                 setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
-                const account = {
-                    name: parsedData.label.account,
-                    issuer: parsedData.label.issuer,
-                    secret: parsedData.query.secret,
-                    type: constants.ACCOUNT_TYPES.TOTP
-                };
-                try {
-                    if (await isUnique(account)) {
-                        await createAccount({ account });
+                if (!parsedData) {
+                    alert('Invalid QR Code');
+                    navigator.goToRoot(props.componentId);
+                } else {
+                    const account = {
+                        name: parsedData.label.account,
+                        issuer: parsedData.label.issuer,
+                        secret: parsedData.query.secret,
+                        type: constants.ACCOUNT_TYPES.TOTP
+                    };
+                    try {
+                        if (await isUnique(account)) {
+                            await createAccount({ account });
+                            setLoading(false);
+                            navigator.goTo(
+                                props.componentId,
+                                navigator.screenIds.success,
+                                {
+                                    title: account.name,
+                                    type: constants.ACCOUNT_TYPES.TOTP
+                                }
+                            );
+                        } else {
+                            setLoading(false);
+                            alert(
+                                'Error: An account can not be registered multiple times.'
+                            );
+                            navigator.goToRoot(props.componentId);
+                        }
+                    } catch (error) {
+                        alert('Unable to register an account.');
                         setLoading(false);
-                        navigator.goTo(
-                            props.componentId,
-                            navigator.screenIds.success,
-                            {
-                                title: account.name,
-                                type: constants.ACCOUNT_TYPES.TOTP
-                            }
-                        );
-                    } else {
-                        setLoading(false);
-                        alert(
-                            'Error: An account can not be registered multiple times.'
-                        );
-                        navigator.goToRoot(props.componentId);
                     }
-                } catch (error) {
-                    alert('Unable to register an account.');
-                    setLoading(false);
                 }
             }
         }
@@ -175,27 +174,15 @@ const QRScan = (props) => {
                                 justifyContent: 'center',
                                 alignItems: 'center'
                             }}>
-                            <TouchableOpacity
+                            <Button
                                 onPress={onManualCodeClick}
+                                label={'Enter Code Manually'}
+                                rippleColor="#ACA8A8"
                                 style={{
-                                    width: '70%',
-                                    backgroundColor: 'grey',
-                                    height: 45,
-                                    borderWidth: 1,
-                                    borderRadius: 5,
-                                    elevation: 15,
-                                    shadowColor: 'grey',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                <Text
-                                    style={{
-                                        fontSize: 20,
-                                        fontWeight: '100'
-                                    }}>
-                                    Enter Code Manually
-                                </Text>
-                            </TouchableOpacity>
+                                    width: '90%',
+                                    backgroundColor: 'grey'
+                                }}
+                            />
                         </View>
                     </QRCodeReader>
                 </>

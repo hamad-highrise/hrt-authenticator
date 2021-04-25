@@ -22,11 +22,10 @@ const ProcessComplete = ({ title, ...props }) => {
 
             <View style={{ marginTop: 110, marginBottom: 100 }}>
                 <Button
-                    title="Done"
+                    label="Done"
                     onPress={() => {
                         navigator.goToRoot(props.componentId);
                     }}
-                    style={styles.btn}
                 />
             </View>
         </View>
@@ -69,14 +68,5 @@ const styles = StyleSheet.create({
         margin: 20,
         width: 240,
         height: 240
-    },
-    btn: {
-        backgroundColor: '#0f62fe',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center'
     }
 });

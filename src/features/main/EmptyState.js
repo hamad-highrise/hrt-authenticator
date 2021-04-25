@@ -1,35 +1,38 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
-import { Button } from '../../components';
+import { Button, Topbar } from '../../components';
 import navigation from '../../navigation';
 
 const EmptyState = (props) => {
     return (
-        <View style={styles.container}>
-            {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
-            <View style={{ flex: 0.4 }}>
-                <Image
-                    source={require('../../assets/images/AddAccIBM.png')}
-                    style={{ width: 200, height: 200 }}></Image>
+        <>
+            {/* <Topbar title="Test Title" /> */}
+            <View style={styles.container}>
+                {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
+                <View style={{ flex: 0.4 }}>
+                    <Image
+                        source={require('../../assets/images/AddAccIBM.png')}
+                        style={{ width: 200, height: 200 }}></Image>
+                </View>
+                <View style={{ flex: 0.3 }}>
+                    <Text style={styles.welcome}>No Account Yet !</Text>
+                    <Text style={styles.instructions}>
+                        Add your device and see them here
+                    </Text>
+                    <View style={styles.bar}></View>
+                    <Button
+                        label="Connect Account"
+                        style={styles.btn}
+                        onPress={() =>
+                            navigation.goTo(
+                                props.componentId,
+                                navigation.screenIds.qrScan
+                            )
+                        }
+                    />
+                </View>
             </View>
-            <View style={{ flex: 0.3 }}>
-                <Text style={styles.welcome}>No Account Yet !</Text>
-                <Text style={styles.instructions}>
-                    Add your device and see them here
-                </Text>
-                <View style={styles.bar}></View>
-                <Button
-                    title="Connect Account"
-                    style={styles.btn}
-                    onPress={() =>
-                        navigation.goTo(
-                            props.componentId,
-                            navigation.screenIds.qrScan
-                        )
-                    }
-                />
-            </View>
-        </View>
+        </>
     );
 };
 
@@ -57,13 +60,13 @@ const styles = StyleSheet.create({
         // marginBottom: 5
     },
     btn: {
-        backgroundColor: '#0f62fe',
-        paddingVertical: 23,
-        paddingHorizontal: 12,
-        borderWidth: 0,
-        borderRadius: 0,
-        width: Dimensions.get('window').width * 0.7,
-        alignSelf: 'center'
+        // backgroundColor: '#0f62fe',
+        // paddingVertical: 23,
+        // paddingHorizontal: 12,
+        // borderWidth: 0,
+        // borderRadius: 0,
+        // // width: Dimensions.get('window').width * 0.7,
+        // alignSelf: 'center'
     },
     bar: {
         alignSelf: 'center',

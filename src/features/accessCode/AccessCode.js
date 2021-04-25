@@ -1,12 +1,5 @@
 import React, { useRef } from 'react';
-import {
-    View,
-    Text,
-    Image,
-    TouchableOpacity,
-    Animated,
-    Easing
-} from 'react-native';
+import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 
 import { IconButton, LoadingIndicator } from '../../components';
@@ -77,8 +70,9 @@ const AccessCode = (props) => {
                 <View style={styles.title}>
                     <Text style={styles.titleMainText}>Access Code</Text>
                 </View>
-                {account['type'] === constants.ACCOUNT_TYPES.SAM && (
-                    <View style={{ height: 52 }}>
+
+                <View style={{ width: 40, height: '100%' }}>
+                    {account['type'] === constants.ACCOUNT_TYPES.SAM && (
                         <IconButton onPress={onRefereshClick}>
                             <Animated.Image
                                 source={require('../../assets/icons/refreshinvertblack.png')}
@@ -92,60 +86,48 @@ const AccessCode = (props) => {
                                 ]}
                             />
                         </IconButton>
-                    </View>
-                )}
+                    )}
+                </View>
             </View>
 
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{account.name}</Text>
-                    <Text style={styles.titleIDText}>{account.issuer}</Text>
+                    <Text style={styles.titleText}>{account.issuer}</Text>
+                    <Text style={styles.titleIDText}>{account.name}</Text>
                 </View>
             </View>
             <View style={styles.middle}>
-                <View style={styles.slectorContainer}>
-                    <TouchableOpacity
+                <View style={styles.selectorContainer}>
+                    <Pressable
                         onPress={onCodeSelect}
                         style={[
                             styles.selector,
-                            fragment === 'CODE'
-                                ? { ...styles.selected, ...styles.selectedLeft }
-                                : {
-                                      ...styles.selectedInvert,
-                                      ...styles.selectedInvertLeft
-                                  }
+                            styles.left,
+                            fragment === 'CODE' && styles.selected
                         ]}>
                         <Text
                             style={[
-                                styles.selectorText,
+                                styles.labelText,
                                 fragment === 'CODE' && styles.selectedText
                             ]}>
-                            Access code
+                            Access Code
                         </Text>
-                    </TouchableOpacity>
-                    <View style={styles.selectorSeparator} />
-                    <TouchableOpacity
+                    </Pressable>
+                    <Pressable
                         onPress={onSettingsSelect}
                         style={[
                             styles.selector,
-                            fragment === 'SETTINGS'
-                                ? {
-                                      ...styles.selected,
-                                      ...styles.selectedRight
-                                  }
-                                : {
-                                      ...styles.selectedInvert,
-                                      ...styles.selectedInvertRight
-                                  }
+                            styles.right,
+                            fragment === 'SETTINGS' && styles.selected
                         ]}>
                         <Text
                             style={[
-                                styles.selectorText,
+                                styles.labelText,
                                 fragment === 'SETTINGS' && styles.selectedText
                             ]}>
                             Settings
                         </Text>
-                    </TouchableOpacity>
+                    </Pressable>
                 </View>
             </View>
             <View style={styles.bottom}>

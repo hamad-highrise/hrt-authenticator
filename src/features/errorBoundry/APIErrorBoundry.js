@@ -17,6 +17,7 @@ function Boundry({ children, ...props }) {
     const renderErrorScreen = () => {
         return <ErrorScreen reset={onReset} message={error.data.message} />;
     };
+    // console.warn(error);
     return children;
 }
 

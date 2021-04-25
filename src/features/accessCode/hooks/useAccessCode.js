@@ -125,10 +125,7 @@ function useAccessCode({ componentId }) {
                 ignoreSsl: selected['ignoreSsl']
             });
             dispatch(mainActions.getAllAccounts());
-            setTimeout(() => {
-                setLoading(false);
-                navigator.goToRoot(componentId);
-            }, 1000);
+            navigator.goToRoot(componentId);
         } catch (error) {
             Alert.alert(
                 'Force Account Deletion',
@@ -156,14 +153,10 @@ function useAccessCode({ componentId }) {
         try {
             await services.removeAccountFromDB(selected['id']);
         } catch (error) {
-            setLoading(false);
             dispatch(alertActions.failure(error, selected['id']));
         } finally {
             dispatch(mainActions.getAllAccounts());
-            setTimeout(() => {
-                setLoading(false);
-                navigator.goToRoot(componentId);
-            }, 1000);
+            navigator.goToRoot(componentId);
         }
     };
 
