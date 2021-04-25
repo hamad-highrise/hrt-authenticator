@@ -7,7 +7,7 @@ const errorName = Object.freeze({
 });
 
 const defaultMessages = Object.freeze({
-    DB: 'Not able to get account from storage!',
+    DB: 'Not able to get account data from storage!',
     SAM: 'Please contact SAM Support!',
     TOKEN: 'Device may have been removed manually!',
     NATIVE: 'Device is behaving unexpectedly!',
