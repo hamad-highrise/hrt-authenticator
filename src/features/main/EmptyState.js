@@ -6,7 +6,7 @@ import navigation from '../../navigation';
 const EmptyState = (props) => {
     return (
         <>
-            <Topbar title="Test Title" />
+            {/* <Topbar title="Test Title" /> */}
             <View style={styles.container}>
                 {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
                 <View style={{ flex: 0.4 }}>
