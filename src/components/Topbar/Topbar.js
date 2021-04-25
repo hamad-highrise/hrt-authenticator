@@ -6,6 +6,7 @@ import styles from './styles';
 
 const Topbar = (props) => {
     const { title, bottomBorder } = props;
+    const finalStyles = []
     return (
         <View style={styles.container}>
             <Text style={styles.titleText}>{title}</Text>

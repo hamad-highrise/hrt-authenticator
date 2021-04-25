@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 
-import { IconButton, LoadingIndicator } from '../../components';
+import { IconButton, LoadingIndicator, Topbar } from '../../components';
 import navigator from '../../navigation';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
@@ -92,8 +92,8 @@ const AccessCode = (props) => {
 
             <View style={styles.top}>
                 <View style={styles.title}>
-                    <Text style={styles.titleText}>{account.name}</Text>
-                    <Text style={styles.titleIDText}>{account.issuer}</Text>
+                    <Text style={styles.titleText}>{account.issuer}</Text>
+                    <Text style={styles.titleIDText}>{account.name}</Text>
                 </View>
             </View>
             <View style={styles.middle}>
