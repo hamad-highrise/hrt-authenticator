@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { mainActions } from '../services';
 import navigator from '../../../navigation';
 import constants from '../../../global/constants';
+import { BackHandler } from 'react-native';
 
 const CHECKTYPE = 'MULTI';
 
@@ -19,9 +20,17 @@ function useAccounts() {
                 componentName === navigator.screenIds.main && loadAccounts();
             }
         );
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            () => {
+                BackHandler.exitApp();
+                return true;
+            }
+        );
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
             appearListener.remove();
+            backHandler.remove();
         };
     }, []);
 
