@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
+
 import { alertActions } from '../../alert';
 import { approveTransaction, denyTransaction } from '../services';
-import navigator from '../../../navigation';
 
-function useTransaction({ componentId }) {
+function useTransaction() {
     const selected = useSelector(({ main }) => main.selected);
+    const navigation = useNavigation();
     const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
     let transaction;
@@ -13,7 +15,6 @@ function useTransaction({ componentId }) {
     }
 
     const onApprove = async () => {
-        !isConnected && navigator.goToRoot(componentId);
         try {
             dispatch(alertActions.request());
             await approveTransaction({
@@ -24,12 +25,11 @@ function useTransaction({ componentId }) {
         } catch (error) {
             dispatch(alertActions.failure(error));
         } finally {
-            navigator.goToRoot(componentId);
+            navigation.goBack();
         }
     };
 
     const onReject = async () => {
-        !isConnected && navigator.goToRoot(componentId);
         try {
             dispatch(alertActions.request());
             await denyTransaction({
@@ -40,7 +40,7 @@ function useTransaction({ componentId }) {
         } catch (error) {
             dispatch(alertActions.failure(error));
         } finally {
-            navigator.goToRoot(componentId);
+            navigation.goBack();
         }
     };
 

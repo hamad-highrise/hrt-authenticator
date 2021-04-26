@@ -1,9 +1,12 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Button, Topbar } from '../../components';
-import navigation from '../../navigation';
+import screensIdentifiers from '../../navigation/screensId';
 
 const EmptyState = (props) => {
+    const navigation = useNavigation();
     return (
         <>
             {/* <Topbar title="Test Title" /> */}
@@ -23,10 +26,7 @@ const EmptyState = (props) => {
                         label="Connect Account"
                         style={styles.btn}
                         onPress={() =>
-                            navigation.goTo(
-                                props.componentId,
-                                navigation.screenIds.qrScan
-                            )
+                            navigation.navigate(screensIdentifiers.qrScan)
                         }
                     />
                 </View>

@@ -107,7 +107,7 @@ const QRScan = (props) => {
                     <TopNavbar
                         title="Scan QR code"
                         imageBackOnPress={() =>
-                            navigator.goBack(props.componentId)
+                            navigation.navigate(screensIdentifiers.main)
                         }
                     />
                     {!isConnected && (
