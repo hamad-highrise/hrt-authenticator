@@ -1,6 +1,8 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
+import NetInfo from '@react-native-community/netinfo';
+
 import screenIds from './navigation/screensId';
 import {
     WelcomeScreen,
@@ -16,8 +18,19 @@ import {
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
+import { alertActions } from './features/alert';
 
 const Stack = createStackNavigator();
+
+NetInfo.fetch()
+    .then((state) =>
+        store.dispatch(alertActions.netStateChanged(state.isConnected))
+    )
+    .catch((err) => store.dispatch(alertActions.failure(err)));
+
+NetInfo.addEventListener((status) => {
+    store.dispatch(alertActions.netStateChanged(status.isConnected));
+});
 
 const App = () => {
     const { Navigator, Screen } = Stack;
