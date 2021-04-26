@@ -49,7 +49,8 @@ export default StyleSheet.create({
     error: {},
     errorText: {
         fontSize: 16,
-        color: '#96281b'
+        color: '#96281b',
+        fontStyle: 'italic'
     },
     issuer: {
         color: '#424C58',

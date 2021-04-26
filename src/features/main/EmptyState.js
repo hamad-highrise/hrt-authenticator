@@ -8,7 +8,6 @@ const EmptyState = (props) => {
         <>
             {/* <Topbar title="Test Title" /> */}
             <View style={styles.container}>
-                {/* <StatusBar barStyle="light-content" backgroundColor="#555" /> */}
                 <View style={{ flex: 0.4 }}>
                     <Image
                         source={require('../../assets/images/AddAccIBM.png')}

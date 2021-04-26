@@ -1,5 +1,5 @@
 import React from 'react';
-import { Pressable, Text, TouchableOpacity, View } from 'react-native';
+import { Pressable, Text, View } from 'react-native';
 import styles from './styles';
 import { useDispatch } from 'react-redux';
 import { mainActions } from '../services';
@@ -16,14 +16,10 @@ const Item = ({ account, componentId }) => {
 
     const renderErrorMessage = () => {
         return (
-            account['error'] && (
+            account?.error?.hasOccurred && (
                 <View>
                     <Text style={styles.errorText}>
-                        An error has occurred
-                        <Text style={{ fontWeight: 'bold', fontSize: 20 }}>
-                            {' '}
-                            !
-                        </Text>
+                        {account.error?.displayMessage}
                     </Text>
                 </View>
             )
