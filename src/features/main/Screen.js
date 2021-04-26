@@ -2,7 +2,6 @@ import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
@@ -17,7 +16,7 @@ const Main = (props) => {
 
     const onAddAccount = useCallback(() => {
         // navigation.goTo(props.componentId, navigation.screenIds.qrScan);
-        navigatotion.navigate(screensIdentifiers.qrScan);
+        navigation.navigate(screensIdentifiers.qrScan);
     }, [props.componentId]);
 
     const onDeviceInfo = useCallback(() => {

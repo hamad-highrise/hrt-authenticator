@@ -1,10 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 import { mainActions } from '../services';
 import constants from '../../../global/constants';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'MULTI';
 
@@ -16,11 +17,19 @@ function useAccounts() {
 
     useEffect(() => {
         loadAccounts();
-        // const appearListener = Navigation.events().registerComponentDidAppearListener(
-        //     ({ componentName }) => {
-        //         componentName === navigator.screenIds.main && loadAccounts();
-        //     }
-        // );
+        navigation.dispatch((state) => {
+            const routes = state.routes.filter(
+                (r) => r.name != screensIdentifiers.splash
+            );
+            const index = state.routes.findIndex(
+                (r) => r.name === screensIdentifiers.main
+            );
+            return CommonActions.reset({
+                ...state,
+                routes,
+                index: routes.length - 1
+            });
+        });
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
             () => {
@@ -46,6 +55,7 @@ function useAccounts() {
     }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {
+        // console.warn('OKAY' + Date.now());
         accounts.forEach((account) => {
             account['type'] === constants.ACCOUNT_TYPES.SAM &&
                 dispatch(

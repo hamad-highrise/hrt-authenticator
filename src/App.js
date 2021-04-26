@@ -1,10 +1,11 @@
 import * as React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { NavigationContainer, ServerContainer } from '@react-navigation/native';
+import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import { Provider } from 'react-redux';
 
 import screenIds from './navigation/screensId';
+import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
 import store from './redux.js';
 import {
     MainScreen,
@@ -64,10 +65,13 @@ const App = () => {
                         name={screenIds.biometricOption}
                         component={BiometricOption}
                     />
-                    <Screen
-                        name={screenIds.accessCode}
-                        component={CodeScreen}
-                    />
+                    <Screen name={screenIds.accessCode}>
+                        {() => (
+                            <ErrorBoundary>
+                                <CodeScreen />
+                            </ErrorBoundary>
+                        )}
+                    </Screen>
                     <Screen
                         name={screenIds.securityassessment}
                         component={SecurityAssessmentScreen}

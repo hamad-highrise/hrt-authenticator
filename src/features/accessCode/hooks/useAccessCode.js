@@ -11,7 +11,7 @@ import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'SELECTED';
 
-function useAccessCode({ componentId }) {
+function useAccessCode() {
     const navigation = useNavigation();
     const selected = useSelector(({ main }) => main.selected);
     const { isConnected } = useSelector(({ alert }) => alert);
@@ -45,34 +45,17 @@ function useAccessCode({ componentId }) {
     useEffect(() => {
         //listeners
         AppState.addEventListener('change', onAppStateChange);
-        // const appear = Navigation.events().registerComponentDidAppearListener(
-        //     onAppear
-        // );
-        // const disappear = Navigation.events().registerComponentDidDisappearListener(
-        //     onDisappear
-        // );
         return () => {
             //remove listeners
             AppState.removeEventListener('change', onAppStateChange);
-            // appear.remove();
-            // disappear.remove();
         };
     }, []);
 
     useEffect(() => {
         selected['type'] === constants.ACCOUNT_TYPES.SAM &&
             selected.transaction.available &&
-            // navigator.goTo(componentId, navigator.screenIds.authTransaction);
             navigation.navigate(screensIdentifiers.authTransaction);
     }, [selected?.transaction?.available]);
-
-    // const onAppear = ({ componentName }) => {
-    //     navigator.screenIds.accessCode === componentName && (onScreen = true);
-    // };
-
-    // const onDisappear = ({ componentName }) => {
-    //     navigator.screenIds.accessCode === componentName && (onScreen = false);
-    // };
 
     const onAppStateChange = (nextAppState) => {
         if (

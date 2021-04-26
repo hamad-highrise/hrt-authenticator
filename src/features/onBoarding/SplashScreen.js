@@ -31,7 +31,6 @@ const Splash = (props) => {
                 alert('Error while initiating application.');
             }
             setTimeout(() => {
-                // navigator.setMainRoot();
                 navigation.navigate(screensIdentifiers.main);
             }, SET_ROOT_DELAY);
         }
@@ -40,7 +39,9 @@ const Splash = (props) => {
     useEffect(() => {
         setTimeout(() => {
             if (accounts !== null) {
-                // navigator.setMainRoot();
+                console.warn(
+                    'Appearing from second useEffect of Splash screen'
+                );
                 navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);
