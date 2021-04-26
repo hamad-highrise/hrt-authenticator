@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, SectionList, Text } from 'react-native';
+import { View, SectionList } from 'react-native';
 import PropTypes from 'prop-types';
 
 import ListItem from './Item';

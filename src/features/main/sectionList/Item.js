@@ -1,17 +1,23 @@
 import React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import styles from './styles';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch } from 'react-redux';
-import { mainActions } from '../services';
-import navigator from '../../../navigation';
 
-const Item = ({ account, componentId }) => {
+import styles from './styles';
+import { mainActions } from '../services';
+import screensIdentifiers from '../../../navigation/screensId';
+
+const Item = ({ account }) => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const onItemPress = () => {
         dispatch(mainActions.selectAccount(account['id']));
         account?.transaction?.available
-            ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
-            : navigator.goTo(componentId, navigator.screenIds.accessCode);
+            ? navigation.navigate(screensIdentifiers.authTransaction)
+            : navigation.navigate(screensIdentifiers.accessCode);
+        // account?.transaction?.available
+        //     ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
+        //     : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
 
     const renderErrorMessage = () => {

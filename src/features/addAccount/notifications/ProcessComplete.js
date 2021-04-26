@@ -1,10 +1,13 @@
 import React from 'react';
-import navigator from '../../../navigation';
-import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
+import { Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
+
 import { Button } from '../../../components';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const ProcessComplete = ({ title, ...props }) => {
+    const navigation = useNavigation();
     return (
         <View style={styles.container}>
             <Image
@@ -24,7 +27,8 @@ const ProcessComplete = ({ title, ...props }) => {
                 <Button
                     label="Done"
                     onPress={() => {
-                        navigator.goToRoot(props.componentId);
+                        // navigator.goToRoot(props.componentId);
+                        navigation.navigate(screensIdentifiers.main);
                     }}
                 />
             </View>

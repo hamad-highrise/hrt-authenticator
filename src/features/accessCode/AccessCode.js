@@ -1,15 +1,17 @@
 import React, { useRef } from 'react';
 import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 import { IconButton, LoadingIndicator } from '../../components';
-import navigator from '../../navigation';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
 import { constants } from '../../global';
+import screensIdentifiers from '../../navigation/screensId';
 
 const AccessCode = (props) => {
+    const navigation = useNavigation();
     const {
         otp,
         counter,
@@ -25,7 +27,8 @@ const AccessCode = (props) => {
     var spinValue = useRef(new Animated.Value(0)).current;
 
     const onBackPress = () => {
-        navigator.goBack(props.componentId);
+        // navigator.goBack(props.componentId);
+        navigation.navigate(screensIdentifiers.main);
     };
 
     const spin = spinValue.interpolate({

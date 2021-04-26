@@ -1,22 +1,28 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import navigation from '../../navigation';
 import { IconButton } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
 import { useSelector } from 'react-redux';
 import EmptyState from './EmptyState';
+import screensIdentifiers from '../../navigation/screensId';
 
 const Main = (props) => {
+    const navigation = useNavigation();
     const { accounts } = useAccounts(props.componentId);
     const isConnected = useSelector(({ alert }) => alert.isConnected);
 
     const onAddAccount = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.qrScan);
+        // navigation.goTo(props.componentId, navigation.screenIds.qrScan);
+        navigatotion.navigate(screensIdentifiers.qrScan);
     }, [props.componentId]);
 
     const onDeviceInfo = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
+        // navigation.goTo(props.componentId, navigation.screenIds.deviceInfo);
+        navigation.navigate(screensIdentifiers.deviceInfo);
     }, [props.componentId]);
 
     return (

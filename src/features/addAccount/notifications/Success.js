@@ -1,12 +1,14 @@
 import React, { useEffect } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
-import navigator from '../../../navigation';
 import { constants } from '../../../global';
 import { biometrics } from '../../../native-services';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const NotifySuccess = ({ accountName, type, methods, ...props }) => {
+    const navigation = useNavigation();
     useEffect(() => {
         init();
         const backHandler = BackHandler.addEventListener(
@@ -26,20 +28,22 @@ const NotifySuccess = ({ accountName, type, methods, ...props }) => {
             ) {
                 const { available } = await biometrics.isSensorAvailable();
                 available &&
-                    navigator.goTo(
-                        props.componentId,
-                        navigator.screenIds.biometricOption,
-                        {
-                            accountName,
-                            accId: props.accId
-                        }
-                    );
-            } else navigator.goToRoot(props.componentId);
+                    navigation.navigate(screensIdentifiers.biometricOption);
+                // navigator.goTo(
+                //     props.componentId,
+                //     navigator.screenIds.biometricOption,
+                //     {
+                //         accountName,
+                //         accId: props.accId
+                //     }
+                // );
+            } else navigation.navigate(screensIdentifiers.main);
         }, 3000);
     };
 
     const goBack = () => {
-        navigator.goToRoot(props.componentId);
+        navigation.navigate(screensIdentifiers.main);
+        // navigator.goToRoot(props.componentId);
         return true;
     };
 

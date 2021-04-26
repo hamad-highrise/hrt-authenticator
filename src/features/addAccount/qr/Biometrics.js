@@ -2,18 +2,20 @@ import React, { useEffect, useState } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { Button, LoadingIndicator } from '../../../components';
-import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { services, utils } from '../../../global';
 import { alertActions } from '../../alert';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const { getAccessToken } = services;
 const { getEnrollmentEndpoint } = utils;
 
 const BiometricOption = ({ accId, accountName, ...props }) => {
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
@@ -26,14 +28,16 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
     }, []);
 
     const goBack = () => {
-        navigator.goToRoot(props.componentId);
+        navigation.navigate(screensIdentifiers.main);
+        // navigator.goToRoot(props.componentId);
         return true;
     };
 
     const onNegative = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.complete, {
-            title: accountName
-        });
+        navigation.navigate(screensIdentifiers.complete);
+        // navigator.goTo(props.componentId, navigator.screenIds.complete, {
+        //     title: accountName
+        // });
     };
 
     const onPositive = async () => {
@@ -49,14 +53,16 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
             });
             dispatch(alertActions.success());
             setLoading(false);
-            navigator.goTo(props.componentId, navigator.screenIds.complete, {
-                title: accountName
-            });
+            navigation.navigate(screensIdentifiers.complete);
+            // navigator.goTo(props.componentId, navigator.screenIds.complete, {
+            //     title: accountName
+            // });
         } catch (error) {
             setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
             dispatch(alertActions.failure(error, accId));
-            navigator.goToRoot(props.componentId);
+            navigation.navigate(screensIdentifiers.main);
+            // navigator.goToRoot(props.componentId);
         }
     };
 

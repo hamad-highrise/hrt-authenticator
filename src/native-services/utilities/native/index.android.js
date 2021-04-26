@@ -24,10 +24,12 @@ async function getDeviceInfo() {
 
 async function isInitiated() {
     const { Utilities } = NativeModules;
+    
     try {
         const result = await Utilities.isInitiated();
         return Promise.resolve(result);
     } catch (error) {
+        console.warn(error);
         return Promise.reject(error);
     }
 }

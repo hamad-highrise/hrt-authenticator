@@ -1,25 +1,27 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
+import { useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import parser from './parser';
-import navigator from '../../../navigation';
 import { TopNavbar, LoadingIndicator, Button } from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
-import { useSelector } from 'react-redux';
-import navigation from '../../../navigation';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const QRScan = (props) => {
+    const navigation = useNavigation();
     const { isConnected } = useSelector(({ alert }) => alert);
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const onManualCodeClick = useCallback(() => {
-        navigation.goTo(props.componentId, navigation.screenIds.accountForm);
+        navigation.navigate(screensIdentifiers.accountForm);
+        // navigation.goTo(props.componentId, navigation.screenIds.accountForm);
     }, [props.componentId]);
 
     const barcodeRecognized = async (_barcode) => {
@@ -47,7 +49,8 @@ const QRScan = (props) => {
                         );
                     } catch (error) {
                         setLoading(false);
-                        navigator.goToRoot(props.componentId);
+                        navigation.navigate(screensIdentifiers.main);
+                        // navigator.goToRoot(props.componentId);
                     }
                 }
             } else {

@@ -1,25 +1,26 @@
 import { useEffect, useRef } from 'react';
-import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
-import { mainActions } from '../services';
-import navigator from '../../../navigation';
-import constants from '../../../global/constants';
 import { BackHandler } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
+import { mainActions } from '../services';
+import constants from '../../../global/constants';
 
 const CHECKTYPE = 'MULTI';
 
 function useAccounts() {
     const accounts = useSelector(({ main }) => main.accounts);
     const dispatch = useDispatch();
+    const navigation = useNavigation();
     const transactionCheckIntervalRef = useRef();
 
     useEffect(() => {
         loadAccounts();
-        const appearListener = Navigation.events().registerComponentDidAppearListener(
-            ({ componentName }) => {
-                componentName === navigator.screenIds.main && loadAccounts();
-            }
-        );
+        // const appearListener = Navigation.events().registerComponentDidAppearListener(
+        //     ({ componentName }) => {
+        //         componentName === navigator.screenIds.main && loadAccounts();
+        //     }
+        // );
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
             () => {
@@ -29,7 +30,7 @@ function useAccounts() {
         );
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
-            appearListener.remove();
+            // appearListener.remove();
             backHandler.remove();
         };
     }, []);
