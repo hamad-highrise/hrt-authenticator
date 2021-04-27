@@ -1,7 +1,11 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import {
+    CommonActions,
+    useNavigation,
+    useFocusEffect
+} from '@react-navigation/native';
 
 import { mainActions } from '../services';
 import constants from '../../../global/constants';
@@ -21,9 +25,7 @@ function useAccounts() {
             const routes = state.routes.filter(
                 (r) => r.name != screensIdentifiers.splash
             );
-            const index = state.routes.findIndex(
-                (r) => r.name === screensIdentifiers.main
-            );
+
             return CommonActions.reset({
                 ...state,
                 routes,
@@ -53,6 +55,10 @@ function useAccounts() {
                 1000 * 5
             );
     }, [JSON.stringify(accounts)]);
+
+    useFocusEffect(() => {
+        loadAccounts();
+    }, []);
 
     const transactionChecker = () => {
         // console.warn('OKAY' + Date.now());

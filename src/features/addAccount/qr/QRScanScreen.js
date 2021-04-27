@@ -37,16 +37,17 @@ const QRScan = (props) => {
                     setLoading(true);
                     try {
                         const result = await initiateSamAccount(value);
-                        navigator.goTo(
-                            props.componentId,
-                            navigator.screenIds.success,
-                            {
-                                accountName: result.issuer,
-                                accId: result.insertId,
-                                methods: result.methods,
-                                type: constants.ACCOUNT_TYPES.SAM
-                            }
-                        );
+                        // navigator.goTo(
+                        //     props.componentId,
+                        //     navigator.screenIds.success,
+                        //     {
+                        //         accountName: result.issuer,
+                        //         accId: result.insertId,
+                        //         methods: result.methods,
+                        //         type: constants.ACCOUNT_TYPES.SAM
+                        //     }
+                        // );
+                        navigation.navigate(screensIdentifiers.main);
                     } catch (error) {
                         setLoading(false);
                         navigation.navigate(screensIdentifiers.main);
@@ -59,7 +60,7 @@ const QRScan = (props) => {
                 const parsedData = uriParser(_barcode.data);
                 if (!parsedData) {
                     alert('Invalid QR Code');
-                    navigator.goToRoot(props.componentId);
+                    navigation.goBack();
                 } else {
                     const account = {
                         name: parsedData.label.account,
@@ -71,20 +72,13 @@ const QRScan = (props) => {
                         if (await isUnique(account)) {
                             await createAccount({ account });
                             setLoading(false);
-                            navigator.goTo(
-                                props.componentId,
-                                navigator.screenIds.success,
-                                {
-                                    title: account.name,
-                                    type: constants.ACCOUNT_TYPES.TOTP
-                                }
-                            );
+                            navigation.navigate(screensIdentifiers.main);
                         } else {
                             setLoading(false);
                             alert(
                                 'Error: An account can not be registered multiple times.'
                             );
-                            navigator.goToRoot(props.componentId);
+                            navigation.goBack();
                         }
                     } catch (error) {
                         alert('Unable to register an account.');

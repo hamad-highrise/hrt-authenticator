@@ -3,6 +3,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import { Provider } from 'react-redux';
+import { enableScreens } from 'react-native-screens';
 
 import screenIds from './navigation/screensId';
 import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
@@ -22,6 +23,7 @@ import {
 } from './features';
 import { alertActions } from './features/alert';
 
+enableScreens();
 const Stack = createStackNavigator();
 
 NetInfo.fetch()
