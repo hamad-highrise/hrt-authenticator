@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
 import { RNCamera as QRCodeReader } from 'react-native-camera';
-import { useSelector } from 'react-redux';
-import { useNavigation } from '@react-navigation/native';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation, useIsFocused } from '@react-navigation/native';
 
 import parser from './parser';
 import { TopNavbar, LoadingIndicator, Button } from '../../../components';
@@ -11,24 +11,25 @@ import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
+import { mainActions } from '../../main/services';
 
 const QRScan = (props) => {
     const navigation = useNavigation();
+    const isFocused = useIsFocused();
     const { isConnected } = useSelector(({ alert }) => alert);
+    const dispatch = useDispatch();
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const onManualCodeClick = useCallback(() => {
         navigation.navigate(screensIdentifiers.accountForm);
-        // navigation.goTo(props.componentId, navigation.screenIds.accountForm);
     }, [props.componentId]);
 
     const barcodeRecognized = async (_barcode) => {
         //Barcode can't be read multiple time
         if (!isRead) {
             setIsRead(true);
-
             vibrate();
             const { value, valid } = tryJSONParser(_barcode.data);
             if (valid) {
@@ -37,21 +38,16 @@ const QRScan = (props) => {
                     setLoading(true);
                     try {
                         const result = await initiateSamAccount(value);
-                        // navigator.goTo(
-                        //     props.componentId,
-                        //     navigator.screenIds.success,
-                        //     {
-                        //         accountName: result.issuer,
-                        //         accId: result.insertId,
-                        //         methods: result.methods,
-                        //         type: constants.ACCOUNT_TYPES.SAM
-                        //     }
-                        // );
-                        navigation.navigate(screensIdentifiers.main);
+
+                        navigation.navigate(screensIdentifiers.success, {
+                            serviceName: result.issuer,
+                            accId: result.insertId,
+                            methods: result.methods,
+                            type: constants.ACCOUNT_TYPES.SAM
+                        });
                     } catch (error) {
                         setLoading(false);
                         navigation.navigate(screensIdentifiers.main);
-                        // navigator.goToRoot(props.componentId);
                     }
                 }
             } else {
@@ -86,6 +82,7 @@ const QRScan = (props) => {
                     }
                 }
             }
+            dispatch(mainActions.getAllAccounts());
         }
     };
     const { width } = Dimensions.get('window');
@@ -188,7 +185,7 @@ const QRScan = (props) => {
     );
 };
 
-export default QRScan;
+export default React.memo(QRScan);
 
 const styles = StyleSheet.create({
     container: {

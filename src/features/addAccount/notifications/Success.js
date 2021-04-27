@@ -1,14 +1,16 @@
 import React, { useEffect } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { constants } from '../../../global';
 import { biometrics } from '../../../native-services';
 import screensIdentifiers from '../../../navigation/screensId';
 
-const NotifySuccess = ({ accountName, type, methods, ...props }) => {
+const NotifySuccess = () => {
     const navigation = useNavigation();
+    const { params } = useRoute();
+    const { serviceName, type, methods, accId } = params;
     useEffect(() => {
         init();
         const backHandler = BackHandler.addEventListener(
@@ -28,22 +30,16 @@ const NotifySuccess = ({ accountName, type, methods, ...props }) => {
             ) {
                 const { available } = await biometrics.isSensorAvailable();
                 available &&
-                    navigation.navigate(screensIdentifiers.biometricOption);
-                // navigator.goTo(
-                //     props.componentId,
-                //     navigator.screenIds.biometricOption,
-                //     {
-                //         accountName,
-                //         accId: props.accId
-                //     }
-                // );
+                    navigation.navigate(screensIdentifiers.biometricOption, {
+                        serviceName,
+                        accId
+                    });
             } else navigation.navigate(screensIdentifiers.main);
         }, 3000);
     };
 
     const goBack = () => {
         navigation.navigate(screensIdentifiers.main);
-        // navigator.goToRoot(props.componentId);
         return true;
     };
 
@@ -55,7 +51,7 @@ const NotifySuccess = ({ accountName, type, methods, ...props }) => {
             <View>
                 <Text style={styles.instructions}>
                     This device and your
-                    <Text style={{ fontWeight: 'bold' }}> {accountName} </Text>
+                    <Text style={{ fontWeight: 'bold' }}> {serviceName} </Text>
                     account are now connected.
                 </Text>
             </View>

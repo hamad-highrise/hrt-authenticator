@@ -110,9 +110,8 @@ function useAccessCode() {
                 ignoreSsl: selected['ignoreSsl']
             });
             dispatch(mainActions.getAllAccounts());
-            
+
             navigation.navigate(screensIdentifiers.main);
-            
         } catch (error) {
             Alert.alert(
                 'Force Account Deletion',

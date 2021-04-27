@@ -1,11 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
-import {
-    CommonActions,
-    useNavigation,
-    useFocusEffect
-} from '@react-navigation/native';
+import { CommonActions, useNavigation } from '@react-navigation/native';
 
 import { mainActions } from '../services';
 import constants from '../../../global/constants';
@@ -41,7 +37,6 @@ function useAccounts() {
         );
         return () => {
             clearInterval(transactionCheckIntervalRef.current);
-            // appearListener.remove();
             backHandler.remove();
         };
     }, []);
@@ -56,12 +51,7 @@ function useAccounts() {
             );
     }, [JSON.stringify(accounts)]);
 
-    useFocusEffect(() => {
-        loadAccounts();
-    }, []);
-
     const transactionChecker = () => {
-        // console.warn('OKAY' + Date.now());
         accounts.forEach((account) => {
             account['type'] === constants.ACCOUNT_TYPES.SAM &&
                 dispatch(

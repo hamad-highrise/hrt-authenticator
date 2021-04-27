@@ -15,9 +15,6 @@ const Item = ({ account }) => {
         account?.transaction?.available
             ? navigation.navigate(screensIdentifiers.authTransaction)
             : navigation.navigate(screensIdentifiers.accessCode);
-        // account?.transaction?.available
-        //     ? navigator.goTo(componentId, navigator.screenIds.authTransaction)
-        //     : navigator.goTo(componentId, navigator.screenIds.accessCode);
     };
 
     const renderErrorMessage = () => {

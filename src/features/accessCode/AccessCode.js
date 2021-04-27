@@ -27,7 +27,6 @@ const AccessCode = (props) => {
     // var spinValue = useRef(new Animated.Value(0)).current;
 
     const onBackPress = () => {
-        // navigator.goBack(props.componentId);
         navigation.navigate(screensIdentifiers.main);
     };
 

@@ -66,8 +66,8 @@ async function registerUserPresence({ endpoint, token, accId, ignoreSsl }) {
     }
 }
 
-async function registerBiometrics({ endpoint, token, accId }) {
-    const rnFetch = getFetchInstance();
+async function registerBiometrics({ endpoint, token, accId, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
     const { uuid } = await utilities.getUUID();
     const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.FINGERPRINT;
 
