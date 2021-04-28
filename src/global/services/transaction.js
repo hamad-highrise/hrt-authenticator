@@ -3,12 +3,14 @@ import { getTransactionEndpoint, getMethods } from './db';
 import { getPendingTransactions } from './api';
 import { SAMError, TokenError } from '../errors';
 import { getAuthIdByAccount } from '../util';
+import { getAuthenticators } from './authenticator';
 import constants from '../constants';
 
 async function getTransactions({ accId, ignoreSsl }) {
     let transaction;
     try {
         const accessToken = await getAccessToken(accId);
+        const result = await getAuthenticators({ accId, ignoreSsl });
         const transactionEndpoint = await getTransactionEndpoint(accId);
         const transactionResponse = await getPendingTransactions({
             endpoint: transactionEndpoint,

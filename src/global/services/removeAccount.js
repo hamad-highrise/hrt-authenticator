@@ -11,7 +11,6 @@ async function removeAccount({ accId, type, ignoreSsl }) {
             (await sAMAccountRemove({ accId, ignoreSsl }));
         await removeAccountFromDB(accId);
     } catch (error) {
-        error instanceof TokenError && (await removeAccountFromDB(accId));
         throw error;
     }
 }
@@ -43,7 +42,7 @@ async function sAMAccountRemove({ accId, ignoreSsl }) {
             });
             if (removeDeviceResponse.respInfo.status !== 200) {
                 throw new SAMError({
-                    message: removeDeviceResponse.json().message
+                    message: removeDeviceResponse.json().error_description
                 });
             }
         }
