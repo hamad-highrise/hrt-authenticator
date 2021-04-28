@@ -96,10 +96,10 @@ const QRScan = (props) => {
                     }
                 }
             }
+            console.warn('END OF FUNCTION');
             dispatch(mainActions.getAllAccounts());
         }
     };
-    
 
     return (
         <>

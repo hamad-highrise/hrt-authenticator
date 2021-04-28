@@ -39,9 +39,6 @@ const Splash = (props) => {
     useEffect(() => {
         setTimeout(() => {
             if (accounts !== null) {
-                console.warn(
-                    'Appearing from second useEffect of Splash screen'
-                );
                 navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);

@@ -1,5 +1,13 @@
 import React, { useRef } from 'react';
-import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    Animated,
+    Easing,
+    Pressable,
+    Dimensions
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
@@ -32,7 +40,7 @@ const AccessCode = (props) => {
 
     const spin = spinValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg']
+        outputRange: ['360deg', '0deg']
     });
 
     const onRefereshClick = () => {
@@ -133,7 +141,11 @@ const AccessCode = (props) => {
             </View>
             <View style={styles.bottom}>
                 {fragment == 'CODE' ? (
-                    <AccessCodeFragment otp={otp} counter={counter} />
+                    <AccessCodeFragment
+                        suspected={account['suspected']}
+                        otp={otp}
+                        counter={counter}
+                    />
                 ) : (
                     <SettingsFragment removeAccount={removeAccount} />
                 )}

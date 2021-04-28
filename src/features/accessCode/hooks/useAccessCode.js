@@ -160,7 +160,8 @@ function useAccessCode() {
         account: {
             name: selected['name'],
             issuer: selected['issuer'],
-            type: selected['type']
+            type: selected['type'],
+            suspected: selected['suspected']
         },
         isConnected
     };

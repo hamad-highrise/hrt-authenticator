@@ -13,7 +13,6 @@ const Main = (props) => {
     const navigation = useNavigation();
     const { accounts } = useAccounts(props.componentId);
     const isConnected = useSelector(({ alert }) => alert.isConnected);
-
     const onAddAccount = useCallback(() => {
         navigation.navigate(screensIdentifiers.qrScan);
     }, [props.componentId]);
