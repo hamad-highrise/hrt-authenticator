@@ -24,27 +24,26 @@ const AccessCode = (props) => {
         account
     } = useAccessCode(props);
 
-    // var spinValue = useRef(new Animated.Value(0)).current;
+    var spinValue = useRef(new Animated.Value(0)).current;
 
     const onBackPress = () => {
         navigation.navigate(screensIdentifiers.main);
     };
 
-    // const spin = spinValue.interpolate({
-    //     inputRange: [0, 1],
-    //     outputRange: ['0deg', '360deg']
-    // });
+    const spin = spinValue.interpolate({
+        inputRange: [0, 1],
+        outputRange: ['0deg', '360deg']
+    });
 
     const onRefereshClick = () => {
-        // Animated.timing(spinValue, {
-        //     toValue: 1,
-        //     duration: 1500,
-        //     easing: Easing.linear,
-        //     useNativeDriver: true
-        // }).start((res) => {
-        //     res.finished && spinValue.setValue(0);
-        // });
-
+        Animated.timing(spinValue, {
+            toValue: 1,
+            duration: 1500,
+            easing: Easing.linear,
+            useNativeDriver: true
+        }).start((res) => {
+            res.finished && spinValue.setValue(0);
+        });
         transactionCheck();
     };
 
@@ -76,7 +75,7 @@ const AccessCode = (props) => {
                 <View style={{ width: 40, height: '100%' }}>
                     {account['type'] === constants.ACCOUNT_TYPES.SAM && (
                         <IconButton onPress={onRefereshClick}>
-                            {/* <Animated.Image
+                            <Animated.Image
                                 source={require('../../assets/icons/refreshinvertblack.png')}
                                 style={[
                                     styles.iconBtn,
@@ -84,17 +83,6 @@ const AccessCode = (props) => {
                                         marginLeft: 6,
                                         marginTop: 10,
                                         transform: [{ rotate: spin }]
-                                    }
-                                ]}
-                            /> */}
-                            <Image
-                                source={require('../../assets/icons/refreshinvertblack.png')}
-                                style={[
-                                    styles.iconBtn,
-                                    {
-                                        marginLeft: 6,
-                                        marginTop: 10
-                                        // transform: [{ rotate: spin }]
                                     }
                                 ]}
                             />

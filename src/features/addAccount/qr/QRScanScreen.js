@@ -1,8 +1,8 @@
 import React, { useState, useCallback } from 'react';
 import { View, StyleSheet, Dimensions, Text } from 'react-native';
-import { RNCamera as QRCodeReader } from 'react-native-camera';
+
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigation, useIsFocused } from '@react-navigation/native';
+import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import parser from './parser';
 import { TopNavbar, LoadingIndicator, Button } from '../../../components';
@@ -12,15 +12,29 @@ import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
 import { mainActions } from '../../main/services';
+import QRScanner from './QRScanner';
 
 const QRScan = (props) => {
     const navigation = useNavigation();
-    const isFocused = useIsFocused();
+    const [isFocused, setIsFocused] = useState(false);
     const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    useFocusEffect(() => {
+        const n1 = navigation.addListener('focus', () => {
+            setIsFocused(true);
+        });
+        const n2 = navigation.addListener('blur', () => {
+            setIsFocused(false);
+        });
+        return () => {
+            n1();
+            n2();
+        };
+    });
 
     const onManualCodeClick = useCallback(() => {
         navigation.navigate(screensIdentifiers.accountForm);
@@ -85,9 +99,7 @@ const QRScan = (props) => {
             dispatch(mainActions.getAllAccounts());
         }
     };
-    const { width } = Dimensions.get('window');
-    const maskRowHeight = 16;
-    const maskColWidth = (width - 300) / 2;
+    
 
     return (
         <>
@@ -119,66 +131,12 @@ const QRScan = (props) => {
                             </Text>
                         </View>
                     )}
-                    <QRCodeReader
-                        captureAudio={false}
-                        style={{
-                            flex: 1,
-                            width: '100%'
-                        }}
-                        onBarCodeRead={barcodeRecognized}>
-                        <View style={styles.maskOutter}>
-                            <View
-                                style={[
-                                    { flex: maskRowHeight },
-                                    styles.maskRow,
-                                    styles.maskFrame
-                                ]}
-                            />
-                            <View style={[{ flex: 35 }, styles.maskCenter]}>
-                                <View
-                                    style={[
-                                        { width: maskColWidth },
-                                        styles.maskFrame
-                                    ]}
-                                />
-                                <View style={styles.maskInner} />
-                                <View
-                                    style={[
-                                        { width: maskColWidth },
-                                        styles.maskFrame
-                                    ]}
-                                />
-                            </View>
-                            <View
-                                style={[
-                                    { flex: maskRowHeight },
-                                    styles.maskRow,
-                                    styles.maskFrame
-                                ]}
-                            />
-                        </View>
-                        <View
-                            style={{
-                                backgroundColor: 'transparent',
-                                position: 'absolute',
-                                bottom: 0,
-                                left: 0,
-                                width: '100%',
-                                height: '15%',
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                            <Button
-                                onPress={onManualCodeClick}
-                                label={'Enter Code Manually'}
-                                rippleColor="#ACA8A8"
-                                style={{
-                                    width: '90%',
-                                    backgroundColor: 'grey'
-                                }}
-                            />
-                        </View>
-                    </QRCodeReader>
+                    {isFocused && (
+                        <QRScanner
+                            onBarCodeRead={barcodeRecognized}
+                            onPress={onManualCodeClick}
+                        />
+                    )}
                 </>
             )}
         </>
