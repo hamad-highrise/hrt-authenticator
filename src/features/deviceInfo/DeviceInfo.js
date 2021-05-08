@@ -10,30 +10,35 @@ import {
     ScrollView,
     Dimensions
 } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { TopNavbar } from '../../components';
-import navigation from '../../navigation';
+import screensIdentifiers from '../../navigation/screensId';
+
 const DeviceInfo = (props) => {
+    const navigation = useNavigation();
     const [privacypolicymodalVisible, privacypolicysetModalVisible] = useState(
         false
     );
 
-    const onPressHandlertermandcondition = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.termandcondition
-        );
-    }, [props.componentId]);
-    const onPressHandlerthirdpartynotice = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.thirdpartynotice
-        );
-    }, [props.componentId]);
+    // const onPressHandlertermandcondition = useCallback(() => {
+    //     navigation.goTo(
+    //         props.componentId,
+    //         navigation.screenIds.termandcondition
+    //     );
+    // }, [props.componentId]);
+    // const onPressHandlerthirdpartynotice = useCallback(() => {
+    //     navigation.goTo(
+    //         props.componentId,
+    //         navigation.screenIds.thirdpartynotice
+    //     );
+    // }, [props.componentId]);
     const onPressHandlersecurityassessment = useCallback(() => {
-        navigation.goTo(
-            props.componentId,
-            navigation.screenIds.securityassessment
-        );
+        // navigation.goTo(
+        //     props.componentId,
+        //     navigation.screenIds.securityassessment
+        // );
+        navigation.navigate(screensIdentifiers.main);
     }, [props.componentId]);
     return (
         <View style={styles.container}>

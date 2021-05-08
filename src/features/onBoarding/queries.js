@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS "accounts"(
     "transaction_endpoint" TEXT,
     "enrollment_endpoint" TEXT,
     "ignore_ssl" INTEGER DEFAULT 0,
-    "methods" TEXT
+    "suspected" INTEGER DEFAULT 0
     );
 `;
 

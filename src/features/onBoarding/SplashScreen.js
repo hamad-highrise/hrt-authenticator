@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
-import { utilities } from '../../native-services';
+
 import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { mainActions } from '../main/services';
-import navigator from '../../navigation';
 import { initiateDb } from './init-db';
 import { setInitiated } from '../../native-services/utilities';
+import { utilities } from '../../native-services';
+import screensIdentifiers from '../../navigation/screensId';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
 const Splash = (props) => {
+    const navigation = useNavigation();
     const dispatch = useDispatch();
     const { accounts } = useSelector(({ main }) => main);
     useEffect(() => {
@@ -28,7 +31,7 @@ const Splash = (props) => {
                 alert('Error while initiating application.');
             }
             setTimeout(() => {
-                navigator.setMainRoot();
+                navigation.navigate(screensIdentifiers.main);
             }, SET_ROOT_DELAY);
         }
     };
@@ -36,7 +39,7 @@ const Splash = (props) => {
     useEffect(() => {
         setTimeout(() => {
             if (accounts !== null) {
-                navigator.setMainRoot();
+                navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);
     }, [JSON.stringify(accounts)]);

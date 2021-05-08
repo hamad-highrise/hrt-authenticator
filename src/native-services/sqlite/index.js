@@ -18,7 +18,7 @@ Database.prototype.executeQuery = function (query, params = []) {
             this.size
         )
             .then((db) => {
-                db.executeSql('PRAGMA foreign_keys = ON');
+                db.executeSql('PRAGMA foreign_keys = ON').then(() => {});
                 db.executeSql(query, params)
                     .then((result) => {
                         resolve(result);

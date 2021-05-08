@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+
 import { Button, TextInput, TopNavbar } from '../../../components';
-import navigator from '../../../navigation';
+import screensIdentifiers from '../../../navigation/screensId';
 import { createAccount } from '../services';
 
 const CodeAccount = (props) => {
+    const navigation = useNavigation();
     const [account, setAccount] = useState({
         name: '',
         issuer: '',
@@ -23,11 +26,13 @@ const CodeAccount = (props) => {
             if (account.name && account.issuer && account.secret.length >= 4) {
                 await createAccount({ account: { ...account, type: 'TOTP' } });
                 alert('Account Added');
-                navigator.goToRoot(props.componentId);
+                // navigator.goToRoot(props.componentId);
+                navigation.navigate(screensIdentifiers.main);
             } else alert('Invalid Data or empty fields');
         } catch (error) {
             alert('Unable to create account');
-            navigator.goToRoot(props.componentId);
+            // navigator.goToRoot(props.componentId);
+            navigation.navigate(screensIdentifiers.main);
         }
     };
 
@@ -36,7 +41,8 @@ const CodeAccount = (props) => {
             <TopNavbar
                 title="Account By Code"
                 imageBackOnPress={() => {
-                    navigator.goBack(props.componentId);
+                    // navigator.goBack(props.componentId);
+                    navigation.navigate(screensIdentifiers.main);
                 }}
             />
 

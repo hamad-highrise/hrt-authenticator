@@ -1,10 +1,16 @@
 import React from 'react';
-import navigator from '../../../navigation';
-import { Dimensions, Text, Image, StyleSheet, View } from 'react-native';
+import { Text, Image, StyleSheet, View } from 'react-native';
 import PropTypes from 'prop-types';
-import { Button } from '../../../components';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
-const ProcessComplete = ({ title, ...props }) => {
+import { Button } from '../../../components';
+import screensIdentifiers from '../../../navigation/screensId';
+
+const ProcessComplete = () => {
+    const navigation = useNavigation();
+    const { params } = useRoute();
+    const { serviceName } = params;
+
     return (
         <View style={styles.container}>
             <Image
@@ -15,7 +21,7 @@ const ProcessComplete = ({ title, ...props }) => {
                 <Text style={styles.welcome}>You're done!</Text>
                 <Text style={styles.instructions}>
                     You can now use this app with your
-                    <Text style={{ fontWeight: 'bold' }}> {title} </Text>
+                    <Text style={{ fontWeight: 'bold' }}> {serviceName} </Text>
                     account to verify your identity.
                 </Text>
             </View>
@@ -24,7 +30,7 @@ const ProcessComplete = ({ title, ...props }) => {
                 <Button
                     label="Done"
                     onPress={() => {
-                        navigator.goToRoot(props.componentId);
+                        navigation.navigate(screensIdentifiers.main);
                     }}
                 />
             </View>
@@ -32,12 +38,11 @@ const ProcessComplete = ({ title, ...props }) => {
     );
 };
 ProcessComplete.propTypes = {
-    title: PropTypes.string,
-    styles: PropTypes.any
+    serviceName: PropTypes.string
 };
 
 ProcessComplete.defaultProps = {
-    title: 'HBL SAM'
+    serviceName: 'HBL SAM'
 };
 
 export default ProcessComplete;

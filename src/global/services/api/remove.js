@@ -40,7 +40,7 @@ async function removeDeviceFromSam({
     };
 
     try {
-        const result = await rnFetch('PATCH', endpoint, headers, body);
+        const result = await rnFetch('PATCH', requestUrl, headers, body);
         return result;
     } catch (error) {
         throw new NetworkError({ message: 'Unable to connect to server!' });

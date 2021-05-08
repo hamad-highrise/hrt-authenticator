@@ -1,17 +1,18 @@
 import { useEffect, useRef, useState } from 'react';
 import { Alert, AppState } from 'react-native';
-import { Navigation } from 'react-native-navigation';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
-import navigator from '../../../navigation';
 import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
 import { alertActions } from '../../alert';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'SELECTED';
 
-function useAccessCode({ componentId }) {
+function useAccessCode() {
+    const navigation = useNavigation();
     const selected = useSelector(({ main }) => main.selected);
     const { isConnected } = useSelector(({ alert }) => alert);
     const dispatch = useDispatch();
@@ -44,33 +45,17 @@ function useAccessCode({ componentId }) {
     useEffect(() => {
         //listeners
         AppState.addEventListener('change', onAppStateChange);
-        const appear = Navigation.events().registerComponentDidAppearListener(
-            onAppear
-        );
-        const disappear = Navigation.events().registerComponentDidDisappearListener(
-            onDisappear
-        );
         return () => {
             //remove listeners
             AppState.removeEventListener('change', onAppStateChange);
-            appear.remove();
-            disappear.remove();
         };
     }, []);
 
     useEffect(() => {
         selected['type'] === constants.ACCOUNT_TYPES.SAM &&
             selected.transaction.available &&
-            navigator.goTo(componentId, navigator.screenIds.authTransaction);
+            navigation.navigate(screensIdentifiers.authTransaction);
     }, [selected?.transaction?.available]);
-
-    const onAppear = ({ componentName }) => {
-        navigator.screenIds.accessCode === componentName && (onScreen = true);
-    };
-
-    const onDisappear = ({ componentName }) => {
-        navigator.screenIds.accessCode === componentName && (onScreen = false);
-    };
 
     const onAppStateChange = (nextAppState) => {
         if (
@@ -125,7 +110,8 @@ function useAccessCode({ componentId }) {
                 ignoreSsl: selected['ignoreSsl']
             });
             dispatch(mainActions.getAllAccounts());
-            navigator.goToRoot(componentId);
+
+            navigation.navigate(screensIdentifiers.main);
         } catch (error) {
             Alert.alert(
                 'Force Account Deletion',
@@ -156,7 +142,9 @@ function useAccessCode({ componentId }) {
             dispatch(alertActions.failure(error, selected['id']));
         } finally {
             dispatch(mainActions.getAllAccounts());
-            navigator.goToRoot(componentId);
+            // navigator.goToRoot(componentId);
+            navigation.navigate(screensIdentifiers.main);
+            // navigation.goBack();
         }
     };
 
@@ -172,7 +160,8 @@ function useAccessCode({ componentId }) {
         account: {
             name: selected['name'],
             issuer: selected['issuer'],
-            type: selected['type']
+            type: selected['type'],
+            suspected: selected['suspected']
         },
         isConnected
     };

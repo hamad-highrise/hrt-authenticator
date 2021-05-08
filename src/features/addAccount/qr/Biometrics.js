@@ -2,18 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button, LoadingIndicator } from '../../../components';
-import navigator from '../../../navigation';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { services, utils } from '../../../global';
 import { alertActions } from '../../alert';
+import screensIdentifiers from '../../../navigation/screensId';
 
 const { getAccessToken } = services;
 const { getEnrollmentEndpoint } = utils;
 
-const BiometricOption = ({ accId, accountName, ...props }) => {
+const BiometricOption = () => {
     const [loading, setLoading] = useState(false);
+    const navigation = useNavigation();
+    const {
+        params: { accId, serviceName }
+    } = useRoute();
     const dispatch = useDispatch();
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
@@ -26,14 +31,12 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
     }, []);
 
     const goBack = () => {
-        navigator.goToRoot(props.componentId);
+        navigation.navigate(screensIdentifiers.main);
         return true;
     };
 
     const onNegative = () => {
-        navigator.goTo(props.componentId, navigator.screenIds.complete, {
-            title: accountName
-        });
+        navigation.navigate(screensIdentifiers.complete, { serviceName });
     };
 
     const onPositive = async () => {
@@ -45,18 +48,17 @@ const BiometricOption = ({ accId, accountName, ...props }) => {
             await registerBiometrics({
                 endpoint: enrollmentEndpoint,
                 token: accessToke,
-                accId
+                accId,
+                ignoreSsl: true
             });
             dispatch(alertActions.success());
             setLoading(false);
-            navigator.goTo(props.componentId, navigator.screenIds.complete, {
-                title: accountName
-            });
+            navigation.navigate(screensIdentifiers.complete, { serviceName });
         } catch (error) {
             setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
             dispatch(alertActions.failure(error, accId));
-            navigator.goToRoot(props.componentId);
+            navigation.navigate(screensIdentifiers.main);
         }
     };
 

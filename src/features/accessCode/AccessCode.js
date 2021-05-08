@@ -1,15 +1,25 @@
 import React, { useRef } from 'react';
-import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    Animated,
+    Easing,
+    Pressable,
+    Dimensions
+} from 'react-native';
 import PropTypes from 'prop-types';
+import { useNavigation } from '@react-navigation/native';
 
 import { IconButton, LoadingIndicator } from '../../components';
-import navigator from '../../navigation';
 import styles from './styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
 import { constants } from '../../global';
+import screensIdentifiers from '../../navigation/screensId';
 
 const AccessCode = (props) => {
+    const navigation = useNavigation();
     const {
         otp,
         counter,
@@ -25,12 +35,12 @@ const AccessCode = (props) => {
     var spinValue = useRef(new Animated.Value(0)).current;
 
     const onBackPress = () => {
-        navigator.goBack(props.componentId);
+        navigation.navigate(screensIdentifiers.main);
     };
 
     const spin = spinValue.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0deg', '360deg']
+        outputRange: ['360deg', '0deg']
     });
 
     const onRefereshClick = () => {
@@ -38,11 +48,10 @@ const AccessCode = (props) => {
             toValue: 1,
             duration: 1500,
             easing: Easing.linear,
-            useNativeDriver: false
+            useNativeDriver: true
         }).start((res) => {
             res.finished && spinValue.setValue(0);
         });
-
         transactionCheck();
     };
 
@@ -132,7 +141,11 @@ const AccessCode = (props) => {
             </View>
             <View style={styles.bottom}>
                 {fragment == 'CODE' ? (
-                    <AccessCodeFragment otp={otp} counter={counter} />
+                    <AccessCodeFragment
+                        suspected={account['suspected']}
+                        otp={otp}
+                        counter={counter}
+                    />
                 ) : (
                     <SettingsFragment removeAccount={removeAccount} />
                 )}

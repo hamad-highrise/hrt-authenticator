@@ -24,7 +24,7 @@ const TopNavbar = ({
                             <IconButton onPress={imageBackOnPress}>
                                 <Image
                                     // source={{ uri: {imageUrlRight} }}
-                                    source={require('../../assets/icons/settings2invert.png')}
+                                    source={require('../../assets/icons/settings2black.png')}
                                     style={styles.iconBtn}
                                 />
                             </IconButton>
