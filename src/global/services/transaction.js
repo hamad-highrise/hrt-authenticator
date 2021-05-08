@@ -10,7 +10,8 @@ async function getTransactions({ accId, ignoreSsl }) {
     let transaction;
     try {
         const accessToken = await getAccessToken(accId);
-        const result = await getAuthenticators({ accId, ignoreSsl });
+        //getting registered authenticators
+        const authenticators = await getAuthenticators({ accId, ignoreSsl });
         const transactionEndpoint = await getTransactionEndpoint(accId);
         const transactionResponse = await getPendingTransactions({
             endpoint: transactionEndpoint,
@@ -21,7 +22,7 @@ async function getTransactions({ accId, ignoreSsl }) {
         const status = transactionResponse.respInfo.status;
         if ((status >= 200 && status < 300) || status === 304) {
             transaction = processTransaction(
-                transactionResponse.json()[
+                transactionResponse.json()?.[
                     'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
                 ]
             );
@@ -106,3 +107,5 @@ async function isTransactionValid(transaction, accId) {
         throw error;
     }
 }
+
+async function existsOrRemoved() {}

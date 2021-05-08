@@ -14,10 +14,11 @@ async function getAuthenticators({ accId, ignoreSsl }) {
         });
         const { status } = result.respInfo;
         if ((status >= 200 && status <= 299) || status === 304) {
-            const authenticators = await result.json()?.[
-                'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator'
-            ]?.['authenticators'];
-            return authenticators ?? []; //returns an empty array if null/undefined
+            const authenticators =
+                (await result.json()?.[
+                    'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator'
+                ]?.['authenticators']) ?? []; //returns an empty array if null/undefined
+            return authenticators;
         } else {
             throw new SAMError({ message: 'ERROR_GETTING_AUTHENTICATORS' });
         }
