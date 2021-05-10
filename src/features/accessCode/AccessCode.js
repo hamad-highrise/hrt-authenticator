@@ -84,7 +84,7 @@ const AccessCode = (props) => {
                     {account['type'] === constants.ACCOUNT_TYPES.SAM && (
                         <IconButton onPress={onRefereshClick}>
                             <Animated.Image
-                                source={require('../../assets/icons/refreshinvertblack.png')}
+                                source={require('../../assets/icons/refresh.png')}
                                 style={[
                                     styles.iconBtn,
                                     {

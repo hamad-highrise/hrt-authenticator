@@ -52,11 +52,11 @@ const Splash = (props) => {
                     paddingTop: Dimensions.get('window').height * 0.2
                 }}>
                 <Image
-                    source={require('../../assets/images/highrise-logo.png')}
+                    source={require('../../assets/images/logo.png')}
                     style={styles.image}
                 />
                 <Text style={{ ...styles.welcome, fontSize: 30 }}>
-                    HRT Verify
+                    Fidelity Verify
                 </Text>
             </View>
             <View>
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-condensed'
     },
     image: {
-        // width: 300,
+        width: 200,
         height: 200
     }
 });

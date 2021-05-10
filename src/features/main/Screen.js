@@ -28,7 +28,7 @@ const Main = (props) => {
                     <View>
                         <IconButton onPress={onDeviceInfo}>
                             <Image
-                                source={require('../../assets/icons/settings2black.png')}
+                                source={require('../../assets/icons/settings.png')}
                                 style={[
                                     styles.iconBtn,
                                     {
@@ -42,14 +42,14 @@ const Main = (props) => {
 
                     <View style={styles.title}>
                         <Text style={styles.titleText}>
-                            HRT Security Verify
+                            Fidelity Security Verify
                         </Text>
                     </View>
 
                     <View>
                         <IconButton onPress={onAddAccount}>
                             <Image
-                                source={require('../../assets/icons/qr_code2.png')}
+                                source={require('../../assets/icons/qr_code.png')}
                                 style={{ marginLeft: -10, marginTop: -3 }}
                             />
                         </IconButton>
@@ -98,6 +98,7 @@ const styles = StyleSheet.create({
         height: 50,
         alignItems: 'center',
         justifyContent: 'space-between'
+        // backgroundColor: '#ff8100'
     },
     title: {
         textAlign: 'center',

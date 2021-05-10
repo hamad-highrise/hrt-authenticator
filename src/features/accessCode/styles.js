@@ -23,6 +23,7 @@ export default StyleSheet.create({
         justifyContent: 'center',
         fontSize: 18,
         fontWeight: 'bold'
+        // color: '#0400ff'
     },
 
     title: {
@@ -32,6 +33,7 @@ export default StyleSheet.create({
         color: '#424c58',
         fontSize: 32,
         fontWeight: 'bold'
+        // color: '#0400ff'
     },
     iconBtn: {
         width: 25,
@@ -111,10 +113,12 @@ export default StyleSheet.create({
     },
     labelText: {
         fontSize: 15,
-        color: '#0f62fe'
+        color: '#0f62fe',
+        color: '#ff8100'
     },
     selected: {
-        backgroundColor: '#0f62fe'
+        backgroundColor: '#0f62fe',
+        backgroundColor: '#ff8100'
     },
     selectedText: {
         color: 'white'

@@ -8,7 +8,8 @@ export default ({ otp, counter, suspected }) => (
                 borderWidth={6}
                 radius={140}
                 percent={(counter / 30) * 100}
-                color="#0f62fe99">
+                // color="#0f62fe99"
+                color="#ff8100">
                 {otp !== '######' && (
                     <Text
                         style={{

@@ -5,6 +5,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.7,
         height: 60,
         backgroundColor: '#0F62FE',
+        backgroundColor: '#ff8100',
         borderRadius: 2,
         elevation: 10,
         justifyContent: 'center',
