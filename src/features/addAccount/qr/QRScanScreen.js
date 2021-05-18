@@ -1,11 +1,16 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import parser from './parser';
-import { TopNavbar, LoadingIndicator, Button } from '../../../components';
+import {
+    TopNavbar,
+    LoadingIndicator,
+    Button,
+    Topbar
+} from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
@@ -96,7 +101,6 @@ const QRScan = (props) => {
                     }
                 }
             }
-            console.warn('END OF FUNCTION');
             dispatch(mainActions.getAllAccounts());
         }
     };
@@ -107,11 +111,17 @@ const QRScan = (props) => {
                 <LoadingIndicator show={loading} />
             ) : (
                 <>
-                    <TopNavbar
-                        title="Scan QR code"
-                        imageBackOnPress={() =>
-                            navigation.navigate(screensIdentifiers.main)
-                        }
+                    <Topbar
+                        title="Scan QR Code"
+                        topbarRight={{
+                            visible: true,
+                            onPress: navigation.goBack,
+                            image: {
+                                source: require('../../../assets/icons/cross_black.png'),
+                                width: '50%',
+                                height: '50%'
+                            }
+                        }}
                     />
                     {!isConnected && (
                         <View

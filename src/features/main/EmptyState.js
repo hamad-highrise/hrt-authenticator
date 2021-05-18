@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
+import { colors } from '../../theme';
 
 const EmptyState = () => {
     const navigation = useNavigation();
@@ -17,7 +18,7 @@ const EmptyState = () => {
                 }}>
                 <View style={styles.logoContainer}>
                     <Image
-                        style={{ width: 200, height: 200 }}
+                        style={styles.logo}
                         source={require('../../assets/images/logo.png')}
                     />
                 </View>
@@ -40,6 +41,7 @@ const EmptyState = () => {
                 <View style={styles.bar}></View>
                 <Button
                     label="Connect Account"
+                    rippleColor={colors.SECONDARY}
                     onPress={() =>
                         navigation.navigate(screensIdentifiers.qrScan)
                     }
@@ -56,7 +58,7 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff'
+        backgroundColor: '#ffffff'
     },
     logoContainer: {
         width: 250,
@@ -64,7 +66,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-
+    logo: { width: 200, height: 200 },
     instructions: {
         textAlign: 'center',
         fontWeight: 'bold',

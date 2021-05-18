@@ -1,18 +1,10 @@
 import React, { useRef } from 'react';
-import {
-    View,
-    Text,
-    Image,
-    Animated,
-    Easing,
-    Pressable,
-    Dimensions
-} from 'react-native';
+import { View, Text, Image, Animated, Easing, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
-import { IconButton, LoadingIndicator } from '../../components';
-import styles from './styles';
+import { IconButton, LoadingIndicator, Topbar } from '../../components';
+import styles from './code.styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
 import { constants } from '../../global';
@@ -59,46 +51,7 @@ const AccessCode = (props) => {
         <LoadingIndicator show={loading} />
     ) : (
         <View style={styles.container}>
-            <View style={styles.header}>
-                <View
-                    style={{ height: 52 }}
-                    style={{ transform: [{ rotate: '180deg' }] }}>
-                    <IconButton onPress={onBackPress}>
-                        <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
-                            style={[
-                                styles.iconBtn,
-                                {
-                                    marginLeft: 9,
-                                    marginTop: 6
-                                }
-                            ]}
-                        />
-                    </IconButton>
-                </View>
-                <View style={styles.title}>
-                    <Text style={styles.titleMainText}>Access Code</Text>
-                </View>
-
-                <View style={{ width: 40, height: '100%' }}>
-                    {account['type'] === constants.ACCOUNT_TYPES.SAM && (
-                        <IconButton onPress={onRefereshClick}>
-                            <Animated.Image
-                                source={require('../../assets/icons/refreshinvertblack.png')}
-                                style={[
-                                    styles.iconBtn,
-                                    {
-                                        marginLeft: 6,
-                                        marginTop: 10,
-                                        transform: [{ rotate: spin }]
-                                    }
-                                ]}
-                            />
-                        </IconButton>
-                    )}
-                </View>
-            </View>
-
+            <Topbar title="Access Code" />
             <View style={styles.top}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{account.issuer}</Text>
@@ -176,3 +129,45 @@ AccessCode.options = {
 };
 
 export default AccessCode;
+
+{
+    /* <View style={styles.header}>
+                <View
+                    style={{ height: 52 }}
+                    style={{ transform: [{ rotate: '180deg' }] }}>
+                    <IconButton onPress={onBackPress}>
+                        <Image
+                            source={require('../../assets/icons/backarrowblack.png')}
+                            style={[
+                                styles.iconBtn,
+                                {
+                                    marginLeft: 9,
+                                    marginTop: 6
+                                }
+                            ]}
+                        />
+                    </IconButton>
+                </View>
+                <View style={styles.title}>
+                    <Text style={styles.titleMainText}>Access Code</Text>
+                </View>
+
+                <View style={{ width: 40, height: '100%' }}>
+                    {account['type'] === constants.ACCOUNT_TYPES.SAM && (
+                        <IconButton onPress={onRefereshClick}>
+                            <Animated.Image
+                                source={require('../../assets/icons/refreshinvertblack.png')}
+                                style={[
+                                    styles.iconBtn,
+                                    {
+                                        marginLeft: 6,
+                                        marginTop: 10,
+                                        transform: [{ rotate: spin }]
+                                    }
+                                ]}
+                            />
+                        </IconButton>
+                    )}
+                </View>
+            </View> */
+}

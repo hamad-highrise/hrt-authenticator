@@ -1,11 +1,26 @@
 import { StyleSheet, Dimensions } from 'react-native';
+import { colors } from '../../theme';
 
 export default StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-between',
-        padding: 20,
-        margin: 10
+        justifyContent: 'space-between'
+    },
+    top: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'flex-start',
+        paddingLeft: 20
+    },
+    middle: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    bottom: {
+        flex: 2,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
     header: {
         flexDirection: 'row',
@@ -37,19 +52,9 @@ export default StyleSheet.create({
         width: 25,
         height: 30
     },
-    top: {
-        flex: 0.1
-    },
+
     titleIDText: {
         fontSize: 22
-    },
-    middle: {
-        flex: 0.1,
-        alignItems: 'center',
-        justifyContent: 'center'
-    },
-    bottom: {
-        flex: 0.3
     },
 
     btn: {
@@ -57,12 +62,7 @@ export default StyleSheet.create({
         width: Dimensions.get('window').width * 0.9,
         alignSelf: 'center'
     },
-    middles: {
-        flex: 0.12
-    },
-    bottoms: {
-        flex: 0.3
-    },
+
     listitem: {
         padding: 13,
         backgroundColor: '#0f62fe08',
@@ -111,10 +111,10 @@ export default StyleSheet.create({
     },
     labelText: {
         fontSize: 15,
-        color: '#0f62fe'
+        color: colors.PRIMARY || '#0f62fe'
     },
     selected: {
-        backgroundColor: '#0f62fe'
+        backgroundColor: colors.PRIMARY || '#0f62fe'
     },
     selectedText: {
         color: 'white'

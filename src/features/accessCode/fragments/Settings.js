@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button } from '../../../components';
-import styles from '../styles';
+import styles from '../code.styles';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 import { constants } from '../../../global';
