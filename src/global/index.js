@@ -4,3 +4,5 @@ import * as utils from './util';
 
 export { default as constants } from './constants';
 export { errors, services, utils };
+
+export { default as values } from './values';

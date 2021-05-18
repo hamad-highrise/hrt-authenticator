@@ -9,6 +9,8 @@ import { initiateDb } from './init-db';
 import { setInitiated } from '../../native-services/utilities';
 import { utilities } from '../../native-services';
 import screensIdentifiers from '../../navigation/screensId';
+import { Typography } from '../../theme';
+import { values } from '../../global';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -49,15 +51,16 @@ const Splash = (props) => {
             <View
                 style={{
                     alignItems: 'center',
-                    paddingTop: Dimensions.get('window').height * 0.2
+                    paddingTop: Dimensions.get('window').height * 0.2,
+                    width: 250,
+                    height: 250,
+                    justifyContent: 'center'
                 }}>
                 <Image
-                    source={require('../../assets/images/highrise-logo.png')}
+                    source={require('../../assets/images/logo.png')}
                     style={styles.image}
                 />
-                <Text style={{ ...styles.welcome, fontSize: 30 }}>
-                    HRT Verify
-                </Text>
+                <Typography.AppTitle>{values.APP_NAME}</Typography.AppTitle>
             </View>
             <View>
                 <Text style={styles.instructions}>HIGHRISE</Text>
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-condensed'
     },
     image: {
-        // width: 300,
-        height: 200
+        width: 250,
+        height: 250
     }
 });

@@ -2,36 +2,50 @@ import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { Button, Topbar } from '../../components';
+import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
 
-const EmptyState = (props) => {
+const EmptyState = () => {
     const navigation = useNavigation();
+
     return (
-        <>
-            {/* <Topbar title="Test Title" /> */}
-            <View style={styles.container}>
-                <View style={{ flex: 0.4 }}>
+        <View style={styles.container}>
+            <View
+                style={{
+                    flex: 1,
+                    justifyContent: 'flex-end'
+                }}>
+                <View style={styles.logoContainer}>
                     <Image
-                        source={require('../../assets/images/AddAccIBM.png')}
-                        style={{ width: 200, height: 200 }}></Image>
-                </View>
-                <View style={{ flex: 0.3 }}>
-                    <Text style={styles.welcome}>No Account Yet !</Text>
-                    <Text style={styles.instructions}>
-                        Add your device and see them here
-                    </Text>
-                    <View style={styles.bar}></View>
-                    <Button
-                        label="Connect Account"
-                        style={styles.btn}
-                        onPress={() =>
-                            navigation.navigate(screensIdentifiers.qrScan)
-                        }
+                        style={{ width: 200, height: 200 }}
+                        source={require('../../assets/images/logo.png')}
                     />
                 </View>
             </View>
-        </>
+            <View
+                style={{
+                    flex: 0.5,
+                    width: '80%',
+                    backgroundColor: 'white',
+                    justifyContent: 'center'
+                }}>
+                <Text style={styles.instructions}>
+                    Strengthen your account security. Use your mobile device to
+                    verify your identity when signing in to{' '}
+                    <Text style={{ color: 'grey' }}>HRT Technologies</Text>'
+                    applications.
+                </Text>
+            </View>
+            <View style={{ flex: 1 }}>
+                <View style={styles.bar}></View>
+                <Button
+                    label="Connect Account"
+                    onPress={() =>
+                        navigation.navigate(screensIdentifiers.qrScan)
+                    }
+                />
+            </View>
+        </View>
     );
 };
 
@@ -42,31 +56,23 @@ const styles = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#fff',
-        borderTopWidth: 1
+        backgroundColor: '#fff'
     },
-    welcome: {
-        fontSize: 28,
-        textAlign: 'center',
-        // margin: 10,
-        color: 'black',
-        fontWeight: 'bold'
+    logoContainer: {
+        width: 250,
+        height: 250,
+        justifyContent: 'center',
+        alignItems: 'center'
     },
+
     instructions: {
         textAlign: 'center',
         fontWeight: 'bold',
-        color: 'lightgrey'
-        // marginBottom: 5
+        color: 'lightgrey',
+        fontSize: 16,
+        fontFamily: 'arial'
     },
-    btn: {
-        // backgroundColor: '#0f62fe',
-        // paddingVertical: 23,
-        // paddingHorizontal: 12,
-        // borderWidth: 0,
-        // borderRadius: 0,
-        // // width: Dimensions.get('window').width * 0.7,
-        // alignSelf: 'center'
-    },
+
     bar: {
         alignSelf: 'center',
         marginTop: 10,
