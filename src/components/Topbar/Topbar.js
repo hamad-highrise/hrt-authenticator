@@ -15,7 +15,6 @@ const Topbar = (props) => {
                 {topbarLeft.visible && (
                     <IconContainer onPress={topbarLeft.onPress}>
                         {topbarLeft?.visible && (
-                            // <Text>OKAY</Text>
                             <Image
                                 style={{
                                     width: topbarLeft?.image?.width || '80%',
@@ -39,7 +38,7 @@ const Topbar = (props) => {
             <View style={[styles.section, styles.right]}>
                 {topbarRight.visible && (
                     <IconContainer onPress={topbarRight.onPress}>
-                        {topbarRight?.image?.source && (
+                        {topbarRight?.image?.source ? (
                             <Image
                                 style={{
                                     width: topbarRight?.image?.width || '80%',
@@ -47,6 +46,8 @@ const Topbar = (props) => {
                                 }}
                                 source={topbarRight.image?.source}
                             />
+                        ) : (
+                            topbarRight.child
                         )}
                     </IconContainer>
                 )}

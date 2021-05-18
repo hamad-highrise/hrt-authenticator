@@ -49,7 +49,7 @@ export default StyleSheet.create({
         fontWeight: 'bold'
     },
     iconBtn: {
-        width: 25,
+        width: 30,
         height: 30
     },
 
@@ -88,6 +88,7 @@ export default StyleSheet.create({
         width: 25,
         height: 25
     },
+    //selectors styles
     selectorContainer: {
         width: Dimensions.get('window').width * 0.8,
         borderRadius: 10,

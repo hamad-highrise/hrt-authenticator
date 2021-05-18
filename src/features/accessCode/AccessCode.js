@@ -51,7 +51,41 @@ const AccessCode = (props) => {
         <LoadingIndicator show={loading} />
     ) : (
         <View style={styles.container}>
-            <Topbar title="Access Code" />
+            <Topbar
+                title="Access Code"
+                topbarLeft={{
+                    visible: true,
+                    onPress: navigation.goBack,
+                    image: {
+                        source: require('../../assets/icons/back_arrow_black.png'),
+                        width: '60%',
+                        height: '60%'
+                    }
+                }}
+                topbarRight={{
+                    visible: true,
+                    child: (
+                        <View style={{ width: 40, height: '100%' }}>
+                            {account['type'] ===
+                                constants.ACCOUNT_TYPES.SAM && (
+                                <IconButton onPress={onRefereshClick}>
+                                    <Animated.Image
+                                        source={require('../../assets/icons/refresh_black.png')}
+                                        style={[
+                                            styles.iconBtn,
+                                            {
+                                                marginLeft: 6,
+                                                marginTop: 10,
+                                                transform: [{ rotate: spin }]
+                                            }
+                                        ]}
+                                    />
+                                </IconButton>
+                            )}
+                        </View>
+                    )
+                }}
+            />
             <View style={styles.top}>
                 <View style={styles.title}>
                     <Text style={styles.titleText}>{account.issuer}</Text>
