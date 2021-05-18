@@ -73,13 +73,17 @@ const QRScan = (props) => {
                 setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
+                console.warn(parsedData);
                 if (!parsedData) {
                     alert('Invalid QR Code');
                     navigation.goBack();
                 } else {
                     const account = {
                         name: parsedData.label.account,
-                        issuer: parsedData.label.issuer,
+                        issuer:
+                            parsedData.label.issuer ||
+                            parsedData.query.issuer ||
+                            'N/A',
                         secret: parsedData.query.secret,
                         type: constants.ACCOUNT_TYPES.TOTP
                     };
