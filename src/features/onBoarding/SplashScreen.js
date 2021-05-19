@@ -4,8 +4,6 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
-// import { mainActions } from '../main/services';
-
 import { accountActions } from '../actions.public';
 import { initiateDb } from './init-db';
 import { setInitiated } from '../../native-services/utilities';

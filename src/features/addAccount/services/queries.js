@@ -25,9 +25,9 @@ async function createAccountEntry({
     const database = new Database();
     try {
         const [result] = await database.executeQuery(query, params);
-        return Promise.resolve({ insertId: result.insertId });
+        return { insertId: result.insertId };
     } catch (error) {
-        return Promise.resolve(error);
+        throw error;
     }
 }
 
