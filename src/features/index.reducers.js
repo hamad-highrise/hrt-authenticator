@@ -1,1 +1,1 @@
-export { mainReducer } from './main/services';
+export { accountsReducer } from './accounts';

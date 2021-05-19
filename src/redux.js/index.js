@@ -1,7 +1,7 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 
-import { accountsReducer } from './accounts';
-import { utilsReducer } from './utils';
+import { accountsReducer } from '../features/index.reducers';
+import { utilsReducer, utilsActions } from './utils';
 
 // import { alertReducer } from '../features/alert';
 // import { mainReducer } from '../features/index.reducers';
@@ -28,10 +28,11 @@ const rootReducer = combineReducers({
 // };
 
 const initialState = {
-    accounts: [],
-    transaction: [],
-    errors: [],
+    accounts: null,
+    // transaction: [],
+    // errors: [],
     utils: { loading: false, error: false, isConnected: null }
 };
 
 export default createStore(rootReducer, initialState, applyMiddleware(thunk));
+export { utilsActions };

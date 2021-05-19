@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
-import { accountActions } from '../../../redux.js';
+import { accountActions } from '../services';
 import constants from '../../../global/constants';
 import screensIdentifiers from '../../../navigation/screensId';
 
@@ -11,6 +11,7 @@ const CHECKTYPE = 'MULTI';
 
 function useAccounts() {
     const accounts = useSelector(({ accounts }) => accounts);
+    const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const transactionCheckIntervalRef = useRef();
@@ -68,7 +69,7 @@ function useAccounts() {
         dispatch(accountActions.initiateAccounts());
     };
 
-    return { accounts };
+    return { accounts, isConnected };
 }
 
 export default useAccounts;

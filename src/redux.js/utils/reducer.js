@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action) {
         case constants.NETWORK_STATE_UPDATE:
             return {
                 ...state,
-                isConnected: action.payload.newtorkState
+                isConnected: action.payload.networkState
             };
         default:
             return state;

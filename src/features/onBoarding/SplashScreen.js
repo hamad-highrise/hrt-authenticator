@@ -4,7 +4,9 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { mainActions } from '../main/services';
+// import { mainActions } from '../main/services';
+
+import { accountActions } from '../actions.public';
 import { initiateDb } from './init-db';
 import { setInitiated } from '../../native-services/utilities';
 import { utilities } from '../../native-services';
@@ -17,14 +19,14 @@ const SET_ROOT_DELAY = 2 * 1000;
 const Splash = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const { accounts } = useSelector(({ main }) => main);
+    const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
         init();
     }, []);
 
     const init = async () => {
         if (await utilities.isInitiated()) {
-            dispatch(mainActions.getAllAccounts());
+            dispatch(accountActions.initiateAccounts());
         } else {
             try {
                 await initiateDb();
