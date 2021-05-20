@@ -1,19 +1,25 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 
-import { accountsReducer } from '../features/index.reducers';
+import {
+    accountsReducer,
+    errReducer,
+    transactionReducer
+} from '../features/index.reducers';
 import { utilsReducer, utilsActions } from './utils';
 
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
     accounts: accountsReducer,
-    utils: utilsReducer
+    utils: utilsReducer,
+    errors: errReducer,
+    transactions: transactionReducer
 });
 
 const initialState = {
     accounts: null,
-    // transaction: [],
-    // errors: [],
+    transactions: [],
+    errors: [],
     utils: { loading: false, error: false, isConnected: null }
 };
 
