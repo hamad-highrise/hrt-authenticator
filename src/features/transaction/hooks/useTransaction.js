@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { transactionActions } from '../services';
-import { useMemo } from 'react';
+import { useEffect, useMemo } from 'react';
 
 function useTransaction() {
     const {
@@ -18,10 +18,13 @@ function useTransaction() {
         let transaction = transactions.find(
             (transaction) => transaction['accId'] === selected['id']
         );
-
-        return transaction.transactionData;
+        return transaction?.transactionData;
     }, [JSON.stringify(transactions)]);
-    console.warn(loading);
+
+    useEffect(() => {
+        !accTransaction && navigation.goBack();
+    }, [JSON.stringify(accTransaction)]);
+
     const onApprove = async () => {
         dispatch(
             transactionActions.approveTransaction({
@@ -47,9 +50,9 @@ function useTransaction() {
     return {
         onApprove,
         onReject,
-        message: accTransaction.displayMessage,
-        createdAt: accTransaction.createdAt,
-        transactionId: accTransaction.transactionId,
+        message: accTransaction?.displayMessage,
+        createdAt: accTransaction?.createdAt,
+        transactionId: accTransaction?.transactionId,
         isConnected,
         loading
     };

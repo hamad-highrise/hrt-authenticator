@@ -55,6 +55,7 @@ async function approveTransaction({ accId, endpoint, ignoreSsl }) {
         const types = ['fingerprint', 'user_presence'];
         let result;
         if (types.includes(type)) {
+            console.warn(type);
             //if transaction is of fingerprint
             if (type === 'fingerprint')
                 result = await biometrics.signPayload({

@@ -31,8 +31,8 @@ function approveTransaction({ accId, endpoint, ignoreSsl }) {
         try {
             dispatch(utilsActions.request());
             await approve({ accId, endpoint, ignoreSsl });
-            dispatch({ type: constants.CLEAR, payload: { accId } });
             dispatch(utilsActions.success());
+            dispatch({ type: constants.CLEAR, payload: { accId } });
         } catch (error) {
             dispatch(utilsActions.failure());
             dispatch(errActions.add({ accId, error }));
@@ -45,8 +45,8 @@ function denyTransaction({ accId, endpoint, ignoreSsl }) {
         try {
             dispatch(utilsActions.request());
             await deny({ accId, endpoint, ignoreSsl });
-            dispatch({ type: constants.CLEAR, payload: { accId } });
             dispatch(utilsActions.success());
+            dispatch({ type: constants.CLEAR, payload: { accId } });
         } catch (error) {
             dispatch(utilsActions.failure());
             dispatch(errActions.add({ accId, error }));
