@@ -1,19 +1,18 @@
 import React, { useCallback } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Topbar, NetworkIndicator } from '../../components';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
-import { useSelector } from 'react-redux';
 import EmptyState from './EmptyState';
 import screensIdentifiers from '../../navigation/screensId';
+import styles from './accounts.styles';
 
-const Main = (props) => {
+const Main = () => {
     const navigation = useNavigation();
-    const { accounts } = useAccounts();
-    // const isConnected = useSelector(({ alert }) => alert.isConnected);
-    const { isConnected } = useSelector(({ utils }) => utils);
+    const { accounts, isConnected } = useAccounts();
+
     const onAddAccount = useCallback(() => {
         navigation.navigate(screensIdentifiers.qrScan);
     }, [JSON.stringify(navigation)]);
@@ -55,36 +54,5 @@ const Main = (props) => {
         </View>
     );
 };
-
-Main.options = {
-    topBar: {
-        visible: false
-    }
-};
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    header: {
-        flexDirection: 'row',
-        height: 50,
-        alignItems: 'center',
-        justifyContent: 'space-between'
-    },
-    title: {
-        textAlign: 'center',
-        marginLeft: 20
-    },
-    titleText: {
-        color: 'black',
-        fontSize: 16,
-        fontWeight: 'bold'
-    },
-    iconBtn: {
-        width: 37,
-        height: 37
-    }
-});
 
 export default Main;

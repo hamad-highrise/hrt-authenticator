@@ -15,13 +15,13 @@ import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
-import { mainActions } from '../../main/services';
+import { accountActions } from '../../actions.public';
 import QRScanner from './QRScanner';
 
 const QRScan = (props) => {
     const navigation = useNavigation();
     const [isFocused, setIsFocused] = useState(false);
-    const { isConnected } = useSelector(({ alert }) => alert);
+    const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
@@ -72,7 +72,6 @@ const QRScan = (props) => {
                 setLoading(true);
                 //TOTP Account Flow
                 const parsedData = uriParser(_barcode.data);
-                console.warn(parsedData);
                 if (!parsedData) {
                     alert('Invalid QR Code');
                     navigation.goBack();
@@ -104,7 +103,7 @@ const QRScan = (props) => {
                     }
                 }
             }
-            dispatch(mainActions.getAllAccounts());
+            dispatch(accountActions.initiateAccounts());
         }
     };
 

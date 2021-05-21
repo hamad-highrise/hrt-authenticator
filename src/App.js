@@ -8,8 +8,8 @@ import { enableScreens } from 'react-native-screens';
 import screenIds from './navigation/screensId';
 import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
 import store from './redux.js';
+import { utilsActions } from './features/actions.public';
 import {
-    MainScreen,
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
     CodeScreen,
@@ -21,19 +21,19 @@ import {
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
-import { alertActions } from './features/alert';
+import { AccountsScreen, TransactionScreen } from './features/screens';
 
 enableScreens();
 const Stack = createStackNavigator();
 
 NetInfo.fetch()
-    .then((state) =>
-        store.dispatch(alertActions.netStateChanged(state.isConnected))
-    )
-    .catch((err) => store.dispatch(alertActions.failure(err)));
+    .then((state) => {
+        store.dispatch(utilsActions.newtorkStateUpdate(state.isConnected));
+    })
+    .catch((err) => store.dispatch(utilsActions.failure()));
 
 NetInfo.addEventListener((status) => {
-    store.dispatch(alertActions.netStateChanged(status.isConnected));
+    store.dispatch(utilsActions.newtorkStateUpdate(status.isConnected));
 });
 
 const App = () => {
@@ -45,7 +45,7 @@ const App = () => {
                     screenOptions={{ headerShown: false }}
                     initialRouteName={screenIds.splash}>
                     <Screen name={screenIds.splash} component={SplashScreen} />
-                    <Screen name={screenIds.main} component={MainScreen} />
+                    <Screen name={screenIds.main} component={AccountsScreen} />
                     <Screen name={screenIds.qrScan} component={QRScanScreen} />
                     <Screen
                         name={screenIds.accountForm}
@@ -53,7 +53,7 @@ const App = () => {
                     />
                     <Screen
                         name={screenIds.authTransaction}
-                        component={AuthScreen}
+                        component={TransactionScreen}
                     />
                     <Screen
                         name={screenIds.complete}
