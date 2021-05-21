@@ -23,5 +23,16 @@ const initialState = {
     utils: { loading: false, error: false, isConnected: null }
 };
 
-export default createStore(rootReducer, initialState, applyMiddleware(thunk));
+export default createStore(
+    rootReducer,
+    initialState,
+    applyMiddleware(
+        (store) => (next) => (action) => {
+            const { errors } = store.getState();
+            next(action);
+            // return;
+        },
+        thunk
+    )
+);
 export { utilsActions };

@@ -1,1 +1,1 @@
-export { transactionReducer } from './services';
+export { transactionReducer, transactionActions } from './services';

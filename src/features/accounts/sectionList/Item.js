@@ -1,7 +1,7 @@
-import React from 'react';
+import React, { useCallback, useMemo } from 'react';
 import { Pressable, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './list.styles';
 import { mainActions } from '../services';
@@ -9,20 +9,36 @@ import screensIdentifiers from '../../../navigation/screensId';
 
 const Item = ({ account }) => {
     const navigation = useNavigation();
+    const { transactions, errors } = useSelector((state) => state);
+
     const dispatch = useDispatch();
-    const onItemPress = () => {
-        dispatch(mainActions.selectAccount(account['id']));
-        account?.transaction?.available
+    const accTransaction = useMemo(
+        () =>
+            transactions.find(
+                (transaction) => transaction['accId'] === account['id']
+            ),
+        [JSON.stringify(transactions)]
+    );
+
+    const accError = useMemo(
+        () => errors.find((error) => account['id'] === error['accId']),
+        [JSON.stringify(errors)]
+    );
+
+    const onItemPress = useCallback(() => {
+        // dispatch(mainActions.selectAccount(account['id']));
+
+        accTransaction
             ? navigation.navigate(screensIdentifiers.authTransaction)
             : navigation.navigate(screensIdentifiers.accessCode);
-    };
+    }, [JSON.stringify(accTransaction)]);
 
     const renderErrorMessage = () => {
         return (
-            account?.error?.hasOccurred && (
+            accError && (
                 <View>
                     <Text style={styles.errorText}>
-                        {account.error?.displayMessage}
+                        {accError?.error.displayMessage}
                     </Text>
                 </View>
             )
@@ -35,7 +51,7 @@ const Item = ({ account }) => {
             android_ripple={{ color: 'grey' }}>
             <Text style={styles.issuer}>{account['issuer']}</Text>
             <Text style={styles.name}>{account['name']}</Text>
-            {account?.transaction?.available && (
+            {accTransaction && (
                 <Text style={styles.notificationText}>Transaction Pending</Text>
             )}
             {renderErrorMessage()}

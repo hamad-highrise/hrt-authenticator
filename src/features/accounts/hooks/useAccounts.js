@@ -4,6 +4,7 @@ import { BackHandler } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
 import { accountActions } from '../services';
+import { transactionActions } from '../../transaction';
 import constants from '../../../global/constants';
 import screensIdentifiers from '../../../navigation/screensId';
 
@@ -53,16 +54,20 @@ function useAccounts() {
     }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {
-        // accounts.forEach((account) => {
-        //     account['type'] === constants.ACCOUNT_TYPES.SAM &&
-        //         dispatch(
-        //             mainActions.checkTransaction({
-        //                 accId: account['id'],
-        //                 checkType: CHECKTYPE,
-        //                 ignoreSsl: account['ignoreSsl']
-        //             })
-        //         );
-        // });
+        accounts.forEach((account) => {
+            account['type'] === constants.ACCOUNT_TYPES.SAM &&
+                dispatch(
+                    transactionActions.checkTransaction({
+                        accId: account['id'],
+                        ignoreSsl: account['ignoreSsl']
+                    })
+                    // mainActions.checkTransaction({
+                    //     accId: account['id'],
+                    //     checkType: CHECKTYPE,
+                    //     ignoreSsl: account['ignoreSsl']
+                    // })
+                );
+        });
     };
 
     const loadAccounts = () => {
