@@ -1,4 +1,4 @@
-import { utilsActions } from '../../../redux.js/utils';
+import { utilsActions } from '../../utils';
 import services from './queries';
 import constants from './constants';
 

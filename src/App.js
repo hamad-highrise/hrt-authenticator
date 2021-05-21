@@ -7,7 +7,8 @@ import { enableScreens } from 'react-native-screens';
 
 import screenIds from './navigation/screensId';
 import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
-import store, { utilsActions } from './redux.js';
+import store from './redux.js';
+import { utilsActions } from './features/actions.public';
 import {
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
@@ -21,16 +22,9 @@ import {
     SecurityAssessmentScreen
 } from './features';
 import { AccountsScreen } from './features/screens';
-// import { alertActions } from './features/alert';
 
 enableScreens();
 const Stack = createStackNavigator();
-
-// NetInfo.fetch()
-//     .then((state) =>
-//         store.dispatch(alertActions.netStateChanged(state.isConnected))
-//     )
-//     .catch((err) => store.dispatch(alertActions.failure(err)));
 
 NetInfo.fetch()
     .then((state) => {

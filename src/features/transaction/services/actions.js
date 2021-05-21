@@ -1,7 +1,7 @@
 import constants from './constants';
 import { errActions } from '../../errorUtils';
 import { services } from '../../../global';
-import { utilsActions } from '../../../redux.js';
+import { utilsActions } from '../../utils';
 import {
     approveTransaction as approve,
     denyTransaction as deny
