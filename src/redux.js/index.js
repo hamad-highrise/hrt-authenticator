@@ -4,7 +4,8 @@ import {
     accountsReducer,
     errReducer,
     transactionReducer,
-    utilsReducer
+    utilsReducer,
+    selectReducer
 } from '../features/index.reducers';
 import errorActionTypes from '../features/errorUtils/services/constants';
 import transactionActionTypes from '../features/transaction/services/constants';
@@ -15,14 +16,16 @@ const rootReducer = combineReducers({
     accounts: accountsReducer,
     utils: utilsReducer,
     errors: errReducer,
-    transactions: transactionReducer
+    transactions: transactionReducer,
+    selected: selectReducer
 });
 
 const initialState = {
     accounts: null,
     transactions: [],
     errors: [],
-    utils: { loading: false, error: false, isConnected: null }
+    utils: { loading: false, error: false, isConnected: null },
+    selected: {}
 };
 
 const errorMiddlware = (store) => (next) => (action) => {
@@ -42,12 +45,5 @@ const errorMiddlware = (store) => (next) => (action) => {
 export default createStore(
     rootReducer,
     initialState,
-    applyMiddleware(
-        errorMiddlware,
-        (store) => (next) => (action) => {
-            if (action.type === transactionActionTypes.ADD_TRANSACTION) {
-            } else return next(action);
-        },
-        thunk
-    )
+    applyMiddleware(errorMiddlware, thunk)
 );

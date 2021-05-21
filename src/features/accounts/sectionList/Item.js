@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './list.styles';
-import { mainActions } from '../services';
+import { selectActions } from '../../selected';
 import screensIdentifiers from '../../../navigation/screensId';
 
 const Item = ({ account }) => {
@@ -26,8 +26,7 @@ const Item = ({ account }) => {
     );
 
     const onItemPress = useCallback(() => {
-        // dispatch(mainActions.selectAccount(account['id']));
-
+        dispatch(selectActions.select(account['id']));
         accTransaction
             ? navigation.navigate(screensIdentifiers.authTransaction)
             : navigation.navigate(screensIdentifiers.accessCode);

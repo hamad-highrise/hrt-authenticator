@@ -21,7 +21,7 @@ import QRScanner from './QRScanner';
 const QRScan = (props) => {
     const navigation = useNavigation();
     const [isFocused, setIsFocused] = useState(false);
-    const { isConnected } = useSelector(({ alert }) => alert);
+    const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);

@@ -21,7 +21,7 @@ import {
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
-import { AccountsScreen } from './features/screens';
+import { AccountsScreen, TransactionScreen } from './features/screens';
 
 enableScreens();
 const Stack = createStackNavigator();
@@ -53,7 +53,7 @@ const App = () => {
                     />
                     <Screen
                         name={screenIds.authTransaction}
-                        component={AuthScreen}
+                        component={TransactionScreen}
                     />
                     <Screen
                         name={screenIds.complete}

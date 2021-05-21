@@ -61,11 +61,6 @@ function useAccounts() {
                         accId: account['id'],
                         ignoreSsl: account['ignoreSsl']
                     })
-                    // mainActions.checkTransaction({
-                    //     accId: account['id'],
-                    //     checkType: CHECKTYPE,
-                    //     ignoreSsl: account['ignoreSsl']
-                    // })
                 );
         });
     };

@@ -7,7 +7,7 @@ import { Button } from '../../../components';
 import styles from '../code.styles';
 
 const Settings = ({ removeAccount }) => {
-    const selected = useSelector(({ main }) => main.selected);
+    const selected = useSelector(({ selected }) => selected);
     const onRemovePress = () => {
         Alert.alert(
             'Delete Account',
@@ -30,10 +30,7 @@ const Settings = ({ removeAccount }) => {
     return (
         <View>
             {selected['type'] === constants.ACCOUNT_TYPES.SAM && (
-                <TouchableOpacity
-                    style={styles.listitem}
-                    // onPress={onPressHandlerBiometricEdits}
-                >
+                <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Biometric</Text>
                         <Image

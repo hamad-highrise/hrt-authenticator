@@ -2,23 +2,32 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { transactionActions } from '../services';
+import { useMemo } from 'react';
 
 function useTransaction() {
-    const transactions = useSelector(({ transactions }) => transactions);
-    const navigation = useNavigation();
-    const { isConnected, loading } = useSelector(({ utils }) => utils);
-    const dispatch = useDispatch();
-    let transaction;
-    if (selected?.transaction?.available) {
-        transaction = transactions.filter(transaction);
-    }
+    const {
+        transactions,
+        utils: { isConnected, loading },
+        selected
+    } = useSelector((state) => state);
 
+    const navigation = useNavigation();
+    const dispatch = useDispatch();
+
+    const accTransaction = useMemo(() => {
+        let transaction = transactions.find(
+            (transaction) => transaction['accId'] === selected['id']
+        );
+
+        return transaction.transactionData;
+    }, [JSON.stringify(transactions)]);
+    console.warn(loading);
     const onApprove = async () => {
         dispatch(
             transactionActions.approveTransaction({
-                accId,
-                endpoint: transaction.requestUrl,
-                ignoreSsl
+                accId: selected['id'],
+                endpoint: accTransaction.requestUrl,
+                ignoreSsl: selected['ignoreSsl']
             })
         );
         !loading && navigation.goBack();
@@ -27,9 +36,9 @@ function useTransaction() {
     const onReject = async () => {
         dispatch(
             transactionActions.denyTransaction({
-                accId,
-                endpoint: transaction.requestUrl,
-                ignoreSsl
+                accId: selected['id'],
+                endpoint: accTransaction.requestUrl,
+                ignoreSsl: selected['ignoreSsl']
             })
         );
         !loading && navigation.goBack();
@@ -38,9 +47,9 @@ function useTransaction() {
     return {
         onApprove,
         onReject,
-        message: transaction.displayMessage,
-        createdAt: transaction.createdAt,
-        transactionId: transaction.transactionId,
+        message: accTransaction.displayMessage,
+        createdAt: accTransaction.createdAt,
+        transactionId: accTransaction.transactionId,
         isConnected,
         loading
     };

@@ -14,7 +14,7 @@ export default function reducer(state = initialState, action) {
             );
             return [
                 ...state.slice(0, removeAccountIndex),
-                ...state(removeAccountIndex + 1)
+                ...state.slice(removeAccountIndex + 1)
             ];
         default:
             return state;

@@ -7,14 +7,17 @@ import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
 import { alertActions } from '../../alert';
+import { transactionActions } from '../../transaction';
+import { errActions } from '../../errorUtils';
+import { accountActions } from '../../accounts';
 import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'SELECTED';
 
 function useAccessCode() {
     const navigation = useNavigation();
-    const selected = useSelector(({ main }) => main.selected);
-    const { isConnected } = useSelector(({ alert }) => alert);
+    const selected = useSelector((state) => state.selected);
+    const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
@@ -51,11 +54,11 @@ function useAccessCode() {
         };
     }, []);
 
-    useEffect(() => {
-        selected['type'] === constants.ACCOUNT_TYPES.SAM &&
-            selected.transaction.available &&
-            navigation.navigate(screensIdentifiers.authTransaction);
-    }, [selected?.transaction?.available]);
+    // useEffect(() => {
+    //     selected['type'] === constants.ACCOUNT_TYPES.SAM &&
+    //         selected.transaction.available &&
+    //         navigation.navigate(screensIdentifiers.authTransaction);
+    // }, [selected?.transaction?.available]);
 
     const onAppStateChange = (nextAppState) => {
         if (
@@ -93,9 +96,8 @@ function useAccessCode() {
     const checker = () => {
         isConnected &&
             dispatch(
-                mainActions.checkTransaction({
+                transactionActions.checkTransaction({
                     accId: selected['id'],
-                    checkType: CHECKTYPE,
                     ignoreSsl: selected['ignoreSsl']
                 })
             );
@@ -109,10 +111,11 @@ function useAccessCode() {
                 type: selected['type'],
                 ignoreSsl: selected['ignoreSsl']
             });
-            dispatch(mainActions.getAllAccounts());
-
-            navigation.navigate(screensIdentifiers.main);
+            dispatch(accountActions.removeAccount(selected['id']));
+            // navigation.navigate(screensIdentifiers.main);
+            navigation.goBack();
         } catch (error) {
+            console.warn(error);
             Alert.alert(
                 'Force Account Deletion',
                 'Unable to remove account from SAM. Delete forcefully?',
@@ -131,7 +134,7 @@ function useAccessCode() {
                     }
                 ]
             );
-            dispatch(alertActions.failure(error, selected['id']));
+            dispatch(errActions.add({ accId: selected['id'], error: error }));
         }
     };
 
@@ -139,9 +142,9 @@ function useAccessCode() {
         try {
             await services.removeAccountFromDB(selected['id']);
         } catch (error) {
-            dispatch(alertActions.failure(error, selected['id']));
+            dispatch(errActions.add({ accId: selected['id'], error: error }));
         } finally {
-            dispatch(mainActions.getAllAccounts());
+            dispatch(accountActions.removeAccount(selected['id']));
             // navigator.goToRoot(componentId);
             navigation.navigate(screensIdentifiers.main);
             // navigation.goBack();
