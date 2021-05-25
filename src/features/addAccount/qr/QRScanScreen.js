@@ -1,38 +1,42 @@
 import React, { useState, useCallback } from 'react';
-import { View, StyleSheet, Dimensions, Text } from 'react-native';
+import { StyleSheet } from 'react-native';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation, useFocusEffect } from '@react-navigation/native';
 
 import parser from './parser';
-import { TopNavbar, LoadingIndicator, Button } from '../../../components';
+import {
+    LoadingIndicator,
+    NetworkIndicator,
+    Topbar
+} from '../../../components';
 import initiateSamAccount from '../mmfa';
 import { createAccount, isUnique } from '../services';
 import { vibrate } from '../../../native-services/utilities';
 import { constants } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
-import { mainActions } from '../../main/services';
+import { accountActions } from '../../actions.public';
 import QRScanner from './QRScanner';
 
 const QRScan = (props) => {
     const navigation = useNavigation();
     const [isFocused, setIsFocused] = useState(false);
-    const { isConnected } = useSelector(({ alert }) => alert);
+    const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useFocusEffect(() => {
-        const n1 = navigation.addListener('focus', () => {
+        const onFocusListener = navigation.addListener('focus', () => {
             setIsFocused(true);
         });
-        const n2 = navigation.addListener('blur', () => {
+        const onBlurListener = navigation.addListener('blur', () => {
             setIsFocused(false);
         });
         return () => {
-            n1();
-            n2();
+            onFocusListener();
+            onBlurListener();
         };
     });
 
@@ -74,7 +78,10 @@ const QRScan = (props) => {
                 } else {
                     const account = {
                         name: parsedData.label.account,
-                        issuer: parsedData.label.issuer,
+                        issuer:
+                            parsedData.label.issuer ||
+                            parsedData.query.issuer ||
+                            'N/A',
                         secret: parsedData.query.secret,
                         type: constants.ACCOUNT_TYPES.TOTP
                     };
@@ -96,8 +103,7 @@ const QRScan = (props) => {
                     }
                 }
             }
-            console.warn('END OF FUNCTION');
-            dispatch(mainActions.getAllAccounts());
+            dispatch(accountActions.initiateAccounts());
         }
     };
 
@@ -107,30 +113,19 @@ const QRScan = (props) => {
                 <LoadingIndicator show={loading} />
             ) : (
                 <>
-                    <TopNavbar
-                        title="Scan QR code"
-                        imageBackOnPress={() =>
-                            navigation.navigate(screensIdentifiers.main)
-                        }
+                    <Topbar
+                        title="Scan QR Code"
+                        topbarRight={{
+                            visible: true,
+                            onPress: navigation.goBack,
+                            image: {
+                                source: require('../../../assets/icons/cross_black.png'),
+                                width: '50%',
+                                height: '50%'
+                            }
+                        }}
                     />
-                    {!isConnected && (
-                        <View
-                            style={{
-                                backgroundColor: 'black',
-                                width: '100%',
-                                height: 35,
-                                justifyContent: 'center',
-                                alignItems: 'center'
-                            }}>
-                            <Text
-                                style={{
-                                    fontFamily: 'monospace',
-                                    color: 'white'
-                                }}>
-                                No Internet
-                            </Text>
-                        </View>
-                    )}
+                    {!isConnected && <NetworkIndicator />}
                     {isFocused && (
                         <QRScanner
                             onBarCodeRead={barcodeRecognized}
@@ -143,7 +138,7 @@ const QRScan = (props) => {
     );
 };
 
-export default React.memo(QRScan);
+export default QRScan;
 
 const styles = StyleSheet.create({
     container: {

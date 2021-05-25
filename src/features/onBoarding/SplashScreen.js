@@ -4,25 +4,27 @@ import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { mainActions } from '../main/services';
+import { accountActions } from '../actions.public';
 import { initiateDb } from './init-db';
 import { setInitiated } from '../../native-services/utilities';
 import { utilities } from '../../native-services';
 import screensIdentifiers from '../../navigation/screensId';
+import { Typography } from '../../theme';
+import { values } from '../../global';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
 const Splash = (props) => {
     const navigation = useNavigation();
     const dispatch = useDispatch();
-    const { accounts } = useSelector(({ main }) => main);
+    const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
         init();
     }, []);
 
     const init = async () => {
         if (await utilities.isInitiated()) {
-            dispatch(mainActions.getAllAccounts());
+            dispatch(accountActions.initiateAccounts());
         } else {
             try {
                 await initiateDb();
@@ -49,15 +51,16 @@ const Splash = (props) => {
             <View
                 style={{
                     alignItems: 'center',
-                    paddingTop: Dimensions.get('window').height * 0.2
+                    paddingTop: Dimensions.get('window').height * 0.2,
+                    width: 250,
+                    height: 250,
+                    justifyContent: 'center'
                 }}>
                 <Image
-                    source={require('../../assets/images/highrise-logo.png')}
+                    source={require('../../assets/images/logo.png')}
                     style={styles.image}
                 />
-                <Text style={{ ...styles.welcome, fontSize: 30 }}>
-                    HRT Verify
-                </Text>
+                <Typography.AppTitle>{values.APP_NAME}</Typography.AppTitle>
             </View>
             <View>
                 <Text style={styles.instructions}>HIGHRISE</Text>
@@ -103,7 +106,7 @@ const styles = StyleSheet.create({
         fontFamily: 'sans-serif-condensed'
     },
     image: {
-        // width: 300,
-        height: 200
+        width: 250,
+        height: 250
     }
 });

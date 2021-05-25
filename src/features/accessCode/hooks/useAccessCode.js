@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, AppState } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
@@ -7,14 +7,20 @@ import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
 import { alertActions } from '../../alert';
+import { transactionActions } from '../../transaction';
+import { errActions } from '../../errorUtils';
+import { accountActions } from '../../accounts';
 import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'SELECTED';
 
 function useAccessCode() {
     const navigation = useNavigation();
-    const selected = useSelector(({ main }) => main.selected);
-    const { isConnected } = useSelector(({ alert }) => alert);
+    const {
+        selected,
+        transactions,
+        utils: { isConnected }
+    } = useSelector((state) => state);
     const dispatch = useDispatch();
     const [counter, setCounter] = useState(0);
     const [otp, setOTP] = useState('######');
@@ -22,8 +28,14 @@ function useAccessCode() {
     const [loading, setLoading] = useState(false);
     const otpIntervalRef = useRef();
     const transactionIntervalRef = useRef();
-    let onScreen = useRef().current;
     const appState = useRef(AppState.currentState);
+
+    const accTransaction = useMemo(() => {
+        const transaction = transactions.find(
+            (transaction) => transaction['accId'] === selected['id']
+        );
+        return transaction?.transactionData;
+    }, [JSON.stringify(transactions)]);
 
     useEffect(() => {
         //initiate
@@ -53,9 +65,9 @@ function useAccessCode() {
 
     useEffect(() => {
         selected['type'] === constants.ACCOUNT_TYPES.SAM &&
-            selected.transaction.available &&
+            accTransaction &&
             navigation.navigate(screensIdentifiers.authTransaction);
-    }, [selected?.transaction?.available]);
+    }, [JSON.stringify(accTransaction)]);
 
     const onAppStateChange = (nextAppState) => {
         if (
@@ -93,9 +105,8 @@ function useAccessCode() {
     const checker = () => {
         isConnected &&
             dispatch(
-                mainActions.checkTransaction({
+                transactionActions.checkTransaction({
                     accId: selected['id'],
-                    checkType: CHECKTYPE,
                     ignoreSsl: selected['ignoreSsl']
                 })
             );
@@ -109,9 +120,8 @@ function useAccessCode() {
                 type: selected['type'],
                 ignoreSsl: selected['ignoreSsl']
             });
-            dispatch(mainActions.getAllAccounts());
-
-            navigation.navigate(screensIdentifiers.main);
+            dispatch(accountActions.removeAccount(selected['id']));
+            navigation.goBack();
         } catch (error) {
             Alert.alert(
                 'Force Account Deletion',
@@ -131,7 +141,7 @@ function useAccessCode() {
                     }
                 ]
             );
-            dispatch(alertActions.failure(error, selected['id']));
+            dispatch(errActions.add({ accId: selected['id'], error: error }));
         }
     };
 
@@ -139,12 +149,10 @@ function useAccessCode() {
         try {
             await services.removeAccountFromDB(selected['id']);
         } catch (error) {
-            dispatch(alertActions.failure(error, selected['id']));
+            dispatch(errActions.add({ accId: selected['id'], error: error }));
         } finally {
-            dispatch(mainActions.getAllAccounts());
-            // navigator.goToRoot(componentId);
-            navigation.navigate(screensIdentifiers.main);
-            // navigation.goBack();
+            dispatch(accountActions.removeAccount(selected['id']));
+            navigation.goBack();
         }
     };
 

@@ -4,7 +4,6 @@ import { alertActions } from '../alert';
 import { errors } from '../../global';
 
 import ErrorScreen from './ErrorScreen';
-import { mainActions } from '../main/services';
 
 function Boundry({ children, ...props }) {
     const { error } = useSelector((state) => state.alert);

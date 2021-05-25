@@ -1,1 +1,5 @@
-export { mainReducer } from './main/services';
+export { accountsReducer } from './accounts';
+export { errReducer } from './errorUtils';
+export { transactionReducer } from './transaction';
+export { utilsReducer } from './utils';
+export { selectReducer } from './selected';

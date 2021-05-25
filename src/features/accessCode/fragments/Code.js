@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { PercentageCircle } from '../../../components';
+import { colors } from '../../../theme';
 export default ({ otp, counter, suspected }) => (
     <View style={{ justifyContent: 'center', alignItems: 'center' }}>
         {!suspected ? (
@@ -8,7 +9,7 @@ export default ({ otp, counter, suspected }) => (
                 borderWidth={6}
                 radius={140}
                 percent={(counter / 30) * 100}
-                color="#0f62fe99">
+                color={colors.PRIMARY || '#0f62fe99'}>
                 {otp !== '######' && (
                     <Text
                         style={{

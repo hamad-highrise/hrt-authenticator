@@ -3,14 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
-import { mainActions } from '../services';
+import { accountActions } from '../../../redux.js';
 import constants from '../../../global/constants';
 import screensIdentifiers from '../../../navigation/screensId';
 
 const CHECKTYPE = 'MULTI';
 
 function useAccounts() {
-    const accounts = useSelector(({ main }) => main.accounts);
+    const accounts = useSelector(({ accounts }) => accounts);
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const transactionCheckIntervalRef = useRef();
@@ -52,20 +52,20 @@ function useAccounts() {
     }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {
-        accounts.forEach((account) => {
-            account['type'] === constants.ACCOUNT_TYPES.SAM &&
-                dispatch(
-                    mainActions.checkTransaction({
-                        accId: account['id'],
-                        checkType: CHECKTYPE,
-                        ignoreSsl: account['ignoreSsl']
-                    })
-                );
-        });
+        // accounts.forEach((account) => {
+        //     account['type'] === constants.ACCOUNT_TYPES.SAM &&
+        //         dispatch(
+        //             mainActions.checkTransaction({
+        //                 accId: account['id'],
+        //                 checkType: CHECKTYPE,
+        //                 ignoreSsl: account['ignoreSsl']
+        //             })
+        //         );
+        // });
     };
 
     const loadAccounts = () => {
-        dispatch(mainActions.getAllAccounts());
+        dispatch(accountActions.initiateAccounts());
     };
 
     return { accounts };

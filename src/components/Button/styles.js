@@ -1,10 +1,11 @@
 import { Dimensions, StyleSheet } from 'react-native';
+import { colors } from '../../theme';
 
 export default StyleSheet.create({
     conatiner: {
         width: Dimensions.get('window').width * 0.7,
         height: 60,
-        backgroundColor: '#0F62FE',
+        backgroundColor: colors.PRIMARY,
         borderRadius: 2,
         elevation: 10,
         justifyContent: 'center',
