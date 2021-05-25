@@ -21,7 +21,11 @@ import {
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
-import { AccountsScreen, TransactionScreen } from './features/screens';
+import {
+    AccountsScreen,
+    TransactionScreen,
+    RootedDeviceScreen
+} from './features/screens';
 
 enableScreens();
 const Stack = createStackNavigator();
@@ -81,6 +85,10 @@ const App = () => {
                     <Screen
                         name={screenIds.deviceInfo}
                         component={DeviceInfoScreen}
+                    />
+                    <Screen
+                        name={screenIds.rooted}
+                        component={RootedDeviceScreen}
                     />
                 </Navigator>
             </NavigationContainer>

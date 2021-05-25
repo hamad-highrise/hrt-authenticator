@@ -7,7 +7,7 @@ export default Object.freeze({
     SUCCESS: '#32cd32',
     DANGER: '#ff0000',
     text: {
-        SUBTITLE: 'dcdcdc',
+        SUBTITLE: 'grey',
         TITLE: '#424c58',
         PARAGRAPH: '#000000'
     }

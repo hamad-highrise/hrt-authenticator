@@ -3,6 +3,7 @@ import { Text, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
 
 import styles from './styles';
+import { colors } from '../../theme';
 
 const Button = ({ label, onPress, style, params, rippleColor }) => {
     const onButtonPress = () => {
@@ -31,7 +32,7 @@ Button.propTypes = {
 };
 
 Button.defaultProps = {
-    rippleColor: '#6FA0FE'
+    rippleColor: colors.SECONDARY
 };
 
 export default Button;

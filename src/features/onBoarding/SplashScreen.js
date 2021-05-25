@@ -23,17 +23,23 @@ const Splash = (props) => {
     }, []);
 
     const init = async () => {
-        if (await utilities.isInitiated()) {
-            dispatch(accountActions.initiateAccounts());
-        } else {
-            try {
-                await initiateDb();
-                await setInitiated();
-            } catch (error) {
-                alert('Error while initiating application.');
+        if (!(await (await utilities.getDeviceInfo()).rooted)) {
+            if (await utilities.isInitiated()) {
+                dispatch(accountActions.initiateAccounts());
+            } else {
+                try {
+                    await initiateDb();
+                    await setInitiated();
+                } catch (error) {
+                    alert('Error while initiating application.');
+                }
+                setTimeout(() => {
+                    navigation.navigate(screensIdentifiers.main);
+                }, SET_ROOT_DELAY);
             }
+        } else {
             setTimeout(() => {
-                navigation.navigate(screensIdentifiers.main);
+                navigation.navigate(screensIdentifiers.rooted);
             }, SET_ROOT_DELAY);
         }
     };
