@@ -46,6 +46,16 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
     }
 
     @ReactMethod
+    public void removeSecureFlag() {
+        UiThreadUtil.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                getCurrentActivity().getWindow().clearFlags(WindowManager.LayoutParams.FLAG_SECURE);
+            }
+        });
+    }
+
+    @ReactMethod
     public void getDeviceInfo(Promise promise) {
         try {
             WritableMap deviceInfo = new WritableNativeMap();
