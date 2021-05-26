@@ -24,7 +24,8 @@ import {
 import {
     AccountsScreen,
     TransactionScreen,
-    RootedDeviceScreen
+    RootedDeviceScreen,
+    TransactionResponseScreen
 } from './features/screens';
 
 enableScreens();
@@ -89,6 +90,10 @@ const App = () => {
                     <Screen
                         name={screenIds.rooted}
                         component={RootedDeviceScreen}
+                    />
+                    <Screen
+                        name={screenIds.transactionResponse}
+                        component={TransactionResponseScreen}
                     />
                 </Navigator>
             </NavigationContainer>

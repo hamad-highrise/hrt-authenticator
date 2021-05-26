@@ -1,3 +1,3 @@
 export { AccountsScreen } from './accounts';
-export { TransactionScreen } from './transaction';
+export { TransactionScreen, TransactionResponseScreen } from './transaction';
 export { RootedDeviceScreen } from './onBoarding';

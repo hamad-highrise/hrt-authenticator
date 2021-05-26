@@ -12,7 +12,8 @@ const screensIdentifiers = Object.freeze({
     complete: 'authenticator.ProcessComplete',
     securityassessment: 'authenticator.SecurityAssessmentScreen',
     success: 'authenticator.SuccessScreen',
-    rooted: 'authenticator.RootedDeviceScreen'
+    rooted: 'authenticator.RootedDeviceScreen',
+    transactionResponse: 'authenticator.TransactionResponse'
 });
 
 export default screensIdentifiers;

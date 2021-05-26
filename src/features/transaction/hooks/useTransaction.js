@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { transactionActions } from '../services';
 import { useEffect, useMemo } from 'react';
+import screensIdentifiers from '../../../navigation/screensId';
 
 function useTransaction() {
     const {
@@ -32,8 +33,19 @@ function useTransaction() {
                 endpoint: accTransaction.requestUrl,
                 ignoreSsl: selected['ignoreSsl']
             })
-        );
-        !loading && navigation.goBack();
+        )
+            .then(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: true,
+                    success: true
+                })
+            )
+            .catch(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: true,
+                    success: false
+                })
+            );
     };
 
     const onReject = async () => {
@@ -43,8 +55,19 @@ function useTransaction() {
                 endpoint: accTransaction.requestUrl,
                 ignoreSsl: selected['ignoreSsl']
             })
-        );
-        !loading && navigation.goBack();
+        )
+            .then(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: false,
+                    success: true
+                })
+            )
+            .catch(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: false,
+                    success: false
+                })
+            );
     };
 
     return {
