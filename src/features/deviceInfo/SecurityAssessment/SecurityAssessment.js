@@ -3,50 +3,18 @@ import {
     View,
     Text,
     StyleSheet,
-    TouchableOpacity,
     Image,
     Switch,
-    Dimensions,
-    Animated
+    Dimensions
 } from 'react-native';
-import { useDispatch } from 'react-redux';
+import { useNavigation } from '@react-navigation/native';
 
 import { TopNavbar } from '../../../components';
 import { utilities } from '../../../native-services';
-import navigation from '../../../navigation';
-const SecurityAssessment = (props) => {
-    const fadeAnim = useRef(new Animated.Value(-20)).current;
-    const fadeAnimOPA = useRef(new Animated.Value(0)).current;
+import { values } from '../../../global';
 
-    var mode = 1;
-    const fadeOut = () => {
-        console.log(mode);
-        if (mode == 1) {
-            Animated.timing(fadeAnim, {
-                toValue: 12,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            Animated.timing(fadeAnimOPA, {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            mode = 2;
-        } else {
-            Animated.timing(fadeAnim, {
-                toValue: -20,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            Animated.timing(fadeAnimOPA, {
-                toValue: 0,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            mode = 1;
-        }
-    };
+const SecurityAssessment = (props) => {
+    const navigation = useNavigation();
 
     const [isEnabled, setIsEnabled] = useState(true);
     const [info, setInfo] = useState({
@@ -54,7 +22,11 @@ const SecurityAssessment = (props) => {
         biometricEnrolled: true
     });
     const init = () => {};
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+    const toggleSwitch = () => {
+        if (isEnabled) utilities.allowScreenshot();
+        else utilities.preventScreenshot();
+        setIsEnabled((isEnabled) => !isEnabled);
+    };
     return (
         <View style={styles.container}>
             <TopNavbar
@@ -76,29 +48,7 @@ const SecurityAssessment = (props) => {
                 }}>
                 {/* li */}
 
-                {/* <TouchableOpacity style={styles.listitem} onPress={fadeOut}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Android version up to date
-                        </Text>
-                        <Image
-                            source={require('../../../assets/icons/exclamation.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <Animated.View
-                    style={{
-                        marginVertical: fadeAnim,
-                        opacity: fadeAnimOPA,
-                        marginHorizontal: 20
-                    }}>
-                    <Text style={{ fontSize: 16 }}>
-                        A new Android version is available. Please update your
-                        device.
-                    </Text>
-                </Animated.View> */}
-                <TouchableOpacity style={styles.listitem}>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Device not rooted
@@ -108,8 +58,8 @@ const SecurityAssessment = (props) => {
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Biometrics Enrolled
@@ -119,8 +69,8 @@ const SecurityAssessment = (props) => {
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Device security is enabled
@@ -130,18 +80,18 @@ const SecurityAssessment = (props) => {
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            HRT Verify up to date
+                            {values.APP_NAME} up to date
                         </Text>
                         <Image
                             source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
+                </View>
 
                 {/* end li */}
             </View>
@@ -154,7 +104,7 @@ const SecurityAssessment = (props) => {
                     borderTopWidth: 1,
                     marginTop: 110
                 }}>
-                <TouchableOpacity
+                <View
                     onPress={() => utilities.preventScreenshot()}
                     style={styles.listitemBottom}>
                     <View
@@ -180,7 +130,7 @@ const SecurityAssessment = (props) => {
                             value={isEnabled}
                         />
                     </View>
-                </TouchableOpacity>
+                </View>
             </View>
         </View>
     );

@@ -73,7 +73,8 @@ export default {
     isInitiated,
     setInitiated,
     vibrate,
-    getUUID
+    getUUID,
+    allowScreenshot
 };
 export {
     preventScreenshot,
@@ -81,5 +82,6 @@ export {
     isInitiated,
     setInitiated,
     vibrate,
-    getUUID
+    getUUID,
+    allowScreenshot
 };
