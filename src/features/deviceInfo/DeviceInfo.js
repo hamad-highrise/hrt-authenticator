@@ -21,32 +21,14 @@ const DeviceInfo = (props) => {
         false
     );
 
-    // const onPressHandlertermandcondition = useCallback(() => {
-    //     navigation.goTo(
-    //         props.componentId,
-    //         navigation.screenIds.termandcondition
-    //     );
-    // }, [props.componentId]);
-    // const onPressHandlerthirdpartynotice = useCallback(() => {
-    //     navigation.goTo(
-    //         props.componentId,
-    //         navigation.screenIds.thirdpartynotice
-    //     );
-    // }, [props.componentId]);
     const onPressHandlersecurityassessment = useCallback(() => {
-        // navigation.goTo(
-        //     props.componentId,
-        //     navigation.screenIds.securityassessment
-        // );
-        navigation.navigate(screensIdentifiers.main);
+        navigation.navigate(screensIdentifiers.securityassessment);
     }, [props.componentId]);
     return (
         <View style={styles.container}>
             <TopNavbar
                 title="Utilities"
-                imageBackOnPress={() =>
-                    navigation.goBack(props.componentId)
-                }></TopNavbar>
+                imageBackOnPress={navigation.goBack}></TopNavbar>
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>

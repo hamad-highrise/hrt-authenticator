@@ -24,7 +24,7 @@ async function getDeviceInfo() {
 
 async function isInitiated() {
     const { Utilities } = NativeModules;
-    
+
     try {
         const result = await Utilities.isInitiated();
         return Promise.resolve(result);
@@ -54,6 +54,16 @@ async function preventScreenshot() {
     }
 }
 
+async function allowScreenshot() {
+    const { Utilities } = NativeModules;
+    try {
+        Utilities.removeSecureFlag();
+        return;
+    } catch (error) {
+        throw error;
+    }
+}
+
 async function getUUID() {
     const { Utilities } = NativeModules;
     try {
@@ -69,7 +79,15 @@ export default {
     preventScreenshot,
     isInitiated,
     setInitiated,
-    getUUID
+    getUUID,
+    allowScreenshot
 };
 
-export { getDeviceInfo, preventScreenshot, isInitiated, setInitiated, getUUID };
+export {
+    getDeviceInfo,
+    preventScreenshot,
+    isInitiated,
+    setInitiated,
+    getUUID,
+    allowScreenshot
+};

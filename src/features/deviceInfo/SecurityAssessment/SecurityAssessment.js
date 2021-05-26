@@ -1,69 +1,39 @@
-import React, { useState, useRef } from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    TouchableOpacity,
-    Image,
-    Switch,
-    Dimensions,
-    Animated
-} from 'react-native';
-import { useDispatch } from 'react-redux';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Image, Switch, Dimensions } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 
 import { TopNavbar } from '../../../components';
-import { utilities } from '../../../native-services';
-import navigation from '../../../navigation';
+import { values } from '../../../global';
+import { biometrics, utilities } from '../../../native-services';
+
+import styles from './assessment.styles';
+
 const SecurityAssessment = (props) => {
-    const fadeAnim = useRef(new Animated.Value(-20)).current;
-    const fadeAnimOPA = useRef(new Animated.Value(0)).current;
-
-    var mode = 1;
-    const fadeOut = () => {
-        console.log(mode);
-        if (mode == 1) {
-            Animated.timing(fadeAnim, {
-                toValue: 12,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            Animated.timing(fadeAnimOPA, {
-                toValue: 1,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            mode = 2;
-        } else {
-            Animated.timing(fadeAnim, {
-                toValue: -20,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            Animated.timing(fadeAnimOPA, {
-                toValue: 0,
-                duration: 500,
-                useNativeDriver: false
-            }).start();
-            mode = 1;
-        }
-    };
-
     const [isEnabled, setIsEnabled] = useState(true);
-    const [info, setInfo] = useState({
+    const [data, setData] = useState({
         rooted: false,
-        biometricEnrolled: true
+        biometricsEnrolled: true
     });
-    const init = () => {};
-    const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
+    const navigation = useNavigation();
+
+    useEffect(() => {
+        (async () => {
+            const isRooted = await (await utilities.getDeviceInfo()).rooted;
+            const biometricsEnrolled = await (
+                await biometrics.isSensorAvailable()
+            ).available;
+            setData({ rooted: isRooted, biometricsEnrolled });
+        })();
+    }, []);
+
+    const toggleSwitch = () => {
+        if (isEnabled) utilities.allowScreenshot();
+        else utilities.preventScreenshot();
+        setIsEnabled((isEnabled) => !isEnabled);
+    };
     return (
         <View style={styles.container}>
-            <TopNavbar
-                title=""
-                onPress={() => alert('nothing')}
-                imageBackOnPress={() =>
-                    navigation.goBack(props.componentId)
-                }></TopNavbar>
-
+            <TopNavbar title="" imageBackOnPress={() => navigation.goBack()} />
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
                 Status
@@ -74,89 +44,62 @@ const SecurityAssessment = (props) => {
                     borderBottomWidth: 1,
                     borderTopWidth: 1
                 }}>
-                {/* li */}
-
-                {/* <TouchableOpacity style={styles.listitem} onPress={fadeOut}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Android version up to date
-                        </Text>
-                        <Image
-                            source={require('../../../assets/icons/exclamation.png')}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <Animated.View
-                    style={{
-                        marginVertical: fadeAnim,
-                        opacity: fadeAnimOPA,
-                        marginHorizontal: 20
-                    }}>
-                    <Text style={{ fontSize: 16 }}>
-                        A new Android version is available. Please update your
-                        device.
-                    </Text>
-                </Animated.View> */}
-                <TouchableOpacity style={styles.listitem}>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Device not rooted
                         </Text>
                         <Image
-                            source={require('../../../assets/icons/tickblack2.png')}
+                            source={
+                                !data.rooted
+                                    ? require('../../../assets/icons/tick_black.png')
+                                    : require('../../../assets/icons/cross_black.png')
+                            }
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Biometrics Enrolled
                         </Text>
                         <Image
-                            source={require('../../../assets/icons/tickblack2.png')}
+                            source={
+                                data.biometricsEnrolled
+                                    ? require('../../../assets/icons/tick_black.png')
+                                    : require('../../../assets/icons/cross_black.png')
+                            }
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
                             Device security is enabled
                         </Text>
                         <Image
-                            source={require('../../../assets/icons/tickblack2.png')}
+                            source={require('../../../assets/icons/tick_black.png')}
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
+                </View>
+                <View style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>
-                            HRT Verify up to date
+                            {values.APP_NAME} up to date
                         </Text>
                         <Image
                             source={require('../../../assets/icons/tickblack2.png')}
                             style={styles.img}
                         />
                     </View>
-                </TouchableOpacity>
-
-                {/* end li */}
+                </View>
             </View>
 
-            <View
-                style={{
-                    backgroundColor: '#d3d3d380',
-                    borderColor: 'grey',
-                    borderBottomWidth: 1,
-                    borderTopWidth: 1,
-                    marginTop: 110
-                }}>
-                <TouchableOpacity
-                    onPress={() => utilities.preventScreenshot()}
-                    style={styles.listitemBottom}>
+            <View style={styles.spacer}>
+                <View style={styles.listitemBottom}>
                     <View
                         style={[
                             styles.listitemView,
@@ -180,55 +123,10 @@ const SecurityAssessment = (props) => {
                             value={isEnabled}
                         />
                     </View>
-                </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
 };
 
 export default SecurityAssessment;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    title: {
-        marginLeft: 20
-    },
-    listitem: {
-        padding: 12,
-        borderBottomWidth: 1,
-        borderColor: 'lightgrey',
-        justifyContent: 'space-between',
-        backgroundColor: '#d3d3d380'
-    },
-    listitemView: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingRight: 8
-    },
-    listitemText: {
-        fontSize: 17,
-        color: '#424c58'
-    },
-    img: {
-        width: 20,
-        height: 20
-    },
-    listitemBottom: {
-        padding: 10,
-        marginLeft: 10,
-        marginRight: 10,
-        justifyContent: 'space-between',
-        marginVertical: 10
-    },
-    listitemTextBottom: {
-        fontSize: 16,
-        color: '#424c58'
-    },
-    listitemSubTextBottom: {
-        fontSize: 14,
-        color: '#424c5899'
-    }
-});

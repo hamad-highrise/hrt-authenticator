@@ -11,6 +11,15 @@ async function preventScreenshot() {
     }
 }
 
+async function allowScreenshot() {
+    try {
+        utilities.allowScreenshot();
+        return;
+    } catch (error) {
+        throw new NativeError({ message: 'ALLOW_SS_ERROR' });
+    }
+}
+
 async function getDeviceInfo() {
     try {
         const info = await utilities.getDeviceInfo();
@@ -64,7 +73,8 @@ export default {
     isInitiated,
     setInitiated,
     vibrate,
-    getUUID
+    getUUID,
+    allowScreenshot
 };
 export {
     preventScreenshot,
@@ -72,5 +82,6 @@ export {
     isInitiated,
     setInitiated,
     vibrate,
-    getUUID
+    getUUID,
+    allowScreenshot
 };
