@@ -54,23 +54,12 @@ const Splash = (props) => {
 
     return (
         <View style={styles.container}>
-            <View
-                style={{
-                    alignItems: 'center',
-                    paddingTop: Dimensions.get('window').height * 0.2,
-                    width: 250,
-                    height: 250,
-                    justifyContent: 'center'
-                }}>
+            <View style={styles.contentContainer}>
                 <Image
                     source={require('../../assets/images/logo.png')}
                     style={styles.image}
                 />
                 <Typography.AppTitle>{values.APP_NAME}</Typography.AppTitle>
-            </View>
-            <View>
-                <Text style={styles.instructions}>HIGHRISE</Text>
-                <Text style={styles.Subinstructions}>TECHNOLOGIES</Text>
             </View>
         </View>
     );
@@ -81,7 +70,7 @@ export default Splash;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: 'white'
     },
@@ -114,5 +103,11 @@ const styles = StyleSheet.create({
     image: {
         width: 250,
         height: 250
+    },
+    contentContainer: {
+        alignItems: 'center',
+        width: 250,
+        height: 250,
+        justifyContent: 'center'
     }
 });
