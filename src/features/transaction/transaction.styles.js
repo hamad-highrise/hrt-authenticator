@@ -91,5 +91,10 @@ export default StyleSheet.create({
         fontSize: 28,
         textAlign: 'center',
         margin: 10
+    },
+    decisionBoxText: {
+        fontSize: 16,
+        fontWeight: 'bold',
+        color: 'white'
     }
 });
