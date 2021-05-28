@@ -180,14 +180,12 @@ const AuthProcess = (props) => {
                         }
                     ]}
                     onPress={onReject}>
-                    <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: 'bold', color: 'black' }}>
-                            Deny
-                        </Text>
+                    <View style={{ justifyContent: 'center' }}>
+                        <Text style={styles.decisionBoxText}>Deny</Text>
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/crossblack.png')}
+                        source={require('../../assets/icons/cross_white.png')}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>
@@ -198,24 +196,18 @@ const AuthProcess = (props) => {
                         { backgroundColor: 'steelblue', padding: 10 }
                     ]}
                     onPress={onApprove}>
-                    <View style={{ marginTop: 10 }}>
-                        <Text style={{ fontWeight: 'bold' }}>Approve</Text>
+                    <View style={{ justifyContent: 'center' }}>
+                        <Text style={styles.decisionBoxText}>Approve</Text>
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/tick-black.png')}
+                        source={require('../../assets/icons/tick_white.png')}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>
             </View>
         </View>
     );
-};
-
-AuthProcess.options = {
-    topBar: {
-        visible: false
-    }
 };
 
 export default AuthProcess;
