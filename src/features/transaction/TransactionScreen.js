@@ -103,7 +103,7 @@ const AuthProcess = (props) => {
                             <Text style={styles.welcome}>{message}</Text>
                             <Text style={styles.SListheader}>HRT server</Text>
                             <Text style={styles.SListtitle}>
-                                Confirmation # {transactionId.split('-')[0]}
+                                Confirmation # {transactionId?.split('-')[0]}
                             </Text>
                         </View>
                         <View style={{ marginTop: 30 }} />

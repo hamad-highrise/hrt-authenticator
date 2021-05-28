@@ -22,9 +22,13 @@ function useTransaction() {
         return transaction?.transactionData;
     }, [JSON.stringify(transactions)]);
 
-    useEffect(() => {
-        !accTransaction && navigation.goBack();
-    }, [JSON.stringify(accTransaction)]);
+    // const accTransaction = transactions.find(
+    //     (transaction) => transaction['accId'] === selected['id']
+    // )?.transactionData;
+
+    // useEffect(() => {
+    //     !accTransaction && navigation.navigate(screensIdentifiers.main);
+    // }, [JSON.stringify(accTransaction)]);
 
     const onApprove = async () => {
         dispatch(
