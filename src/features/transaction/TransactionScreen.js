@@ -2,7 +2,11 @@ import React, { useState, useRef } from 'react';
 import { View, Text, TouchableOpacity, Image, Animated } from 'react-native';
 
 import styles from './transaction.styles';
-import { NetworkIndicator, TopNavbar } from '../../components';
+import {
+    LoadingIndicator,
+    NetworkIndicator,
+    TopNavbar
+} from '../../components';
 import { useTransaction } from './hooks';
 
 const AuthProcess = (props) => {
@@ -12,7 +16,8 @@ const AuthProcess = (props) => {
         transactionId,
         onApprove,
         onReject,
-        isConnected
+        isConnected,
+        loading
     } = useTransaction(props);
 
     const [viewDetails, setFragment] = useState('YES');
@@ -79,7 +84,9 @@ const AuthProcess = (props) => {
             useNativeDriver: false
         }).start();
     };
-    return (
+    return loading ? (
+        <LoadingIndicator show={loading} />
+    ) : (
         <View style={styles.container}>
             <View>
                 {!isConnected && <NetworkIndicator />}
@@ -96,7 +103,7 @@ const AuthProcess = (props) => {
                             <Text style={styles.welcome}>{message}</Text>
                             <Text style={styles.SListheader}>HRT server</Text>
                             <Text style={styles.SListtitle}>
-                                Confirmation # {transactionId.split('-')[0]}
+                                Confirmation # {transactionId?.split('-')[0]}
                             </Text>
                         </View>
                         <View style={{ marginTop: 30 }} />

@@ -27,31 +27,39 @@ function checkTransaction({ accId, ignoreSsl }) {
 }
 
 function approveTransaction({ accId, endpoint, ignoreSsl }) {
-    return async (dispatch) => {
-        try {
+    return (dispatch) =>
+        new Promise((resolve, reject) => {
             dispatch(utilsActions.request());
-            await approve({ accId, endpoint, ignoreSsl });
-            dispatch(utilsActions.success());
-            dispatch({ type: constants.CLEAR, payload: { accId } });
-        } catch (error) {
-            dispatch(utilsActions.failure());
-            dispatch(errActions.add({ accId, error }));
-        }
-    };
+            approve({ accId, endpoint, ignoreSsl })
+                .then(() => {
+                    dispatch(utilsActions.success());
+                    dispatch({ type: constants.CLEAR, payload: { accId } });
+                    resolve();
+                })
+                .catch((err) => {
+                    dispatch(utilsActions.failure());
+                    dispatch(errActions.add({ accId, error }));
+                    reject(err);
+                });
+        });
 }
 
 function denyTransaction({ accId, endpoint, ignoreSsl }) {
-    return async (dispatch) => {
-        try {
+    return (dispatch) =>
+        new Promise((resolve, reject) => {
             dispatch(utilsActions.request());
-            await deny({ accId, endpoint, ignoreSsl });
-            dispatch(utilsActions.success());
-            dispatch({ type: constants.CLEAR, payload: { accId } });
-        } catch (error) {
-            dispatch(utilsActions.failure());
-            dispatch(errActions.add({ accId, error }));
-        }
-    };
+            deny({ accId, endpoint, ignoreSsl })
+                .then(() => {
+                    dispatch(utilsActions.success());
+                    dispatch({ type: constants.CLEAR, payload: { accId } });
+                    resolve();
+                })
+                .catch((err) => {
+                    dispatch(utilsActions.failure());
+                    dispatch(errActions.add({ accId, error }));
+                    reject(err);
+                });
+        });
 }
 
 export default { checkTransaction, approveTransaction, denyTransaction };

@@ -3,6 +3,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { transactionActions } from '../services';
 import { useEffect, useMemo } from 'react';
+import screensIdentifiers from '../../../navigation/screensId';
 
 function useTransaction() {
     const {
@@ -21,9 +22,13 @@ function useTransaction() {
         return transaction?.transactionData;
     }, [JSON.stringify(transactions)]);
 
-    useEffect(() => {
-        !accTransaction && navigation.goBack();
-    }, [JSON.stringify(accTransaction)]);
+    // const accTransaction = transactions.find(
+    //     (transaction) => transaction['accId'] === selected['id']
+    // )?.transactionData;
+
+    // useEffect(() => {
+    //     !accTransaction && navigation.navigate(screensIdentifiers.main);
+    // }, [JSON.stringify(accTransaction)]);
 
     const onApprove = async () => {
         dispatch(
@@ -32,8 +37,19 @@ function useTransaction() {
                 endpoint: accTransaction.requestUrl,
                 ignoreSsl: selected['ignoreSsl']
             })
-        );
-        !loading && navigation.goBack();
+        )
+            .then(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: true,
+                    success: true
+                })
+            )
+            .catch(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: true,
+                    success: false
+                })
+            );
     };
 
     const onReject = async () => {
@@ -43,8 +59,19 @@ function useTransaction() {
                 endpoint: accTransaction.requestUrl,
                 ignoreSsl: selected['ignoreSsl']
             })
-        );
-        !loading && navigation.goBack();
+        )
+            .then(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: false,
+                    success: true
+                })
+            )
+            .catch(() =>
+                navigation.navigate(screensIdentifiers.transactionResponse, {
+                    approve: false,
+                    success: false
+                })
+            );
     };
 
     return {
