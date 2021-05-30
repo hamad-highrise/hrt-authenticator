@@ -1,4 +1,4 @@
-package com.verify;
+package com.highrise.verify;
 
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyProperties;

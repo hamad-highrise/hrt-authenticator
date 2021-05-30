@@ -1,4 +1,4 @@
-package com.verify.rnpush;
+package com.highrise.verify.rnpush;
 
 import androidx.annotation.NonNull;
 

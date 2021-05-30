@@ -1,4 +1,4 @@
-package com.verify.notification;
+package com.highrise.verify.notification;
 
 
 import android.app.NotificationChannel;
@@ -11,8 +11,8 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-import com.verify.MainActivity;
-import com.verify.R;
+import com.highrise.verify.MainActivity;
+import com.highrise.verify.R;
 
 public class CustomNotifications {
     private static String CHANNEL_ID = "DEFAULT_CHANNEL";

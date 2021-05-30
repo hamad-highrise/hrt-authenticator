@@ -1,4 +1,4 @@
-package com.verify.rncipher;
+package com.highrise.verify.rncipher;
 
 import android.util.Log;
 
