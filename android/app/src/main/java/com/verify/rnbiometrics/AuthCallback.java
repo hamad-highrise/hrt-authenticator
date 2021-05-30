@@ -1,4 +1,4 @@
-package com.verify.rnbiometrics;
+package com.highrise.verify.rnbiometrics;
 
 
 import androidx.annotation.NonNull;

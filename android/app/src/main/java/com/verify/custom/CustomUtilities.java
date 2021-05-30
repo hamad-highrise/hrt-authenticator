@@ -1,4 +1,4 @@
-package com.verify.custom;
+package com.highrise.verify.custom;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -14,7 +14,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.UiThreadUtil;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.bridge.WritableNativeMap;
-import com.verify.rnbiometrics.RNBiometrics;
+import com.highrise.verify.rnbiometrics.RNBiometrics;
 
 import java.io.BufferedReader;
 import java.io.File;

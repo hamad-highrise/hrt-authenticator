@@ -1,11 +1,11 @@
-package com.verify.notification;
+package com.highrise.verify.notification;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 
-import com.verify.R;
+import com.highrise.verify.R;
 
 public class CustomChannel {
     private String CHANNEL_ID;

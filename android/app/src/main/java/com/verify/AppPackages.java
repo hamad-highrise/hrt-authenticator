@@ -1,14 +1,14 @@
-package com.verify;
+package com.highrise.verify;
 
 
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.uimanager.ViewManager;
-import com.verify.custom.CustomUtilities;
-import com.verify.rnbiometrics.RNBiometrics;
-import com.verify.rncipher.RNCipherModule;
-import com.verify.rnpush.RNPushModule;
+import com.highrise.verify.custom.CustomUtilities;
+import com.highrise.verify.rnbiometrics.RNBiometrics;
+import com.highrise.verify.rncipher.RNCipherModule;
+import com.highrise.verify.rnpush.RNPushModule;
 
 import java.util.ArrayList;
 import java.util.Collections;

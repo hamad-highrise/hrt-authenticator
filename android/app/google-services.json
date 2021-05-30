@@ -1,68 +1,68 @@
 {
-  "project_info": {
-    "project_number": "503446422353",
-    "project_id": "hrt-verify",
-    "storage_bucket": "hrt-verify.appspot.com"
-  },
-  "client": [
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:503446422353:android:2713e1556fd4b5f2c7c970",
-        "android_client_info": {
-          "package_name": "com.hrt.verify"
-        }
-      },
-      "oauth_client": [
-        {
-          "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD8rmHR1qmNB2p-eVs0SZVbOXkXfJKfp6E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
-              "client_type": 3
-            }
-          ]
-        }
-      }
+    "project_info": {
+        "project_number": "503446422353",
+        "project_id": "hrt-verify",
+        "storage_bucket": "hrt-verify.appspot.com"
     },
-    {
-      "client_info": {
-        "mobilesdk_app_id": "1:503446422353:android:2af00902df207a94c7c970",
-        "android_client_info": {
-          "package_name": "com.verify"
-        }
-      },
-      "oauth_client": [
+    "client": [
         {
-          "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
-          "client_type": 3
-        }
-      ],
-      "api_key": [
-        {
-          "current_key": "AIzaSyD8rmHR1qmNB2p-eVs0SZVbOXkXfJKfp6E"
-        }
-      ],
-      "services": {
-        "appinvite_service": {
-          "other_platform_oauth_client": [
-            {
-              "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
-              "client_type": 3
+            "client_info": {
+                "mobilesdk_app_id": "1:503446422353:android:2713e1556fd4b5f2c7c970",
+                "android_client_info": {
+                    "package_name": "com.hrt.verify"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyD8rmHR1qmNB2p-eVs0SZVbOXkXfJKfp6E"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
             }
-          ]
+        },
+        {
+            "client_info": {
+                "mobilesdk_app_id": "1:503446422353:android:2af00902df207a94c7c970",
+                "android_client_info": {
+                    "package_name": "com.highrise.verify"
+                }
+            },
+            "oauth_client": [
+                {
+                    "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
+                    "client_type": 3
+                }
+            ],
+            "api_key": [
+                {
+                    "current_key": "AIzaSyD8rmHR1qmNB2p-eVs0SZVbOXkXfJKfp6E"
+                }
+            ],
+            "services": {
+                "appinvite_service": {
+                    "other_platform_oauth_client": [
+                        {
+                            "client_id": "503446422353-kiog1d4ie885jtpml9deevdsv4lbej9a.apps.googleusercontent.com",
+                            "client_type": 3
+                        }
+                    ]
+                }
+            }
         }
-      }
-    }
-  ],
-  "configuration_version": "1"
+    ],
+    "configuration_version": "1"
 }

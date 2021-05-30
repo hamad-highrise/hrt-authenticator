@@ -1,4 +1,4 @@
-package com.verify;
+package com.highrise.verify;
 
 public class UnsupportedVersionException extends Exception {
 
