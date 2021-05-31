@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { transactionActions } from '../services';
-import { useEffect, useMemo } from 'react';
+import { useMemo } from 'react';
 import screensIdentifiers from '../../../navigation/screensId';
 
 function useTransaction() {
@@ -36,10 +36,9 @@ function useTransaction() {
                     success: true
                 })
             )
-            .catch(() =>
-                navigation.navigate(screensIdentifiers.transactionResponse, {
-                    approve: true,
-                    success: false
+            .catch((error) =>
+                navigation.navigate(screensIdentifiers.transactionError, {
+                    message: error.displayMessage
                 })
             );
     };
@@ -58,10 +57,9 @@ function useTransaction() {
                     success: true
                 })
             )
-            .catch(() =>
-                navigation.navigate(screensIdentifiers.transactionResponse, {
-                    approve: false,
-                    success: false
+            .catch((error) =>
+                navigation.navigate(screensIdentifiers.transactionError, {
+                    message: error.displayMessage
                 })
             );
     };
