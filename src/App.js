@@ -13,7 +13,6 @@ import {
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
     CodeScreen,
-    AuthScreen,
     BiometricOption,
     DeviceInfoScreen,
     SuccessScreen,
