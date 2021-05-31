@@ -9,9 +9,9 @@ const TransactionResponse = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        // setTimeout(() => {
-        //     navigation.navigate(screenIds.main);
-        // }, 2 * 1000);
+        setTimeout(() => {
+            navigation.navigate(screenIds.main);
+        }, 2 * 1000);
     }, []);
     const {
         params: { approve }
