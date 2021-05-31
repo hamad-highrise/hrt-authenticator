@@ -1,53 +1,35 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback, useEffect, useMemo } from 'react';
 import { View, Text, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
-import { Button } from '../../components';
 import styles from './response.styles';
-import screenIds from '../../navigation/screensId';
+import screenIds from '../../../navigation/screensId';
 
 const TransactionResponse = () => {
     const navigation = useNavigation();
+
+    useEffect(() => {
+        // setTimeout(() => {
+        //     navigation.navigate(screenIds.main);
+        // }, 2 * 1000);
+    }, []);
     const {
-        params: { approve, success }
+        params: { approve }
     } = useRoute();
 
-    const goToMain = useCallback(() => navigation.navigate(screenIds.main), [
-        JSON.stringify(navigation)
-    ]);
-
-    const message = `Authentication`;
+    const message = useMemo(() => (approve ? 'Approved' : 'Denied'), [approve]);
+    const imageSource = useMemo(() =>
+        approve
+            ? require('../../../assets/images/auth_success.png')
+            : require('../../../assets/images/auth_fail.png')[approve]
+    );
 
     return (
         <View style={styles.container}>
-            <Image
-                source={
-                    success && approve
-                        ? require('../../assets/images/auth_success.png')
-                        : require('../../assets/images/auth_fail.png')
-                }
-                style={styles.img}
-            />
+            <Image source={imageSource} style={styles.img} />
             <View style={styles.responseView}>
-                <Text style={styles.responseText}>
-                    Operation:{' '}
-                    <Text
-                        style={{ ...(approve ? styles.success : styles.fail) }}>
-                        {approve ? 'Approve' : 'Deny'}
-                    </Text>
-                </Text>
-                <Text style={styles.responseText}>
-                    Status:{' '}
-                    <Text
-                        style={{
-                            ...(success ? styles.success : styles.fail)
-                        }}>
-                        {success ? 'Success' : 'Failed'}
-                    </Text>
-                </Text>
+                <Text style={styles.responseText}>{message}!</Text>
             </View>
-
-            <Button label="Back to Accounts" onPress={goToMain} />
         </View>
     );
 };

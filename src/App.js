@@ -25,7 +25,8 @@ import {
     AccountsScreen,
     TransactionScreen,
     RootedDeviceScreen,
-    TransactionResponseScreen
+    TransactionResponseScreen,
+    TransactionErrorScreen
 } from './features/screens';
 
 enableScreens();
@@ -94,6 +95,10 @@ const App = () => {
                     <Screen
                         name={screenIds.transactionResponse}
                         component={TransactionResponseScreen}
+                    />
+                    <Screen
+                        name={screenIds.transactionError}
+                        component={TransactionErrorScreen}
                     />
                 </Navigator>
             </NavigationContainer>

@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { colors } from '../../theme';
+import { colors } from '../../../theme';
 
 export default StyleSheet.create({
     container: {
@@ -16,12 +16,7 @@ export default StyleSheet.create({
     },
     responseText: {
         color: 'grey',
-        fontSize: 18
-    },
-    success: {
-        color: colors.SUCCESS
-    },
-    fail: {
-        color: colors.DANGER
+        fontSize: 24,
+        fontWeight: 'bold'
     }
 });
