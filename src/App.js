@@ -25,7 +25,8 @@ import {
     AccountsScreen,
     TransactionScreen,
     RootedDeviceScreen,
-    TransactionResponseScreen
+    TransactionResponseScreen,
+    TransactionErrorScreen
 } from './features/screens';
 
 enableScreens();
