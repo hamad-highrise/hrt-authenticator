@@ -18,7 +18,10 @@ const Main = () => {
     }, [JSON.stringify(navigation)]);
 
     const onDeviceInfo = useCallback(() => {
-        navigation.navigate(screensIdentifiers.deviceInfo);
+        // navigation.navigate(screensIdentifiers.deviceInfo);
+        navigation.navigate(screensIdentifiers.transactionResponse, {
+            approve: true
+        });
     }, [JSON.stringify(navigation)]);
 
     return (

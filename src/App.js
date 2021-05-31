@@ -96,6 +96,10 @@ const App = () => {
                         name={screenIds.transactionResponse}
                         component={TransactionResponseScreen}
                     />
+                    <Screen
+                        name={screenIds.transactionError}
+                        component={TransactionErrorScreen}
+                    />
                 </Navigator>
             </NavigationContainer>
         </Provider>

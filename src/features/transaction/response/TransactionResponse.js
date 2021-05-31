@@ -9,9 +9,9 @@ const TransactionResponse = () => {
     const navigation = useNavigation();
 
     useEffect(() => {
-        setTimeout(() => {
-            navigation.navigate(screenIds.main);
-        }, 2 * 1000);
+        // setTimeout(() => {
+        //     navigation.navigate(screenIds.main);
+        // }, 2 * 1000);
     }, []);
     const {
         params: { approve }
@@ -20,15 +20,15 @@ const TransactionResponse = () => {
     const message = useMemo(() => (approve ? 'Approved' : 'Denied'), [approve]);
     const imageSource = useMemo(() =>
         approve
-            ? require('../../assets/images/auth_success.png')
-            : require('../../assets/images/auth_fail.png')[approve]
+            ? require('../../../assets/images/auth_success.png')
+            : require('../../../assets/images/auth_fail.png')[approve]
     );
 
     return (
         <View style={styles.container}>
             <Image source={imageSource} style={styles.img} />
             <View style={styles.responseView}>
-                <Text>{message}</Text>
+                <Text style={styles.responseText}>{message}!</Text>
             </View>
         </View>
     );
