@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { View, Text, Image } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
@@ -18,10 +18,12 @@ const TransactionResponse = () => {
     } = useRoute();
 
     const message = useMemo(() => (approve ? 'Approved' : 'Denied'), [approve]);
-    const imageSource = useMemo(() =>
-        approve
-            ? require('../../../assets/images/auth_success.png')
-            : require('../../../assets/images/auth_fail.png')[approve]
+    const imageSource = useMemo(
+        () =>
+            approve
+                ? require('../../../assets/images/auth_success.png')
+                : require('../../../assets/images/auth_fail.png'),
+        [approve]
     );
 
     return (
