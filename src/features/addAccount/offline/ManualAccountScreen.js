@@ -145,12 +145,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
-        backgroundColor: 'lightgrey',
-        // paddingVertical: 23,
-        // paddingHorizontal: 12,
-        // borderWidth: 0,
-        // borderRadius: 0,
-        // width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center'
     },
     SListtitle: {
