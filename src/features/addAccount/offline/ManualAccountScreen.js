@@ -59,7 +59,7 @@ const CodeAccount = (props) => {
                     <View>
                         <Text style={styles.SListtitle}>Company name</Text>
                         <TextInput
-                            placeholder="Company name"
+                            placeholder="e.g. Highrise Technologies"
                             style={styles.listitemInput}
                             onChangeText={onChangeHandler('issuer')}
                         />
@@ -68,7 +68,7 @@ const CodeAccount = (props) => {
                     <View>
                         <Text style={styles.SListtitle}>Account</Text>
                         <TextInput
-                            placeholder="Account"
+                            placeholder="e.g. John"
                             style={styles.listitemInput}
                             onChangeText={onChangeHandler('name')}
                         />
@@ -79,9 +79,10 @@ const CodeAccount = (props) => {
                         <Text style={styles.SListtitle}>Account code</Text>
 
                         <TextInput
-                            placeholder="Account code"
+                            placeholder="Secret"
                             style={styles.listitemInput}
                             onChangeText={onChangeHandler('secret')}
+                            secureTextEntry
                             autoCapitalize
                         />
                         <View style={styles.bar}></View>
@@ -145,12 +146,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     btn: {
-        backgroundColor: 'lightgrey',
-        // paddingVertical: 23,
-        // paddingHorizontal: 12,
-        // borderWidth: 0,
-        // borderRadius: 0,
-        // width: Dimensions.get('window').width * 0.7,
         alignSelf: 'center'
     },
     SListtitle: {
