@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
 import { colors } from '../../theme';
+import { values } from '../../global';
 
 const EmptyState = () => {
     const navigation = useNavigation();
@@ -33,8 +34,10 @@ const EmptyState = () => {
                 <Text style={styles.instructions}>
                     Strengthen your account security. Use your mobile device to
                     verify your identity when signing in to{' '}
-                    <Text style={{ color: 'grey' }}>HRT Technologies</Text>'
-                    applications.
+                    <Text style={{ color: 'grey' }}>
+                        {values.APP_NAME.split(' ')[0]} Bank
+                    </Text>
+                    's applications.
                 </Text>
             </View>
             <View style={{ flex: 1 }}>

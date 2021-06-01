@@ -1,3 +1,3 @@
 export default Object.freeze({
-    APP_NAME: 'HRT Verify'
+    APP_NAME: 'Alfalah Verify'
 });

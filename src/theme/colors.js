@@ -1,6 +1,6 @@
 export default Object.freeze({
-    PRIMARY: '#f08000',
-    SECONDARY: '#f0ad4e',
+    PRIMARY: '#e60000',
+    SECONDARY: '#b80000',
     ACCENT: {},
     BACKGROUND: '#ffffff',
     WARN: '#ffff00',
