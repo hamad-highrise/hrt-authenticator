@@ -15,7 +15,7 @@ const ProcessComplete = () => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../../../assets/images/trophy.png')}
+                source={require('../../../assets/images/process_complete.png')}
             />
             <View>
                 <Text style={styles.welcome}>You're done!</Text>
@@ -36,13 +36,6 @@ const ProcessComplete = () => {
             </View>
         </View>
     );
-};
-ProcessComplete.propTypes = {
-    serviceName: PropTypes.string
-};
-
-ProcessComplete.defaultProps = {
-    serviceName: 'HBL SAM'
 };
 
 export default ProcessComplete;

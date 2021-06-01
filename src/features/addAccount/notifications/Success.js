@@ -47,7 +47,7 @@ const NotifySuccess = () => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../../../assets/icons/tick.png')}></Image>
+                source={require('../../../assets/images/success.png')}></Image>
             <View>
                 <Text style={styles.instructions}>
                     This device and your
@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
         paddingRight: 26
     },
     image: {
-        width: 150,
-        height: 150
+        width: 250,
+        height: 250
     }
 });

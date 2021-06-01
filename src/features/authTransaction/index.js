@@ -209,10 +209,10 @@ const AuthProcess = (props) => {
                         <Text style={{ fontWeight: 'bold' }}>Approve</Text>
                     </View>
 
-                    <Image
+                    {/* <Image
                         source={require('../../assets/icons/tick-black.png')}
                         style={styles.iconBtn}
-                    />
+                    /> */}
                 </TouchableOpacity>
             </View>
         </View>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">HRT Verify</string>
+    <string name="app_name">Alfalah Verify</string>
     <string name="default_channel_name">default_notifications_channel</string>
     <string name="default_channel_description">This channel is for default notifications.</string>
 </resources>
