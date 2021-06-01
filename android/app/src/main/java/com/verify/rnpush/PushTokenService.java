@@ -1,11 +1,11 @@
-package com.highrise.verify.rnpush;
+package com.highrise.verify.alfalah.rnpush;
 
 
 import androidx.annotation.NonNull;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.highrise.verify.notification.CustomNotifications;
+import com.highrise.verify.alfalah.notification.CustomNotifications;
 
 public class PushTokenService extends FirebaseMessagingService {
 

@@ -17,7 +17,7 @@ const ERROR_MESSAGES = Object.freeze({
 
 const APP_INFO = Object.freeze({
     VERSION: '1.0.0',
-    APPLICATION_ID: 'com.highrise.verify'
+    APPLICATION_ID: 'com.highrise.verify.alfalah'
 });
 
 const ACCOUNT_TYPES = Object.freeze({

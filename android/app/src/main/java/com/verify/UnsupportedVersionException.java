@@ -1,4 +1,4 @@
-package com.highrise.verify;
+package com.highrise.verify.alfalah;
 
 public class UnsupportedVersionException extends Exception {
 

@@ -1,4 +1,4 @@
-package com.highrise.verify.rnbiometrics;
+package com.highrise.verify.alfalah.rnbiometrics;
 
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;

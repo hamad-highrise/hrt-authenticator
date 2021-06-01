@@ -1,4 +1,4 @@
-package com.highrise.verify.rncipher;
+package com.highrise.verify.alfalah.rncipher;
 
 import android.os.Build;
 import android.security.keystore.KeyGenParameterSpec;

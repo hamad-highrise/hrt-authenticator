@@ -1,11 +1,11 @@
-package com.highrise.verify.notification;
+package com.highrise.verify.alfalah.notification;
 
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 
-import com.highrise.verify.R;
+import com.highrise.verify.alfalah.R;
 
 public class CustomChannel {
     private String CHANNEL_ID;
