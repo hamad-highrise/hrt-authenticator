@@ -1,18 +1,26 @@
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, TextInput, TopNavbar } from '../../../components';
 import screensIdentifiers from '../../../navigation/screensId';
 import { createAccount } from '../services';
+import { accountActions } from '../../actions.public';
+import { useDispatch } from 'react-redux';
 
-const CodeAccount = (props) => {
+const CodeAccount = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
     const [account, setAccount] = useState({
         name: '',
         issuer: '',
         secret: ''
     });
+
+    const isDataValid = useMemo(
+        () => account.name && account.issuer && account.secret.length >= 4,
+        [account.issuer, account.name, account.secret]
+    );
 
     const onChangeHandler = (name) => (value) => {
         setAccount((account) => ({
@@ -23,15 +31,14 @@ const CodeAccount = (props) => {
 
     const onAddPress = async () => {
         try {
-            if (account.name && account.issuer && account.secret.length >= 4) {
+            if (isDataValid) {
                 await createAccount({ account: { ...account, type: 'TOTP' } });
                 alert('Account Added');
-                // navigator.goToRoot(props.componentId);
+                dispatch(accountActions.initiateAccounts());
                 navigation.navigate(screensIdentifiers.main);
             } else alert('Invalid Data or empty fields');
         } catch (error) {
             alert('Unable to create account');
-            // navigator.goToRoot(props.componentId);
             navigation.navigate(screensIdentifiers.main);
         }
     };
@@ -82,7 +89,6 @@ const CodeAccount = (props) => {
                             placeholder="Secret"
                             style={styles.listitemInput}
                             onChangeText={onChangeHandler('secret')}
-                            secureTextEntry
                             autoCapitalize
                         />
                         <View style={styles.bar}></View>
@@ -102,9 +108,13 @@ const CodeAccount = (props) => {
                 <View style={styles.bottom}>
                     <Button
                         label="Connect"
-                        style={styles.btn}
+                        style={[
+                            styles.btn,
+                            !isDataValid ? { backgroundColor: 'lightgrey' } : {}
+                        ]}
                         onPress={onAddPress}
                         rippleColor="#ACA8A8"
+                        disabled={!isDataValid}
                     />
                 </View>
             </View>

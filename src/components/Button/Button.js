@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import styles from './styles';
 import { colors } from '../../theme';
 
-const Button = ({ label, onPress, style, params, rippleColor }) => {
+const Button = ({ label, onPress, style, params, rippleColor, disabled }) => {
     const onButtonPress = () => {
         onPress && onPress(params);
     };
@@ -17,7 +17,8 @@ const Button = ({ label, onPress, style, params, rippleColor }) => {
                 styles.conatiner,
                 ...(Array.isArray(style) ? style : []),
                 typeof style === 'object' ? style : {}
-            ]}>
+            ]}
+            disabled={disabled}>
             <Text style={styles.buttonText}>{label}</Text>
         </Pressable>
     );
@@ -28,7 +29,8 @@ Button.propTypes = {
     label: PropTypes.string.isRequired,
     params: PropTypes.any,
     style: PropTypes.any,
-    rippleColor: PropTypes.any
+    rippleColor: PropTypes.any,
+    disabled: PropTypes.bool
 };
 
 Button.defaultProps = {
