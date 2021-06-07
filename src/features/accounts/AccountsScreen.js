@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import Config from 'react-native-config';
 
 import { Topbar, NetworkIndicator } from '../../components';
 import AccountList from './sectionList';
@@ -12,6 +13,7 @@ import styles from './accounts.styles';
 const Main = () => {
     const navigation = useNavigation();
     const { accounts, isConnected } = useAccounts();
+    console.warn(Config);
 
     const onAddAccount = useCallback(() => {
         navigation.navigate(screensIdentifiers.qrScan);

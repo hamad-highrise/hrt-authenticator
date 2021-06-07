@@ -8,6 +8,7 @@ import { colors } from '../../theme';
 
 const EmptyState = () => {
     const navigation = useNavigation();
+    // console.warn(Config.API_KEY);
 
     return (
         <View style={styles.container}>

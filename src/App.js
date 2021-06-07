@@ -43,6 +43,7 @@ NetInfo.addEventListener((status) => {
 
 const App = () => {
     const { Navigator, Screen } = Stack;
+
     return (
         <Provider store={store}>
             <NavigationContainer>
