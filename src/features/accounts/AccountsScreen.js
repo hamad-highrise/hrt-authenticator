@@ -9,6 +9,7 @@ import { useAccounts } from './hooks';
 import EmptyState from './EmptyState';
 import screensIdentifiers from '../../navigation/screensId';
 import styles from './accounts.styles';
+import { values } from '../../global';
 
 const Main = () => {
     const navigation = useNavigation();
@@ -26,7 +27,7 @@ const Main = () => {
         <View style={styles.container}>
             {accounts?.length ? (
                 <Topbar
-                    title="HRT Security Verify"
+                    title={values.APP_NAME}
                     topbarLeft={{
                         visible: true,
                         onPress: onDeviceInfo,

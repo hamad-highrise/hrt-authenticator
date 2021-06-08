@@ -1,6 +1,8 @@
+import config from 'react-native-config';
+
 export default Object.freeze({
-    PRIMARY: '#f08000',
-    SECONDARY: '#f0ad4e',
+    PRIMARY: config.PRIMARY_COLOR,
+    SECONDARY: config.SECONDARY_COLOR,
     ACCENT: {},
     BACKGROUND: '#ffffff',
     WARN: '#ffff00',
