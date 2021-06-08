@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import Config from 'react-native-config';
 
 import { Topbar, NetworkIndicator } from '../../components';
+import assets from '../../assets';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
 import EmptyState from './EmptyState';
@@ -32,7 +33,7 @@ const Main = () => {
                         visible: true,
                         onPress: onDeviceInfo,
                         image: {
-                            source: require('../../assets/icons/settings_outlined.png'),
+                            source: assets.icons.setting,
                             width: '70%',
                             height: '70%'
                         }
@@ -41,7 +42,7 @@ const Main = () => {
                         visible: true,
                         onPress: onAddAccount,
                         image: {
-                            source: require('../../assets/icons/qr_code.png')
+                            source: assets.icons.qrCode
                         }
                     }}
                 />

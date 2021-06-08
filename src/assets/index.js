@@ -28,8 +28,8 @@ if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
         backArrow: require('./highrise/icons/back_arrow.png'),
         cross: require('./highrise/icons/cross.png'),
         qrCode: require('./highrise/icons/qr_code.png'),
-        refresh: require('./higrhise/icons/refresh.png'),
-        setting: require('./higrhise/icons/setting_outlined.png')
+        refresh: require('./highrise/icons/refresh.png'),
+        setting: require('./highrise/icons/setting_outlined.png')
     };
 }
 
