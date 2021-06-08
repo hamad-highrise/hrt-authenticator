@@ -9,6 +9,7 @@ import { registerBiometrics } from './../mmfa/registerMethods';
 import { services, utils } from '../../../global';
 import { alertActions } from '../../alert';
 import screensIdentifiers from '../../../navigation/screensId';
+import assets from '../../../assets';
 
 const { getAccessToken } = services;
 const { getEnrollmentEndpoint } = utils;
@@ -69,7 +70,7 @@ const BiometricOption = () => {
             <View style={{ marginTop: 20 }}></View>
             <Image
                 style={styles.image}
-                source={require('../../../assets/icons/add-fingerprint.png')}></Image>
+                source={assets.icons.addFingerprint}></Image>
             <View>
                 <Text style={styles.welcome}>Biometric</Text>
                 <Text style={styles.instructions}>

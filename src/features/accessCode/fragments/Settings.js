@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux';
 import { constants } from '../../../global';
 import { Button } from '../../../components';
 import styles from '../code.styles';
+import assets from '../../../assets';
 
 const Settings = ({ removeAccount }) => {
     const selected = useSelector(({ selected }) => selected);
@@ -34,7 +35,7 @@ const Settings = ({ removeAccount }) => {
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Biometric</Text>
                         <Image
-                            source={require('../../../assets/icons/backarrowblack.png')}
+                            source={assets.icons.backArrow}
                             style={styles.img}
                         />
                     </View>

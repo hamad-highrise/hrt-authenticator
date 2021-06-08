@@ -55,4 +55,11 @@ if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
     };
 }
 
+icons = {
+    ...icons,
+    crossWhite: require('./icons/cross_white.png'),
+    tickWhite: require('./icons/tick_white.png'),
+    addFingerprint: require('./icons/add_fingerprint.png')
+};
+
 export default { images, icons };

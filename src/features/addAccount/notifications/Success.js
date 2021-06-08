@@ -6,6 +6,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { constants } from '../../../global';
 import { biometrics } from '../../../native-services';
 import screensIdentifiers from '../../../navigation/screensId';
+import assets from '../../../assets';
 
 const NotifySuccess = () => {
     const navigation = useNavigation();
@@ -45,9 +46,7 @@ const NotifySuccess = () => {
 
     return (
         <View style={styles.container}>
-            <Image
-                style={styles.image}
-                source={require('../../../assets/icons/tick.png')}></Image>
+            <Image style={styles.image} source={assets.images.success}></Image>
             <View>
                 <Text style={styles.instructions}>
                     This device and your
