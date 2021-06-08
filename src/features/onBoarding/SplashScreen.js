@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { StyleSheet, Text, View, Image, Dimensions } from 'react-native';
+import { StyleSheet, View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -11,6 +11,7 @@ import { utilities } from '../../native-services';
 import screensIdentifiers from '../../navigation/screensId';
 import { Typography } from '../../theme';
 import { values } from '../../global';
+import assets from '../../assets';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -55,10 +56,7 @@ const Splash = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.contentContainer}>
-                <Image
-                    source={require('../../assets/images/logo.png')}
-                    style={styles.image}
-                />
+                <Image source={assets.images.logo} style={styles.image} />
                 <Typography.AppTitle>{values.APP_NAME}</Typography.AppTitle>
             </View>
         </View>

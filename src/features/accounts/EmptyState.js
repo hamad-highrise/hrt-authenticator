@@ -5,6 +5,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
 import { colors } from '../../theme';
+import assets from '../../assets';
 
 const EmptyState = () => {
     const navigation = useNavigation();
@@ -17,10 +18,7 @@ const EmptyState = () => {
                     justifyContent: 'flex-end'
                 }}>
                 <View style={styles.logoContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../assets/images/logo.png')}
-                    />
+                    <Image style={styles.logo} source={assets.images.logo} />
                 </View>
             </View>
             <View

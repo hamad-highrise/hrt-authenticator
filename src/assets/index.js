@@ -12,7 +12,14 @@ if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
         refresh: require('./alfalah/icons/refresh.png'),
         setting: require('./alfalah/icons/setting_outlined.png')
     };
-    images = {};
+    images = {
+        success: require('./alfalah/images/success.png'),
+        processComplete: require('./alfalah/images/process_complete.png'),
+        authSuccess: require('./alfalah/images/auth_success.png'),
+        authDenied: require('./alfalah/images/auth_fail.png'),
+        logo: require('./alfalah/images/logo.png'),
+        error: require('./alfalah/images/error_cross.png')
+    };
 } else if (config.PRODUCT_FLAVOR === productFlavors.FIDELITY) {
     icons = {
         backArrow: require('./fidelity/icons/back_arrow.png'),
@@ -21,7 +28,14 @@ if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
         refresh: require('./fidelity/icons/refresh.png'),
         setting: require('./fidelity/icons/setting_outlined.png')
     };
-    images = {};
+    images = {
+        success: require('./fidelity/images/success.png'),
+        processComplete: require('./fidelity/images/process_complete.png'),
+        authSuccess: require('./fidelity/images/auth_success.png'),
+        authDenied: require('./fidelity/images/auth_fail.png'),
+        logo: require('./fidelity/images/logo.png'),
+        error: require('./fidelity/images/error_cross.png')
+    };
 } else {
     //hrt
     icons = {
@@ -30,6 +44,14 @@ if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
         qrCode: require('./highrise/icons/qr_code.png'),
         refresh: require('./highrise/icons/refresh.png'),
         setting: require('./highrise/icons/setting_outlined.png')
+    };
+    images = {
+        success: require('./highrise/images/success.png'),
+        processComplete: require('./highrise/images/process_complete.png'),
+        authSuccess: require('./highrise/images/auth_success.png'),
+        authDenied: require('./highrise/images/auth_fail.png'),
+        logo: require('./highrise/images/logo.png'),
+        error: require('./highrise/images/error_cross.png')
     };
 }
 
