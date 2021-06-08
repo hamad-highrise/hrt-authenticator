@@ -4,15 +4,13 @@ import { BackHandler, Image, StyleSheet, Text, View } from 'react-native';
 import { values } from '../../global';
 import { Button } from '../../components';
 import { colors } from '../../theme';
+import assets from '../../assets';
 
 const Rooted = () => {
     return (
         <View style={styles.container}>
             <View>
-                <Image
-                    style={styles.img}
-                    source={require('../../assets/images/error_cross.png')}
-                />
+                <Image style={styles.img} source={assets.images.error} />
             </View>
             <Text style={styles.title}>Failure</Text>
             <Text style={styles.subTitle}>

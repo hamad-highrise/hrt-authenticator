@@ -14,6 +14,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { TopNavbar } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
+import assets from '../../assets';
 
 const DeviceInfo = (props) => {
     const navigation = useNavigation();
@@ -59,7 +60,7 @@ const DeviceInfo = (props) => {
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Privacy Policy</Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={assets.icons.angleBlack}
                             style={styles.img}
                         />
                     </View>
@@ -70,7 +71,7 @@ const DeviceInfo = (props) => {
                             Third Party Notices
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={assets.icons.angleBlack}
                             style={styles.img}
                         />
                     </View>
@@ -174,7 +175,7 @@ const DeviceInfo = (props) => {
                             Security Assessment
                         </Text>
                         <Image
-                            source={require('../../assets/icons/backarrowblack.png')}
+                            source={assets.icons.angleBlack}
                             style={styles.img}
                         />
                     </View>

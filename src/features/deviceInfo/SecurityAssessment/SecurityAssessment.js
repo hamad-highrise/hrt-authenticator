@@ -7,6 +7,7 @@ import { values } from '../../../global';
 import { biometrics, utilities } from '../../../native-services';
 
 import styles from './assessment.styles';
+import assets from '../../../assets';
 
 const SecurityAssessment = (props) => {
     const [isEnabled, setIsEnabled] = useState(true);
@@ -52,8 +53,8 @@ const SecurityAssessment = (props) => {
                         <Image
                             source={
                                 !data.rooted
-                                    ? require('../../../assets/icons/tick_black.png')
-                                    : require('../../../assets/icons/cross_black.png')
+                                    ? assets.icons.tickBlack
+                                    : assets.icons.crossBlack
                             }
                             style={styles.img}
                         />
@@ -67,8 +68,8 @@ const SecurityAssessment = (props) => {
                         <Image
                             source={
                                 data.biometricsEnrolled
-                                    ? require('../../../assets/icons/tick_black.png')
-                                    : require('../../../assets/icons/cross_black.png')
+                                    ? assets.icons.tickBlack
+                                    : assets.icons.crossBlack
                             }
                             style={styles.img}
                         />
@@ -80,7 +81,7 @@ const SecurityAssessment = (props) => {
                             Device security is enabled
                         </Text>
                         <Image
-                            source={require('../../../assets/icons/tick_black.png')}
+                            source={assets.icons.tickBlack}
                             style={styles.img}
                         />
                     </View>
