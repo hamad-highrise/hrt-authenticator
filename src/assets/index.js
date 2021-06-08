@@ -62,7 +62,8 @@ icons = {
     crossBlack: require('./icons/cross_black.png'),
     tickBlack: require('./icons/tick_black.png'),
     addFingerprint: require('./icons/add_fingerprint.png'),
-    angleBlack: require('./icons/right_angle_black.png')
+    angleBlack: require('./icons/right_angle_black.png'),
+    edit: require('./icons/edit.png')
 };
 
 export default { images, icons };

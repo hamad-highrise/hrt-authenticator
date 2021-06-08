@@ -34,10 +34,7 @@ const Settings = ({ removeAccount }) => {
                 <TouchableOpacity style={styles.listitem}>
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Biometric</Text>
-                        <Image
-                            source={assets.icons.backArrow}
-                            style={styles.img}
-                        />
+                        <Image source={assets.icons.edit} style={styles.img} />
                     </View>
                 </TouchableOpacity>
             )}
