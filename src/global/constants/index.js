@@ -34,13 +34,20 @@ const SAM_ERROR_CODE = Object.freeze({
     AUTH_GRANT_NOT_EXIST: 'FBTOAU211E'
 });
 
+const productFlavors = Object.freeze({
+    HIGHRISE: 'highrise',
+    ALFALAH: 'alfalah',
+    FIDELITY: 'fidelity'
+});
+
 export default {
     ACCOUNT_METHODS,
     ERROR_MESSAGES,
     APP_INFO,
     ACCOUNT_TYPES,
     KEY_ALIAS,
-    SAM_ERROR_CODE
+    SAM_ERROR_CODE,
+    productFlavors
 };
 export {
     ACCOUNT_METHODS,
@@ -48,5 +55,6 @@ export {
     APP_INFO,
     ACCOUNT_TYPES,
     KEY_ALIAS,
-    SAM_ERROR_CODE
+    SAM_ERROR_CODE,
+    productFlavors
 };
