@@ -1,4 +1,10 @@
 apply plugin: "com.android.application"
+project.ext.envConfigFiles = [
+        alfalahDebug   : ".env.alfalah",
+        alfalahRelease : ".env.alfalah",
+        fidelityDebug  : ".env.fidelity",
+        fidelityRelease: ".env.fidelity"
+]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 /**
  * The react.gradle file registers a task for each build variant (e.g. bundleDebugJsAndAssets
@@ -119,7 +125,7 @@ def jscFlavor = 'org.webkit:android-jsc:+'
  * on project.ext.react, JavaScript will not be compiled to Hermes Bytecode
  * and the benefits of using Hermes will therefore be sharply reduced.
  */
-def enableHermes = project.ext.react.get("enableHermes", false);
+def enableHermes = project.ext.react.get("enableHermes", false)
 
 android {
     compileSdkVersion rootProject.ext.compileSdkVersion
@@ -166,6 +172,20 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"
+        }
+    }
+
+    flavorDimensions "default"
+
+    productFlavors {
+        alfalah {
+            applicationIdSuffix ".alfalah"
+            resValue "string", "app_name_alfalah", "Alfalah Verify"
+
+        }
+        fidelity {
+            applicationIdSuffix ".fbg"
+            resValue "string", "app_name_fidelity", "Fidelity Verify"
         }
     }
 
