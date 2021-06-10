@@ -8,7 +8,6 @@ import {
     selectReducer
 } from '../features/index.reducers';
 import errorActionTypes from '../features/errorUtils/services/constants';
-import transactionActionTypes from '../features/transaction/services/constants';
 
 import thunk from 'redux-thunk';
 

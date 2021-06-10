@@ -117,7 +117,7 @@ const AuthProcess = (props) => {
                                     View details
                                 </Text>
                                 <Image
-                                    source={assets.icons.cross}
+                                    source={assets.icons.angleBlack}
                                     style={styles.img}
                                 />
                             </View>

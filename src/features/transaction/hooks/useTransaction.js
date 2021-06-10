@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { transactionActions } from '../services';
+import { transactionActions } from '../ducks';
 import { useMemo } from 'react';
 import screensIdentifiers from '../../../navigation/screensId';
 
