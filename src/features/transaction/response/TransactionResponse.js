@@ -4,6 +4,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import styles from './response.styles';
 import screenIds from '../../../navigation/screensId';
+import assets from '../../../assets';
 
 const TransactionResponse = () => {
     const navigation = useNavigation();
@@ -19,10 +20,7 @@ const TransactionResponse = () => {
 
     const message = useMemo(() => (approve ? 'Approved' : 'Denied'), [approve]);
     const imageSource = useMemo(
-        () =>
-            approve
-                ? require('../../../assets/images/auth_success.png')
-                : require('../../../assets/images/auth_fail.png'),
+        () => (approve ? assets.images.authSuccess : assets.images.authDenied),
         [approve]
     );
 

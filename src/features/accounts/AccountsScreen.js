@@ -3,11 +3,13 @@ import { View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Topbar, NetworkIndicator } from '../../components';
+import assets from '../../assets';
 import AccountList from './sectionList';
 import { useAccounts } from './hooks';
 import EmptyState from './EmptyState';
 import screensIdentifiers from '../../navigation/screensId';
 import styles from './accounts.styles';
+import { values } from '../../global';
 
 const Main = () => {
     const navigation = useNavigation();
@@ -25,12 +27,12 @@ const Main = () => {
         <View style={styles.container}>
             {accounts?.length ? (
                 <Topbar
-                    title="HRT Security Verify"
+                    title={values.APP_NAME}
                     topbarLeft={{
                         visible: true,
                         onPress: onDeviceInfo,
                         image: {
-                            source: require('../../assets/icons/settings_outlined.png'),
+                            source: assets.icons.setting,
                             width: '70%',
                             height: '70%'
                         }
@@ -39,7 +41,7 @@ const Main = () => {
                         visible: true,
                         onPress: onAddAccount,
                         image: {
-                            source: require('../../assets/icons/qr_code.png')
+                            source: assets.icons.qrCode
                         }
                     }}
                 />

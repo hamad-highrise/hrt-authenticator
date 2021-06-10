@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button } from '../../../components';
 import screenIds from '../../../navigation/screensId';
 import styles from './error.styles';
+import assets from '../../../assets';
 
 const ErrorScreen = () => {
     const {
@@ -18,10 +19,7 @@ const ErrorScreen = () => {
 
     return (
         <View style={styles.container}>
-            <Image
-                style={styles.image}
-                source={require('../../../assets/images/error_cross.png')}
-            />
+            <Image style={styles.image} source={assets.images.error} />
             <Text style={styles.message}>{message}</Text>
             <Button label="Back to accounts" onPress={onPress} />
         </View>

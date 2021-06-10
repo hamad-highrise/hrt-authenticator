@@ -8,6 +8,7 @@ import {
     TopNavbar
 } from '../../components';
 import { useTransaction } from './hooks';
+import assets from '../../assets';
 
 const AuthProcess = (props) => {
     const {
@@ -116,7 +117,7 @@ const AuthProcess = (props) => {
                                     View details
                                 </Text>
                                 <Image
-                                    source={require('../../assets/icons/backarrowblack.png')}
+                                    source={assets.icons.cross}
                                     style={styles.img}
                                 />
                             </View>
@@ -185,7 +186,7 @@ const AuthProcess = (props) => {
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/cross_white.png')}
+                        source={assets.icons.crossWhite}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>
@@ -201,7 +202,7 @@ const AuthProcess = (props) => {
                     </View>
 
                     <Image
-                        source={require('../../assets/icons/tick_white.png')}
+                        source={assets.icons.tickWhite}
                         style={styles.iconBtn}
                     />
                 </TouchableOpacity>

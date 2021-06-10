@@ -5,6 +5,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button } from '../../../components';
 import screensIdentifiers from '../../../navigation/screensId';
+import assets from '../../../assets';
 
 const ProcessComplete = () => {
     const navigation = useNavigation();
@@ -15,7 +16,7 @@ const ProcessComplete = () => {
         <View style={styles.container}>
             <Image
                 style={styles.image}
-                source={require('../../../assets/images/trophy.png')}
+                source={assets.images.processComplete}
             />
             <View>
                 <Text style={styles.welcome}>You're done!</Text>

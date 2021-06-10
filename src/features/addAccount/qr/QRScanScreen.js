@@ -17,6 +17,7 @@ import { constants } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
 import { accountActions } from '../../actions.public';
 import QRScanner from './QRScanner';
+import assets from '../../../assets';
 
 const QRScan = (props) => {
     const navigation = useNavigation();
@@ -119,7 +120,7 @@ const QRScan = (props) => {
                             visible: true,
                             onPress: navigation.goBack,
                             image: {
-                                source: require('../../../assets/icons/cross_black.png'),
+                                source: assets.icons.cross,
                                 width: '50%',
                                 height: '50%'
                             }

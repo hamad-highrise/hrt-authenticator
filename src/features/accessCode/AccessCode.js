@@ -13,6 +13,7 @@ import styles from './code.styles';
 import { AccessCodeFragment, SettingsFragment } from './fragments';
 import { useAccessCode } from './hooks';
 import { constants } from '../../global';
+import assets from '../../assets';
 
 const AccessCode = (props) => {
     const navigation = useNavigation();
@@ -58,7 +59,7 @@ const AccessCode = (props) => {
                     visible: true,
                     onPress: navigation.goBack,
                     image: {
-                        source: require('../../assets/icons/back_arrow_black.png'),
+                        source: assets.icons.backArrow,
                         width: '60%',
                         height: '60%'
                     }
@@ -71,7 +72,7 @@ const AccessCode = (props) => {
                                 constants.ACCOUNT_TYPES.SAM && (
                                 <IconButton onPress={onRefereshClick}>
                                     <Animated.Image
-                                        source={require('../../assets/icons/refresh_black.png')}
+                                        source={assets.icons.refresh}
                                         style={[
                                             styles.iconBtn,
                                             {

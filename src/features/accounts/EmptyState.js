@@ -5,6 +5,8 @@ import { useNavigation } from '@react-navigation/native';
 import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
 import { colors } from '../../theme';
+import assets from '../../assets';
+import { values } from '../../global';
 
 const EmptyState = () => {
     const navigation = useNavigation();
@@ -17,10 +19,7 @@ const EmptyState = () => {
                     justifyContent: 'flex-end'
                 }}>
                 <View style={styles.logoContainer}>
-                    <Image
-                        style={styles.logo}
-                        source={require('../../assets/images/logo.png')}
-                    />
+                    <Image style={styles.logo} source={assets.images.logo} />
                 </View>
             </View>
             <View
@@ -33,8 +32,8 @@ const EmptyState = () => {
                 <Text style={styles.instructions}>
                     Strengthen your account security. Use your mobile device to
                     verify your identity when signing in to{' '}
-                    <Text style={{ color: 'grey' }}>HRT Technologies</Text>'
-                    applications.
+                    <Text style={{ color: 'grey' }}>{values.COMPANY_NAME}</Text>
+                    's applications.
                 </Text>
             </View>
             <View style={{ flex: 1 }}>
