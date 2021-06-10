@@ -1,9 +1,7 @@
 apply plugin: "com.android.application"
 project.ext.envConfigFiles = [
-        alfalahDebug   : ".env.alfalah",
-        alfalahRelease : ".env.alfalah",
-        fidelityDebug  : ".env.fidelity",
-        fidelityRelease: ".env.fidelity"
+        alfalah : ".env.alfalah",
+        fidelity: ".env.fidelity"
 ]
 apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 /**
@@ -144,7 +142,6 @@ android {
         versionName "1.1-release"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.highrise.verify"
-
     }
     splits {
         abi {
@@ -186,6 +183,9 @@ android {
         fidelity {
             applicationIdSuffix ".fbg"
             resValue "string", "app_name_fidelity", "Fidelity Verify"
+        }
+        highrise {
+            resValue "string", "app_name_highrise", "HRT Verify"
         }
     }
 

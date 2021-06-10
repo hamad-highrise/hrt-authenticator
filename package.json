@@ -3,13 +3,13 @@
     "version": "0.0.1",
     "private": true,
     "scripts": {
-        "android": "react-native run-android",
+        "android": "react-native run-android --variant highriseDebug",
         "ios": "react-native run-ios",
         "start": "react-native start",
         "test": "jest",
         "lint": "eslint .",
-        "alfalah": "ENVFILE=.env.alfalah react-native run-android",
-        "fidelity": "ENVFILE=.env.fidelity react-native run-android"
+        "alfalah": "react-native run-android --variant alfalahDebug --appIdSuffix alfalah",
+        "fidelity": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
     },
     "dependencies": {
         "@react-native-community/masked-view": "^0.1.10",
