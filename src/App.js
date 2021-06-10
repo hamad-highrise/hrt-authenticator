@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { enableScreens } from 'react-native-screens';
 
 import screenIds from './navigation/screensId';
-import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
 import store from './redux.js';
 import { utilsActions } from './features/actions.public';
 import {
@@ -73,13 +72,11 @@ const App = () => {
                         name={screenIds.biometricOption}
                         component={BiometricOption}
                     />
-                    <Screen name={screenIds.accessCode}>
-                        {() => (
-                            <ErrorBoundary>
-                                <CodeScreen />
-                            </ErrorBoundary>
-                        )}
-                    </Screen>
+                    <Screen
+                        name={screenIds.accessCode}
+                        component={CodeScreen}
+                    />
+
                     <Screen
                         name={screenIds.securityassessment}
                         component={SecurityAssessmentScreen}

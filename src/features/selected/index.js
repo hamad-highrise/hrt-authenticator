@@ -1,1 +1,1 @@
-export { selectActions, selectReducer } from './services';
+export { selectActions, selectReducer } from './ducks';
