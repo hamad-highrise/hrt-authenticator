@@ -3,10 +3,8 @@ import { Alert, AppState } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { mainActions } from '../../main/services';
 import { getSecret, totpGenerator } from '../services';
 import { services, constants } from '../../../global';
-import { alertActions } from '../../alert';
 import { transactionActions } from '../../transaction';
 import { errActions } from '../../errorUtils';
 import { accountActions } from '../../accounts';
