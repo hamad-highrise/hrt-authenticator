@@ -2,10 +2,10 @@ import React from 'react';
 import { View, Text, Image, TouchableOpacity, Alert } from 'react-native';
 import { useSelector } from 'react-redux';
 
-import { constants } from '../../../global';
-import { Button } from '../../../components';
+import { constants } from '../../../../global';
+import { Button } from '../../../../components';
 import styles from '../../code.styles';
-import assets from '../../../assets';
+import assets from '../../../../assets';
 
 const Settings = ({ removeAccount }) => {
     const selected = useSelector(({ selected }) => selected);

@@ -24,7 +24,8 @@ import {
     TransactionScreen,
     RootedDeviceScreen,
     TransactionResponseScreen,
-    TransactionErrorScreen
+    TransactionErrorScreen,
+    AccessCode
 } from './features/screens';
 
 enableScreens();
@@ -74,7 +75,7 @@ const App = () => {
                     />
                     <Screen
                         name={screenIds.accessCode}
-                        component={CodeScreen}
+                        component={AccessCode}
                     />
 
                     <Screen

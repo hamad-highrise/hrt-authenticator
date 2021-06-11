@@ -1,8 +1,8 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 
-import { PercentageCircle } from '../../../components';
-import { colors } from '../../../theme';
+import { PercentageCircle } from '../../../../components';
+import { colors } from '../../../../theme';
 import styles from './code.styles';
 
 export default ({ otp, counter, suspected }) => (

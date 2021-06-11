@@ -1,14 +1,15 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { AppState } from 'react-native';
-import { useSelector } from 'react-redux';
 
 import { totpGenerator, getSecret } from '../services';
+import { hooks } from '../../../global';
 import useTabs from './useTabs';
-import useSelected from './useSelected';
 
 const DEFAULT_PERIOD = 30;
 const MIL_TO_SEC_DIV = 1000.0;
 const COUNTER_INIT = 0;
+
+const { useSelected } = hooks;
 
 function useTotp() {
     const { id: accId } = useSelected();
@@ -21,6 +22,7 @@ function useTotp() {
     const intervalRef = useRef();
 
     useEffect(() => {
+        updateOtp();
         intervalRef.current = setInterval(timer, 1000);
         AppState.addEventListener('change', onAppStateChange);
 

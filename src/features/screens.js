@@ -5,3 +5,4 @@ export {
     TransactionErrorScreen
 } from './transaction';
 export { RootedDeviceScreen } from './onBoarding';
+export { AccessCode } from './selected';

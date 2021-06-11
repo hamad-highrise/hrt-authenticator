@@ -9,16 +9,19 @@ import {
     NetworkIndicator,
     Topbar
 } from '../../components';
-import styles from './code.styles';
 import { CodeTab, SettingsTab } from './tabs';
-import { useTabs, useTotp, useSelected } from './hooks';
-import { constants } from '../../global';
+import { useTabs, useTotp } from './hooks';
+import { constants, hooks } from '../../global';
 import assets from '../../assets';
+import styles from './code.styles';
+
+const { useSelected, useUtils } = hooks;
 
 const AccessCode = (props) => {
     const navigation = useNavigation();
     const { otp, counter } = useTotp();
     const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
+    const { loading, error, isConnected } = useUtils();
     const account = useSelected();
     // const {
     //     transactionCheck,
@@ -27,8 +30,6 @@ const AccessCode = (props) => {
     //     account,
     //     isConnected
     // } = useAccessCode(props);
-    const loading = false;
-    const isConnected = true;
 
     var spinValue = useRef(new Animated.Value(0)).current;
 
@@ -98,7 +99,7 @@ const AccessCode = (props) => {
             <View style={styles.middle}>
                 <View style={styles.selectorContainer}>
                     <Pressable
-                        onPress={onCodeSelect}
+                        onPress={setCodeTab}
                         style={[
                             styles.selector,
                             styles.left,
@@ -113,7 +114,7 @@ const AccessCode = (props) => {
                         </Text>
                     </Pressable>
                     <Pressable
-                        onPress={onSettingsSelect}
+                        onPress={setSettingsTab}
                         style={[
                             styles.selector,
                             styles.right,
@@ -159,12 +160,6 @@ AccessCode.defaultProps = {
     server: '*Server Name*',
     issuer: '*test.isd*',
     secret: '*000000*'
-};
-
-AccessCode.options = {
-    topBar: {
-        visible: false
-    }
 };
 
 export default AccessCode;
