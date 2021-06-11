@@ -4,13 +4,14 @@ import { useSelector } from 'react-redux';
 
 import { totpGenerator, getSecret } from '../services';
 import useTabs from './useTabs';
+import useSelected from './useSelected';
 
 const DEFAULT_PERIOD = 30;
 const MIL_TO_SEC_DIV = 1000.0;
 const COUNTER_INIT = 0;
 
 function useTotp() {
-    const { id: accId } = useSelector((state) => state.selected);
+    const { id: accId } = useSelected();
     const [counter, setCounter] = useState(COUNTER_INIT);
     const [otp, setOtp] = useState('######');
 

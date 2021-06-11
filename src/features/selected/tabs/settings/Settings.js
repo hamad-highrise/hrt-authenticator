@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 
 import { constants } from '../../../global';
 import { Button } from '../../../components';
-// import styles from '../code.styles';
+import styles from '../../code.styles';
 import assets from '../../../assets';
 
 const Settings = ({ removeAccount }) => {

@@ -10,25 +10,25 @@ import {
     Topbar
 } from '../../components';
 import styles from './code.styles';
-import { AccessCodeFragment, SettingsFragment } from './tabs';
-import { useAccessCode } from './hooks';
+import { CodeTab, SettingsTab } from './tabs';
+import { useTabs, useTotp, useSelected } from './hooks';
 import { constants } from '../../global';
 import assets from '../../assets';
 
 const AccessCode = (props) => {
     const navigation = useNavigation();
-    const {
-        otp,
-        counter,
-        fragment,
-        onCodeSelect,
-        onSettingsSelect,
-        transactionCheck,
-        removeAccount,
-        loading,
-        account,
-        isConnected
-    } = useAccessCode(props);
+    const { otp, counter } = useTotp();
+    const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
+    const account = useSelected();
+    // const {
+    //     transactionCheck,
+    //     removeAccount,
+    //     loading,
+    //     account,
+    //     isConnected
+    // } = useAccessCode(props);
+    const loading = false;
+    const isConnected = true;
 
     var spinValue = useRef(new Animated.Value(0)).current;
 
@@ -46,7 +46,7 @@ const AccessCode = (props) => {
         }).start((res) => {
             res.finished && spinValue.setValue(0);
         });
-        transactionCheck();
+        // transactionCheck();
     };
 
     return loading && account['type'] === constants.ACCOUNT_TYPES.SAM ? (
@@ -102,12 +102,12 @@ const AccessCode = (props) => {
                         style={[
                             styles.selector,
                             styles.left,
-                            fragment === 'CODE' && styles.selected
+                            currentTab === tabs.CODE && styles.selected
                         ]}>
                         <Text
                             style={[
                                 styles.labelText,
-                                fragment === 'CODE' && styles.selectedText
+                                currentTab === tabs.CODE && styles.selectedText
                             ]}>
                             Access Code
                         </Text>
@@ -117,12 +117,13 @@ const AccessCode = (props) => {
                         style={[
                             styles.selector,
                             styles.right,
-                            fragment === 'SETTINGS' && styles.selected
+                            currentTab === tabs.SETTINGS && styles.selected
                         ]}>
                         <Text
                             style={[
                                 styles.labelText,
-                                fragment === 'SETTINGS' && styles.selectedText
+                                currentTab === tabs.SETTINGS &&
+                                    styles.selectedText
                             ]}>
                             Settings
                         </Text>
@@ -130,14 +131,15 @@ const AccessCode = (props) => {
                 </View>
             </View>
             <View style={styles.bottom}>
-                {fragment == 'CODE' ? (
-                    <AccessCodeFragment
+                {currentTab === tabs.CODE ? (
+                    <CodeTab
                         suspected={account['suspected']}
                         otp={otp}
                         counter={counter}
                     />
                 ) : (
-                    <SettingsFragment removeAccount={removeAccount} />
+                    // <SettingsFragment removeAccount={removeAccount} />
+                    <SettingsTab removeAccount={() => alert('remove')} />
                 )}
             </View>
 
