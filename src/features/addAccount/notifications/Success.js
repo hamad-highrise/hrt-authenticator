@@ -46,8 +46,8 @@ const NotifySuccess = () => {
 
     return (
         <View style={styles.container}>
-            <Image style={styles.image} source={assets.images.success}></Image>
             <View>
+                <Image style={styles.image} source={assets.images.success} />
                 <Text style={styles.instructions}>
                     This device and your
                     <Text style={{ fontWeight: 'bold' }}> {serviceName} </Text>
@@ -80,12 +80,11 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginLeft: 20,
         color: 'black',
-        marginBottom: 5,
         fontSize: 18,
-        paddingRight: 26
+        marginTop: -50
     },
     image: {
-        width: 150,
-        height: 150
+        width: 300,
+        height: 300
     }
 });

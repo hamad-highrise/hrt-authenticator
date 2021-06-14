@@ -20,7 +20,10 @@ const Main = () => {
     }, [JSON.stringify(navigation)]);
 
     const onDeviceInfo = useCallback(() => {
-        navigation.navigate(screensIdentifiers.deviceInfo);
+        // navigation.navigate(screensIdentifiers.deviceInfo);
+        navigation.navigate(screensIdentifiers.success, {
+            serviceName: 'TEST'
+        });
     }, [JSON.stringify(navigation)]);
 
     return (
