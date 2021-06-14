@@ -41,10 +41,10 @@ function approveTransaction({ accId, endpoint, ignoreSsl }) {
                     dispatch({ type: constants.CLEAR, payload: { accId } });
                     resolve();
                 })
-                .catch((err) => {
+                .catch((error) => {
                     dispatch(utilsActions.failure());
                     dispatch(errActions.add({ accId, error }));
-                    reject(err);
+                    reject(error);
                 });
         });
 }
@@ -59,10 +59,10 @@ function denyTransaction({ accId, endpoint, ignoreSsl }) {
                     dispatch({ type: constants.CLEAR, payload: { accId } });
                     resolve();
                 })
-                .catch((err) => {
+                .catch((error) => {
                     dispatch(utilsActions.failure());
                     dispatch(errActions.add({ accId, error }));
-                    reject(err);
+                    reject(error);
                 });
         });
 }

@@ -10,7 +10,7 @@ import {
     Topbar
 } from '../../components';
 import { CodeTab, SettingsTab } from './tabs';
-import { useTabs, useTotp } from './hooks';
+import { useTabs, useTotp, useTransaction } from './hooks';
 import { constants, hooks } from '../../global';
 import assets from '../../assets';
 import styles from './code.styles';
@@ -22,14 +22,8 @@ const AccessCode = (props) => {
     const { otp, counter } = useTotp();
     const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
     const { loading, error, isConnected } = useUtils();
+    const transactionCheck = useTransaction();
     const account = useSelected();
-    // const {
-    //     transactionCheck,
-    //     removeAccount,
-    //     loading,
-    //     account,
-    //     isConnected
-    // } = useAccessCode(props);
 
     var spinValue = useRef(new Animated.Value(0)).current;
 
@@ -47,7 +41,7 @@ const AccessCode = (props) => {
         }).start((res) => {
             res.finished && spinValue.setValue(0);
         });
-        // transactionCheck();
+        transactionCheck();
     };
 
     return loading && account['type'] === constants.ACCOUNT_TYPES.SAM ? (

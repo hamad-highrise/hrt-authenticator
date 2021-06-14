@@ -7,7 +7,8 @@ function useSelected() {
         name: selected['name'],
         issuer: selected['issuer'],
         type: selected['type'],
-        suspected: selected['suspected']
+        suspected: selected['suspected'],
+        ignoreSsl: selected['ignoreSsl']
     };
 }
 
