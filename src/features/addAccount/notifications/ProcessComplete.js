@@ -26,15 +26,12 @@ const ProcessComplete = () => {
                     account to verify your identity.
                 </Text>
             </View>
-
-            <View style={{ marginTop: 110, marginBottom: 100 }}>
-                <Button
-                    label="Done"
-                    onPress={() => {
-                        navigation.navigate(screensIdentifiers.main);
-                    }}
-                />
-            </View>
+            <Button
+                label="Done"
+                onPress={() => {
+                    navigation.navigate(screensIdentifiers.main);
+                }}
+            />
         </View>
     );
 };
@@ -51,7 +48,7 @@ export default ProcessComplete;
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#fff',
         paddingRight: 25,
@@ -67,12 +64,11 @@ const styles = StyleSheet.create({
     instructions: {
         marginLeft: 20,
         color: 'black',
-        marginBottom: 5,
+        marginBottom: 50,
         fontSize: 16
     },
     image: {
-        margin: 20,
-        width: 240,
-        height: 240
+        width: 200,
+        height: 200
     }
 });
