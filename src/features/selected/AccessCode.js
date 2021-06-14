@@ -21,7 +21,7 @@ const AccessCode = (props) => {
     const navigation = useNavigation();
     const { otp, counter } = useTotp();
     const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
-    const { loading, error, isConnected } = useUtils();
+    const { loading, isConnected } = useUtils();
     const transactionCheck = useTransaction();
     const account = useSelected();
 
