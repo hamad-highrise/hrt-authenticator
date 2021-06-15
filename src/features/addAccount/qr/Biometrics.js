@@ -7,7 +7,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { Button, LoadingIndicator } from '../../../components';
 import { registerBiometrics } from './../mmfa/registerMethods';
 import { services, utils } from '../../../global';
-import { alertActions } from '../../alert';
+// import { alertActions } from '../../alert';
 import screensIdentifiers from '../../../navigation/screensId';
 import assets from '../../../assets';
 
@@ -43,7 +43,7 @@ const BiometricOption = () => {
     const onPositive = async () => {
         try {
             setLoading(true);
-            dispatch(alertActions.request());
+            // dispatch(alertActions.request());
             const accessToke = await getAccessToken(accId);
             const enrollmentEndpoint = await getEnrollmentEndpoint(accId);
             await registerBiometrics({
@@ -52,13 +52,13 @@ const BiometricOption = () => {
                 accId,
                 ignoreSsl: true
             });
-            dispatch(alertActions.success());
+            // dispatch(alertActions.success());
             setLoading(false);
             navigation.navigate(screensIdentifiers.complete, { serviceName });
         } catch (error) {
             setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
-            dispatch(alertActions.failure(error, accId));
+            // dispatch(alertActions.failure(error, accId));
             navigation.navigate(screensIdentifiers.main);
         }
     };
