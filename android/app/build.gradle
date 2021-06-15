@@ -138,8 +138,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
-        versionCode 4
-        versionName "1.1-release"
+        versionCode 10
+        versionName "1.1"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.highrise.verify"
     }
@@ -176,7 +176,7 @@ android {
 
     productFlavors {
         alfalah {
-            applicationIdSuffix ".alfalah"
+            applicationIdSuffix ".alfa"
             resValue "string", "app_name_alfalah", "Alfalah Verify"
 
         }

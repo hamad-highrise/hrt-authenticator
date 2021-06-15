@@ -6,12 +6,11 @@ import { Provider } from 'react-redux';
 import { enableScreens } from 'react-native-screens';
 
 import screenIds from './navigation/screensId';
-import store from './redux.js';
+import store from './redux';
 import { utilsActions } from './features/actions.public';
 import {
     QRScanScreen,
     ManualAccountScreen as ManualScreen,
-    CodeScreen,
     BiometricOption,
     DeviceInfoScreen,
     SuccessScreen,

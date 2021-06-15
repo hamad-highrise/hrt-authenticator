@@ -10,7 +10,7 @@ import {
     Topbar
 } from '../../components';
 import { CodeTab, SettingsTab } from './tabs';
-import { useTabs, useTotp, useTransaction } from './hooks';
+import { useTabs, useTotp, useTransaction, useRemove } from './hooks';
 import { constants, hooks } from '../../global';
 import assets from '../../assets';
 import styles from './code.styles';
@@ -21,8 +21,9 @@ const AccessCode = (props) => {
     const navigation = useNavigation();
     const { otp, counter } = useTotp();
     const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
-    const { loading, isConnected } = useUtils();
+    const { isConnected } = useUtils();
     const transactionCheck = useTransaction();
+    const { removeAccount, loading } = useRemove();
     const account = useSelected();
 
     var spinValue = useRef(new Animated.Value(0)).current;
@@ -134,7 +135,7 @@ const AccessCode = (props) => {
                     />
                 ) : (
                     // <SettingsFragment removeAccount={removeAccount} />
-                    <SettingsTab removeAccount={() => alert('remove')} />
+                    <SettingsTab removeAccount={removeAccount} />
                 )}
             </View>
 
