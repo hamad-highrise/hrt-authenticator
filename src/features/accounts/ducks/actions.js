@@ -1,8 +1,8 @@
 import { utilsActions } from '../../utils';
-import queries from './queries';
+import { queries } from '../services';
 import constants from './constants';
-import { services } from '../../../global';
-import { errActions } from '../../errorUtils';
+// import { services } from '../../../global';
+// import { errActions } from '../../errorUtils';
 
 function initiateAccounts() {
     return async (dispatch) => {

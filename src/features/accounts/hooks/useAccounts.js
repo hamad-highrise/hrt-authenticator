@@ -3,19 +3,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BackHandler } from 'react-native';
 import { CommonActions, useNavigation } from '@react-navigation/native';
 
-import { accountActions } from '../services';
-import { transactionActions } from '../../transaction';
+import { accountActions } from '../ducks';
+import { transactionActions } from '../../actions.public';
 import constants from '../../../global/constants';
 import screensIdentifiers from '../../../navigation/screensId';
-
-const CHECKTYPE = 'MULTI';
 
 function useAccounts() {
     const accounts = useSelector(({ accounts }) => accounts);
     const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
     const navigation = useNavigation();
-    const transactionCheckIntervalRef = useRef();
+    const intervalRef = useRef();
 
     useEffect(() => {
         loadAccounts();
@@ -38,19 +36,15 @@ function useAccounts() {
             }
         );
         return () => {
-            clearInterval(transactionCheckIntervalRef.current);
+            clearInterval(intervalRef.current);
             backHandler.remove();
         };
     }, []);
 
     useEffect(() => {
-        transactionCheckIntervalRef.current &&
-            clearInterval(transactionCheckIntervalRef.current);
+        intervalRef.current && clearInterval(intervalRef.current);
         if (accounts?.length > 0)
-            transactionCheckIntervalRef.current = setInterval(
-                transactionChecker,
-                1000 * 5
-            );
+            intervalRef.current = setInterval(transactionChecker, 1000 * 5);
     }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {

@@ -9,13 +9,13 @@ import constants from '../constants';
 async function getTransactions({ accId, ignoreSsl }) {
     let transaction;
     try {
-        const accessToken = await getAccessToken(accId);
         //getting registered authenticators
         const isAuthenticatorValid = await checkAuthenticatorValiditiy({
             accId,
             ignoreSsl
         });
         if (isAuthenticatorValid) {
+            const accessToken = await getAccessToken(accId);
             const transactionEndpoint = await getTransactionEndpoint(accId);
             const transactionResponse = await getPendingTransactions({
                 endpoint: transactionEndpoint,

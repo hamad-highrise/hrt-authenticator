@@ -4,7 +4,8 @@ import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import styles from './list.styles';
-import { selectActions } from '../../selected';
+// import { selectActions } from '../../selected';
+import { selectActions } from '../../actions.public';
 import screensIdentifiers from '../../../navigation/screensId';
 
 const Item = ({ account }) => {
