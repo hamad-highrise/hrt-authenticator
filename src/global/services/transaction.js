@@ -1,9 +1,9 @@
 import { getAccessToken } from './token';
-import { getTransactionEndpoint, getMethods } from './db';
+import { getTransactionEndpoint, getMethods, removeAccountFromDB } from './db';
 import { getPendingTransactions } from './api';
 import { SAMError, TokenError } from '../errors';
 import { getAuthIdByAccount } from '../util';
-import { getAuthenticators } from './authenticator';
+import { checkAuthenticatorValiditiy } from './authenticator';
 import constants from '../constants';
 
 async function getTransactions({ accId, ignoreSsl }) {
@@ -11,34 +11,45 @@ async function getTransactions({ accId, ignoreSsl }) {
     try {
         const accessToken = await getAccessToken(accId);
         //getting registered authenticators
-        const authenticators = await getAuthenticators({ accId, ignoreSsl });
-        const transactionEndpoint = await getTransactionEndpoint(accId);
-        const transactionResponse = await getPendingTransactions({
-            endpoint: transactionEndpoint,
-            token: accessToken,
+        const isAuthenticatorValid = await checkAuthenticatorValiditiy({
+            accId,
             ignoreSsl
         });
+        if (isAuthenticatorValid) {
+            const transactionEndpoint = await getTransactionEndpoint(accId);
+            const transactionResponse = await getPendingTransactions({
+                endpoint: transactionEndpoint,
+                token: accessToken,
+                ignoreSsl
+            });
 
-        const status = transactionResponse.respInfo.status;
-        if ((status >= 200 && status < 300) || status === 304) {
-            transaction = processTransaction(
-                transactionResponse.json()?.[
-                    'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
-                ]
-            );
+            const status = transactionResponse.respInfo.status;
+            if ((status >= 200 && status < 300) || status === 304) {
+                transaction = processTransaction(
+                    transactionResponse.json()?.[
+                        'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Transaction'
+                    ]
+                );
+            } else {
+                throw transactionResponse.json().operation === 'login'
+                    ? new TokenError({ message: 'DEVICE_REMOVED_MANUALLY' })
+                    : new SAMError({
+                          message: transactionResponse.json().error_description
+                      });
+            }
+            try {
+                return (await isTransactionValid(transaction, accId))
+                    ? transaction
+                    : null;
+            } catch (error) {
+                throw error;
+            }
         } else {
-            throw transactionResponse.json().operation === 'login'
-                ? new TokenError({ message: 'DEVICE_REMOVED_MANUALLY' })
-                : new SAMError({
-                      message: transactionResponse.json().error_description
-                  });
-        }
-        try {
-            return (await isTransactionValid(transaction, accId))
-                ? transaction
-                : null;
-        } catch (error) {
-            throw error;
+            try {
+                await removeAccountFromDB(accId);
+            } catch (error) {
+                throw error;
+            }
         }
     } catch (error) {
         throw error;

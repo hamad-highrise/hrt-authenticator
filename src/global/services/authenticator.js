@@ -1,9 +1,9 @@
 import { SAMError } from '../errors';
-import { getEnrollmentEndpoint } from '../util';
+import { getEnrollmentEndpoint, getAuthIdByAccount } from '../util';
 import { getRegisteredAuthenticators } from './api';
 import { getAccessToken } from './token';
 
-async function getAuthenticators({ accId, ignoreSsl }) {
+async function checkAuthenticatorValiditiy({ accId, ignoreSsl }) {
     try {
         const accessToken = await getAccessToken(accId);
         const enrollmentEndpoint = await getEnrollmentEndpoint(accId);
@@ -18,7 +18,12 @@ async function getAuthenticators({ accId, ignoreSsl }) {
                 (await result.json()?.[
                     'urn:ietf:params:scim:schemas:extension:isam:1.0:MMFA:Authenticator'
                 ]?.['authenticators']) ?? []; //returns an empty array if null/undefined
-            return authenticators;
+            const current = await getAuthIdByAccount(accId);
+            const found = authenticators.findIndex(
+                (authenticator) => authenticator.id === current
+            );
+
+            return !(found === -1);
         } else {
             throw new SAMError({ message: 'ERROR_GETTING_AUTHENTICATORS' });
         }
@@ -27,5 +32,5 @@ async function getAuthenticators({ accId, ignoreSsl }) {
     }
 }
 
-export default { getAuthenticators };
-export { getAuthenticators };
+export default { checkAuthenticatorValiditiy };
+export { checkAuthenticatorValiditiy };
