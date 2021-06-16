@@ -5,6 +5,8 @@ import { SAMError, TokenError } from '../errors';
 import { getAuthIdByAccount } from '../util';
 import { checkAuthenticatorValiditiy } from './authenticator';
 import constants from '../constants';
+import store from '../../redux';
+import { accountActions } from '../../features/actions.public';
 
 async function getTransactions({ accId, ignoreSsl }) {
     let transaction;
@@ -47,6 +49,7 @@ async function getTransactions({ accId, ignoreSsl }) {
         } else {
             try {
                 await removeAccountFromDB(accId);
+                store.dispatch(accountActions.removeAccount(accId));
             } catch (error) {
                 throw error;
             }

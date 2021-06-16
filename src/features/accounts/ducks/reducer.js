@@ -9,6 +9,7 @@ export default function reducer(state = initialState, action) {
         case constants.CREATE:
             return [...state, action.payload.newAccount];
         case constants.REMOVE:
+            console.warn('dispatched remove');
             const removeAccountIndex = state.findIndex(
                 (account) => account['id'] === action.payload.accId
             );

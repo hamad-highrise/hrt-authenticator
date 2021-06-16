@@ -41,8 +41,10 @@ const errorMiddlware = (store) => (next) => (action) => {
     } else return next(action);
 };
 
-export default createStore(
+const store = createStore(
     rootReducer,
     initialState,
     applyMiddleware(errorMiddlware, thunk)
 );
+
+export default store;
