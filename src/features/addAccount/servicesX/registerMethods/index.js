@@ -1,3 +1,5 @@
-export { default as fingerprint } from './biometric';
-export { default as usePresence } from './presence';
-export { default as totp } from './totp';
+import fingerprint from './biometric';
+import userPresence from './presence';
+import totp from './totp';
+
+export default { fingerprint, userPresence, totp };

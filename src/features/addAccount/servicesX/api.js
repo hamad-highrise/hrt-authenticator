@@ -1,10 +1,10 @@
 import { utils, errors } from '../../../global';
 
-const { getFetchInstance, addMethod } = utils;
+const { getFetchInstance } = utils;
 const { NetworkError } = errors;
 
-async function getDetails({ endpoint, ignoreSSL }) {
-    const rnFetch = getFetchInstance({ ignoreSSL });
+async function getDetails({ endpoint, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
     const headers = {
         Accept: 'application/json'
     };
@@ -16,8 +16,8 @@ async function getDetails({ endpoint, ignoreSSL }) {
     }
 }
 
-async function getToken({ endpoint, formEncodedData, ignoreSSL }) {
-    const rnFetch = getFetchInstance({ ignoreSSL });
+async function getToken({ endpoint, formEncodedData, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
 
     const headers = {
         Accept: 'application/json',

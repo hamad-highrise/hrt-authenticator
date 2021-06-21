@@ -5,13 +5,13 @@ import helpers from '../../../helpers';
 
 const { SAMError } = errors;
 
-async function getToken({ endpoint, code, ignoreSSL }) {
+async function getToken({ endpoint, code, ignoreSsl }) {
     try {
         const body = await utils.getTokenRequestBody({ code });
         const result = await api.getToken({
             endpoint,
             formEncodedData: body,
-            ignoreSSL
+            ignoreSsl
         });
 
         if (result.respInfo.status !== 200) {

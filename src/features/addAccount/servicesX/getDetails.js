@@ -3,9 +3,9 @@ import { errors } from '../../../global';
 
 const { SAMError } = errors;
 
-async function getDetails({ endpoint, ignoreSSL }) {
+async function getDetails({ endpoint, ignoreSsl }) {
     try {
-        const result = await api.getDetails({ endpoint, ignoreSSL });
+        const result = await api.getDetails({ endpoint, ignoreSsl });
         if (result.respInfo.status !== 200) {
             throw new SAMError({
                 message: 'ERROR_GETTING_SAM_DETAILS',
