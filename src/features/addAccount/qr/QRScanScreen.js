@@ -1,9 +1,11 @@
 import React from 'react';
+import { View } from 'react-native';
 
 import {
     LoadingIndicator,
     NetworkIndicator,
-    Topbar
+    Topbar,
+    Button
 } from '../../../components';
 import QRScanner from './QRScanner';
 import assets from '../../../assets';
@@ -39,13 +41,31 @@ const QRScan = () => {
                     />
                     {!isConnected && <NetworkIndicator />}
                     {isFocused && (
-                        <QRScanner
-                            onBarCodeRead={barcodeRecognized}
-                            onPress={onManualCode}
-                        />
+                        <QRScanner onBarCodeRead={barcodeRecognized} />
                     )}
                 </>
             )}
+            <View
+                style={{
+                    backgroundColor: 'transparent',
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '15%',
+                    justifyContent: 'center',
+                    alignItems: 'center'
+                }}>
+                <Button
+                    onPress={onManualCode}
+                    label={'Enter Code Manually'}
+                    rippleColor="#ACA8A8"
+                    style={{
+                        width: '90%',
+                        backgroundColor: 'grey'
+                    }}
+                />
+            </View>
         </>
     );
 };

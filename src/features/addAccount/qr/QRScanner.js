@@ -1,10 +1,8 @@
 import * as React from 'react';
 import { RNCamera } from 'react-native-camera';
-import { StyleSheet, View, Dimensions } from 'react-native';
+import { StyleSheet, View, Dimensions, Text } from 'react-native';
 
-import { Button } from '../../../components';
-
-const QRScanner = ({ onBarCodeRead, onPress }) => {
+const QRScanner = ({ onBarCodeRead }) => {
     const { width } = Dimensions.get('window');
     const maskRowHeight = 16;
     const maskColWidth = (width - 300) / 2;
@@ -17,65 +15,53 @@ const QRScanner = ({ onBarCodeRead, onPress }) => {
             }}
             type={RNCamera.Constants.Type.back}
             flashMode={RNCamera.Constants.FlashMode.off}
+            androidCameraPermissionOptions={{
+                title: 'Camera Access Permission',
+                message: 'We neeed to access you rcamera for scanning QRs.',
+                buttonPositive: 'OK'
+            }}
             onBarCodeRead={onBarCodeRead}>
             {({ status }) => {
-                return (
-                    status === 'READY' && (
-                        <>
-                            <View style={styles.maskOutter}>
+                return status === 'READY' ? (
+                    <>
+                        <View style={styles.maskOutter}>
+                            <View
+                                style={[
+                                    { flex: maskRowHeight },
+                                    styles.maskRow,
+                                    styles.maskFrame
+                                ]}
+                            />
+                            <View style={[{ flex: 35 }, styles.maskCenter]}>
                                 <View
                                     style={[
-                                        { flex: maskRowHeight },
-                                        styles.maskRow,
+                                        { width: maskColWidth },
                                         styles.maskFrame
                                     ]}
                                 />
-                                <View style={[{ flex: 35 }, styles.maskCenter]}>
-                                    <View
-                                        style={[
-                                            { width: maskColWidth },
-                                            styles.maskFrame
-                                        ]}
-                                    />
-                                    <View style={styles.maskInner} />
-                                    <View
-                                        style={[
-                                            { width: maskColWidth },
-                                            styles.maskFrame
-                                        ]}
-                                    />
-                                </View>
+                                <View style={styles.maskInner} />
                                 <View
                                     style={[
-                                        { flex: maskRowHeight },
-                                        styles.maskRow,
+                                        { width: maskColWidth },
                                         styles.maskFrame
                                     ]}
                                 />
                             </View>
                             <View
-                                style={{
-                                    backgroundColor: 'transparent',
-                                    position: 'absolute',
-                                    bottom: 0,
-                                    left: 0,
-                                    width: '100%',
-                                    height: '15%',
-                                    justifyContent: 'center',
-                                    alignItems: 'center'
-                                }}>
-                                <Button
-                                    onPress={onPress}
-                                    label={'Enter Code Manually'}
-                                    rippleColor="#ACA8A8"
-                                    style={{
-                                        width: '90%',
-                                        backgroundColor: 'grey'
-                                    }}
-                                />
-                            </View>
-                        </>
-                    )
+                                style={[
+                                    { flex: maskRowHeight },
+                                    styles.maskRow,
+                                    styles.maskFrame
+                                ]}
+                            />
+                        </View>
+                    </>
+                ) : status === 'PENDING_AUTHORIZATION' ? (
+                    <Text style={{ color: 'white' }}>
+                        Authroization Pending.
+                    </Text>
+                ) : (
+                    <Text style={{ color: 'white' }}>Permission Rejected.</Text>
                 );
             }}
         </RNCamera>
