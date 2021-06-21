@@ -57,7 +57,6 @@ export default async function registerDevice(scanned) {
                 accId,
                 ignoreSsl
             });
-            console.warn('OK');
             return {
                 serviceName: details.serviceName,
                 accId,
@@ -71,3 +70,7 @@ export default async function registerDevice(scanned) {
         return;
     }
 }
+
+export { isUnique } from './queries';
+export { default as createAccount } from './createAccount';
+export { default as parser } from './parser';

@@ -4,7 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 
 import { Button, TextInput, TopNavbar } from '../../../components';
 import screensIdentifiers from '../../../navigation/screensId';
-import { createAccount } from '../services';
+import { createAccount } from '../servicesX';
 import { accountActions } from '../../actions.public';
 import { useDispatch } from 'react-redux';
 

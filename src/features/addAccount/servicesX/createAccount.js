@@ -10,7 +10,7 @@ async function createAccount({ account, token }) {
             keyAlias: constants.KEY_ALIAS.SECRET
         });
         await db.addSecret({ secret, accId: insertId });
-        if (account.type === 'SAM') {
+        if (account.type === constants.ACCOUNT_TYPES.SAM) {
             await db.saveToken({ ...token, accId: insertId });
             await db.saveAuthId({ authId: account.authId, accId: insertId });
         }

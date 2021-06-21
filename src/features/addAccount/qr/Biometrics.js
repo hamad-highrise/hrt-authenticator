@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
-import PropTypes from 'prop-types';
-import { useDispatch } from 'react-redux';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button, LoadingIndicator } from '../../../components';
-import { registerBiometrics } from './../mmfa/registerMethods';
+import { fingerprint as registerBiometrics } from '../servicesX/registerMethods';
 import { services, utils } from '../../../global';
-// import { alertActions } from '../../alert';
 import screensIdentifiers from '../../../navigation/screensId';
 import assets from '../../../assets';
 
@@ -20,7 +17,7 @@ const BiometricOption = () => {
     const {
         params: { accId, serviceName }
     } = useRoute();
-    const dispatch = useDispatch();
+
     useEffect(() => {
         const backHandler = BackHandler.addEventListener(
             'hardwareBackPress',
@@ -95,10 +92,6 @@ const BiometricOption = () => {
             <View style={{ marginBottom: 20 }} />
         </View>
     );
-};
-BiometricOption.propTypes = {
-    accountName: PropTypes.string,
-    styles: PropTypes.any
 };
 
 export default BiometricOption;
