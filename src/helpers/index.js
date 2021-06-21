@@ -5,7 +5,8 @@ function checkQrValidity(data) {
 function getIgnoreSslOption(options) {
     const splitted = options?.split('=');
     return (
-        (splitted?.shift() === 'ignoreSslCerts' && splitted?.shift() == true) ??
+        (splitted?.shift() === 'ignoreSslCerts' &&
+            splitted?.shift() == 'true') ??
         false
     );
 }

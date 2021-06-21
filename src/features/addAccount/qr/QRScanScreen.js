@@ -18,26 +18,28 @@ import screensIdentifiers from '../../../navigation/screensId';
 import { accountActions } from '../../actions.public';
 import QRScanner from './QRScanner';
 import assets from '../../../assets';
+import registerDevice from '../servicesX';
+
+const { tryJSONParser, uriParser } = parser;
 
 const QRScan = (props) => {
     const navigation = useNavigation();
     const [isFocused, setIsFocused] = useState(false);
     const { isConnected } = useSelector(({ utils }) => utils);
     const dispatch = useDispatch();
-    const { tryJSONParser, uriParser } = parser;
     const [isRead, setIsRead] = useState(false);
     const [loading, setLoading] = useState(false);
 
     useFocusEffect(() => {
-        const onFocusListener = navigation.addListener('focus', () => {
+        const unsbscribeFocusListener = navigation.addListener('focus', () => {
             setIsFocused(true);
         });
-        const onBlurListener = navigation.addListener('blur', () => {
+        const unsubscribeBlurListener = navigation.addListener('blur', () => {
             setIsFocused(false);
         });
         return () => {
-            onFocusListener();
-            onBlurListener();
+            unsbscribeFocusListener();
+            unsubscribeBlurListener();
         };
     });
 
@@ -56,14 +58,22 @@ const QRScan = (props) => {
                 if (isConnected) {
                     setLoading(true);
                     try {
-                        const result = await initiateSamAccount(value);
+                        // const result = await initiateSamAccount(value);
+                        const result = await registerDevice(value);
+                        console.warn(result);
+                        result
+                            ? navigation.navigate(
+                                  screensIdentifiers.success,
+                                  result
+                              )
+                            : alert('Invalid QR');
 
-                        navigation.navigate(screensIdentifiers.success, {
-                            serviceName: result.issuer,
-                            accId: result.insertId,
-                            methods: result.methods,
-                            type: constants.ACCOUNT_TYPES.SAM
-                        });
+                        // navigation.navigate(screensIdentifiers.success, {
+                        //     serviceName: result.issuer,
+                        //     accId: result.insertId,
+                        //     methods: result.methods,
+                        //     type: constants.ACCOUNT_TYPES.SAM
+                        // });
                     } catch (error) {
                         setLoading(false);
                         navigation.navigate(screensIdentifiers.main);

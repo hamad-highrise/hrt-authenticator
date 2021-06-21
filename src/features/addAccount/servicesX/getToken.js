@@ -1,6 +1,6 @@
 import { cipher } from '../../../native-services';
 import api from './api';
-import { errors, utils } from '../../../global';
+import { errors, utils, constants } from '../../../global';
 import helpers from '../../../helpers';
 
 const { SAMError } = errors;
@@ -37,6 +37,7 @@ async function getToken({ endpoint, code, ignoreSsl }) {
             accountName: token['display_name']
         };
     } catch (error) {
+        console.warn(error);
         throw error;
     }
 }

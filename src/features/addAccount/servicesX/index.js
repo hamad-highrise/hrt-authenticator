@@ -5,29 +5,33 @@ import createAccount from './createAccount';
 import registerMethods from './registerMethods';
 import { constants } from '../../../global';
 
-export default async function resgisterDevice(scanned) {
+const result = { serviceName: '', accId: '', methods: [], type: '' };
+
+export default async function registerDevice(scanned) {
     const isValidMmfaData = helpers.checkQrValidity(scanned);
     if (isValidMmfaData) {
-        let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options);
-        console.warn('ignoreSsl', ignoreSsl);
+        let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options) || false;
         try {
             // Get details for the account
             const details = await getDetails({
                 endpoint: scanned?.['details_url'],
                 ignoreSsl
             });
+
             // Fetch token
             const token = await getToken({
                 endpoint: details.endpoints.token,
                 ignoreSsl,
                 code: scanned.code
             });
+
             // register totp
             const totp = await registerMethods.totp({
                 endpoint: details.endpoints.otp,
                 ignoreSsl,
                 token: token.unsafeToken
             });
+
             // create account entry in db
             const accId = await createAccount({
                 account: {
@@ -47,7 +51,22 @@ export default async function resgisterDevice(scanned) {
                     tokenEndpoint: details.endpoints.token
                 }
             });
-        } catch (error) {}
+            await registerMethods.userPresence({
+                endpoint: details.endpoints.enrollment,
+                token: token.unsafeToken,
+                accId,
+                ignoreSsl
+            });
+            console.warn('OK');
+            return {
+                serviceName: details.serviceName,
+                accId,
+                methods: details.methodsSupported,
+                type: constants.ACCOUNT_TYPES.SAM
+            };
+        } catch (error) {
+            throw error;
+        }
     } else {
         return;
     }
