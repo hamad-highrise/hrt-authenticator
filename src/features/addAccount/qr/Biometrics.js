@@ -3,7 +3,7 @@ import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button, LoadingIndicator } from '../../../components';
-import { fingerprint as registerBiometrics } from '../servicesX/registerMethods';
+import { fingerprint as registerBiometrics } from '../services/registerMethods';
 import { services, utils } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
 import assets from '../../../assets';

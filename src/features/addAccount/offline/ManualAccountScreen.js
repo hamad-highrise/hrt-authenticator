@@ -1,12 +1,12 @@
 import React, { useMemo, useState } from 'react';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
 import { Button, TextInput, TopNavbar } from '../../../components';
 import screensIdentifiers from '../../../navigation/screensId';
-import { createAccount } from '../servicesX';
+import { createAccount } from '../services';
 import { accountActions } from '../../actions.public';
-import { useDispatch } from 'react-redux';
 
 const CodeAccount = () => {
     const navigation = useNavigation();

@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import screensIdentifiers from '../../../navigation/screensId';
 import { accountActions } from '../../actions.public';
 import { vibrate } from '../../../native-services/utilities';
-import registerDevice, { isUnique, createAccount, parser } from '../servicesX';
+import registerDevice, { isUnique, createAccount, parser } from '../services';
 
 const { tryJSONParser, uriParser } = parser;
 
