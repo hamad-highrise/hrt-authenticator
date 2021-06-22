@@ -74,13 +74,24 @@ async function getUUID() {
     }
 }
 
+async function checkDeviceSecurity() {
+    const { Utilities } = NativeModules;
+    try {
+        const { isDeviceSecure } = await Utilities.checkDeviceSecurity();
+        return isDeviceSecure;
+    } catch (error) {
+        throw error;
+    }
+}
+
 export default {
     getDeviceInfo,
     preventScreenshot,
     isInitiated,
     setInitiated,
     getUUID,
-    allowScreenshot
+    allowScreenshot,
+    checkDeviceSecurity
 };
 
 export {
@@ -89,5 +100,6 @@ export {
     isInitiated,
     setInitiated,
     getUUID,
-    allowScreenshot
+    allowScreenshot,
+    checkDeviceSecurity
 };

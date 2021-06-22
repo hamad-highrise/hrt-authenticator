@@ -13,17 +13,19 @@ const SecurityAssessment = (props) => {
     const [isEnabled, setIsEnabled] = useState(true);
     const [data, setData] = useState({
         rooted: false,
-        biometricsEnrolled: true
+        biometricsEnrolled: true,
+        isDeviceSecure: false
     });
     const navigation = useNavigation();
 
     useEffect(() => {
         (async () => {
             const isRooted = await (await utilities.getDeviceInfo()).rooted;
+            const isDeviceSecure = await utilities.checkDeviceSecurity();
             const biometricsEnrolled = await (
                 await biometrics.isSensorAvailable()
             ).available;
-            setData({ rooted: isRooted, biometricsEnrolled });
+            setData({ rooted: isRooted, biometricsEnrolled, isDeviceSecure });
         })();
     }, []);
 
@@ -81,7 +83,11 @@ const SecurityAssessment = (props) => {
                             Device security is enabled
                         </Text>
                         <Image
-                            source={assets.icons.tickBlack}
+                            source={
+                                data.isDeviceSecure
+                                    ? assets.icons.tickBlack
+                                    : assets.icons.crossBlack
+                            }
                             style={styles.img}
                         />
                     </View>
