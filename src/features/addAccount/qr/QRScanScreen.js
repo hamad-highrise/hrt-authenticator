@@ -7,7 +7,7 @@ import {
     Topbar,
     Button
 } from '../../../components';
-import QRScanner from './QRScanner';
+import { QrScanner } from '../QrScanner';
 import assets from '../../../assets';
 import { useQR } from '../hooks';
 
@@ -41,7 +41,7 @@ const QRScan = () => {
                     />
                     {!isConnected && <NetworkIndicator />}
                     {isFocused && (
-                        <QRScanner onBarCodeRead={barcodeRecognized} />
+                        <QrScanner onBarCodeRead={barcodeRecognized} />
                     )}
                 </>
             )}

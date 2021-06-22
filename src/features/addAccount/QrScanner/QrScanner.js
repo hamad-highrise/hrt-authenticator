@@ -1,14 +1,25 @@
 import * as React from 'react';
 import { RNCamera } from 'react-native-camera';
-import { StyleSheet, View, Dimensions, Text } from 'react-native';
+import { View, Dimensions } from 'react-native';
+
+import { CameraAuthorization } from './components';
+import styles from './scanner.styles';
+import { useRef } from 'react';
+
+const { width } = Dimensions.get('window');
+const maskRowHeight = 16;
+const maskColWidth = (width - 300) / 2;
 
 const QRScanner = ({ onBarCodeRead }) => {
-    const { width } = Dimensions.get('window');
-    const maskRowHeight = 16;
-    const maskColWidth = (width - 300) / 2;
+    const camRef = useRef();
+
+    const refresh = async () => {
+        camRef.current.refreshAuthorizationStatus();
+    };
     return (
         <RNCamera
             captureAudio={false}
+            ref={(ref) => (camRef.current = ref)}
             style={{
                 flex: 1,
                 width: '100%'
@@ -21,7 +32,7 @@ const QRScanner = ({ onBarCodeRead }) => {
                 buttonPositive: 'OK'
             }}
             onBarCodeRead={onBarCodeRead}>
-            {({ status }) => {
+            {({ status, camera }) => {
                 return status === 'READY' ? (
                     <>
                         <View style={styles.maskOutter}>
@@ -56,12 +67,14 @@ const QRScanner = ({ onBarCodeRead }) => {
                             />
                         </View>
                     </>
-                ) : status === 'PENDING_AUTHORIZATION' ? (
-                    <Text style={{ color: 'white' }}>
-                        Authroization Pending.
-                    </Text>
                 ) : (
-                    <Text style={{ color: 'white' }}>Permission Rejected.</Text>
+                    status === 'PENDING_AUTHORIZATION' ||
+                        (status === 'NOT_AUTHORIZED' && (
+                            <CameraAuthorization
+                                refresh={refresh}
+                                rejected={status === 'NOT_AUTHORIZED'}
+                            />
+                        ))
                 );
             }}
         </RNCamera>
@@ -69,35 +82,3 @@ const QRScanner = ({ onBarCodeRead }) => {
 };
 
 export default QRScanner;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1
-    },
-    cameraView: {
-        flex: 1,
-        justifyContent: 'flex-start'
-    },
-    maskOutter: {
-        position: 'absolute',
-        top: 0,
-        left: 0,
-        width: '100%',
-        height: '100%',
-        alignItems: 'center',
-        justifyContent: 'space-around'
-    },
-    maskInner: {
-        width: 300,
-        backgroundColor: 'transparent',
-        borderColor: 'white',
-        borderWidth: 1
-    },
-    maskFrame: {
-        backgroundColor: 'rgba(1,1,1,0.6)'
-    },
-    maskRow: {
-        width: '100%'
-    },
-    maskCenter: { flexDirection: 'row' }
-});
