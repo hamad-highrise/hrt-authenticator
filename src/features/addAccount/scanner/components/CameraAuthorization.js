@@ -19,7 +19,7 @@ export default function PendingAuthorization({ rejected, refresh }) {
                         height: 45,
                         marginTop: 30
                     }}
-                    label={'Grant'}
+                    label={'Grant Camera Permission'}
                     onPress={refresh}
                 />
             )}
