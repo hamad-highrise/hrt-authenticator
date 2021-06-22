@@ -15,5 +15,10 @@ export default StyleSheet.create({
         textAlign: 'left',
         paddingHorizontal: 20,
         textAlign: 'center'
+    },
+    btn: {
+        width: '40%',
+        height: 45,
+        marginTop: 30
     }
 });

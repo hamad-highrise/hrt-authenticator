@@ -14,11 +14,7 @@ export default function PendingAuthorization({ rejected, refresh }) {
             </Text>
             {rejected && (
                 <Button
-                    style={{
-                        width: '40%',
-                        height: 45,
-                        marginTop: 30
-                    }}
+                    style={styles.btn}
                     label={'Grant Camera Permission'}
                     onPress={refresh}
                 />
