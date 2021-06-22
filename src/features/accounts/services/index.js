@@ -1,2 +1,1 @@
-export { default as accountsReducer } from './reducer';
-export { default as accountActions } from './actions';
+export { default as queries } from './queries';

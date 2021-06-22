@@ -8,7 +8,7 @@
         "start": "react-native start",
         "test": "jest",
         "lint": "eslint .",
-        "alfalah": "react-native run-android --variant alfalahDebug --appIdSuffix alfalah",
+        "alfalah": "react-native run-android --variant alfalahDebug --appIdSuffix alfa",
         "fidelity": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
     },
     "dependencies": {

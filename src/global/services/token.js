@@ -108,6 +108,7 @@ async function getAccessToken(accId) {
             }
         }
     } catch (error) {
+        console.warn(error);
         throw error;
     }
 }

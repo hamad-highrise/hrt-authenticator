@@ -1,2 +1,2 @@
-export { accountActions, accountsReducer } from './services';
+export { accountActions, accountsReducer } from './ducks';
 export { default as AccountsScreen } from './AccountsScreen';

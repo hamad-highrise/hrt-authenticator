@@ -7,11 +7,13 @@ import {
     Platform
 } from 'react-native';
 
+import { colors } from '../../theme';
+
 const Loader = ({ show, backgroundColor }) => (
     <View style={{ ...styles.container, backgroundColor }}>
         <ActivityIndicator
             animating={show}
-            color="#00CED1"
+            color={colors.PRIMARY}
             size={Platform.OS === 'android' ? 70 : 'large'}
         />
         <Text style={{ color: 'white' }}>Requesting Server...</Text>

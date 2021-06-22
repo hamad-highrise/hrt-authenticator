@@ -1,25 +1,76 @@
-import { cipher } from '../../../native-services';
+import helpers from '../../../helpers';
+import getDetails from './getDetails';
+import getToken from './getToken';
+import createAccount from './createAccount';
+import registerMethods from './registerMethods';
 import { constants } from '../../../global';
-import db from './queries';
 
-const { isUnique, addMethod } = db;
+const result = { serviceName: '', accId: '', methods: [], type: '' };
 
-async function createAccount({ account, token }) {
-    try {
-        const { insertId } = await db.createAccountEntry(account);
-        const { cipherText: secret } = await cipher.encrypt({
-            payload: account.secret,
-            keyAlias: constants.KEY_ALIAS.SECRET
-        });
-        await db.addSecret({ secret, accId: insertId });
-        if (account.type === 'SAM') {
-            await db.saveToken({ ...token, accId: insertId });
-            await db.saveAuthId({ authId: account.authId, accId: insertId });
+export default async function registerDevice(scanned) {
+    const isValidMmfaData = helpers.checkQrValidity(scanned);
+    if (isValidMmfaData) {
+        let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options) || false;
+        try {
+            // Get details for the account
+            const details = await getDetails({
+                endpoint: scanned?.['details_url'],
+                ignoreSsl
+            });
+
+            // Fetch token
+            const token = await getToken({
+                endpoint: details.endpoints.token,
+                ignoreSsl,
+                code: scanned.code
+            });
+
+            // register totp
+            const totp = await registerMethods.totp({
+                endpoint: details.endpoints.otp,
+                ignoreSsl,
+                token: token.unsafeToken
+            });
+
+            // create account entry in db
+            const accId = await createAccount({
+                account: {
+                    name: token.accountName,
+                    issuer: details.serviceName,
+                    secret: totp.secretKey,
+                    type: constants.ACCOUNT_TYPES.SAM,
+                    ignoreSsl,
+                    transactionEndpoint: details.endpoints.transaction,
+                    enrollmentEndpoint: details.endpoints.enrollment,
+                    authId: token.authenticatorId
+                },
+                token: {
+                    token: token.accessToken,
+                    refreshToken: token.refreshToken,
+                    expiry: token.expiry,
+                    tokenEndpoint: details.endpoints.token
+                }
+            });
+            await registerMethods.userPresence({
+                endpoint: details.endpoints.enrollment,
+                token: token.unsafeToken,
+                accId,
+                ignoreSsl
+            });
+            return {
+                serviceName: details.serviceName,
+                accId,
+                methods: details.methodsSupported,
+                type: constants.ACCOUNT_TYPES.SAM
+            };
+        } catch (error) {
+            throw error;
         }
-        return Promise.resolve(insertId);
-    } catch (error) {
-        return Promise.reject(error);
+    } else {
+        return;
     }
 }
 
-export { createAccount, isUnique, addMethod };
+export { isUnique } from './queries';
+export { default as createAccount } from './createAccount';
+export { default as parser } from './parser';

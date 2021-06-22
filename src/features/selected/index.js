@@ -1,1 +1,2 @@
-export { selectActions, selectReducer } from './services';
+export { selectActions, selectReducer } from './ducks';
+export { default as AccessCode } from './AccessCode';

@@ -1,23 +1,24 @@
 import { useDispatch, useSelector } from 'react-redux';
+import { useMemo } from 'react';
 import { useNavigation } from '@react-navigation/native';
 
-import { transactionActions } from '../services';
-import { useMemo } from 'react';
+import { transactionActions } from '../ducks';
+import { hooks } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
 
+const { useSelected, useUtils } = hooks;
+
 function useTransaction() {
-    const {
-        transactions,
-        utils: { isConnected, loading },
-        selected
-    } = useSelector((state) => state);
+    const { transactions } = useSelector((state) => state);
+    const { isConnected, loading } = useUtils();
+    const { id: accId, ignoreSsl } = useSelected();
 
     const navigation = useNavigation();
     const dispatch = useDispatch();
 
     const accTransaction = useMemo(() => {
         let transaction = transactions.find(
-            (transaction) => transaction['accId'] === selected['id']
+            (transaction) => transaction['accId'] === accId
         );
         return transaction?.transactionData;
     }, [JSON.stringify(transactions)]);
@@ -25,9 +26,9 @@ function useTransaction() {
     const onApprove = async () => {
         dispatch(
             transactionActions.approveTransaction({
-                accId: selected['id'],
+                accId,
                 endpoint: accTransaction.requestUrl,
-                ignoreSsl: selected['ignoreSsl']
+                ignoreSsl
             })
         )
             .then(() =>
@@ -46,9 +47,9 @@ function useTransaction() {
     const onReject = async () => {
         dispatch(
             transactionActions.denyTransaction({
-                accId: selected['id'],
+                accId,
                 endpoint: accTransaction.requestUrl,
-                ignoreSsl: selected['ignoreSsl']
+                ignoreSsl
             })
         )
             .then(() =>

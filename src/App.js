@@ -6,17 +6,10 @@ import { Provider } from 'react-redux';
 import { enableScreens } from 'react-native-screens';
 
 import screenIds from './navigation/screensId';
-import ErrorBoundary from './features/errorBoundry/ErrorBoundry';
-import store from './redux.js';
+import store from './redux';
 import { utilsActions } from './features/actions.public';
 import {
-    QRScanScreen,
-    ManualAccountScreen as ManualScreen,
-    CodeScreen,
-    BiometricOption,
     DeviceInfoScreen,
-    SuccessScreen,
-    CompletionScreen,
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
@@ -25,7 +18,13 @@ import {
     TransactionScreen,
     RootedDeviceScreen,
     TransactionResponseScreen,
-    TransactionErrorScreen
+    TransactionErrorScreen,
+    AccessCode,
+    ManualAccount,
+    AddAccount,
+    SuccessScreen,
+    CompletionScreen,
+    RegisterBiometrics
 } from './features/screens';
 
 enableScreens();
@@ -52,10 +51,10 @@ const App = () => {
                     initialRouteName={screenIds.splash}>
                     <Screen name={screenIds.splash} component={SplashScreen} />
                     <Screen name={screenIds.main} component={AccountsScreen} />
-                    <Screen name={screenIds.qrScan} component={QRScanScreen} />
+                    <Screen name={screenIds.qrScan} component={AddAccount} />
                     <Screen
                         name={screenIds.accountForm}
-                        component={ManualScreen}
+                        component={ManualAccount}
                     />
                     <Screen
                         name={screenIds.authTransaction}
@@ -71,15 +70,13 @@ const App = () => {
                     />
                     <Screen
                         name={screenIds.biometricOption}
-                        component={BiometricOption}
+                        component={RegisterBiometrics}
                     />
-                    <Screen name={screenIds.accessCode}>
-                        {() => (
-                            <ErrorBoundary>
-                                <CodeScreen />
-                            </ErrorBoundary>
-                        )}
-                    </Screen>
+                    <Screen
+                        name={screenIds.accessCode}
+                        component={AccessCode}
+                    />
+
                     <Screen
                         name={screenIds.securityassessment}
                         component={SecurityAssessmentScreen}
