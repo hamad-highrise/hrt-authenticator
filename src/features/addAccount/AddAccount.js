@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 
 import {
     LoadingIndicator,
@@ -45,29 +45,32 @@ const QRScan = () => {
                     )}
                 </>
             )}
-            <View
-                style={{
-                    backgroundColor: 'transparent',
-                    position: 'absolute',
-                    bottom: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '15%',
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                }}>
-                <Button
-                    onPress={onManualCode}
-                    label={'Enter Code Manually'}
-                    rippleColor="#ACA8A8"
-                    style={{
-                        width: '90%',
-                        backgroundColor: 'grey'
-                    }}
-                />
-            </View>
+            {!loading && (
+                <View style={styles.bottomBtnContainer}>
+                    <Button
+                        onPress={onManualCode}
+                        label={'Enter Code Manually'}
+                        rippleColor="#ACA8A8"
+                        style={styles.bottomBtn}
+                    />
+                </View>
+            )}
         </>
     );
 };
 
 export default QRScan;
+
+const styles = StyleSheet.create({
+    bottomBtnContainer: {
+        backgroundColor: 'transparent',
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        width: '100%',
+        height: '15%',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    bottomBtn: { width: '90%', backgroundColor: 'grey' }
+});

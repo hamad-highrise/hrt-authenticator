@@ -25,22 +25,6 @@ function addAccount(newAccount) {
 
 function removeAccount(accId) {
     return { type: constants.REMOVE, payload: { accId } };
-    // return (dispatch) =>
-    //     new Promise((resolve, reject) => {
-    //         dispatch(utilsActions.request());
-    //         services
-    //             .removeAccount({ accId, type, ignoreSsl })
-    //             .then(() => {
-    //                 dispatch(utilsActions.success());
-    //                 dispatch({ type: constants.REMOVE, payload: { accId } });
-    //                 resolve();
-    //             })
-    //             .catch((error) => {
-    //                 dispatch(errActions.add({ accId, error }));
-    //                 dispatch(utilsActions.failure());
-    //                 reject(error);
-    //             });
-    //     });
 }
 
 export default { initiateAccounts, addAccount, removeAccount };
