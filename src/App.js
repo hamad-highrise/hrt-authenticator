@@ -9,12 +9,7 @@ import screenIds from './navigation/screensId';
 import store from './redux';
 import { utilsActions } from './features/actions.public';
 import {
-    QRScanScreen,
-    ManualAccountScreen as ManualScreen,
-    BiometricOption,
     DeviceInfoScreen,
-    SuccessScreen,
-    CompletionScreen,
     SplashScreen,
     SecurityAssessmentScreen
 } from './features';
@@ -24,7 +19,12 @@ import {
     RootedDeviceScreen,
     TransactionResponseScreen,
     TransactionErrorScreen,
-    AccessCode
+    AccessCode,
+    ManualAccount,
+    AddAccount,
+    SuccessScreen,
+    CompletionScreen,
+    RegisterBiometrics
 } from './features/screens';
 
 enableScreens();
@@ -51,10 +51,10 @@ const App = () => {
                     initialRouteName={screenIds.splash}>
                     <Screen name={screenIds.splash} component={SplashScreen} />
                     <Screen name={screenIds.main} component={AccountsScreen} />
-                    <Screen name={screenIds.qrScan} component={QRScanScreen} />
+                    <Screen name={screenIds.qrScan} component={AddAccount} />
                     <Screen
                         name={screenIds.accountForm}
-                        component={ManualScreen}
+                        component={ManualAccount}
                     />
                     <Screen
                         name={screenIds.authTransaction}
@@ -70,7 +70,7 @@ const App = () => {
                     />
                     <Screen
                         name={screenIds.biometricOption}
-                        component={BiometricOption}
+                        component={RegisterBiometrics}
                     />
                     <Screen
                         name={screenIds.accessCode}

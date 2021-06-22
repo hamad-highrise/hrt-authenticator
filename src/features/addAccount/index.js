@@ -1,4 +1,5 @@
-export { default as QRScanScreen } from './qr/QRScanScreen';
-export { default as ManualAccountScreen } from './offline/ManualAccountScreen';
-export { default as BiometricOption } from './qr/Biometrics';
-export * from './notifications';
+//
+export { RegisterBiometrics } from './biometric';
+export { SuccessScreen, CompletionScreen } from './notifications';
+export { ManualAccount } from './manual';
+export { default as AddAccount } from './AddAccount';

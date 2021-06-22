@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -7,6 +7,7 @@ import { Button, TextInput, TopNavbar } from '../../../components';
 import screensIdentifiers from '../../../navigation/screensId';
 import { createAccount } from '../services';
 import { accountActions } from '../../actions.public';
+import styles from './manual.styles';
 
 const CodeAccount = () => {
     const navigation = useNavigation();
@@ -48,7 +49,6 @@ const CodeAccount = () => {
             <TopNavbar
                 title="Account By Code"
                 imageBackOnPress={() => {
-                    // navigator.goBack(props.componentId);
                     navigation.navigate(screensIdentifiers.main);
                 }}
             />
@@ -93,14 +93,7 @@ const CodeAccount = () => {
                         />
                         <View style={styles.bar}></View>
                     </View>
-                    <Text
-                        style={{
-                            fontSize: 15,
-                            color: 'grey',
-                            marginLeft: 10,
-                            marginRight: 10,
-                            marginTop: -20
-                        }}>
+                    <Text style={styles.instruction}>
                         4 - 50 numbers or letters.
                     </Text>
                 </View>
@@ -121,70 +114,5 @@ const CodeAccount = () => {
         </View>
     );
 };
-
-CodeAccount.options = {
-    topBar: {
-        visible: false
-    }
-};
-
-const styles = StyleSheet.create({
-    container: {
-        padding: 20,
-        margin: 10
-    },
-    title: {
-        marginLeft: 5
-    },
-    titleText: {
-        color: '#424c58',
-        fontSize: 32,
-        lineHeight: 45,
-        marginTop: -10
-    },
-    iconBtn: {
-        width: 37,
-        height: 37
-    },
-    top: {
-        marginBottom: 25
-    },
-    middle: {
-        margin: 7,
-        flexDirection: 'row',
-        width: Dimensions.get('window').width * 0.8,
-        justifyContent: 'center'
-    },
-    btn: {
-        alignSelf: 'center'
-    },
-    SListtitle: {
-        fontSize: 16,
-        color: '#424c58',
-        marginLeft: 10,
-        marginRight: 10,
-        marginBottom: -10
-    },
-    listitemInput: {
-        marginBottom: -15,
-        fontSize: 16,
-        marginLeft: 20
-    },
-    bar: {
-        alignSelf: 'center',
-        marginTop: 10,
-        marginBottom: 30,
-        width: '95%',
-        borderBottomColor: 'grey',
-        borderBottomWidth: 1
-    },
-    imgg: {
-        width: 25,
-        height: 25
-    },
-    bottom: {
-        marginTop: '25%'
-    }
-});
 
 export default CodeAccount;

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Text, Image, StyleSheet, View, BackHandler } from 'react-native';
+import { Text, Image, View, BackHandler } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Button, LoadingIndicator } from '../../../components';
@@ -7,6 +7,8 @@ import { fingerprint as registerBiometrics } from '../services/registerMethods';
 import { services, utils } from '../../../global';
 import screensIdentifiers from '../../../navigation/screensId';
 import assets from '../../../assets';
+
+import styles from './biomrtic.styles';
 
 const { getAccessToken } = services;
 const { getEnrollmentEndpoint } = utils;
@@ -40,7 +42,6 @@ const BiometricOption = () => {
     const onPositive = async () => {
         try {
             setLoading(true);
-            // dispatch(alertActions.request());
             const accessToke = await getAccessToken(accId);
             const enrollmentEndpoint = await getEnrollmentEndpoint(accId);
             await registerBiometrics({
@@ -49,13 +50,12 @@ const BiometricOption = () => {
                 accId,
                 ignoreSsl: true
             });
-            // dispatch(alertActions.success());
             setLoading(false);
             navigation.navigate(screensIdentifiers.complete, { serviceName });
         } catch (error) {
+            console.warn(error);
             setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
-            // dispatch(alertActions.failure(error, accId));
             navigation.navigate(screensIdentifiers.main);
         }
     };
@@ -75,7 +75,6 @@ const BiometricOption = () => {
                     safe.
                 </Text>
             </View>
-            {/* <View style={{ margin: 5 }} /> */}
             <View>
                 <Button
                     label="Use Biometric"
@@ -95,34 +94,3 @@ const BiometricOption = () => {
 };
 
 export default BiometricOption;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        backgroundColor: '#fff',
-        paddingRight: 25,
-        paddingLeft: 25
-    },
-    welcome: {
-        fontSize: 38,
-
-        marginLeft: 20,
-        margin: 10,
-        color: 'black'
-    },
-    instructions: {
-        marginLeft: 20,
-        color: 'black',
-        marginBottom: 5,
-        fontSize: 16
-    },
-    image: {
-        width: 150,
-        height: 150
-    },
-    negativeButton: {
-        backgroundColor: 'lightgrey'
-    }
-});

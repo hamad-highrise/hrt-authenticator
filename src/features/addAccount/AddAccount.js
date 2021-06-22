@@ -6,10 +6,10 @@ import {
     NetworkIndicator,
     Topbar,
     Button
-} from '../../../components';
-import { QrScanner } from '../QrScanner';
-import assets from '../../../assets';
-import { useQR } from '../hooks';
+} from '../../components';
+import { QrScanner } from './scanner';
+import assets from '../../assets';
+import { useQR } from './hooks';
 
 const QRScan = () => {
     const {

@@ -87,12 +87,7 @@ async function registerBiometrics({ endpoint, token, ignoreSsl, requestBody }) {
         Authorization: 'Bearer ' + token
     };
     try {
-        return await rnFetch(
-            'PATCH',
-            url,
-            headers,
-            JSON.stringify(requestBody)
-        );
+        return await rnFetch('PATCH', url, headers, requestBody);
     } catch (error) {
         throw new NetworkError({ message: 'REGISTER_BIOMETRICS' });
     }
