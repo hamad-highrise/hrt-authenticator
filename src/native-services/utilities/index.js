@@ -58,6 +58,14 @@ function vibrate() {
     Vibration.vibrate();
 }
 
+async function checkDeviceSecurity() {
+    try {
+        return await utilities.checkDeviceSecurity();
+    } catch (error) {
+        throw new NativeError({ message: 'CHECK_DEVICE_SECURITY' });
+    }
+}
+
 async function getUUID() {
     try {
         const { uuid } = await utilities.getUUID();
@@ -74,7 +82,8 @@ export default {
     setInitiated,
     vibrate,
     getUUID,
-    allowScreenshot
+    allowScreenshot,
+    checkDeviceSecurity
 };
 export {
     preventScreenshot,
@@ -83,5 +92,6 @@ export {
     setInitiated,
     vibrate,
     getUUID,
-    allowScreenshot
+    allowScreenshot,
+    checkDeviceSecurity
 };

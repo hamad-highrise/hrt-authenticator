@@ -1,5 +1,6 @@
 package com.highrise.verify.custom;
 
+import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Build;
@@ -140,6 +141,15 @@ public class CustomUtilities extends ReactContextBaseJavaModule {
         String uuidString = uuid.toString();
         WritableMap result = new WritableNativeMap();
         result.putString("uuid", uuidString);
+        promise.resolve(result);
+    }
+
+    @ReactMethod
+    public void checkDeviceSecurity(Promise promise) {
+        KeyguardManager manager = (KeyguardManager) reactContext.getSystemService(Context.KEYGUARD_SERVICE);
+        final boolean isDeviceSecure = manager.isDeviceSecure();
+        WritableMap result = new WritableNativeMap();
+        result.putBoolean("isDeviceSecure", isDeviceSecure);
         promise.resolve(result);
     }
 
