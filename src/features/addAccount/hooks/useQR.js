@@ -6,6 +6,7 @@ import screensIdentifiers from '../../../navigation/screensId';
 import { accountActions } from '../../actions.public';
 import { vibrate } from '../../../native-services/utilities';
 import registerDevice, { isUnique, createAccount, parser } from '../services';
+import { constants } from '../../../global';
 
 const { tryJSONParser, uriParser } = parser;
 
@@ -74,6 +75,7 @@ function useQR() {
                     try {
                         if (await isUnique(account)) {
                             await createAccount({ account });
+                            console.warn('created');
                             setLoading(false);
                             navigation.navigate(screensIdentifiers.main);
                         } else {

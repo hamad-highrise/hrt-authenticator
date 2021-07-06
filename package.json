@@ -9,7 +9,7 @@
         "test": "jest",
         "lint": "eslint .",
         "alfalah": "react-native run-android --variant alfalahDebug --appIdSuffix alfa",
-        "fidelity": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
+        "fbg": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
     },
     "dependencies": {
         "@react-native-community/masked-view": "^0.1.10",

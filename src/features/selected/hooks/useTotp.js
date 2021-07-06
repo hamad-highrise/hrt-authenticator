@@ -32,10 +32,6 @@ function useTotp() {
         };
     }, []);
 
-    const secret = useMemo(async () => {
-        return await getSecret(accId);
-    }, [accId]);
-
     const timer = (TOTP_PERIOD = DEFAULT_PERIOD) => {
         let epoch = Math.round(new Date().getTime() / MIL_TO_SEC_DIV);
         const epochMod = epoch % TOTP_PERIOD;
@@ -53,8 +49,9 @@ function useTotp() {
         appState.current = nextAppState;
     };
 
-    const updateOtp = useCallback(() => {
+    const updateOtp = useCallback(async () => {
         try {
+            const secret = await getSecret(accId);
             secret && setOtp(totpGenerator(secret));
         } catch (error) {
             setSettingsTab();
