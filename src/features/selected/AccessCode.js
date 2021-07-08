@@ -19,8 +19,8 @@ const { useSelected, useUtils } = hooks;
 
 const AccessCode = (props) => {
     const navigation = useNavigation();
-    const { otp, counter } = useTotp();
     const { tabs, currentTab, setCodeTab, setSettingsTab } = useTabs();
+    const { otp, counter } = useTotp(setSettingsTab);
     const { isConnected } = useUtils();
     const transactionCheck = useTransaction();
     const { removeAccount, loading } = useRemove();
@@ -129,12 +129,12 @@ const AccessCode = (props) => {
             <View style={styles.bottom}>
                 {currentTab === tabs.CODE ? (
                     <CodeTab
+                        onError={setSettingsTab}
                         suspected={account['suspected']}
                         otp={otp}
                         counter={counter}
                     />
                 ) : (
-                    // <SettingsFragment removeAccount={removeAccount} />
                     <SettingsTab removeAccount={removeAccount} />
                 )}
             </View>

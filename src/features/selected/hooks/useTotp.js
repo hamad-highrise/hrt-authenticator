@@ -3,7 +3,6 @@ import { AppState } from 'react-native';
 
 import { totpGenerator, getSecret } from '../services';
 import { hooks } from '../../../global';
-import useTabs from './useTabs';
 
 const DEFAULT_PERIOD = 30;
 const MIL_TO_SEC_DIV = 1000.0;
@@ -11,12 +10,10 @@ const COUNTER_INIT = 0;
 
 const { useSelected } = hooks;
 
-function useTotp() {
+function useTotp(onError) {
     const { id: accId } = useSelected();
     const [counter, setCounter] = useState(COUNTER_INIT);
     const [otp, setOtp] = useState('######');
-
-    const { setSettingsTab } = useTabs();
 
     const appState = useRef(AppState.currentState);
     const intervalRef = useRef();
@@ -54,7 +51,7 @@ function useTotp() {
             const secret = await getSecret(accId);
             secret && setOtp(totpGenerator(secret));
         } catch (error) {
-            setSettingsTab();
+            onError();
             alert(
                 'Account have invalid secret. Delete the account and enter a valid Secret.'
             );
