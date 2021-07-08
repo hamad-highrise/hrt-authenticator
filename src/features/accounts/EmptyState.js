@@ -1,6 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, Text, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import config from 'react-native-config';
 
 import { Button } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
@@ -19,7 +20,14 @@ const EmptyState = () => {
                     justifyContent: 'flex-end'
                 }}>
                 <View style={styles.logoContainer}>
-                    <Image style={styles.logo} source={assets.images.logo} />
+                    <Image
+                        style={styles.logo}
+                        source={
+                            config.PRODUCT_FLAVOR === 'alfalah'
+                                ? require('../../assets/alfalah/images/alfalah-logo.png')
+                                : assets.images.logo
+                        }
+                    />
                 </View>
             </View>
             <View
