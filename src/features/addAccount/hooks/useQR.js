@@ -51,6 +51,7 @@ function useQR() {
                               )
                             : alert('Invalid QR');
                     } catch (error) {
+                        alert(error.displayMessage);
                         setLoading(false);
                         navigation.navigate(screensIdentifiers.main);
                     }

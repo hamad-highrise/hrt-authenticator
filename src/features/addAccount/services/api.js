@@ -1,4 +1,5 @@
 import { utils, errors } from '../../../global';
+import { CertsError } from '../../../global/errors';
 
 const { getFetchInstance } = utils;
 const { NetworkError } = errors;
@@ -12,7 +13,10 @@ async function getDetails({ endpoint, ignoreSsl }) {
         const result = await rnFetch('GET', endpoint, headers);
         return result;
     } catch (error) {
-        throw new NetworkError({ message: 'DETAILS_FETCH' });
+        const errCode = error?.message?.split(':')[0];
+        throw errCode === 'java.security.cert.CertPathValidatorException'
+            ? new CertsError({ message: 'DETAILS_FETCH' })
+            : new NetworkError({ message: 'DETAILS_FETCH' });
     }
 }
 

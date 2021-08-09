@@ -11,6 +11,7 @@ export default async function registerDevice(scanned) {
     const isValidMmfaData = helpers.checkQrValidity(scanned);
     if (isValidMmfaData) {
         let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options) || false;
+
         try {
             // Get details for the account
             const details = await getDetails({
@@ -51,12 +52,14 @@ export default async function registerDevice(scanned) {
                     tokenEndpoint: details.endpoints.token
                 }
             });
+
             await registerMethods.userPresence({
                 endpoint: details.endpoints.enrollment,
                 token: token.unsafeToken,
                 accId,
                 ignoreSsl
             });
+
             return {
                 serviceName: details.serviceName,
                 accId,
