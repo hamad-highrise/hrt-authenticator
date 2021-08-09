@@ -75,7 +75,6 @@ function useQR() {
                     try {
                         if (await isUnique(account)) {
                             await createAccount({ account });
-                            console.warn('created');
                             setLoading(false);
                             navigation.navigate(screensIdentifiers.main);
                         } else {

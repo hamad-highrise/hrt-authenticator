@@ -53,7 +53,6 @@ const BiometricOption = () => {
             setLoading(false);
             navigation.navigate(screensIdentifiers.complete, { serviceName });
         } catch (error) {
-            console.warn(error);
             setLoading(false);
             alert('Unable to register biometrics. Try adding account again.');
             navigation.navigate(screensIdentifiers.main);

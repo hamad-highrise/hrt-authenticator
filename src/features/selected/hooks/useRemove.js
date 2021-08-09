@@ -5,6 +5,8 @@ import { useDispatch } from 'react-redux';
 
 import { hooks, services } from '../../../global';
 import { accountActions } from '../../actions.public';
+import { errActions } from '../../errorUtils';
+
 // import { accountActions } from '../../accounts';
 
 const { useSelected } = hooks;
@@ -50,7 +52,7 @@ function useRemove() {
     const removeAccountFromDB = async () => {
         try {
             await services.removeAccountFromDB(accId);
-            dispatch(accountActions.removeAccount(selected['id']));
+            dispatch(accountActions.removeAccount(accId));
         } catch (error) {
             dispatch(errActions.add({ accId, error: error }));
         } finally {
