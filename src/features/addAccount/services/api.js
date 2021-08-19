@@ -1,3 +1,4 @@
+import Config from 'react-native-config';
 import { utils, errors } from '../../../global';
 import { CertsError } from '../../../global/errors';
 
@@ -7,7 +8,8 @@ const { NetworkError } = errors;
 async function getDetails({ endpoint, ignoreSsl }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
     const headers = {
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'user-agent': Config.APPLICATION_ID
     };
     try {
         const result = await rnFetch('GET', endpoint, headers);
@@ -25,7 +27,8 @@ async function getToken({ endpoint, formEncodedData, ignoreSsl }) {
 
     const headers = {
         Accept: 'application/json',
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/x-www-form-urlencoded',
+        'user-agent': Config.APPLICATION_ID
     };
     try {
         const result = await rnFetch(
@@ -46,7 +49,8 @@ async function registerTotp({ endpoint, token, ignoreSsl }) {
         const result = await rnFetch('GET', endpoint, {
             Accept: 'application/json',
             'Content-Type': 'application/json',
-            Authorization: `Bearer ${token}`
+            Authorization: `Bearer ${token}`,
+            'user-agent': Config.APPLICATION_ID
         });
         return result;
     } catch (error) {
@@ -69,7 +73,8 @@ async function registerUserPresence({
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
+        'user-agent': Config.APPLICATION_ID
     };
     try {
         return await rnFetch('PATCH', url, headers, requestBody);
@@ -88,7 +93,8 @@ async function registerBiometrics({ endpoint, token, ignoreSsl, requestBody }) {
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
+        'user-agent': Config.APPLICATION_ID
     };
     try {
         return await rnFetch('PATCH', url, headers, requestBody);

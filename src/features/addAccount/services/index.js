@@ -1,9 +1,12 @@
+import CookieManager from '@react-native-cookies/cookies';
+
 import helpers from '../../../helpers';
 import getDetails from './getDetails';
 import getToken from './getToken';
 import createAccount from './createAccount';
 import registerMethods from './registerMethods';
 import { constants } from '../../../global';
+import URL from 'url-parse';
 
 const result = { serviceName: '', accId: '', methods: [], type: '' };
 
@@ -13,6 +16,10 @@ export default async function registerDevice(scanned) {
         let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options) || false;
 
         try {
+            const { hostname } = new URL(scanned['details_url']);
+
+            const cleared = await CookieManager.clearAll();
+
             // Get details for the account
             const details = await getDetails({
                 endpoint: scanned?.['details_url'],
@@ -20,6 +27,7 @@ export default async function registerDevice(scanned) {
             });
 
             // Fetch token
+
             const token = await getToken({
                 endpoint: details.endpoints.token,
                 ignoreSsl,
@@ -37,7 +45,7 @@ export default async function registerDevice(scanned) {
             const accId = await createAccount({
                 account: {
                     name: token.accountName,
-                    issuer: details.serviceName,
+                    issuer: details?.serviceName || hostname,
                     secret: totp.secretKey,
                     type: constants.ACCOUNT_TYPES.SAM,
                     ignoreSsl,

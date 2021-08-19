@@ -28,12 +28,14 @@ async function userPresence({ endpoint, token, accId, ignoreSsl }) {
                 }
             ]
         });
+
         const result = await api.registerUserPresence({
             endpoint,
             token,
             ignoreSsl,
             requestBody: body
         });
+
         const { status } = result.respInfo;
         if ((status >= 200 && status < 300) || status === 304) {
             await utils.addMethod({

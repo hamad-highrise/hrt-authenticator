@@ -1,3 +1,4 @@
+import Config from 'react-native-config';
 import { NetworkError, SAMError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
@@ -6,7 +7,8 @@ async function getPendingTransactions({ endpoint, token, ignoreSsl }) {
     const headers = {
         Accept: 'application/json',
         'Content-Type': 'application/json',
-        Authorization: 'Bearer ' + token
+        Authorization: 'Bearer ' + token,
+        'user-agent': Config.APPLICATION_ID
     };
     try {
         const result = await rnFetch('GET', endpoint, headers);
