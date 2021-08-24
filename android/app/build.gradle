@@ -138,8 +138,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
-        versionCode 35
-        versionName "1.5.1"
+        versionCode 45
+        versionName "1.5.3"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.highrise.verify"
     }

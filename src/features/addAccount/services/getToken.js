@@ -37,7 +37,6 @@ async function getToken({ endpoint, code, ignoreSsl }) {
             accountName: token['display_name']
         };
     } catch (error) {
-        console.warn(error);
         throw error;
     }
 }

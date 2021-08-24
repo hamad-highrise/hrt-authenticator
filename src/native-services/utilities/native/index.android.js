@@ -29,7 +29,6 @@ async function isInitiated() {
         const result = await Utilities.isInitiated();
         return Promise.resolve(result);
     } catch (error) {
-        console.warn(error);
         return Promise.reject(error);
     }
 }

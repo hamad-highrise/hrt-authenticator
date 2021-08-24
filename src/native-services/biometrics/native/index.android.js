@@ -22,7 +22,6 @@ const displaySimplePrompt = async ({
         });
         return Promise.resolve(result);
     } catch (error) {
-        console.warn(error);
         return Promise.reject(error);
     }
 };
@@ -63,5 +62,3 @@ export default {
     createBiomerticKey,
     signChallengeWithBiometric
 };
-
-

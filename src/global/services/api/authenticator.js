@@ -1,10 +1,12 @@
+import Config from 'react-native-config';
 import { NetworkError } from '../../errors';
 import { getFetchInstance } from '../../util';
 
 async function getRegisteredAuthenticators({ endpoint, token, ignoreSsl }) {
     const headers = {
         Authorization: 'Bearer ' + token,
-        Accept: 'application/json'
+        Accept: 'application/json',
+        'user-agent': Config.APPLICATION_ID
     };
     const rnFetch = getFetchInstance({ ignoreSsl });
     const requestUrl =

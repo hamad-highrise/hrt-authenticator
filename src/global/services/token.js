@@ -1,8 +1,4 @@
-import {
-    getToken as getTokenFromDb,
-    removeAccountFromDB,
-    updateTokenDb
-} from './db';
+import { getToken as getTokenFromDb, updateTokenDb } from './db';
 import { getRefreshedToken } from './api';
 import { cipher } from '../../native-services';
 import {
@@ -108,7 +104,6 @@ async function getAccessToken(accId) {
             }
         }
     } catch (error) {
-        console.warn(error);
         throw error;
     }
 }
