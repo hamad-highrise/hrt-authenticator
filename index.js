@@ -3,8 +3,9 @@ import { AppRegistry } from 'react-native';
 
 import App from './src/App';
 import { name as appName } from './app.json';
-import { utilities } from './src/native-services';
+// import { utilities } from './src/native-services';
 
-utilities.preventScreenshot();
+// utilities.preventScreenshot();
+console.warn('Test');
 
 AppRegistry.registerComponent(appName, () => App);

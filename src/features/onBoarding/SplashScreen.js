@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { StyleSheet, View, Image } from 'react-native';
+import { StyleSheet, View, Image, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
         margin: 10,
         fontWeight: 'bold',
         color: '#424c58',
-        fontFamily: 'sans-serif-condensed'
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
     },
     instructions: {
         textAlign: 'center',
@@ -88,16 +88,14 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: 6,
-        fontFamily: 'sans-serif-condensed'
-    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
     Subinstructions: {
         textAlign: 'center',
         color: '#0f62fe',
         marginBottom: 10,
         fontSize: 12,
         letterSpacing: 2,
-        fontFamily: 'sans-serif-condensed'
-    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
     image: {
         width: 250,
         height: 250

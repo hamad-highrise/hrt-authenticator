@@ -12,11 +12,13 @@
         "fbg": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
     },
     "dependencies": {
+        "@react-native-community/cli": "^5.0.1",
         "@react-native-community/masked-view": "^0.1.10",
         "@react-native-community/netinfo": "^6.0.0",
         "@react-native-cookies/cookies": "^6.0.8",
         "@react-navigation/native": "^5.9.4",
         "@react-navigation/stack": "^5.14.4",
+        "install": "^0.13.0",
         "jssha": "^3.2.0",
         "prop-types": "^15.7.2",
         "react": "16.13.1",
