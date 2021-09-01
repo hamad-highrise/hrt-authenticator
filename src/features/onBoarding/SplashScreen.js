@@ -12,6 +12,7 @@ import screensIdentifiers from '../../navigation/screensId';
 import { Typography } from '../../theme';
 import { values } from '../../global';
 import assets from '../../assets';
+import { NativeModules } from 'react-native';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -21,6 +22,16 @@ const Splash = (props) => {
     const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
         init();
+       
+
+(async () => {
+    try {
+        await NativeModules.Utilities.setInitiated();
+        console.warn(await NativeModules.Utilities.isInitiated());
+    } catch (error) {
+        console.warn(error);
+    }
+})();
     }, []);
 
     const init = async () => {
