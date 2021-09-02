@@ -12,7 +12,6 @@ import screensIdentifiers from '../../navigation/screensId';
 import { Typography } from '../../theme';
 import { values } from '../../global';
 import assets from '../../assets';
-import { NativeModules } from 'react-native';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -22,20 +21,11 @@ const Splash = (props) => {
     const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
         init();
-       
-
-(async () => {
-    try {
-        await NativeModules.Utilities.setInitiated();
-        console.warn(await NativeModules.Utilities.isInitiated());
-    } catch (error) {
-        console.warn(error);
-    }
-})();
     }, []);
 
     const init = async () => {
         if (!(await (await utilities.getDeviceInfo()).rooted)) {
+            console.warn('not rooted');
             if (await utilities.isInitiated()) {
                 dispatch(accountActions.initiateAccounts());
             } else {
@@ -43,6 +33,7 @@ const Splash = (props) => {
                     await initiateDb();
                     await setInitiated();
                 } catch (error) {
+                    console.warn('error', error)
                     alert('Error while initiating application.');
                 }
                 setTimeout(() => {
@@ -57,8 +48,10 @@ const Splash = (props) => {
     };
 
     useEffect(() => {
+        console.warn(accounts, 'okay')
         setTimeout(() => {
             if (accounts !== null) {
+               
                 navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);
@@ -99,14 +92,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: 6,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
+    },
     Subinstructions: {
         textAlign: 'center',
         color: '#0f62fe',
         marginBottom: 10,
         fontSize: 12,
         letterSpacing: 2,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
+    },
     image: {
         width: 250,
         height: 250

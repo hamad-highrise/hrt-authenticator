@@ -151,8 +151,7 @@
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
 				B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */,
-				B66AE57E26DF8BB000DD63C3 /* Utilities.swift */,
-				B66AE58026DF8BF900DD63C3 /* Utilities.m */,
+				B66AE58326DFAB4B00DD63C3 /* Utilities */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -201,6 +200,15 @@
 				2D02E4901E0B4A5D006451C7 /* verify-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B66AE58326DFAB4B00DD63C3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B66AE57E26DF8BB000DD63C3 /* Utilities.swift */,
+				B66AE58026DF8BF900DD63C3 /* Utilities.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

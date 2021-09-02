@@ -10,9 +10,11 @@ function initiateAccounts() {
         //fetch all accounts
         try {
             const accounts = await queries.getAll();
+            console.warn(accounts);
             dispatch({ type: constants.INITIATE, payload: { accounts } });
             dispatch(utilsActions.success());
         } catch (error) {
+            console.warn(error, 'test')
             dispatch(utilsActions.failure());
         }
     };

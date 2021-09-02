@@ -1,4 +1,4 @@
-import utilities from './native/index.android';
+import utilities from './native';
 import { Vibration } from 'react-native';
 import { NativeError } from '../../global/errors';
 
@@ -32,6 +32,7 @@ async function getDeviceInfo() {
             rooted
         };
     } catch (error) {
+        console.warn(error);
         throw new NativeError({ message: 'DEVICE_DETAILS_ERROR' });
     }
 }
@@ -39,6 +40,7 @@ async function getDeviceInfo() {
 async function isInitiated() {
     try {
         const { initiated } = await utilities.isInitiated();
+        console.warn('is initiated', initiated);
         return initiated;
     } catch (error) {
         throw new NativeError({ message: 'IS_INITIATED_ERROR' });
