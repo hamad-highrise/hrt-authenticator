@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, SafeAreaView } from 'react-native';
 
 import {
     LoadingIndicator,
@@ -27,22 +27,24 @@ const QRScan = () => {
                 <LoadingIndicator show={loading} />
             ) : (
                 <>
-                    <Topbar
-                        title="Scan QR Code"
-                        topbarRight={{
-                            visible: true,
-                            onPress: navigation.goBack,
-                            image: {
-                                source: assets.icons.cross,
-                                width: '50%',
-                                height: '50%'
-                            }
-                        }}
-                    />
-                    {!isConnected && <NetworkIndicator />}
-                    {isFocused && (
-                        <QrScanner onBarCodeRead={barcodeRecognized} />
-                    )}
+                    <SafeAreaView style={{ flex: 1 }}>
+                        <Topbar
+                            title="Scan QR Code"
+                            topbarRight={{
+                                visible: true,
+                                onPress: navigation.goBack,
+                                image: {
+                                    source: assets.icons.cross,
+                                    width: '50%',
+                                    height: '50%'
+                                }
+                            }}
+                        />
+                        {!isConnected && <NetworkIndicator />}
+                        {isFocused && (
+                            <QrScanner onBarCodeRead={barcodeRecognized} />
+                        )}
+                    </SafeAreaView>
                 </>
             )}
             {!loading && (

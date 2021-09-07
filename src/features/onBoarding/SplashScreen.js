@@ -25,7 +25,6 @@ const Splash = (props) => {
 
     const init = async () => {
         if (!(await (await utilities.getDeviceInfo()).rooted)) {
-            console.warn('not rooted');
             if (await utilities.isInitiated()) {
                 dispatch(accountActions.initiateAccounts());
             } else {
@@ -33,7 +32,7 @@ const Splash = (props) => {
                     await initiateDb();
                     await setInitiated();
                 } catch (error) {
-                    console.warn('error', error)
+                   
                     alert('Error while initiating application.');
                 }
                 setTimeout(() => {
@@ -48,10 +47,8 @@ const Splash = (props) => {
     };
 
     useEffect(() => {
-        console.warn(accounts, 'okay')
         setTimeout(() => {
             if (accounts !== null) {
-               
                 navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);

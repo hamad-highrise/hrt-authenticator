@@ -56,7 +56,7 @@ class Utilities: NSObject {
   
   @objc
   func preventScreenshot() -> Void {
-    
+  
   }
   
   @objc

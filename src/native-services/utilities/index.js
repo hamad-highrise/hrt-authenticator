@@ -40,7 +40,6 @@ async function getDeviceInfo() {
 async function isInitiated() {
     try {
         const { initiated } = await utilities.isInitiated();
-        console.warn('is initiated', initiated);
         return initiated;
     } catch (error) {
         throw new NativeError({ message: 'IS_INITIATED_ERROR' });
