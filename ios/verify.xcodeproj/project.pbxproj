@@ -20,13 +20,15 @@
 		7BA89AFEFCAE867266658724 /* libPods-verify-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */; };
 		815BD72F285CCB5855D0EA3F /* libPods-verify-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5BBA8E1C63D174E11E4303 /* libPods-verify-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B613108C26E6195900BE3EA0 /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B613108B26E6195900BE3EA0 /* GenericPasswordConvertible.swift */; };
-		B613108E26E6199B00BE3EA0 /* GenericPasswordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B613108D26E6199B00BE3EA0 /* GenericPasswordStore.swift */; };
-		B613109026E61A1900BE3EA0 /* KeyStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B613108F26E61A1900BE3EA0 /* KeyStoreError.swift */; };
-		B63CE99626E21F830058B880 /* RNSecure.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B0025426E0F10400C6ECCC /* RNSecure.m */; };
+		B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = B62B679926E8ABC0009A86A6 /* RNCipher.m */; };
+		B657FF7526E8A8F9009FB342 /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */; };
+		B657FF7626E8A8F9009FB342 /* SecKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */; };
+		B657FF7726E8A8F9009FB342 /* KeyStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */; };
+		B657FF7826E8A8F9009FB342 /* SecKeyConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */; };
+		B657FF7926E8A8F9009FB342 /* GenericPasswordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */; };
 		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
 		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
-		B6D88A9D26E0F39600A0EE61 /* RNSecure.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B0025526E0F13400C6ECCC /* RNSecure.swift */; };
+		B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62B679A26E8ABCD009A86A6 /* RNCipher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,14 +69,16 @@
 		8FC1AED476BD1CAEA3BCCC37 /* Pods-verify-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		93CAB161E0D4AEE3B982C22F /* Pods-verify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.release.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.release.xcconfig"; sourceTree = "<group>"; };
 		9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B613108B26E6195900BE3EA0 /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordConvertible.swift; sourceTree = "<group>"; };
-		B613108D26E6199B00BE3EA0 /* GenericPasswordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordStore.swift; sourceTree = "<group>"; };
-		B613108F26E61A1900BE3EA0 /* KeyStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStoreError.swift; sourceTree = "<group>"; };
+		B62B679926E8ABC0009A86A6 /* RNCipher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCipher.m; sourceTree = "<group>"; };
+		B62B679A26E8ABCD009A86A6 /* RNCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNCipher.swift; sourceTree = "<group>"; };
+		B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericPasswordConvertible.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/GenericPasswordConvertible.swift; sourceTree = "<group>"; };
+		B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecKeyStore.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/SecKeyStore.swift; sourceTree = "<group>"; };
+		B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyStoreError.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/KeyStoreError.swift; sourceTree = "<group>"; };
+		B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecKeyConvertible.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/SecKeyConvertible.swift; sourceTree = "<group>"; };
+		B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericPasswordStore.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/GenericPasswordStore.swift; sourceTree = "<group>"; };
 		B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verify-Bridging-Header.h"; sourceTree = "<group>"; };
 		B66AE57E26DF8BB000DD63C3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B66AE58026DF8BF900DD63C3 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
-		B6B0025426E0F10400C6ECCC /* RNSecure.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNSecure.m; sourceTree = "<group>"; };
-		B6B0025526E0F13400C6ECCC /* RNSecure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNSecure.swift; sourceTree = "<group>"; };
 		BBDDC3F62288518E925A66EB /* libPods-verify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91B654049700613F97288C1 /* Pods-verify-verifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE91FFF9A3C08A20664CC425 /* libPods-verify-verifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-verifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -154,6 +158,7 @@
 		13B07FAE1A68108700A75B9A /* verify */ = {
 			isa = PBXGroup;
 			children = (
+				B657FF6F26E8A8C7009FB342 /* KeyStore */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -162,7 +167,8 @@
 				13B07FB71A68108700A75B9A /* main.m */,
 				B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */,
 				B66AE58326DFAB4B00DD63C3 /* Utilities */,
-				B613109126E61A3A00BE3EA0 /* RNSecure */,
+				B62B679926E8ABC0009A86A6 /* RNCipher.m */,
+				B62B679A26E8ABCD009A86A6 /* RNCipher.swift */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -213,16 +219,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B613109126E61A3A00BE3EA0 /* RNSecure */ = {
+		B657FF6F26E8A8C7009FB342 /* KeyStore */ = {
 			isa = PBXGroup;
 			children = (
-				B6B0025426E0F10400C6ECCC /* RNSecure.m */,
-				B6B0025526E0F13400C6ECCC /* RNSecure.swift */,
-				B613108B26E6195900BE3EA0 /* GenericPasswordConvertible.swift */,
-				B613108D26E6199B00BE3EA0 /* GenericPasswordStore.swift */,
-				B613108F26E61A1900BE3EA0 /* KeyStoreError.swift */,
+				B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */,
+				B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */,
+				B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */,
+				B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */,
+				B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */,
 			);
-			name = RNSecure;
+			name = KeyStore;
 			sourceTree = "<group>";
 		};
 		B66AE58326DFAB4B00DD63C3 /* Utilities */ = {
@@ -642,14 +648,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B6D88A9D26E0F39600A0EE61 /* RNSecure.swift in Sources */,
 				B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */,
-				B613108E26E6199B00BE3EA0 /* GenericPasswordStore.swift in Sources */,
-				B63CE99626E21F830058B880 /* RNSecure.m in Sources */,
+				B657FF7626E8A8F9009FB342 /* SecKeyStore.swift in Sources */,
+				B657FF7826E8A8F9009FB342 /* SecKeyConvertible.swift in Sources */,
+				B657FF7926E8A8F9009FB342 /* GenericPasswordStore.swift in Sources */,
+				B657FF7526E8A8F9009FB342 /* GenericPasswordConvertible.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				B613108C26E6195900BE3EA0 /* GenericPasswordConvertible.swift in Sources */,
-				B613109026E61A1900BE3EA0 /* KeyStoreError.swift in Sources */,
+				B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */,
+				B657FF7726E8A8F9009FB342 /* KeyStoreError.swift in Sources */,
+				B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */,
 				B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
