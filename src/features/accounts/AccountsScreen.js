@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { View } from 'react-native';
+import { SafeAreaView, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { Topbar, NetworkIndicator } from '../../components';
@@ -24,7 +24,7 @@ const Main = () => {
     }, [JSON.stringify(navigation)]);
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             {accounts?.length ? (
                 <Topbar
                     title={values.APP_NAME}
@@ -53,7 +53,7 @@ const Main = () => {
             ) : (
                 <EmptyState />
             )}
-        </View>
+        </SafeAreaView>
     );
 };
 

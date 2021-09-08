@@ -20,9 +20,15 @@
 		7BA89AFEFCAE867266658724 /* libPods-verify-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */; };
 		815BD72F285CCB5855D0EA3F /* libPods-verify-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5BBA8E1C63D174E11E4303 /* libPods-verify-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		B6B8E78526DE4CEA00C2E274 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6B8E78426DE4CEA00C2E274 /* Utilities.swift */; };
-		B6B8E78726DE4F5800C2E274 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B6B8E78626DE4F5800C2E274 /* Utilities.m */; };
-		B6CA5ED726DE2355008B570C /* forcebridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6CA5ED626DE2355008B570C /* forcebridge.swift */; };
+		B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = B62B679926E8ABC0009A86A6 /* RNCipher.m */; };
+		B657FF7526E8A8F9009FB342 /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */; };
+		B657FF7626E8A8F9009FB342 /* SecKeyStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */; };
+		B657FF7726E8A8F9009FB342 /* KeyStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */; };
+		B657FF7826E8A8F9009FB342 /* SecKeyConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */; };
+		B657FF7926E8A8F9009FB342 /* GenericPasswordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */; };
+		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
+		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
+		B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62B679A26E8ABCD009A86A6 /* RNCipher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,10 +69,16 @@
 		8FC1AED476BD1CAEA3BCCC37 /* Pods-verify-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		93CAB161E0D4AEE3B982C22F /* Pods-verify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.release.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.release.xcconfig"; sourceTree = "<group>"; };
 		9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		B6B8E78426DE4CEA00C2E274 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
-		B6B8E78626DE4F5800C2E274 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
-		B6CA5ED526DE2355008B570C /* verify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verify-Bridging-Header.h"; sourceTree = "<group>"; };
-		B6CA5ED626DE2355008B570C /* forcebridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = forcebridge.swift; sourceTree = "<group>"; };
+		B62B679926E8ABC0009A86A6 /* RNCipher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCipher.m; sourceTree = "<group>"; };
+		B62B679A26E8ABCD009A86A6 /* RNCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNCipher.swift; sourceTree = "<group>"; };
+		B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericPasswordConvertible.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/GenericPasswordConvertible.swift; sourceTree = "<group>"; };
+		B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecKeyStore.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/SecKeyStore.swift; sourceTree = "<group>"; };
+		B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = KeyStoreError.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/KeyStoreError.swift; sourceTree = "<group>"; };
+		B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SecKeyConvertible.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/SecKeyConvertible.swift; sourceTree = "<group>"; };
+		B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GenericPasswordStore.swift; path = ../../../Downloads/StoringCryptoKitKeysInTheKeychain/Storage/GenericPasswordStore.swift; sourceTree = "<group>"; };
+		B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verify-Bridging-Header.h"; sourceTree = "<group>"; };
+		B66AE57E26DF8BB000DD63C3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		B66AE58026DF8BF900DD63C3 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		BBDDC3F62288518E925A66EB /* libPods-verify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D91B654049700613F97288C1 /* Pods-verify-verifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.debug.xcconfig"; sourceTree = "<group>"; };
 		DE91FFF9A3C08A20664CC425 /* libPods-verify-verifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-verifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -146,13 +158,17 @@
 		13B07FAE1A68108700A75B9A /* verify */ = {
 			isa = PBXGroup;
 			children = (
-				B6B8E78326DE4C4100C2E274 /* utilities */,
+				B657FF6F26E8A8C7009FB342 /* KeyStore */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */,
+				B66AE58326DFAB4B00DD63C3 /* Utilities */,
+				B62B679926E8ABC0009A86A6 /* RNCipher.m */,
+				B62B679A26E8ABCD009A86A6 /* RNCipher.swift */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -180,14 +196,12 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				B6CA5ED626DE2355008B570C /* forcebridge.swift */,
 				13B07FAE1A68108700A75B9A /* verify */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* verifyTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				054685BEA2EDAC8668FB66D7 /* Pods */,
-				B6CA5ED526DE2355008B570C /* verify-Bridging-Header.h */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -205,13 +219,25 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		B6B8E78326DE4C4100C2E274 /* utilities */ = {
+		B657FF6F26E8A8C7009FB342 /* KeyStore */ = {
 			isa = PBXGroup;
 			children = (
-				B6B8E78426DE4CEA00C2E274 /* Utilities.swift */,
-				B6B8E78626DE4F5800C2E274 /* Utilities.m */,
+				B657FF7026E8A8F9009FB342 /* GenericPasswordConvertible.swift */,
+				B657FF7426E8A8F9009FB342 /* GenericPasswordStore.swift */,
+				B657FF7226E8A8F9009FB342 /* KeyStoreError.swift */,
+				B657FF7326E8A8F9009FB342 /* SecKeyConvertible.swift */,
+				B657FF7126E8A8F9009FB342 /* SecKeyStore.swift */,
 			);
-			path = utilities;
+			name = KeyStore;
+			sourceTree = "<group>";
+		};
+		B66AE58326DFAB4B00DD63C3 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				B66AE57E26DF8BB000DD63C3 /* Utilities.swift */,
+				B66AE58026DF8BF900DD63C3 /* Utilities.m */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -305,7 +331,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1250;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -622,11 +648,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */,
+				B657FF7626E8A8F9009FB342 /* SecKeyStore.swift in Sources */,
+				B657FF7826E8A8F9009FB342 /* SecKeyConvertible.swift in Sources */,
+				B657FF7926E8A8F9009FB342 /* GenericPasswordStore.swift in Sources */,
+				B657FF7526E8A8F9009FB342 /* GenericPasswordConvertible.swift in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
-				B6CA5ED726DE2355008B570C /* forcebridge.swift in Sources */,
-				B6B8E78526DE4CEA00C2E274 /* Utilities.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
-				B6B8E78726DE4F5800C2E274 /* Utilities.m in Sources */,
+				B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */,
+				B657FF7726E8A8F9009FB342 /* KeyStoreError.swift in Sources */,
+				B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */,
+				B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -674,7 +706,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = verifyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -695,7 +727,7 @@
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = verifyTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"-ObjC",
@@ -778,7 +810,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -806,7 +838,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 10.0;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -833,7 +865,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Debug;
 		};
@@ -860,7 +892,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
-				TVOS_DEPLOYMENT_TARGET = 10.1;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
 			};
 			name = Release;
 		};
@@ -887,6 +919,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -911,7 +944,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -947,6 +980,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -964,7 +998,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -973,6 +1007,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;

@@ -1,5 +1,12 @@
 import React, { useRef } from 'react';
-import { View, Text, Animated, Easing, Pressable } from 'react-native';
+import {
+    View,
+    Text,
+    Animated,
+    Easing,
+    Pressable,
+    SafeAreaView
+} from 'react-native';
 import PropTypes from 'prop-types';
 import { useNavigation } from '@react-navigation/native';
 
@@ -48,7 +55,7 @@ const AccessCode = (props) => {
     return loading && account['type'] === constants.ACCOUNT_TYPES.SAM ? (
         <LoadingIndicator show={loading} />
     ) : (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Topbar
                 title="Access Code"
                 topbarLeft={{
@@ -140,7 +147,7 @@ const AccessCode = (props) => {
             </View>
 
             <View style={{ margin: 10 }}></View>
-        </View>
+        </SafeAreaView>
     );
 };
 

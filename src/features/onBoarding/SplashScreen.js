@@ -32,6 +32,7 @@ const Splash = (props) => {
                     await initiateDb();
                     await setInitiated();
                 } catch (error) {
+                   
                     alert('Error while initiating application.');
                 }
                 setTimeout(() => {
@@ -88,14 +89,16 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textTransform: 'uppercase',
         letterSpacing: 6,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
+    },
     Subinstructions: {
         textAlign: 'center',
         color: '#0f62fe',
         marginBottom: 10,
         fontSize: 12,
         letterSpacing: 2,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
+    },
     image: {
         width: 250,
         height: 250
