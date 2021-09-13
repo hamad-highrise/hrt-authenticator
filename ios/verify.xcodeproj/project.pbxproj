@@ -20,6 +20,10 @@
 		7BA89AFEFCAE867266658724 /* libPods-verify-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */; };
 		815BD72F285CCB5855D0EA3F /* libPods-verify-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6F5BBA8E1C63D174E11E4303 /* libPods-verify-tvOS.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		B605BFC226EB3C97000312E6 /* KeyGenError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605BFC126EB3C97000312E6 /* KeyGenError.swift */; };
+		B605BFCB26EB7AE5000312E6 /* RNBiometrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605BFCA26EB7AE5000312E6 /* RNBiometrics.swift */; };
+		B605BFCD26EB7AF3000312E6 /* BiometricsError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B605BFCC26EB7AF3000312E6 /* BiometricsError.swift */; };
+		B605BFCF26EB7B05000312E6 /* RNBiometrics.m in Sources */ = {isa = PBXBuildFile; fileRef = B605BFCE26EB7B05000312E6 /* RNBiometrics.m */; };
 		B6148B8A26E8E8040008F06D /* RNKeyGen.m in Sources */ = {isa = PBXBuildFile; fileRef = B6148B8926E8E7FC0008F06D /* RNKeyGen.m */; };
 		B6148B8B26E8E82F0008F06D /* RNKeyGen.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6148B8826E8E7E90008F06D /* RNKeyGen.swift */; };
 		B6148B9926E9FF0B0008F06D /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6148B9826E9FF0B0008F06D /* GenericPasswordConvertible.swift */; };
@@ -69,6 +73,10 @@
 		8FC1AED476BD1CAEA3BCCC37 /* Pods-verify-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		93CAB161E0D4AEE3B982C22F /* Pods-verify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.release.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.release.xcconfig"; sourceTree = "<group>"; };
 		9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B605BFC126EB3C97000312E6 /* KeyGenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGenError.swift; sourceTree = "<group>"; };
+		B605BFCA26EB7AE5000312E6 /* RNBiometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNBiometrics.swift; sourceTree = "<group>"; };
+		B605BFCC26EB7AF3000312E6 /* BiometricsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsError.swift; sourceTree = "<group>"; };
+		B605BFCE26EB7B05000312E6 /* RNBiometrics.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNBiometrics.m; sourceTree = "<group>"; };
 		B6148B8826E8E7E90008F06D /* RNKeyGen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNKeyGen.swift; sourceTree = "<group>"; };
 		B6148B8926E8E7FC0008F06D /* RNKeyGen.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNKeyGen.m; sourceTree = "<group>"; };
 		B6148B9826E9FF0B0008F06D /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordConvertible.swift; sourceTree = "<group>"; };
@@ -167,9 +175,9 @@
 				B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */,
 				B66AE58326DFAB4B00DD63C3 /* Utilities */,
 				B6148B8726E8E73C0008F06D /* RNCipher */,
-				B6148B8826E8E7E90008F06D /* RNKeyGen.swift */,
-				B6148B8926E8E7FC0008F06D /* RNKeyGen.m */,
+				B605BFC326EB3F40000312E6 /* RNKeyGen */,
 				B6148B9E26EA01B60008F06D /* KeyStore */,
+				B605BFD026EB7B13000312E6 /* RNBiometrics */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -218,6 +226,26 @@
 				2D02E4901E0B4A5D006451C7 /* verify-tvOSTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		B605BFC326EB3F40000312E6 /* RNKeyGen */ = {
+			isa = PBXGroup;
+			children = (
+				B6148B8826E8E7E90008F06D /* RNKeyGen.swift */,
+				B6148B8926E8E7FC0008F06D /* RNKeyGen.m */,
+				B605BFC126EB3C97000312E6 /* KeyGenError.swift */,
+			);
+			name = RNKeyGen;
+			sourceTree = "<group>";
+		};
+		B605BFD026EB7B13000312E6 /* RNBiometrics */ = {
+			isa = PBXGroup;
+			children = (
+				B605BFCA26EB7AE5000312E6 /* RNBiometrics.swift */,
+				B605BFCC26EB7AF3000312E6 /* BiometricsError.swift */,
+				B605BFCE26EB7B05000312E6 /* RNBiometrics.m */,
+			);
+			name = RNBiometrics;
 			sourceTree = "<group>";
 		};
 		B6148B8726E8E73C0008F06D /* RNCipher */ = {
@@ -657,13 +685,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6148B9B26E9FF690008F06D /* GenericPasswordStore.swift in Sources */,
+				B605BFC226EB3C97000312E6 /* KeyGenError.swift in Sources */,
 				B6148B8A26E8E8040008F06D /* RNKeyGen.m in Sources */,
+				B605BFCD26EB7AF3000312E6 /* BiometricsError.swift in Sources */,
 				B6148B8B26E8E82F0008F06D /* RNKeyGen.swift in Sources */,
 				B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 				B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */,
 				B6148B9926E9FF0B0008F06D /* GenericPasswordConvertible.swift in Sources */,
+				B605BFCF26EB7B05000312E6 /* RNBiometrics.m in Sources */,
+				B605BFCB26EB7AE5000312E6 /* RNBiometrics.swift in Sources */,
 				B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */,
 				B6148B9D26E9FF8C0008F06D /* KeyStoreError.swift in Sources */,
 				B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */,
