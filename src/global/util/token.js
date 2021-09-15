@@ -47,15 +47,16 @@ async function getTokenRequestBody({
         const isFingerprintSupported = await (
             await biometrics.isSensorAvailable()
         ).available;
-        const { pushToken } = await push.getFirebaseToken();
+        // const { pushToken } = await push.getFirebaseToken();
         const deviceId = await getDeviceId();
         deviceData = {
             ...deviceData,
-            pushToken,
+            // pushToken,
             isFingerprintSupported,
             deviceId
         };
     } catch (error) {
+        console.warn(error)
         throw new NativeError({ message: 'Error getting device info.' });
     }
 
@@ -76,7 +77,7 @@ async function getTokenRequestBody({
         face_support: false,
         account_name: accountName,
         fingerprint_support: deviceData.isFingerprintSupported,
-        push_token: deviceData.pushToken
+        // push_token: deviceData?.pushToken || 
     };
 
     //for initially requesting a token

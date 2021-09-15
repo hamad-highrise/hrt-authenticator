@@ -1,5 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
@@ -43,9 +43,10 @@ const CodeAccount = () => {
             navigation.navigate(screensIdentifiers.main);
         }
     };
+    
 
     return (
-        <View style={{ flex: 1 }}>
+        <ScrollView style={{ flex: 1 }}>
             <TopNavbar
                 title="Account By Code"
                 imageBackOnPress={() => {
@@ -111,7 +112,7 @@ const CodeAccount = () => {
                     />
                 </View>
             </View>
-        </View>
+        </ScrollView>
     );
 };
 

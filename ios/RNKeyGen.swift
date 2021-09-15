@@ -8,22 +8,27 @@
 import Foundation
 
 
+
 @objc(RNKeyGen)
 
 class RNKeyGen: NSObject {
   private let KEY_SIZE = 2048;
+  private let KEY_TYPE = kSecAttrKeyTypeRSA as String;
 
   @objc
   func createKeys(_ keyAlias: String, resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     do {
       let publicKey = try generateKeys(keyAlias);
+      let manager = CryptoExportImportManager();
       var error: Unmanaged<CFError>?;
       let keyData = SecKeyCopyExternalRepresentation(publicKey, &error);
       if keyData == nil && error != nil {
         throw KeyGenError.keyGeneration;
       }
+      
       let data = keyData! as Data;
-      resolve(["publicKey": data.base64EncodedString() as String]);
+      let extKeyData = manager.exportPublicKeyToDER(data, keyType: KEY_TYPE, keySize: KEY_SIZE)
+      resolve(["publicKey": (extKeyData?.base64EncodedString())! as String]);
     } catch {
       reject("Unable to generate keys", error.localizedDescription, error);
     }
@@ -78,9 +83,8 @@ class RNKeyGen: NSObject {
       kSecAttrIsPermanent as String: true
     ]
     let attributes: [String: Any] = [
-      kSecClass as String: kSecClassKey,
-      kSecAttrKeyType as String: kSecAttrKeyTypeRSA,
-      kSecAttrKeySizeInBits as String: 2048,
+      kSecAttrKeyType as String: KEY_TYPE,
+      kSecAttrKeySizeInBits as String: KEY_SIZE,
       kSecAttrCanSign as String: true,
       kSecPrivateKeyAttrs as String: privateKeyAttrs
     ]

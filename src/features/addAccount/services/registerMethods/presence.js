@@ -10,6 +10,7 @@ async function userPresence({ endpoint, token, accId, ignoreSsl }) {
         const { uuid } = await utilities.getUUID();
         const keyHandle = uuid + '.' + constants.ACCOUNT_METHODS.USER_PRESENCE;
         const { publicKey } = await keyGen.createKeys(keyHandle);
+        console.warn(publicKey?.length) 
         const body = JSON.stringify({
             schemas: ['urn:ietf:params:scim:api:messages:2.0:PatchOp'],
             Operations: [
@@ -37,7 +38,9 @@ async function userPresence({ endpoint, token, accId, ignoreSsl }) {
         });
 
         const { status } = result.respInfo;
+        console.warn(result.json());
         if ((status >= 200 && status < 300) || status === 304) {
+            
             await utils.addMethod({
                 accId,
                 method: constants.ACCOUNT_METHODS.USER_PRESENCE,

@@ -6,6 +6,7 @@ async function isSensorAvailable() {
         const { available, error } = await native.isSensorAvailable();
         return { available, error };
     } catch (error) {
+        console.warn(error);
         throw new NativeError({ message: 'SENSOR_CHECK_ERROR' });
     }
 }

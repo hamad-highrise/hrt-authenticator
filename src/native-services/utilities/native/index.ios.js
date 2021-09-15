@@ -18,6 +18,7 @@ async function getDeviceInfo() {
             rooted
         });
     } catch (error) {
+        console.warn(error, "Test")
         return Promise.reject(error);
     }
 }

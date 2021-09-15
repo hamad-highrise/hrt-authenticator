@@ -1,9 +1,10 @@
 import React from 'react';
 import {
     StyleSheet,
-    KeyboardAvoidingView,
+    View,
     TextInput,
-    Dimensions
+    Dimensions,
+    Platform
 } from 'react-native';
 import PropTypes from 'prop-types';
 
@@ -15,7 +16,7 @@ const AndroidTextInput = ({
     autoCapitalize
 }) => {
     return (
-        <KeyboardAvoidingView style={styles.title} keyboardVerticalOffset={40}>
+        <View style={styles.container}>
             <TextInput
                 secureTextEntry={secureTextEntry}
                 placeholder={placeholder}
@@ -24,7 +25,7 @@ const AndroidTextInput = ({
                 onChangeText={onChangeText}
                 autoCapitalize={autoCapitalize ? 'characters' : 'none'}
             />
-        </KeyboardAvoidingView>
+        </View>
     );
 };
 
@@ -48,10 +49,7 @@ export default AndroidTextInput;
 
 const styles = StyleSheet.create({
     container: {
-        elevation: 8,
-        backgroundColor: '#009688',
-        borderRadius: 2,
-        paddingVertical: 10,
+        paddingVertical: Platform.OS === 'android' ? 10 : 15,
         paddingHorizontal: 12
     },
     label: {

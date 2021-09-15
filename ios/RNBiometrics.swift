@@ -21,7 +21,7 @@ class RNBiometrics: NSObject {
     var error: NSError?;
     let isAvailable = context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error);
     if isAvailable {
-      resolve(["isAvailable": isAvailable, "biometryType": context.biometryType])
+      resolve(["available": isAvailable, "biometryType": context.biometryType])
     } else if error != nil {
       NSLog("BIO TEST \(String(describing: error))")
       reject("Error checking availability", error?.localizedDescription, error);

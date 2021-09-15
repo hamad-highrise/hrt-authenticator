@@ -68,10 +68,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ffffff'
     },
     logoContainer: {
-        width: 250,
-        height: 250,
-        justifyContent: 'center',
-        alignItems: 'center'
+        // justifyContent: 'center',
+        // alignItems: 'center'
     },
     logo: { width: 200, height: 200 },
     instructions: {
