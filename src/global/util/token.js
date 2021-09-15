@@ -56,7 +56,6 @@ async function getTokenRequestBody({
             deviceId
         };
     } catch (error) {
-        console.warn(error)
         throw new NativeError({ message: 'Error getting device info.' });
     }
 

@@ -13,7 +13,6 @@ function initiateAccounts() {
             dispatch({ type: constants.INITIATE, payload: { accounts } });
             dispatch(utilsActions.success());
         } catch (error) {
-            console.warn(error, 'test');
             dispatch(utilsActions.failure());
         }
     };

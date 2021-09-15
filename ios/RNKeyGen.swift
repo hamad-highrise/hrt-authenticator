@@ -19,7 +19,7 @@ class RNKeyGen: NSObject {
   func createKeys(_ keyAlias: String, resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
     do {
       let publicKey = try generateKeys(keyAlias);
-      let manager = CryptoExportImportManager();
+      let manager = ExportManager()
       var error: Unmanaged<CFError>?;
       let keyData = SecKeyCopyExternalRepresentation(publicKey, &error);
       if keyData == nil && error != nil {
@@ -28,7 +28,7 @@ class RNKeyGen: NSObject {
       
       let data = keyData! as Data;
       let extKeyData = manager.exportPublicKeyToDER(data, keyType: KEY_TYPE, keySize: KEY_SIZE)
-      resolve(["publicKey": (extKeyData?.base64EncodedString())! as String]);
+      resolve(["publicKey": (extKeyData.base64EncodedString()) as String]);
     } catch {
       reject("Unable to generate keys", error.localizedDescription, error);
     }

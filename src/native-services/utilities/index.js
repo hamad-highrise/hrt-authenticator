@@ -32,7 +32,6 @@ async function getDeviceInfo() {
             rooted
         };
     } catch (error) {
-        console.warn(error);
         throw new NativeError({ message: 'DEVICE_DETAILS_ERROR' });
     }
 }

@@ -14,6 +14,7 @@ import LocalAuthentication
 class RNBiometrics: NSObject {
   
   private let KEY_SIZE = 2048;
+  private let KEY_TYPE = kSecAttrKeyTypeRSA as String;
 
   @objc
   func isSensorAvailable(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
@@ -52,7 +53,8 @@ class RNBiometrics: NSObject {
         throw BiometricsError.keyGeneration;
       }
       let data = keyData! as Data;
-      resolve(["publicKey": data.base64EncodedData()]);
+      let extPublicKey = ExportManager().exportPublicKeyToDER(data, keyType: KEY_TYPE, keySize: KEY_SIZE)
+      resolve(["publicKey": extPublicKey.base64EncodedString() as String]);
     } catch {
       reject("Key Generation Error", "ERROR_GENERATING_BIOMETRICS_KEYS", error);
     }
@@ -80,6 +82,7 @@ class RNBiometrics: NSObject {
       }
       resolve(["signature": signature.base64EncodedString() as String]);
     } catch {
+      NSLog("\(error) test " )
       reject("", "", error);
     }
 
@@ -92,6 +95,7 @@ class RNBiometrics: NSObject {
 
   private func getPrivateKey(_ keyAlias: String, _ promptMessage: String) throws -> SecKey {
     let keyApplicationTag = "\(keyAlias).private";
+    NSLog("\(keyApplicationTag) test")
     let query: [String: Any] = [
       kSecClass as String: kSecClassKey,
       kSecAttrApplicationTag as String: keyApplicationTag,
@@ -112,6 +116,7 @@ class RNBiometrics: NSObject {
   private func generateBiometricKeys(_ keyAlias: String) throws -> SecKey {
     //Key Identification
     let privateKeyTag = "\(keyAlias).private";
+    NSLog("\(privateKeyTag) test")
     var error: Unmanaged<CFError>?;
     //creating secure access contol object
     let access = SecAccessControlCreateWithFlags(nil, kSecAttrAccessibleWhenPasscodeSetThisDeviceOnly, .biometryAny, &error);

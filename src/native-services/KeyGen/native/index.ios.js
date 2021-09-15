@@ -13,7 +13,7 @@ async function createKeys(keyHandle) {
 async function signPayload({ keyHandle: keyAlias, payload }) {
     const { RNKeyGen } = NativeModules;
     try {
-        const result = await RNKeyGen.signPayload({keyAlias, payload});
+        const result = await RNKeyGen.signPayload({ keyAlias, payload });
         return Promise.resolve(result);
     } catch (error) {
         return Promise.reject(error);

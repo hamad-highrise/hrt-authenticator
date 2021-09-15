@@ -25,4 +25,8 @@ RCT_EXTERN_METHOD(deleteKeys: (NSString *) keyAlias
                   resolve: (RCTPromiseResolveBlock) resolve
                   rejecter: (RCTPromiseRejectBlock) reject)
 
+RCT_EXTERN_METHOD(showSimplePrompt: (NSString *) message
+                  resolve: (RCTPromiseResolveBlock) resolve
+                  rejecter: (RCTPromiseRejectBlock) reject)
+
 @end

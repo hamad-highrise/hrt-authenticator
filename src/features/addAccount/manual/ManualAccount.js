@@ -43,7 +43,6 @@ const CodeAccount = () => {
             navigation.navigate(screensIdentifiers.main);
         }
     };
-    
 
     return (
         <ScrollView style={{ flex: 1 }}>
