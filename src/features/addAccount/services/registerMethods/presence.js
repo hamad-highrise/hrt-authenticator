@@ -38,6 +38,7 @@ async function userPresence({ endpoint, token, accId, ignoreSsl }) {
 
         const { status } = result.respInfo;
         if ((status >= 200 && status < 300) || status === 304) {
+            
             await utils.addMethod({
                 accId,
                 method: constants.ACCOUNT_METHODS.USER_PRESENCE,

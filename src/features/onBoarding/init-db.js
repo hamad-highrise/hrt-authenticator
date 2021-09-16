@@ -20,7 +20,6 @@ async function initiateDb() {
 
         return;
     } catch (error) {
-        console.warn(error)
         throw new DatabaseError({ message: 'ERROR_SETTING_UP_DB' });
     }
 }

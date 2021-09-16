@@ -1,3 +1,4 @@
+import { Platform } from 'react-native';
 import { NativeError } from '../../global/errors';
 import native from './native';
 
@@ -12,12 +13,19 @@ async function isSensorAvailable() {
 
 async function showBiometricPrompt({ promptMessage, cancelButtonText }) {
     try {
-        const { success, error } = await native.displaySimplePrompt({
-            promptMessage,
-            cancelButtonText
-        });
-        return { success, error };
+        if(Platform.OS === 'android'){
+            const { success } = await native.displaySimplePrompt({
+                promptMessage,
+                cancelButtonText
+            });
+            return { success  };
+        } else {
+            const { success } = await native.displaySimplePrompt(promptMessage);
+            return { success  };
+        }
+        
     } catch (error) {
+        console.warn(error)
         throw new NativeError({ message: 'SHOW_BIOMETRIC_PROMPT_ERROR' });
     }
 }
@@ -32,7 +40,7 @@ async function createBiomerticKey(keyHandle) {
 }
 
 async function signPayload({
-    promptMessage,
+    promptMessage = "Please Verify",
     cancelButtonText,
     keyHandle,
     payload
@@ -46,6 +54,7 @@ async function signPayload({
         });
         return { success, signature };
     } catch (error) {
+        
         throw new NativeError({ message: 'SIGN_PAYLOAD_ERROR' });
     }
 }

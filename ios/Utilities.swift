@@ -70,6 +70,7 @@ class Utilities: NSObject {
   }
   
   private func isCydiaInstalled() -> Bool {
-    return UIApplication.shared.canOpenURL(URL(string: "cydia://")!);
+//    return UIApplication.shared.canOpenURL(URL(string: "cydia://")!);
+    return false;
   }
 }
