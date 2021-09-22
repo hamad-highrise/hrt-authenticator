@@ -12,6 +12,7 @@ import screensIdentifiers from '../../navigation/screensId';
 import { Typography } from '../../theme';
 import { values } from '../../global';
 import assets from '../../assets';
+import SplashScreen from 'react-native-splash-screen';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -20,6 +21,7 @@ const Splash = (props) => {
     const dispatch = useDispatch();
     const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
+        SplashScreen.hide()
         init();
     }, []);
 
