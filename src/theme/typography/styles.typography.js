@@ -9,7 +9,8 @@ export default StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold',
         color: colors.text.TITLE,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null    },
+        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : 'arial'
+    },
     headerTitle: {
         fontSize: 20,
         fontWeight: 'bold'

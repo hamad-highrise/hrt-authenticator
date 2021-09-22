@@ -53,7 +53,7 @@ target 'verify' do
       end
     end
   end
-
+end
 target 'verify-tvOS' do
   # Pods for verify-tvOS
 
