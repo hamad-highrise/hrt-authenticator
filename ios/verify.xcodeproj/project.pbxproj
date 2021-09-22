@@ -33,6 +33,8 @@
 		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
 		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
 		B67071EA26F205F100CE822C /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67071E926F205F100CE822C /* ExportManager.swift */; };
+		B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */; };
+		B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */; };
 		B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62B679A26E8ABCD009A86A6 /* RNCipher.swift */; };
 /* End PBXBuildFile section */
 
@@ -57,23 +59,35 @@
 		00E356EE1AD99517003FC87E /* verifyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = verifyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		00E356F21AD99517003FC87E /* verifyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = verifyTests.m; sourceTree = "<group>"; };
+		00F39A729F76B9E193C5C39F /* Pods-verify.releasealfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.releasealfa.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.releasealfa.xcconfig"; sourceTree = "<group>"; };
 		023896B7B6D9432867093D74 /* Pods-verify-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.release.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* verify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = verify.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		03672168C15D7591D66E6EFD /* Pods-verify-tvOSTests.releasealfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.releasealfa.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.releasealfa.xcconfig"; sourceTree = "<group>"; };
+		03BD46C91662E50B4A2E6950 /* Pods-verify-tvOS.releasealfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.releasealfa.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.releasealfa.xcconfig"; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* HRT Verify.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "HRT Verify.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = verify/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = verify/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = verify/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = verify/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = verify/main.m; sourceTree = "<group>"; };
+		1D4DF8B8357EF0D2E5D7C948 /* Pods-verify-tvOS.releasefbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.releasefbg.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.releasefbg.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* verify-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "verify-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* verify-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "verify-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		30DC1CB0E1B8B81E1F314B87 /* Pods-verify-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
+		33CCC7F46F7EAE7A379651BF /* Pods-verify.releasefbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.releasefbg.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.releasefbg.xcconfig"; sourceTree = "<group>"; };
+		4E07064DD2638352297DC0E2 /* Pods-verify.debugfbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.debugfbg.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.debugfbg.xcconfig"; sourceTree = "<group>"; };
 		4F8B638D02DBF3D92BDF4D24 /* Pods-verify-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		503D9D49179922E69CAB81FA /* Pods-verify-verifyTests.debugfbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.debugfbg.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.debugfbg.xcconfig"; sourceTree = "<group>"; };
 		6F5BBA8E1C63D174E11E4303 /* libPods-verify-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7B09153357C7AE82D7F45DC4 /* Pods-verify-verifyTests.debugalfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.debugalfa.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.debugalfa.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = verify/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		83BE7E6A0FF83F41068B4F34 /* Pods-verify-verifyTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.release.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.release.xcconfig"; sourceTree = "<group>"; };
 		8FC1AED476BD1CAEA3BCCC37 /* Pods-verify-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
+		915FF6897EB1EEA7334D5CB7 /* Pods-verify-tvOSTests.debugalfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debugalfa.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debugalfa.xcconfig"; sourceTree = "<group>"; };
 		93CAB161E0D4AEE3B982C22F /* Pods-verify.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.release.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.release.xcconfig"; sourceTree = "<group>"; };
 		9A8B8477099EF67C52794711 /* libPods-verify-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9C2C17FA8DE22AFCADF6B8B3 /* Pods-verify-tvOS.debugalfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.debugalfa.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.debugalfa.xcconfig"; sourceTree = "<group>"; };
+		A2DF9810313B2193BF6A3761 /* Pods-verify-verifyTests.releasealfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.releasealfa.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.releasealfa.xcconfig"; sourceTree = "<group>"; };
+		B45126F55968461D7C02419A /* Pods-verify-tvOSTests.releasefbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.releasefbg.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.releasefbg.xcconfig"; sourceTree = "<group>"; };
 		B605BFC126EB3C97000312E6 /* KeyGenError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyGenError.swift; sourceTree = "<group>"; };
 		B605BFCA26EB7AE5000312E6 /* RNBiometrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNBiometrics.swift; sourceTree = "<group>"; };
 		B605BFCC26EB7AF3000312E6 /* BiometricsError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BiometricsError.swift; sourceTree = "<group>"; };
@@ -89,10 +103,16 @@
 		B66AE57E26DF8BB000DD63C3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B66AE58026DF8BF900DD63C3 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		B67071E926F205F100CE822C /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
+		B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenBAFL.storyboard; sourceTree = "<group>"; };
+		B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenFBG.storyboard; sourceTree = "<group>"; };
 		BBDDC3F62288518E925A66EB /* libPods-verify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.debugalfa.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.debugalfa.xcconfig"; sourceTree = "<group>"; };
+		C44A4E24E7E941A318D5FED6 /* Pods-verify-tvOS.debugfbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.debugfbg.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.debugfbg.xcconfig"; sourceTree = "<group>"; };
 		D91B654049700613F97288C1 /* Pods-verify-verifyTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.debug.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.debug.xcconfig"; sourceTree = "<group>"; };
+		DA64AD7AF5FDAB072B2C6E6B /* Pods-verify-verifyTests.releasefbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-verifyTests.releasefbg.xcconfig"; path = "Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests.releasefbg.xcconfig"; sourceTree = "<group>"; };
 		DE91FFF9A3C08A20664CC425 /* libPods-verify-verifyTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify-verifyTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		DEB5A1C96B57DEF3F52D3531 /* Pods-verify.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.debug.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.debug.xcconfig"; sourceTree = "<group>"; };
+		E859F3CE02D167CE00172541 /* Pods-verify-tvOSTests.debugfbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOSTests.debugfbg.xcconfig"; path = "Target Support Files/Pods-verify-tvOSTests/Pods-verify-tvOSTests.debugfbg.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -161,6 +181,22 @@
 				30DC1CB0E1B8B81E1F314B87 /* Pods-verify-tvOSTests.release.xcconfig */,
 				D91B654049700613F97288C1 /* Pods-verify-verifyTests.debug.xcconfig */,
 				83BE7E6A0FF83F41068B4F34 /* Pods-verify-verifyTests.release.xcconfig */,
+				BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */,
+				4E07064DD2638352297DC0E2 /* Pods-verify.debugfbg.xcconfig */,
+				00F39A729F76B9E193C5C39F /* Pods-verify.releasealfa.xcconfig */,
+				33CCC7F46F7EAE7A379651BF /* Pods-verify.releasefbg.xcconfig */,
+				9C2C17FA8DE22AFCADF6B8B3 /* Pods-verify-tvOS.debugalfa.xcconfig */,
+				C44A4E24E7E941A318D5FED6 /* Pods-verify-tvOS.debugfbg.xcconfig */,
+				03BD46C91662E50B4A2E6950 /* Pods-verify-tvOS.releasealfa.xcconfig */,
+				1D4DF8B8357EF0D2E5D7C948 /* Pods-verify-tvOS.releasefbg.xcconfig */,
+				915FF6897EB1EEA7334D5CB7 /* Pods-verify-tvOSTests.debugalfa.xcconfig */,
+				E859F3CE02D167CE00172541 /* Pods-verify-tvOSTests.debugfbg.xcconfig */,
+				03672168C15D7591D66E6EFD /* Pods-verify-tvOSTests.releasealfa.xcconfig */,
+				B45126F55968461D7C02419A /* Pods-verify-tvOSTests.releasefbg.xcconfig */,
+				7B09153357C7AE82D7F45DC4 /* Pods-verify-verifyTests.debugalfa.xcconfig */,
+				503D9D49179922E69CAB81FA /* Pods-verify-verifyTests.debugfbg.xcconfig */,
+				A2DF9810313B2193BF6A3761 /* Pods-verify-verifyTests.releasealfa.xcconfig */,
+				DA64AD7AF5FDAB072B2C6E6B /* Pods-verify-verifyTests.releasefbg.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -180,6 +216,8 @@
 				B605BFC326EB3F40000312E6 /* RNKeyGen */,
 				B6148B9E26EA01B60008F06D /* KeyStore */,
 				B605BFD026EB7B13000312E6 /* RNBiometrics */,
+				B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */,
+				B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -222,7 +260,7 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* verify.app */,
+				13B07F961A680F5B00A75B9A /* HRT Verify.app */,
 				00E356EE1AD99517003FC87E /* verifyTests.xctest */,
 				2D02E47B1E0B4A5D006451C7 /* verify-tvOS.app */,
 				2D02E4901E0B4A5D006451C7 /* verify-tvOSTests.xctest */,
@@ -322,7 +360,7 @@
 			);
 			name = verify;
 			productName = verify;
-			productReference = 13B07F961A680F5B00A75B9A /* verify.app */;
+			productReference = 13B07F961A680F5B00A75B9A /* HRT Verify.app */;
 			productType = "com.apple.product-type.application";
 		};
 		2D02E47A1E0B4A5D006451C7 /* verify-tvOS */ = {
@@ -426,6 +464,8 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */,
+				B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -802,7 +842,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify;
-				PRODUCT_NAME = verify;
+				PRODUCT_NAME = "HRT Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -826,7 +866,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify;
-				PRODUCT_NAME = verify;
+				PRODUCT_NAME = "HRT Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -992,6 +1032,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreen;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1000,6 +1041,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_FLAVOR = highrise;
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -1046,6 +1088,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreen;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -1053,11 +1096,658 @@
 					"\"$(inherited)\"",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_FLAVOR = highrise;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
+		};
+		B67071FF26F35A8500CE822C /* DebugFBG */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreenFBG;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_FLAVOR = fidelity;
+				SDKROOT = iphoneos;
+			};
+			name = DebugFBG;
+		};
+		B670720026F35A8500CE822C /* DebugFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 4E07064DD2638352297DC0E2 /* Pods-verify.debugfbg.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2N35DZT77;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = verify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.fbg;
+				PRODUCT_NAME = "FBG Verify";
+				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = DebugFBG;
+		};
+		B670720126F35A8500CE822C /* DebugFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 503D9D49179922E69CAB81FA /* Pods-verify-verifyTests.debugfbg.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = verifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify.app/verify";
+			};
+			name = DebugFBG;
+		};
+		B670720226F35A8500CE822C /* DebugFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C44A4E24E7E941A318D5FED6 /* Pods-verify-tvOS.debugfbg.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = DebugFBG;
+		};
+		B670720326F35A8500CE822C /* DebugFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E859F3CE02D167CE00172541 /* Pods-verify-tvOSTests.debugfbg.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = DebugFBG;
+		};
+		B670720426F35A9B00CE822C /* DebugAlfa */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreenBAFL;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_FLAVOR = alfalah;
+				SDKROOT = iphoneos;
+			};
+			name = DebugAlfa;
+		};
+		B670720526F35A9B00CE822C /* DebugAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2N35DZT77;
+				ENABLE_BITCODE = NO;
+				INFOPLIST_FILE = verify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.alfa;
+				PRODUCT_NAME = "BAFL Veirfy";
+				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = DebugAlfa;
+		};
+		B670720626F35A9B00CE822C /* DebugAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7B09153357C7AE82D7F45DC4 /* Pods-verify-verifyTests.debugalfa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = verifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify.app/verify";
+			};
+			name = DebugAlfa;
+		};
+		B670720726F35A9B00CE822C /* DebugAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 9C2C17FA8DE22AFCADF6B8B3 /* Pods-verify-tvOS.debugalfa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = DebugAlfa;
+		};
+		B670720826F35A9B00CE822C /* DebugAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 915FF6897EB1EEA7334D5CB7 /* Pods-verify-tvOSTests.debugalfa.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_TESTABILITY = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = DebugAlfa;
+		};
+		B670720926F35AA600CE822C /* ReleaseAlfa */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreenBAFL;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_FLAVOR = alfalah;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = ReleaseAlfa;
+		};
+		B670720A26F35AA600CE822C /* ReleaseAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 00F39A729F76B9E193C5C39F /* Pods-verify.releasealfa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2N35DZT77;
+				INFOPLIST_FILE = verify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.alfa;
+				PRODUCT_NAME = "BAFL Verify";
+				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = ReleaseAlfa;
+		};
+		B670720B26F35AA600CE822C /* ReleaseAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A2DF9810313B2193BF6A3761 /* Pods-verify-verifyTests.releasealfa.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = verifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify.app/verify";
+			};
+			name = ReleaseAlfa;
+		};
+		B670720C26F35AA600CE822C /* ReleaseAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03BD46C91662E50B4A2E6950 /* Pods-verify-tvOS.releasealfa.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = ReleaseAlfa;
+		};
+		B670720D26F35AA600CE822C /* ReleaseAlfa */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 03672168C15D7591D66E6EFD /* Pods-verify-tvOSTests.releasealfa.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = ReleaseAlfa;
+		};
+		B670720E26F35AB900CE822C /* ReleaseFBG */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LAUNCH_SCREEN_NAME = LaunchScreenFBG;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
+				LIBRARY_SEARCH_PATHS = (
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
+					"\"$(TOOLCHAIN_DIR)/usr/lib/swift-5.0/$(PLATFORM_NAME)\"",
+					"\"$(inherited)\"",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				PRODUCT_FLAVOR = fidelity;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = ReleaseFBG;
+		};
+		B670720F26F35AB900CE822C /* ReleaseFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 33CCC7F46F7EAE7A379651BF /* Pods-verify.releasefbg.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
+				CLANG_ENABLE_MODULES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W2N35DZT77;
+				INFOPLIST_FILE = verify/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.fbg;
+				PRODUCT_NAME = "FBG Verify";
+				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_VERSION = 5.0;
+				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = ReleaseFBG;
+		};
+		B670721026F35AB900CE822C /* ReleaseFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = DA64AD7AF5FDAB072B2C6E6B /* Pods-verify-verifyTests.releasefbg.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COPY_PHASE_STRIP = NO;
+				INFOPLIST_FILE = verifyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-lc++",
+					"$(inherited)",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify.app/verify";
+			};
+			name = ReleaseFBG;
+		};
+		B670721126F35AB900CE822C /* ReleaseFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1D4DF8B8357EF0D2E5D7C948 /* Pods-verify-tvOS.releasefbg.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOS/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = ReleaseFBG;
+		};
+		B670721226F35AB900CE822C /* ReleaseFBG */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = B45126F55968461D7C02419A /* Pods-verify-tvOSTests.releasefbg.xcconfig */;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_NO_COMMON_BLOCKS = YES;
+				INFOPLIST_FILE = "verify-tvOSTests/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-ObjC",
+					"-lc++",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.verify-tvOSTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = appletvos;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/verify-tvOS.app/verify-tvOS";
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+			};
+			name = ReleaseFBG;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1066,7 +1756,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
+				B670720626F35A9B00CE822C /* DebugAlfa */,
+				B670720126F35A8500CE822C /* DebugFBG */,
 				00E356F71AD99517003FC87E /* Release */,
+				B670720B26F35AA600CE822C /* ReleaseAlfa */,
+				B670721026F35AB900CE822C /* ReleaseFBG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1075,7 +1769,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
+				B670720526F35A9B00CE822C /* DebugAlfa */,
+				B670720026F35A8500CE822C /* DebugFBG */,
 				13B07F951A680F5B00A75B9A /* Release */,
+				B670720A26F35AA600CE822C /* ReleaseAlfa */,
+				B670720F26F35AB900CE822C /* ReleaseFBG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1084,7 +1782,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4971E0B4A5E006451C7 /* Debug */,
+				B670720726F35A9B00CE822C /* DebugAlfa */,
+				B670720226F35A8500CE822C /* DebugFBG */,
 				2D02E4981E0B4A5E006451C7 /* Release */,
+				B670720C26F35AA600CE822C /* ReleaseAlfa */,
+				B670721126F35AB900CE822C /* ReleaseFBG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1093,7 +1795,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2D02E4991E0B4A5E006451C7 /* Debug */,
+				B670720826F35A9B00CE822C /* DebugAlfa */,
+				B670720326F35A8500CE822C /* DebugFBG */,
 				2D02E49A1E0B4A5E006451C7 /* Release */,
+				B670720D26F35AA600CE822C /* ReleaseAlfa */,
+				B670721226F35AB900CE822C /* ReleaseFBG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1102,7 +1808,11 @@
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,
+				B670720426F35A9B00CE822C /* DebugAlfa */,
+				B67071FF26F35A8500CE822C /* DebugFBG */,
 				83CBBA211A601CBA00E9B192 /* Release */,
+				B670720926F35AA600CE822C /* ReleaseAlfa */,
+				B670720E26F35AB900CE822C /* ReleaseFBG */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
