@@ -59,9 +59,12 @@ public class RNCipher {
         //
         Cipher cipher = Cipher.getInstance(TRANSFORMATION_ALGORITHM);
         SecretKey secretKey = getSecretKey(keyAlias);
+        //encrypted payload format "iv:cipherText"
         final String[] payload = encryptedPayload.split(":");
+        //payload[0] is iv, i.e. initialization vector, after splitting
         IvParameterSpec ivParameterSpec = new IvParameterSpec(Base64.decode(payload[0], Base64.NO_WRAP));
         cipher.init(Cipher.DECRYPT_MODE, secretKey, ivParameterSpec);
+        //payload[1] is cipherText after splitting
         final byte[] decrypted = cipher.doFinal(Base64.decode(payload[1], Base64.NO_WRAP));
         return new String(decrypted).trim();
     }
