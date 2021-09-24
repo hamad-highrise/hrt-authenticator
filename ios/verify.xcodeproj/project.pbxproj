@@ -33,7 +33,6 @@
 		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
 		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
 		B67071EA26F205F100CE822C /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67071E926F205F100CE822C /* ExportManager.swift */; };
-		B67B65CB26FB1735005A6FEA /* LaunchScreenTest.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B67B65CA26FB1735005A6FEA /* LaunchScreenTest.storyboard */; };
 		B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */; };
 		B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */; };
 		B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62B679A26E8ABCD009A86A6 /* RNCipher.swift */; };
@@ -104,7 +103,6 @@
 		B66AE57E26DF8BB000DD63C3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B66AE58026DF8BF900DD63C3 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
 		B67071E926F205F100CE822C /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
-		B67B65CA26FB1735005A6FEA /* LaunchScreenTest.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenTest.storyboard; sourceTree = "<group>"; };
 		B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenBAFL.storyboard; sourceTree = "<group>"; };
 		B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenFBG.storyboard; sourceTree = "<group>"; };
 		BBDDC3F62288518E925A66EB /* libPods-verify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -220,7 +218,6 @@
 				B605BFD026EB7B13000312E6 /* RNBiometrics */,
 				B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */,
 				B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */,
-				B67B65CA26FB1735005A6FEA /* LaunchScreenTest.storyboard */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -466,7 +463,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
-				B67B65CB26FB1735005A6FEA /* LaunchScreenTest.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */,
 				B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */,
@@ -610,10 +606,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-verify-verifyTests/Pods-verify-verifyTests-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -646,10 +644,12 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-verify/Pods-verify-frameworks.sh",
-				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL/OpenSSL.framework/OpenSSL",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/Flipper-DoubleConversion/double-conversion.framework/double-conversion",
+				"${PODS_XCFRAMEWORKS_BUILD_DIR}/OpenSSL-Universal/OpenSSL.framework/OpenSSL",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/double-conversion.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/OpenSSL.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
