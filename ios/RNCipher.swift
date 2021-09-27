@@ -16,13 +16,12 @@ class RNCipher: NSObject {
 
   @objc
   func encrypt(_ params: NSDictionary, resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-    NSLog("hello");
     guard let p = params as? [String: Any] else {
       reject("Invalid Params Object", "INVALID_PARAMS", nil);
       return;
     }
 
-    let payload =  p["payload"] as! String;
+    let payload = p["payload"] as! String;
     let keyAlias = p["keyAlias"] as! String;
     do {
       let payloadData = payload.data(using: .utf8)!;
@@ -30,7 +29,6 @@ class RNCipher: NSObject {
       let sealBox = try AES.GCM.seal(payloadData, using: key);
       resolve(["cipherText": (sealBox.combined?.base64EncodedString())! as String]);
     } catch {
-      NSLog("Test Now \(error)");
       reject(error.localizedDescription, "ERROR_ENCRYPTING", error);
     }
 
@@ -39,7 +37,7 @@ class RNCipher: NSObject {
 
   @objc
   func decrypt(_ params: NSDictionary, resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-    
+
     guard let p = params as? [String: Any] else {
       reject("Invalid Params Object", "INVALID_PARAMS", nil);
       return;
@@ -49,7 +47,7 @@ class RNCipher: NSObject {
     let keyAlias = p["keyAlias"] as! String;
 
     do {
-    
+
       let combined = Data(base64Encoded: cipherText)!;
       let sealBox = try AES.GCM.SealedBox(combined: combined);
       let key = try getKey(keyAlias);
@@ -57,7 +55,6 @@ class RNCipher: NSObject {
       resolve(["decrypted": String(decoding: decrypted, as: UTF8.self)])
     }
     catch {
-      NSLog("test \(error)");
       reject(error.localizedDescription, "ERROR_DECRYPTING", error);
     }
 
