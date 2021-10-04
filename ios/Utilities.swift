@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import LocalAuthentication
 
 @objc(Utilities)
 
@@ -62,6 +63,18 @@ class Utilities: NSObject {
   @objc
   func allowScreenshot() -> Void {
     
+  }
+  
+  @objc
+  func checkDeviceSecurity(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
+    let context = LAContext();
+    var error: NSError?;
+    let isDeviceSecure = context.canEvaluatePolicy(.deviceOwnerAuthentication, error: &error);
+    if error != nil {
+      reject("","\(String(describing: error?.localizedDescription))", error);
+    } else {
+      resolve(["isDeviceSecure": isDeviceSecure]);
+    }
   }
   
   @objc

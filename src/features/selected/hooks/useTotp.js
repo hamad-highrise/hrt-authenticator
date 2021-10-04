@@ -24,7 +24,9 @@ function useTotp(onError) {
         AppState.addEventListener('change', onAppStateChange);
 
         return () => {
+            intervalRef.current?.unref();
             clearInterval(intervalRef.current);
+            // has been dprecated in rn-0.65. Wait for patch in next version
             AppState.removeEventListener('change', onAppStateChange);
         };
     }, []);

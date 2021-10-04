@@ -7,25 +7,29 @@ async function isSensorAvailable() {
         const { available, error } = await native.isSensorAvailable();
         return { available, error };
     } catch (error) {
-        throw new NativeError({ message: 'SENSOR_CHECK_ERROR' });
+        typeof error === 'string' && alert(error);
+        throw new NativeError({
+            message: 'SENSOR_CHECK_ERROR',
+            displayMessage: error
+        });
     }
 }
 
 async function showBiometricPrompt({ promptMessage, cancelButtonText }) {
     try {
-        if(Platform.OS === 'android'){
+        if (Platform.OS === 'android') {
             const { success } = await native.displaySimplePrompt({
                 promptMessage,
                 cancelButtonText
             });
-            return { success  };
+            return { success };
         } else {
             const { success } = await native.displaySimplePrompt(promptMessage);
-            return { success  };
+            return { success };
         }
-        
     } catch (error) {
-        console.warn(error)
+        alert(error);
+        console.warn(error, ' err');
         throw new NativeError({ message: 'SHOW_BIOMETRIC_PROMPT_ERROR' });
     }
 }
@@ -40,7 +44,7 @@ async function createBiomerticKey(keyHandle) {
 }
 
 async function signPayload({
-    promptMessage = "Please Verify",
+    promptMessage = 'Please Verify',
     cancelButtonText,
     keyHandle,
     payload
@@ -54,8 +58,11 @@ async function signPayload({
         });
         return { success, signature };
     } catch (error) {
-        
-        throw new NativeError({ message: 'SIGN_PAYLOAD_ERROR' });
+        console.warn(error);
+        throw new NativeError({
+            message: 'SIGN_PAYLOAD_ERROR'
+            // displayMessage: error
+        });
     }
 }
 

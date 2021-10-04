@@ -29,7 +29,11 @@ const createBiomerticKey = async (keyHandle) => {
     }
 };
 
-const signChallengeWithBiometric = async ({ keyHandle, promptMessage, payload }) => {
+const signChallengeWithBiometric = async ({
+    keyHandle,
+    promptMessage,
+    payload
+}) => {
     try {
         const result = await RNBiometrics.signPayload({
             keyAlias: keyHandle,
@@ -38,7 +42,6 @@ const signChallengeWithBiometric = async ({ keyHandle, promptMessage, payload })
         });
         return result;
     } catch (error) {
-        console.warn(error)
         throw error;
     }
 };

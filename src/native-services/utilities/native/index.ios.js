@@ -1,7 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 
 async function getDeviceInfo() {
-    //TODO: check device rooted or not
     const { Utilities } = NativeModules;
     try {
         const {
@@ -46,7 +45,8 @@ async function setInitiated() {
 async function preventScreenshot() {
     const { Utilities } = NativeModules;
     try {
-        await Utilities.addSecureFlag();
+        //not supported in iOS
+        // await Utilities.addSecureFlag();
         return Promise.resolve();
     } catch (error) {
         return Promise.reject();
@@ -56,7 +56,8 @@ async function preventScreenshot() {
 async function allowScreenshot() {
     const { Utilities } = NativeModules;
     try {
-        Utilities.removeSecureFlag();
+        //not supported in iOs
+        // Utilities.removeSecureFlag();
         return;
     } catch (error) {
         throw error;
@@ -79,6 +80,7 @@ async function checkDeviceSecurity() {
         const { isDeviceSecure } = await Utilities.checkDeviceSecurity();
         return isDeviceSecure;
     } catch (error) {
+        console.warn(error, 'Check Device Security');
         throw error;
     }
 }

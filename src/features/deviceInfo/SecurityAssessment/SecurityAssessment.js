@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Switch, Dimensions } from 'react-native';
+import { View, Text, Image, Switch, Dimensions, Platform } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 import { TopNavbar } from '../../../components';
@@ -105,33 +105,38 @@ const SecurityAssessment = (props) => {
                 </View>
             </View>
 
-            <View style={styles.spacer}>
-                <View style={styles.listitemBottom}>
-                    <View
-                        style={[
-                            styles.listitemView,
-                            { width: Dimensions.get('window').width * 0.8 }
-                        ]}>
-                        <View>
-                            <Text style={styles.listitemTextBottom}>
-                                Prevent Screen Capture
-                            </Text>
-                            <Text style={styles.listitemSubTextBottom}>
-                                Stop other applications from capturing your
-                                sensitive screens
-                            </Text>
-                        </View>
+            {Platform.OS === 'android' && (
+                <View style={styles.spacer}>
+                    <View style={styles.listitemBottom}>
+                        <View
+                            style={[
+                                styles.listitemView,
+                                { width: Dimensions.get('window').width * 0.8 }
+                            ]}>
+                            <View>
+                                <Text style={styles.listitemTextBottom}>
+                                    Prevent Screen Capture
+                                </Text>
+                                <Text style={styles.listitemSubTextBottom}>
+                                    Stop other applications from capturing your
+                                    sensitive screens
+                                </Text>
+                            </View>
 
-                        <Switch
-                            trackColor={{ false: '#767577', true: '#81b0ff' }}
-                            thumbColor={isEnabled ? '#0f62fe' : '#f4f3f4'}
-                            ios_backgroundColor="#3e3e3e"
-                            onValueChange={toggleSwitch}
-                            value={isEnabled}
-                        />
+                            <Switch
+                                trackColor={{
+                                    false: '#767577',
+                                    true: '#81b0ff'
+                                }}
+                                thumbColor={isEnabled ? '#0f62fe' : '#f4f3f4'}
+                                ios_backgroundColor="#3e3e3e"
+                                onValueChange={toggleSwitch}
+                                value={isEnabled}
+                            />
+                        </View>
                     </View>
                 </View>
-            </View>
+            )}
         </View>
     );
 };

@@ -415,7 +415,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = W2N35DZT77;
+						DevelopmentTeam = YMD8HCA965;
 						LastSwiftMigration = 1250;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
@@ -836,7 +836,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -861,7 +861,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1174,10 +1174,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4E07064DD2638352297DC0E2 /* Pods-verify.debugfbg.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1341,10 +1341,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1354,7 +1354,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.alfa;
-				PRODUCT_NAME = "BAFL Veirfy";
+				PRODUCT_NAME = "BAFL Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
@@ -1502,10 +1502,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00F39A729F76B9E193C5C39F /* Pods-verify.releasealfa.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1658,10 +1658,10 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33CCC7F46F7EAE7A379651BF /* Pods-verify.releasefbg.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = W2N35DZT77;
+				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

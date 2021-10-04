@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
     container: {
@@ -9,7 +9,7 @@ export default StyleSheet.create({
         alignItems: 'center'
     },
     text: {
-        fontFamily: 'monospace',
+        fontFamily: Platform.OS === 'android' ? 'monospace' : null,
         color: 'white'
     }
 });

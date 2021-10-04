@@ -18,6 +18,9 @@ RCT_EXTERN_METHOD(setInitiated:(RCTPromiseResolveBlock)resolve
 RCT_EXTERN_METHOD(preventScreenshot)
 RCT_EXTERN_METHOD(allowScreenshot)
 
+RCT_EXTERN_METHOD(checkDeviceSecurity:(RCTPromiseResolveBlock)resolve
+                  rejecter:(RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getDeviceInfo:(RCTPromiseResolveBlock)resolve
                   rejecter:(RCTPromiseRejectBlock)reject)
 	

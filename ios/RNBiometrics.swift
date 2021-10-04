@@ -24,7 +24,7 @@ class RNBiometrics: NSObject {
     if isAvailable {
       resolve(["available": isAvailable, "biometryType": context.biometryType])
     } else if error != nil {
-      NSLog("BIO TEST \(String(describing: error))")
+//      NSLog("BIO TEST \(String(describing: error))")
       reject("Error checking availability", error?.localizedDescription, error);
 //      reject("Error checking availability", "ERROR_EVALUATING_BIOMETRICS", error);
     }
@@ -37,7 +37,7 @@ class RNBiometrics: NSObject {
       if success {
         resolve(["success": success]);
       } else {
-        NSLog("BIO TEST \(String(describing: error))");
+//        NSLog("BIO TEST \(String(describing: error))");
         reject("error displaying", "ERROR_DISPLAYING_BIOMETRIC", error);
       }
     }
@@ -83,7 +83,7 @@ class RNBiometrics: NSObject {
       resolve(["signature": signature.base64EncodedString() as String]);
     } catch {
       NSLog("\(error) test " )
-      reject("", "", error);
+      reject("", error.localizedDescription, error);
     }
 
   }

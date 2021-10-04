@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>PRODUCT_FLAVOR</key>
-	<string>$(PRODUCT_FLAVOR)</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -19,11 +17,11 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>1.0</string>
+	<string>1.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
 	<key>CFBundleVersion</key>
-	<string>1</string>
+	<string>1000</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<string>cydia</string>
 	<key>LSRequiresIPhoneOS</key>
@@ -42,11 +40,13 @@
 		</dict>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Uses fro scaning QR Codes</string>
+	<string>Uses for scaning QR Codes</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Used for authenticating MMFA transactions.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>PRODUCT_FLAVOR</key>
+	<string>$(PRODUCT_FLAVOR)</string>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN_NAME)</string>
 	<key>UIRequiredDeviceCapabilities</key>
