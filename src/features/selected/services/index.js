@@ -5,6 +5,7 @@ import { getSecretByAccountId } from './queries';
 async function getSecret(accId) {
     try {
         const secret = await getSecretByAccountId(accId);
+        if (!secret) return;
         const { decrypted } = await cipher.decrypt({
             keyAlias: constants.KEY_ALIAS.SECRET,
             cipherText: secret

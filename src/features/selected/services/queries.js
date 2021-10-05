@@ -7,6 +7,7 @@ async function getSecretByAccountId(accId) {
     try {
         const [result] = await database.executeQuery(query, params);
         let secret;
+        
         for (let i = 0; i < result.rows.length; i++) {
             secret = result.rows.item(i).secret;
         }

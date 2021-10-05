@@ -21,12 +21,13 @@ function useTotp(onError) {
     useEffect(() => {
         updateOtp();
         intervalRef.current = setInterval(timer, 1000);
+        console.warn(intervalRef.current);
         AppState.addEventListener('change', onAppStateChange);
 
         return () => {
             intervalRef.current?.unref();
             clearInterval(intervalRef.current);
-            // has been dprecated in rn-0.65. Wait for patch in next version
+            // has been deprecated in rn-0.65. Wait for patch in next version
             AppState.removeEventListener('change', onAppStateChange);
         };
     }, []);
