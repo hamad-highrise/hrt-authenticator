@@ -3,6 +3,7 @@ import { AppState } from 'react-native';
 
 import { totpGenerator, getSecret } from '../services';
 import { hooks } from '../../../global';
+import { useFocusEffect } from '@react-navigation/core';
 
 const DEFAULT_PERIOD = 30;
 const MIL_TO_SEC_DIV = 1000.0;
@@ -18,19 +19,19 @@ function useTotp(onError) {
     const appState = useRef(AppState.currentState);
     const intervalRef = useRef();
 
-    useEffect(() => {
-        updateOtp();
-        intervalRef.current = setInterval(timer, 1000);
-        console.warn(intervalRef.current);
-        AppState.addEventListener('change', onAppStateChange);
+    useFocusEffect(
+        useCallback(() => {
+            updateOtp();
+            intervalRef.current = setInterval(timer, 1000);
+            AppState.addEventListener('change', onAppStateChange);
 
-        return () => {
-            intervalRef.current?.unref();
-            clearInterval(intervalRef.current);
-            // has been deprecated in rn-0.65. Wait for patch in next version
-            AppState.removeEventListener('change', onAppStateChange);
-        };
-    }, []);
+            return () => {
+                clearInterval(intervalRef.current);
+                // has been deprecated in rn-0.65. Wait for patch in next version
+                AppState.removeEventListener('change', onAppStateChange);
+            };
+        }, [])
+    );
 
     const timer = (TOTP_PERIOD = DEFAULT_PERIOD) => {
         let epoch = Math.round(new Date().getTime() / MIL_TO_SEC_DIV);
@@ -54,7 +55,7 @@ function useTotp(onError) {
             const secret = await getSecret(accId);
             secret && setOtp(totpGenerator(secret));
         } catch (error) {
-            onError();
+            onError && onError();
             alert(
                 'Account have invalid secret. Delete the account and enter a valid Secret.'
             );
