@@ -1,9 +1,12 @@
 #import "AppDelegate.h"
-
+#import "Verify-Swift.h"
 #import <React/RCTBridge.h>
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
+
+
+#import <UserNotifications/UserNotifications.h>
 
 #if RCT_DEV
 #import "React/RCTDevLoadingView.h"
@@ -30,6 +33,10 @@ static void InitializeFlipper(UIApplication *application) {
   [client start];
 }
 #endif
+
+@interface AppDelegate() <UNUserNotificationCenterDelegate>
+
+@end
 
 
 
@@ -61,9 +68,26 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show];
+  [RNSplashScreen show]; 
+  [RNPush requestPushAuthorization];
   return YES;
 }
+
+- (void) application: (UIApplication *) app didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
+  [RNPush onDevicetoken:deviceToken];
+  
+}
+
+- (void)application:(UIApplication *) application didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
+  
+}
+
+//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//  NSLog(@"Notification Recieved! hello");
+//
+//}
+
+
 
 - (NSURL *)sourceURLForBridge:(RCTBridge *)bridge
 {

@@ -29,6 +29,8 @@
 		B6148B9926E9FF0B0008F06D /* GenericPasswordConvertible.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6148B9826E9FF0B0008F06D /* GenericPasswordConvertible.swift */; };
 		B6148B9B26E9FF690008F06D /* GenericPasswordStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6148B9A26E9FF690008F06D /* GenericPasswordStore.swift */; };
 		B6148B9D26E9FF8C0008F06D /* KeyStoreError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6148B9C26E9FF8C0008F06D /* KeyStoreError.swift */; };
+		B61CF5A0270F111C00DBF12B /* RNPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CF59F270F111C00DBF12B /* RNPush.swift */; };
+		B61CF5A2270F113600DBF12B /* RNPush.m in Sources */ = {isa = PBXBuildFile; fileRef = B61CF5A1270F113600DBF12B /* RNPush.m */; };
 		B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = B62B679926E8ABC0009A86A6 /* RNCipher.m */; };
 		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
 		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
@@ -97,6 +99,9 @@
 		B6148B9826E9FF0B0008F06D /* GenericPasswordConvertible.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordConvertible.swift; sourceTree = "<group>"; };
 		B6148B9A26E9FF690008F06D /* GenericPasswordStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenericPasswordStore.swift; sourceTree = "<group>"; };
 		B6148B9C26E9FF8C0008F06D /* KeyStoreError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyStoreError.swift; sourceTree = "<group>"; };
+		B61CF59E270F0B6700DBF12B /* verify.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = verify.entitlements; path = verify/verify.entitlements; sourceTree = "<group>"; };
+		B61CF59F270F111C00DBF12B /* RNPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNPush.swift; sourceTree = "<group>"; };
+		B61CF5A1270F113600DBF12B /* RNPush.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNPush.m; sourceTree = "<group>"; };
 		B62B679926E8ABC0009A86A6 /* RNCipher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCipher.m; sourceTree = "<group>"; };
 		B62B679A26E8ABCD009A86A6 /* RNCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNCipher.swift; sourceTree = "<group>"; };
 		B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verify-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -204,6 +209,7 @@
 		13B07FAE1A68108700A75B9A /* verify */ = {
 			isa = PBXGroup;
 			children = (
+				B61CF59E270F0B6700DBF12B /* verify.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -218,6 +224,7 @@
 				B605BFD026EB7B13000312E6 /* RNBiometrics */,
 				B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */,
 				B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */,
+				B67EA4DF271567D80037D7F2 /* RNPUSH */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -317,6 +324,15 @@
 			name = Utilities;
 			sourceTree = "<group>";
 		};
+		B67EA4DF271567D80037D7F2 /* RNPUSH */ = {
+			isa = PBXGroup;
+			children = (
+				B61CF59F270F111C00DBF12B /* RNPush.swift */,
+				B61CF5A1270F113600DBF12B /* RNPush.m */,
+			);
+			name = RNPUSH;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -408,7 +424,7 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1250;
+				LastUpgradeCheck = 1300;
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
@@ -733,6 +749,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6148B9B26E9FF690008F06D /* GenericPasswordStore.swift in Sources */,
+				B61CF5A2270F113600DBF12B /* RNPush.m in Sources */,
 				B605BFC226EB3C97000312E6 /* KeyGenError.swift in Sources */,
 				B6148B8A26E8E8040008F06D /* RNKeyGen.m in Sources */,
 				B605BFCD26EB7AF3000312E6 /* BiometricsError.swift in Sources */,
@@ -744,6 +761,7 @@
 				B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */,
 				B6148B9926E9FF0B0008F06D /* GenericPasswordConvertible.swift in Sources */,
 				B605BFCF26EB7B05000312E6 /* RNBiometrics.m in Sources */,
+				B61CF5A0270F111C00DBF12B /* RNPush.swift in Sources */,
 				B605BFCB26EB7AE5000312E6 /* RNBiometrics.swift in Sources */,
 				B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */,
 				B6148B9D26E9FF8C0008F06D /* KeyStoreError.swift in Sources */,
@@ -835,7 +853,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
@@ -848,6 +868,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify;
 				PRODUCT_NAME = "HRT Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -860,7 +881,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -872,6 +895,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify;
 				PRODUCT_NAME = "HRT Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1018,6 +1042,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1081,6 +1106,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1138,6 +1164,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1176,7 +1203,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
@@ -1189,6 +1218,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.fbg;
 				PRODUCT_NAME = "FBG Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1305,6 +1335,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1343,7 +1374,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = verify/Info.plist;
@@ -1356,6 +1389,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.alfa;
 				PRODUCT_NAME = "BAFL Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -1472,6 +1506,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1504,7 +1539,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1516,6 +1553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.alfa;
 				PRODUCT_NAME = "BAFL Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1628,6 +1666,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1660,7 +1699,9 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
 				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = NO;
 				DEVELOPMENT_TEAM = YMD8HCA965;
 				INFOPLIST_FILE = verify/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -1672,6 +1713,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrt.verify.fbg;
 				PRODUCT_NAME = "FBG Verify";
 				SWIFT_OBJC_BRIDGING_HEADER = "verify-Bridging-Header.h";
+				SWIFT_OBJC_INTERFACE_HEADER_NAME = "Verify-Swift.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
