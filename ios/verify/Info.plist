@@ -47,6 +47,10 @@
 	<string></string>
 	<key>PRODUCT_FLAVOR</key>
 	<string>$(PRODUCT_FLAVOR)</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>$(LAUNCH_SCREEN_NAME)</string>
 	<key>UIRequiredDeviceCapabilities</key>

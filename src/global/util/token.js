@@ -3,6 +3,8 @@ import { NativeError } from '../errors';
 import { utilities, biometrics, push } from '../../native-services';
 import { getDeviceId } from './queries';
 import constants from '../constants';
+import Config from 'react-native-config';
+import { Platform } from 'react-native';
 
 /**
  * Evaluate a token and returns a boolean if a token has expired or not.
@@ -41,17 +43,20 @@ async function getTokenRequestBody({
     accountName = '',
     tenenatId = ''
 }) {
-    let deviceData;
+    let deviceData, uuid;
     try {
         deviceData = await utilities.getDeviceInfo();
+        uuid = await (await utilities.getUUID()).uuid;
+
         const isFingerprintSupported = await (
             await biometrics.isSensorAvailable()
         ).available;
-        // const { pushToken } = await push.getFirebaseToken();
+        const { pushToken } = await push.getFirebaseToken();
+        console.warn(pushToken);
         const deviceId = await getDeviceId();
         deviceData = {
             ...deviceData,
-            // pushToken,
+            pushToken,
             isFingerprintSupported,
             deviceId
         };
@@ -65,18 +70,22 @@ async function getTokenRequestBody({
         client_id: 'AuthenticatorClient',
         scope: 'mmfaAuthn',
         front_camera_support: deviceData.frontCameraAvailable,
-        tenant_id: tenenatId,
+        tenant_id: uuid,
         device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
-        device_type: deviceData.type,
-        application_id: constants.APP_INFO.APPLICATION_ID,
+        // device_type: deviceData.type,
+        device_type: Platform.OS === 'android' ? 'Android': 'iPhone',
+        application_id:
+            Platform.OS === 'android'
+                ? Config.APPLICATION_ID
+                : Config.BUNDLE_ID,
         device_rooted: deviceData.rooted,
         device_name: deviceData.name,
-        platform_type: Platform.OS === 'android' ? 'Android' : 'iOS',
+        platform_type: Platform.OS === 'android' ? 'Android' : 'IOS',
         face_support: false,
         account_name: accountName,
         fingerprint_support: deviceData.isFingerprintSupported,
-        // push_token: deviceData?.pushToken || 
+        push_token: deviceData?.pushToken
     };
 
     //for initially requesting a token

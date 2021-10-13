@@ -11,6 +11,7 @@ import com.facebook.react.bridge.WritableNativeMap;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingService;
 
 public class RNPushModule extends ReactContextBaseJavaModule {
 
