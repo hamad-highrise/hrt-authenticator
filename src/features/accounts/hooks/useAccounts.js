@@ -17,9 +17,10 @@ function useAccounts() {
 
     useEffect(() => {
         loadAccounts();
+        //unmounting the splash screen
         navigation.dispatch((state) => {
             const routes = state.routes.filter(
-                (r) => r.name != screensIdentifiers.splash
+                (route) => route.name != screensIdentifiers.splash
             );
 
             return CommonActions.reset({
@@ -43,8 +44,11 @@ function useAccounts() {
 
     useEffect(() => {
         intervalRef.current && clearInterval(intervalRef.current);
-        if (accounts?.length > 0)
+        if (accounts?.length > 0) {
+            //call initially before interval
+            transactionChecker();
             intervalRef.current = setInterval(transactionChecker, 1000 * 5);
+        }
     }, [JSON.stringify(accounts)]);
 
     const transactionChecker = () => {

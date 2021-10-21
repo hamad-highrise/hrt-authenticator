@@ -80,7 +80,6 @@ async function checkDeviceSecurity() {
         const { isDeviceSecure } = await Utilities.checkDeviceSecurity();
         return isDeviceSecure;
     } catch (error) {
-        console.warn(error, 'Check Device Security');
         throw error;
     }
 }

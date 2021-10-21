@@ -29,7 +29,7 @@ async function showBiometricPrompt({ promptMessage, cancelButtonText }) {
         }
     } catch (error) {
         alert(error);
-        console.warn(error, ' err');
+
         throw new NativeError({ message: 'SHOW_BIOMETRIC_PROMPT_ERROR' });
     }
 }
@@ -58,7 +58,6 @@ async function signPayload({
         });
         return { success, signature };
     } catch (error) {
-        console.warn(error);
         throw new NativeError({
             message: 'SIGN_PAYLOAD_ERROR'
             // displayMessage: error
