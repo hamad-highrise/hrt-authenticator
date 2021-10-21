@@ -3,17 +3,15 @@ import { AppRegistry, NativeEventEmitter } from 'react-native';
 
 import App from './src/App';
 import { name as appName } from './app.json';
-import { utilities } from './src/native-services';
-import Config from 'react-native-config';
+import { push, utilities } from './src/native-services';
 
-
-console.log(Config.getConstants())
+// setTimeout(() => {
+//     push.getFirebaseToken()
+//     .then((token) => console.warn(token))
+//     .catch((err) => console.warn(err));
+// }, 5000);
 
 // utilities.preventScreenshot();
-// biometrics.showBiometricPrompt("Please Verify").then(res => console.warn(res)).catch(err => console.warn(err));
 
-// const eventEmitter = new NativeEventEmitter();
-
-// eventEmitter.addListener('test', (params) => console.warn(params, 'hello'));
 
 AppRegistry.registerComponent(appName, () => App);

@@ -32,6 +32,7 @@
 		B61CF5A0270F111C00DBF12B /* RNPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = B61CF59F270F111C00DBF12B /* RNPush.swift */; };
 		B61CF5A2270F113600DBF12B /* RNPush.m in Sources */ = {isa = PBXBuildFile; fileRef = B61CF5A1270F113600DBF12B /* RNPush.m */; };
 		B62B679B26E8ABDF009A86A6 /* RNCipher.m in Sources */ = {isa = PBXBuildFile; fileRef = B62B679926E8ABC0009A86A6 /* RNCipher.m */; };
+		B63495F9272162FC004CE0D5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B63495F8272162FC004CE0D5 /* GoogleService-Info.plist */; };
 		B66AE57F26DF8BB000DD63C3 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66AE57E26DF8BB000DD63C3 /* Utilities.swift */; };
 		B66AE58126DF8BF900DD63C3 /* Utilities.m in Sources */ = {isa = PBXBuildFile; fileRef = B66AE58026DF8BF900DD63C3 /* Utilities.m */; };
 		B67071EA26F205F100CE822C /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67071E926F205F100CE822C /* ExportManager.swift */; };
@@ -104,6 +105,7 @@
 		B61CF5A1270F113600DBF12B /* RNPush.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNPush.m; sourceTree = "<group>"; };
 		B62B679926E8ABC0009A86A6 /* RNCipher.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNCipher.m; sourceTree = "<group>"; };
 		B62B679A26E8ABCD009A86A6 /* RNCipher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RNCipher.swift; sourceTree = "<group>"; };
+		B63495F8272162FC004CE0D5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../Desktop/GoogleService/HRT/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		B66AE57526DF73FE00DD63C3 /* verify-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "verify-Bridging-Header.h"; sourceTree = "<group>"; };
 		B66AE57E26DF8BB000DD63C3 /* Utilities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		B66AE58026DF8BF900DD63C3 /* Utilities.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Utilities.m; sourceTree = "<group>"; };
@@ -209,6 +211,7 @@
 		13B07FAE1A68108700A75B9A /* verify */ = {
 			isa = PBXGroup;
 			children = (
+				B63495F8272162FC004CE0D5 /* GoogleService-Info.plist */,
 				B61CF59E270F0B6700DBF12B /* verify.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -480,6 +483,7 @@
 			files = (
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
+				B63495F9272162FC004CE0D5 /* GoogleService-Info.plist in Resources */,
 				B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */,
 				B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */,
 			);

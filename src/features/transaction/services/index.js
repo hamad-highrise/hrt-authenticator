@@ -14,7 +14,7 @@ async function getTransactionData({ endpoint, token, ignoreSsl }) {
             ignoreSsl
         });
         const { status } = result.respInfo;
-        console.warn(result.json(), 'resp: info:', result.respInfo);
+
         if ((status >= 200 && status < 300) || status === 304) {
             const {
                 state,
@@ -29,7 +29,6 @@ async function getTransactionData({ endpoint, token, ignoreSsl }) {
                 challenge: serverChallenge,
                 requestUrl: endpoint.split('?')[0]
             };
-            
         } else {
             if (status >= 500) throw new SAMError({});
             if (status >= 400 && status < 500)
@@ -77,7 +76,7 @@ async function approveTransaction({ accId, endpoint, ignoreSsl }) {
             signedPayload: result?.signature
         });
         const { status } = auth.respInfo;
-        console.warn(auth.json(), auth.respInfo);
+
         if (status === 204) {
             return;
         } else {
@@ -89,7 +88,6 @@ async function approveTransaction({ accId, endpoint, ignoreSsl }) {
             if (status >= 500) throw new SAMError({});
         }
     } catch (error) {
-        console.warn(error);
         throw error;
     }
 }

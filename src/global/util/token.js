@@ -52,7 +52,6 @@ async function getTokenRequestBody({
             await biometrics.isSensorAvailable()
         ).available;
         const { pushToken } = await push.getFirebaseToken();
-        console.warn(pushToken);
         const deviceId = await getDeviceId();
         deviceData = {
             ...deviceData,
@@ -73,7 +72,6 @@ async function getTokenRequestBody({
         tenant_id: uuid,
         device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
-        // device_type: deviceData.type,
         device_type: Platform.OS === 'android' ? 'Android': 'iPhone',
         application_id:
             Platform.OS === 'android'

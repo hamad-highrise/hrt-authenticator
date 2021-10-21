@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
+@import Firebase;
 
 
 #import <UserNotifications/UserNotifications.h>
@@ -19,7 +20,6 @@
 #import <FlipperKitNetworkPlugin/FlipperKitNetworkPlugin.h>
 #import <SKIOSNetworkPlugin/SKIOSNetworkAdapter.h>
 #import <FlipperKitReactPlugin/FlipperKitReactPlugin.h>
-
 
 
 
@@ -47,11 +47,12 @@ static void InitializeFlipper(UIApplication *application) {
 #ifdef FB_SONARKIT_ENABLED
   InitializeFlipper(application);
 #endif
-
+ 
   RCTBridge *bridge = [[RCTBridge alloc] initWithDelegate:self launchOptions:launchOptions];
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"verify"
                                             initialProperties:nil];
+//  [FIRMessaging messaging].delegate = self;
 
 #if RCT_DEV
   [bridge moduleForClass:[RCTDevLoadingView class]];
@@ -63,6 +64,8 @@ static void InitializeFlipper(UIApplication *application) {
       rootView.backgroundColor = [UIColor whiteColor];
   }
 
+
+
   self.window = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
   UIViewController *rootViewController = [UIViewController new];
   rootViewController.view = rootView;
@@ -70,22 +73,19 @@ static void InitializeFlipper(UIApplication *application) {
   [self.window makeKeyAndVisible];
   [RNSplashScreen show]; 
   [RNPush requestPushAuthorization];
+  [FIRApp configure];
   return YES;
 }
 
 - (void) application: (UIApplication *) app didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
-  [RNPush onDevicetoken:deviceToken];
-  
+  NSLog(@"TEST HELLO FCM");
+
 }
 
 - (void)application:(UIApplication *) application didFailToRegisterForRemoteNotificationsWithError:(nonnull NSError *)error {
   
 }
 
-//- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
-//  NSLog(@"Notification Recieved! hello");
-//
-//}
 
 
 

@@ -22,8 +22,10 @@ async function getAccessToken(accId) {
         const { accessToken, expiresAt, ...token } = await getTokenFromDb(
             accId
         );
+     
 
         if (isTokenValid(expiresAt)) {
+         
             const { decrypted: decryptedAccessToken } = await cipher.decrypt({
                 keyAlias: constants.KEY_ALIAS.TOKEN,
                 cipherText: accessToken
@@ -32,6 +34,7 @@ async function getAccessToken(accId) {
         } else {
             // TODO: Convert to a local function.
             //token has been expired
+         
 
             const { refreshToken, endpoint } = token;
             const ignoreSsl = await getIgnoreSslOption(accId);
@@ -59,6 +62,7 @@ async function getAccessToken(accId) {
                     //expires_in is after how many seconds token will expire
                     expires_in: expiresAfter
                 } = await result.json();
+
                 let encrypted = { accessToken: '', refreshToken: '' };
                 try {
                     const result = await cipher.encrypt({

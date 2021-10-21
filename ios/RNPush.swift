@@ -7,29 +7,28 @@
 
 import Foundation
 import UserNotifications
+import Firebase
 
 
 @objc(RNPush)
 
 class RNPush: NSObject {
   private static let KEY_NAME = "push_token";
-//
-//  func `init`() -> RNPush {
-//    NotificationCenter.default.addObserver(self, selector: #selector(onNotification), name: NSNotification.Name("com.hrt.verify.alfa"), object: nil)
-//    return RNPush();
-//  }
 
 
   @objc
-  func getAPNsToken(_ resolve: RCTPromiseResolveBlock, rejecter reject: RCTPromiseRejectBlock) -> Void {
-    let token = UserDefaults.standard.string(forKey: RNPush.KEY_NAME)!;
-    resolve(["pushToken": token]);
+  func getAPNsToken(_ resolve: @escaping RCTPromiseResolveBlock, rejecter reject: @escaping RCTPromiseRejectBlock) -> Void {
+    Messaging.messaging().token(completion: {token, error in
+      if error != nil {
+        reject("",error?.localizedDescription,error);
+      } else if let token = token {
+        
+        resolve(["pushToken": token]);
+      }
+    })
   }
 
-//  @objc
-//  func onNotification(_ notification:Notification) {
-//    NSLog("Hello from onNotification");
-//  }
+
 
   @objc
   static func requestPushAuthorization() {
