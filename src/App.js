@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { createStackNavigator } from '@react-navigation/stack';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
 import { Provider } from 'react-redux';
@@ -28,7 +28,7 @@ import {
 } from './features/screens';
 
 enableScreens();
-const Stack = createStackNavigator();
+const Stack = createNativeStackNavigator();
 
 NetInfo.fetch()
     .then((state) => {
