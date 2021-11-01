@@ -21,3 +21,21 @@ in the root folder of project. Then, run
 ```bash
 cd ios && pod install
 ```
+### Android
+To install and run emulator or physical device, run the metro bundler by running the following command in the root folder:
+```bash
+npm start
+```
+Followings are the commands to run for a specific flavor
+#### FBG Verify
+```bash
+npm run fbg
+```
+#### BAFL Verify
+```bash
+npm run alfalah
+```
+#### HRT Verify
+```bash
+npm run android
+```
