@@ -1,4 +1,3 @@
-import 'react-native-gesture-handler';
 import { AppRegistry, NativeEventEmitter } from 'react-native';
 
 import App from './src/App';
@@ -12,6 +11,5 @@ import { push, utilities } from './src/native-services';
 // }, 5000);
 
 // utilities.preventScreenshot();
-
 
 AppRegistry.registerComponent(appName, () => App);
