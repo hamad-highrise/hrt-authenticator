@@ -1,3 +1,5 @@
+/** @namespace AddAccount */
+
 //
 export { RegisterBiometrics } from './biometric';
 export { SuccessScreen, CompletionScreen } from './notifications';

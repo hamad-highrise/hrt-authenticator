@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>global/services/db/token.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-API.html">API</a><ul class='methods'><li data-type='method'><a href="module-API.html#~getDetails">getDetails</a></li><li data-type='method'><a href="module-API.html#~getToken">getToken</a></li><li data-type='method'><a href="module-API.html#~registerBiometrics">registerBiometrics</a></li><li data-type='method'><a href="module-API.html#~registerTotp">registerTotp</a></li><li data-type='method'><a href="module-API.html#~registerUserPresence">registerUserPresence</a></li></ul></li><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Details.html">Details</a><ul class='methods'><li data-type='method'><a href="module-Details.html#~getDetails">getDetails</a></li></ul></li><li><a href="module-Parser.html">Parser</a><ul class='methods'><li data-type='method'><a href="module-Parser.html#~parseOTPAuthUri">parseOTPAuthUri</a></li><li data-type='method'><a href="module-Parser.html#~tryJSONParser">tryJSONParser</a></li></ul></li><li><a href="module-TokenUtilities.html">TokenUtilities</a><ul class='methods'><li data-type='method'><a href="module-TokenUtilities.html#~getTokenExpiryInSeconds">getTokenExpiryInSeconds</a></li><li data-type='method'><a href="module-TokenUtilities.html#~getTokenRequestBody">getTokenRequestBody</a></li><li data-type='method'><a href="module-TokenUtilities.html#~isTokenValid">isTokenValid</a></li></ul></li><li><a href="module-TOTP.html">TOTP</a><ul class='methods'><li data-type='method'><a href="module-TOTP.html#~totpGenerator">totpGenerator</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="AddAccount.html">AddAccount</a></li><li><a href="AddAccount.Services.html">Services</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="SelectedAccount.html">SelectedAccount</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkQrValidity">checkQrValidity</a></li><li><a href="global.html#encodeToFormData">encodeToFormData</a></li><li><a href="global.html#getAccessToken">getAccessToken</a></li><li><a href="global.html#getFetchInstance">getFetchInstance</a></li><li><a href="global.html#getIgnoreSslOption">getIgnoreSslOption</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#getTransactionEndpoint">getTransactionEndpoint</a></li><li><a href="global.html#removeDeviceFromSam">removeDeviceFromSam</a></li><li><a href="global.html#updateTokenDb">updateTokenDb</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">global/services/db/token.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Database } from '../../../native-services';
+import { DatabaseError } from '../../errors';
+
+/**
+ * Resolves in to an Object with Token properties.
+ * @param {Number} accId - Account ID for which token is required.
+ * @returns Promise&lt;{}>
+ * @throws DatabaseError
+ */
+
+async function getToken(accId) {
+    const query = `SELECT token, endpoint, refresh_token, expires_at FROM tokens WHERE account_id = ?`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let temp;
+        for (let i = 0; i &lt; result.rows.length; i++) {
+            temp = result.rows.item(i);
+        }
+        if (!temp) return;
+        return {
+            accessToken: temp['token'],
+            refreshToken: temp['refresh_token'],
+            endpoint: temp['endpoint'],
+            expiresAt: temp['expires_at']
+        };
+    } catch (error) {
+        throw new DatabaseError({ message: error.message });
+    }
+}
+
+/**
+ * Updates the token.
+ * @param {{token: String, refreshToken: String, expiry: Number, accId: Number}} param0 - Expiry will be in Epoch (In Seconds) at which token will expire.
+ * @throws DatabaseError
+ */
+
+async function updateTokenDb({ token, refreshToken, expiry, accId }) {
+    const query = `UPDATE tokens
+        SET
+        token = ?,
+        refresh_token = ?,
+        expires_at = ?
+    WHERE account_id = ?;`;
+    const params = [token, refreshToken, expiry, accId];
+    const database = new Database();
+    try {
+        await database.executeQuery(query, params);
+        return;
+    } catch (error) {
+        throw new DatabaseError({ message: error.message });
+    }
+}
+
+export default { getToken, updateTokenDb };
+export { getToken, updateTokenDb };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Wed Nov 03 2021 12:56:05 GMT+0500 (Pakistan Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

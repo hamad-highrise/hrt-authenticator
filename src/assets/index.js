@@ -1,8 +1,49 @@
 import config from 'react-native-config';
 import { productFlavors } from '../global/constants';
 
-let images;
-let icons;
+/**
+ * Assests are managed centrally via config according to Product Flavor. Whenever adding new flavors or scheme,
+ * follow the steps:
+ * 1. Create new folder src/assets named same as product flavor in the config file, e.g. alfalah, with 2 sub folder i.e. images and icons
+ * 2. Keep all the images and icons in the respective folder
+ * 3. Import all the icons and images conditionally by adding new conditional block
+ * @module Assets
+ */
+
+/**
+ * @typedef Icons
+ * @property {any} backArrow Themed Back Arrow
+ * @property {any} cross Themed Cross Icon
+ * @property {any} qrCode Themed QR Code Icon
+ * @property {any} refresh Themed Refresh Icon
+ * @property {any} setting Themed Settings Icon
+ * @property {any} crossWhite White Cross Icon
+ * @property {any} tickWhite White Tick Icon
+ * @property {any} crossBlack Black Cross Icon
+ * @property {any} addFingerprint Fingerprint Icon
+ * @property {any} angleBlack BlackAngle Icon
+ * @property {any} edit Edit Icon
+ */
+/**
+ * @typedef Images
+ * @property {any} success Success Screen Image
+ * @property {any} processComplete Process Complete Image
+ * @property {any} authSuccess Authentication Success Image
+ * @property {any} authDenied Authentication Denied Image
+ * @property {any} logo Company Logo
+ * @property {any} error Error Screen Image
+ */
+
+/**
+ * Contains reference to all images
+ * @type {Images}
+ */
+let images = {};
+/**
+ * Contains reference to all icons
+ * @type {Icons}
+ */
+let icons = {};
 
 if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
     icons = {

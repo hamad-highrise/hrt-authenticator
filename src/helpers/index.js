@@ -1,6 +1,20 @@
-function checkQrValidity(data) {
+/** @namespace Helpers */
+
+/**
+ *
+ * @param {{}} scannedQRData
+ * @returns {boolean} If Scanned QR is valid or not
+ */
+
+function checkQrValidity(scannedQRData) {
     return data?.code && data?.details_url;
 }
+
+/**
+ * 
+ * @param {*} options 
+ * @returns 
+ */
 
 function getIgnoreSslOption(options) {
     const splitted = options?.split('=');

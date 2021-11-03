@@ -3,6 +3,15 @@ import { utils, errors } from '../../../global';
 const { getFetchInstance } = utils;
 const { NetworkError } = errors;
 
+/** @module API */
+
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+
+
 async function getTransactionData({ endpoint, token, ignoreSsl }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
     const headers = {

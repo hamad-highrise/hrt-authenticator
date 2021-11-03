@@ -1,9 +1,13 @@
 import 'react-native-url-polyfill/auto';
 
 /**
+ * @module Parser
+ */
+
+/**
  * Function parses the otpauth URI and returns an object containing
- * @param {String} uri - OTP Auth URI
- * @returns Object
+ * @param {string} uri - OTP Auth URI
+ * @returns {{type:string, label:string, query: {}}}
  */
 
 function parseOTPAuthUri(uri) {
@@ -38,7 +42,7 @@ function parseOTPAuthUri(uri) {
 /**
  * Evaluates if a string is valid Json or not and returns an Object
  * @param {String} str - string to be evaluated
- * @returns Object with two keys {valid, value}
+ * @returns {{valid:boolean, value:{}}}
  */
 
 const tryJSONParser = (str) => {

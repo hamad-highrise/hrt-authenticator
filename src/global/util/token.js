@@ -7,6 +7,11 @@ import Config from 'react-native-config';
 import { Platform } from 'react-native';
 
 /**
+ * @module TokenUtilities
+ *
+ */
+
+/**
  * Evaluate a token and returns a boolean if a token has expired or not.
  * @param {Number} expiresAt - Epoch Time (in seconds) at which token expires
  * @returns Boolean expressing if a token is valid till now.
@@ -32,17 +37,19 @@ function getTokenExpiryInSeconds(expiresIn) {
 }
 
 /**
- *
- * @param {{(code|refreshToken): String, accountName?: String, tenantId?: String}} param0 -
- * @returns
+ * @typedef {object} TokenReqBodyOptions
+ * @property {string} code - Client Code for requesting the token at initial
+ * @property {string} refreshToken - Refresh Token for a new token
+ * @property {string} accountName - Account name to send with token request
  */
 
-async function getTokenRequestBody({
-    refreshToken,
-    code,
-    accountName = '',
-    tenenatId = ''
-}) {
+/**
+ *
+ * @param {TokenReqBodyOptions} tokenReqBodyOptions -
+ * @returns Token Request Body
+ */
+
+async function getTokenRequestBody({ refreshToken, code, accountName = '' }) {
     let deviceData, uuid;
     try {
         deviceData = await utilities.getDeviceInfo();
@@ -72,7 +79,7 @@ async function getTokenRequestBody({
         tenant_id: uuid,
         device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
-        device_type: Platform.OS === 'android' ? 'Android': 'iPhone',
+        device_type: Platform.OS === 'android' ? 'Android' : 'iPhone',
         application_id:
             Platform.OS === 'android'
                 ? Config.APPLICATION_ID

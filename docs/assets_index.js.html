@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>assets/index.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-API.html">API</a><ul class='methods'><li data-type='method'><a href="module-API.html#~getDetails">getDetails</a></li><li data-type='method'><a href="module-API.html#~getToken">getToken</a></li><li data-type='method'><a href="module-API.html#~registerBiometrics">registerBiometrics</a></li><li data-type='method'><a href="module-API.html#~registerTotp">registerTotp</a></li><li data-type='method'><a href="module-API.html#~registerUserPresence">registerUserPresence</a></li></ul></li><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Details.html">Details</a><ul class='methods'><li data-type='method'><a href="module-Details.html#~getDetails">getDetails</a></li></ul></li><li><a href="module-Parser.html">Parser</a><ul class='methods'><li data-type='method'><a href="module-Parser.html#~parseOTPAuthUri">parseOTPAuthUri</a></li><li data-type='method'><a href="module-Parser.html#~tryJSONParser">tryJSONParser</a></li></ul></li><li><a href="module-TokenUtilities.html">TokenUtilities</a><ul class='methods'><li data-type='method'><a href="module-TokenUtilities.html#~getTokenExpiryInSeconds">getTokenExpiryInSeconds</a></li><li data-type='method'><a href="module-TokenUtilities.html#~getTokenRequestBody">getTokenRequestBody</a></li><li data-type='method'><a href="module-TokenUtilities.html#~isTokenValid">isTokenValid</a></li></ul></li><li><a href="module-TOTP.html">TOTP</a><ul class='methods'><li data-type='method'><a href="module-TOTP.html#~totpGenerator">totpGenerator</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="AddAccount.html">AddAccount</a></li><li><a href="AddAccount.Services.html">Services</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="SelectedAccount.html">SelectedAccount</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkQrValidity">checkQrValidity</a></li><li><a href="global.html#encodeToFormData">encodeToFormData</a></li><li><a href="global.html#getAccessToken">getAccessToken</a></li><li><a href="global.html#getFetchInstance">getFetchInstance</a></li><li><a href="global.html#getIgnoreSslOption">getIgnoreSslOption</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#getTransactionEndpoint">getTransactionEndpoint</a></li><li><a href="global.html#removeDeviceFromSam">removeDeviceFromSam</a></li><li><a href="global.html#updateTokenDb">updateTokenDb</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">assets/index.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import config from 'react-native-config';
+import { productFlavors } from '../global/constants';
+
+/**
+ * Assests are managed centrally via config according to Product Flavor. Whenever adding new flavors or scheme,
+ * follow the steps:
+ * 1. Create new folder src/assets named same as product flavor in the config file, e.g. alfalah, with 2 sub folder i.e. images and icons
+ * 2. Keep all the images and icons in the respective folder
+ * 3. Import all the icons and images conditionally by adding new conditional block
+ * @module Assets
+ */
+
+/**
+ * @typedef Icons
+ * @property {any} backArrow Themed Back Arrow
+ * @property {any} cross Themed Cross Icon
+ * @property {any} qrCode Themed QR Code Icon
+ * @property {any} refresh Themed Refresh Icon
+ * @property {any} setting Themed Settings Icon
+ * @property {any} crossWhite White Cross Icon
+ * @property {any} tickWhite White Tick Icon
+ * @property {any} crossBlack Black Cross Icon
+ * @property {any} addFingerprint Fingerprint Icon
+ * @property {any} angleBlack BlackAngle Icon
+ * @property {any} edit Edit Icon
+ */
+/**
+ * @typedef Images
+ * @property {any} success Success Screen Image
+ * @property {any} processComplete Process Complete Image
+ * @property {any} authSuccess Authentication Success Image
+ * @property {any} authDenied Authentication Denied Image
+ * @property {any} logo Company Logo
+ * @property {any} error Error Screen Image
+ */
+
+/**
+ * Contains reference to all images
+ * @type {Images}
+ */
+let images = {};
+/**
+ * Contains reference to all icons
+ * @type {Icons}
+ */
+let icons = {};
+
+if (config.PRODUCT_FLAVOR === productFlavors.ALFALAH) {
+    icons = {
+        backArrow: require('./alfalah/icons/back_arrow.png'),
+        cross: require('./alfalah/icons/cross.png'),
+        qrCode: require('./alfalah/icons/qr_code.png'),
+        refresh: require('./alfalah/icons/refresh.png'),
+        setting: require('./alfalah/icons/setting_outlined.png')
+    };
+    images = {
+        success: require('./alfalah/images/success.png'),
+        processComplete: require('./alfalah/images/process_complete.png'),
+        authSuccess: require('./alfalah/images/auth_success.png'),
+        authDenied: require('./alfalah/images/auth_fail.png'),
+        logo: require('./alfalah/images/logo.png'),
+        error: require('./alfalah/images/error_cross.png')
+    };
+} else if (config.PRODUCT_FLAVOR === productFlavors.FIDELITY) {
+    icons = {
+        backArrow: require('./fidelity/icons/back_arrow.png'),
+        cross: require('./fidelity/icons/cross.png'),
+        qrCode: require('./fidelity/icons/qr_code.png'),
+        refresh: require('./fidelity/icons/refresh.png'),
+        setting: require('./fidelity/icons/setting_outlined.png')
+    };
+    images = {
+        success: require('./fidelity/images/success.png'),
+        processComplete: require('./fidelity/images/process_complete.png'),
+        authSuccess: require('./fidelity/images/auth_success.png'),
+        authDenied: require('./fidelity/images/auth_fail.png'),
+        logo: require('./fidelity/images/logo.png'),
+        error: require('./fidelity/images/error_cross.png')
+    };
+} else {
+    //hrt
+    icons = {
+        backArrow: require('./highrise/icons/back_arrow.png'),
+        cross: require('./highrise/icons/cross.png'),
+        qrCode: require('./highrise/icons/qr_code.png'),
+        refresh: require('./highrise/icons/refresh.png'),
+        setting: require('./highrise/icons/setting_outlined.png')
+    };
+    images = {
+        success: require('./highrise/images/success.png'),
+        processComplete: require('./highrise/images/process_complete.png'),
+        authSuccess: require('./highrise/images/auth_success.png'),
+        authDenied: require('./highrise/images/auth_fail.png'),
+        logo: require('./highrise/images/logo.png'),
+        error: require('./highrise/images/error_cross.png')
+    };
+}
+
+icons = {
+    ...icons,
+    crossWhite: require('./icons/cross_white.png'),
+    tickWhite: require('./icons/tick_white.png'),
+    crossBlack: require('./icons/cross_black.png'),
+    tickBlack: require('./icons/tick_black.png'),
+    addFingerprint: require('./icons/add_fingerprint.png'),
+    angleBlack: require('./icons/right_angle_black.png'),
+    edit: require('./icons/edit.png')
+};
+
+export default { images, icons };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Wed Nov 03 2021 12:56:05 GMT+0500 (Pakistan Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

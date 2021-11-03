@@ -1,30 +1,40 @@
-//Copied from https://github.com/bellstrand/totp-generator
+//https://github.com/bellstrand/totp-generator
 import JsSHA from 'jssha';
+
+/** @module TOTP */
+
+/**
+ * 
+ * @typedef TOTPOptions
+ * @property {string} algorithm - Algorithm to use for generating totp
+ * @property {number} period - Interval Period to generate totp
+ * @property {numver} digits - TOTP Digits to generate 
+ */
 
 /**
  * Function returns Time-based OTP against a given secret which is valid for 30 seconds(default) or for the period provided in the options.
  * @param {String} secret  User Secret
- * @param {{algorithm?: String, period?: Number, digits?: Number}} options  Options for algorithm
+ * @param {TOTPOptions} totpOptions  Options for algorithm
  * @returns OTP valid for a specific period
  */
 
-const totpGenerator = (secret, options = {}) => {
+const totpGenerator = (secret, totpOptions = {}) => {
     let epoch, time, shaObj, hmac, offset, otp;
     //unpacking the options
-    options.period = options.period || 30;
-    options.algorithm = options.algorithm || 'SHA-1';
-    options.digits = options.digits || 6;
+    totpOptions.period = totpOptions?.period || 30;
+    totpOptions.algorithm = totpOptions?.algorithm || 'SHA-1';
+    totpOptions.digits = totpOptions?.digits || 6;
     //
     secret = base32tohex(secret);
     epoch = Math.round(Date.now() / 1000.0);
-    time = leftpad(dec2hex(Math.floor(epoch / options.period)), 16, '0');
-    shaObj = new JsSHA(options.algorithm, 'HEX');
+    time = leftpad(dec2hex(Math.floor(epoch / totpOptions.period)), 16, '0');
+    shaObj = new JsSHA(totpOptions.algorithm, 'HEX');
     shaObj.setHMACKey(secret, 'HEX');
     shaObj.update(time);
     hmac = shaObj.getHMAC('HEX');
     offset = hex2dec(hmac.substring(hmac.length - 1));
     otp = (hex2dec(hmac.substr(offset * 2, 8)) & hex2dec('7fffffff')) + '';
-    otp = otp.substr(otp.length - options.digits, options.digits);
+    otp = otp.substr(otp.length - totpOptions.digits, totpOptions.digits);
     return otp;
 };
 

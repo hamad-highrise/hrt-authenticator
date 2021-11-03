@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    
+    <meta charset="utf-8">
+    <title>global/util/token.js - Documentation</title>
+    
+    
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc.css">
+    <script src="scripts/nav.js" defer></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav >
+    
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-API.html">API</a><ul class='methods'><li data-type='method'><a href="module-API.html#~getDetails">getDetails</a></li><li data-type='method'><a href="module-API.html#~getToken">getToken</a></li><li data-type='method'><a href="module-API.html#~registerBiometrics">registerBiometrics</a></li><li data-type='method'><a href="module-API.html#~registerTotp">registerTotp</a></li><li data-type='method'><a href="module-API.html#~registerUserPresence">registerUserPresence</a></li></ul></li><li><a href="module-Assets.html">Assets</a></li><li><a href="module-Details.html">Details</a><ul class='methods'><li data-type='method'><a href="module-Details.html#~getDetails">getDetails</a></li></ul></li><li><a href="module-Parser.html">Parser</a><ul class='methods'><li data-type='method'><a href="module-Parser.html#~parseOTPAuthUri">parseOTPAuthUri</a></li><li data-type='method'><a href="module-Parser.html#~tryJSONParser">tryJSONParser</a></li></ul></li><li><a href="module-TokenUtilities.html">TokenUtilities</a><ul class='methods'><li data-type='method'><a href="module-TokenUtilities.html#~getTokenExpiryInSeconds">getTokenExpiryInSeconds</a></li><li data-type='method'><a href="module-TokenUtilities.html#~getTokenRequestBody">getTokenRequestBody</a></li><li data-type='method'><a href="module-TokenUtilities.html#~isTokenValid">isTokenValid</a></li></ul></li><li><a href="module-TOTP.html">TOTP</a><ul class='methods'><li data-type='method'><a href="module-TOTP.html#~totpGenerator">totpGenerator</a></li></ul></li></ul><h3>Namespaces</h3><ul><li><a href="AddAccount.html">AddAccount</a></li><li><a href="AddAccount.Services.html">Services</a></li><li><a href="Helpers.html">Helpers</a></li><li><a href="SelectedAccount.html">SelectedAccount</a></li></ul><h3>Global</h3><ul><li><a href="global.html#checkQrValidity">checkQrValidity</a></li><li><a href="global.html#encodeToFormData">encodeToFormData</a></li><li><a href="global.html#getAccessToken">getAccessToken</a></li><li><a href="global.html#getFetchInstance">getFetchInstance</a></li><li><a href="global.html#getIgnoreSslOption">getIgnoreSslOption</a></li><li><a href="global.html#getToken">getToken</a></li><li><a href="global.html#getTransactionEndpoint">getTransactionEndpoint</a></li><li><a href="global.html#removeDeviceFromSam">removeDeviceFromSam</a></li><li><a href="global.html#updateTokenDb">updateTokenDb</a></li></ul>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">global/util/token.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { encodeToFormData } from './formData';
+import { NativeError } from '../errors';
+import { utilities, biometrics, push } from '../../native-services';
+import { getDeviceId } from './queries';
+import constants from '../constants';
+import Config from 'react-native-config';
+import { Platform } from 'react-native';
+
+/**
+ * @module TokenUtilities
+ *
+ */
+
+/**
+ * Evaluate a token and returns a boolean if a token has expired or not.
+ * @param {Number} expiresAt - Epoch Time (in seconds) at which token expires
+ * @returns Boolean expressing if a token is valid till now.
+ */
+
+function isTokenValid(expiresAt) {
+    const currentTime = Math.floor(Date.now() / 1000); //time in seconds
+    const TOKEN_EXPIRY_SECONDS_THRESHOLD = 5;
+    const valid =
+        expiresAt > currentTime &amp;&amp;
+        expiresAt - currentTime > TOKEN_EXPIRY_SECONDS_THRESHOLD;
+    return valid;
+}
+
+/**
+ * Converts given seconds duration to Epoch time(in seconds)
+ * @param {Number} expiresIn - Duration for which token is valid.
+ * @returns  Epoch time (in  seconds) at which token will expire
+ */
+
+function getTokenExpiryInSeconds(expiresIn) {
+    return Math.floor(Date.now() / 1000) + expiresIn;
+}
+
+/**
+ * @typedef {object} TokenReqBodyOptions
+ * @property {string} code - Client Code for requesting the token at initial
+ * @property {string} refreshToken - Refresh Token for a new token
+ * @property {string} accountName - Account name to send with token request
+ */
+
+/**
+ *
+ * @param {TokenReqBodyOptions} tokenReqBodyOptions -
+ * @returns Token Request Body
+ */
+
+async function getTokenRequestBody({ refreshToken, code, accountName = '' }) {
+    let deviceData, uuid;
+    try {
+        deviceData = await utilities.getDeviceInfo();
+        uuid = await (await utilities.getUUID()).uuid;
+
+        const isFingerprintSupported = await (
+            await biometrics.isSensorAvailable()
+        ).available;
+        const { pushToken } = await push.getFirebaseToken();
+        const deviceId = await getDeviceId();
+        deviceData = {
+            ...deviceData,
+            pushToken,
+            isFingerprintSupported,
+            deviceId
+        };
+    } catch (error) {
+        throw new NativeError({ message: 'Error getting device info.' });
+    }
+
+    // following are the requires attribures for token. Some attributes are added on request type
+    // i.e. Refresh Token or get a new token
+    const raw = {
+        client_id: 'AuthenticatorClient',
+        scope: 'mmfaAuthn',
+        front_camera_support: deviceData.frontCameraAvailable,
+        tenant_id: uuid,
+        device_id: deviceData.deviceId,
+        os_version: deviceData.osVersion,
+        device_type: Platform.OS === 'android' ? 'Android' : 'iPhone',
+        application_id:
+            Platform.OS === 'android'
+                ? Config.APPLICATION_ID
+                : Config.BUNDLE_ID,
+        device_rooted: deviceData.rooted,
+        device_name: deviceData.name,
+        platform_type: Platform.OS === 'android' ? 'Android' : 'IOS',
+        face_support: false,
+        account_name: accountName,
+        fingerprint_support: deviceData.isFingerprintSupported,
+        push_token: deviceData?.pushToken
+    };
+
+    //for initially requesting a token
+    code &amp;&amp; ((raw['grant_type'] = 'authorization_code'), (raw['code'] = code));
+
+    //for refreshing the token
+    refreshToken &amp;&amp;
+        ((raw['grant_type'] = 'refresh_token'),
+        (raw['refresh_token'] = refreshToken));
+
+    return encodeToFormData(raw);
+}
+
+export default { getTokenExpiryInSeconds, isTokenValid, getTokenRequestBody };
+export { getTokenExpiryInSeconds, isTokenValid, getTokenRequestBody };
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+    
+    
+</div>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.7</a> on Wed Nov 03 2021 12:56:05 GMT+0500 (Pakistan Standard Time) using the <a href="https://github.com/clenemt/docdash">docdash</a> theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/polyfill.js"></script>
+<script src="scripts/linenumber.js"></script>
+
+
+
+</body>
+</html>

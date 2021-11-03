@@ -1,15 +1,10 @@
-import { AppRegistry, NativeEventEmitter } from 'react-native';
+import { AppRegistry, NativeEventEmitter, Platform } from 'react-native';
 
 import App from './src/App';
 import { name as appName } from './app.json';
-import { push, utilities } from './src/native-services';
+import { utilities } from './src/native-services';
 
-// setTimeout(() => {
-//     push.getFirebaseToken()
-//     .then((token) => console.warn(token))
-//     .catch((err) => console.warn(err));
-// }, 5000);
-
-// utilities.preventScreenshot();
+//to prevent screenshot on Android Devices
+Platform.OS === 'android' && utilities.preventScreenshot();
 
 AppRegistry.registerComponent(appName, () => App);
