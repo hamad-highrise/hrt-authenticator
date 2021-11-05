@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Parser - Documentation</title>
+    <title>features/transaction/services/api.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,367 +32,79 @@
 
 <div id="main">
     
-    <h1 class="page-title">Parser</h1>
+    <h1 class="page-title">features/transaction/services/api.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-            
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id="~parseOTPAuthUri"><span class="type-signature">(inner) </span>parseOTPAuthUri<span class="signature">(uri)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="features_addAccount_services_parser.js.html">features/addAccount/services/parser.js</a>, <a href="features_addAccount_services_parser.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Function parses the otpauth URI and returns an object containing</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>uri</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>OTP Auth URI</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~tryJSONParser"><span class="type-signature">(inner) </span>tryJSONParser<span class="signature">(str)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="features_addAccount_services_parser.js.html">features/addAccount/services/parser.js</a>, <a href="features_addAccount_services_parser.js.html#line48">line 48</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Evaluates if a string is valid Json or not and returns an Object</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>string to be evaluated</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { utils, errors } from '../../../global';
+
+const { getFetchInstance } = utils;
+const { NetworkError } = errors;
+
+/** @module API */
+
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+
+
+async function getTransactionData({ endpoint, token, ignoreSsl }) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
+    const headers = {
+        Accept: 'application/json',
+        Authorization: 'Bearer ' + token,
+        'Content-Type': 'application/json'
+    };
+    try {
+        const data = await rnFetch('POST', endpoint, headers);
+        return data;
+    } catch (error) {
+        throw new NetworkError({ message: 'ERROR_GETTING_TRANSACTION_DATA' });
+    }
+}
+
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+
+async function respondTransaction({
+    endpoint,
+    token,
+    stateId,
+    signedPayload,
+    ignoreSsl
+}) {
+    const rnFetch = getFetchInstance({ ignoreSsl });
+    const body = JSON.stringify({ signedChallenge: signedPayload });
+    const endUrl = endpoint + '?StateId=' + stateId;
+    const headers = {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + token
+    };
+    try {
+        const result = await rnFetch('PUT', endUrl, headers, body);
+        return result;
+    } catch (error) {
+        throw new NetworkError({ message: 'ERROR_RESPONDIN_TRANSACTION' });
+    }
+}
+
+export default { getTransactionData, respondTransaction };
+export { respondTransaction, getTransactionData };
+</code></pre>
+        </article>
+    </section>
 
 
 

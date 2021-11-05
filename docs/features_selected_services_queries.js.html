@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Parser - Documentation</title>
+    <title>features/selected/services/queries.js - Documentation</title>
     
     
     <script src="scripts/prettify/prettify.js"></script>
@@ -32,367 +32,48 @@
 
 <div id="main">
     
-    <h1 class="page-title">Parser</h1>
+    <h1 class="page-title">features/selected/services/queries.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        
-    
-</header>
-
-<article>
-    
-        <div class="container-overview">
-        
-            
-
-            
-        
-        </div>
-    
-
-    
-
-    
-
-    
-    
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-
-    
-
-    <h4 class="name" id="~parseOTPAuthUri"><span class="type-signature">(inner) </span>parseOTPAuthUri<span class="signature">(uri)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="features_addAccount_services_parser.js.html">features/addAccount/services/parser.js</a>, <a href="features_addAccount_services_parser.js.html#line13">line 13</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Function parses the otpauth URI and returns an object containing</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>uri</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>OTP Auth URI</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id="~tryJSONParser"><span class="type-signature">(inner) </span>tryJSONParser<span class="signature">(str)</span><span class="type-signature"> &rarr; {Object}</span></h4>
-
-    
-
-
-
-
-<dl class="details">
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="features_addAccount_services_parser.js.html">features/addAccount/services/parser.js</a>, <a href="features_addAccount_services_parser.js.html#line48">line 48</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-<div class="description usertext">
-    <p>Evaluates if a string is valid Json or not and returns an Object</p>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>str</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">String</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>string to be evaluated</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">Object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Database } from '../../../native-services';
+
+/**@module DBQueries */
+
+/**
+ * To get TOTP secret from DB. It'll be encrypted.
+ * @param {number} accId - Account ID associated with TOTP Secret
+ * @returns {Promise&lt;string>} Encrypted TOTP Secret
+ */
+
+async function getSecretByAccountId(accId) {
+    const query = `SELECT secret FROM secrets WHERE account_id = ?;`;
+    const params = [accId];
+    const database = new Database();
+    try {
+        const [result] = await database.executeQuery(query, params);
+        let secret;
+
+        for (let i = 0; i &lt; result.rows.length; i++) {
+            secret = result.rows.item(i).secret;
+        }
+        return Promise.resolve(secret);
+    } catch (error) {
+        return Promise.reject(error);
+    }
+}
+
+export default { getSecretByAccountId };
+export { getSecretByAccountId };
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -38,18 +38,23 @@ function getTokenExpiryInSeconds(expiresIn) {
 
 /**
  * @typedef {object} TokenReqBodyOptions
- * @property {string} code - Client Code for requesting the token at initial
- * @property {string} refreshToken - Refresh Token for a new token
- * @property {string} accountName - Account name to send with token request
+ * @property {string} [code] - Client Code for requesting the token at initial
+ * @property {string} [refreshToken] - Refresh Token for a new token
+ * @property {string} [accountName] - Account name to send with token request
  */
 
 /**
- *
+ * Returns URL encoded form body. Specify `code` if requesting while registering new account, otherwise
+ * specify `refreshToken` if requesting a new token for already registered account.
  * @param {TokenReqBodyOptions} tokenReqBodyOptions -
- * @returns Token Request Body
+ * @returns {Promise<string>}  URLEncodedForm body
  */
 
-async function getTokenRequestBody({ refreshToken, code, accountName = '' }) {
+async function getTokenRequestBody({
+    refreshToken = '',
+    code = '',
+    accountName = ''
+}) {
     let deviceData, uuid;
     try {
         deviceData = await utilities.getDeviceInfo();

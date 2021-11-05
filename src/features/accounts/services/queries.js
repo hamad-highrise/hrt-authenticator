@@ -1,5 +1,9 @@
 import { Database } from '../../../native-services';
 
+/**@module DBQueries */
+
+
+
 async function getAll() {
     const query = `SELECT account_id AS id, account_name AS name, issuer, type, ignore_ssl AS ignoreSsl, suspected FROM accounts`;
     const database = new Database();

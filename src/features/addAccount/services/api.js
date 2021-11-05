@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import { RNFetchBlobFetchRepsonse } from 'rn-fetch-blob';
+import {  FetchBlobResponse } from 'rn-fetch-blob';
 import { utils, errors } from '../../../global';
 import { CertsError } from '../../../global/errors';
 
@@ -14,7 +14,7 @@ const { NetworkError } = errors;
 /**
  * @async
  * @param {{endpoint:string, ignoreSsl:boolean}} options
- * @returns {Promise<RNFetchBlobFetchRepsonse>} -
+ * @returns {Promise<FetchBlobResponse>} -
  */
 
 async function getDetails({ endpoint, ignoreSsl }) {
@@ -45,7 +45,7 @@ async function getDetails({ endpoint, ignoreSsl }) {
  *  Get Token for the first time.
  * @async
  * @param {TokenRequestOptions} tokenRequestOptions
- * @returns {Promise<RNFetchBlobFetchRepsonse>}
+ * @returns {Promise<FetchBlobResponse>}
  * @throws {NetworkError}
  */
 
@@ -80,7 +80,7 @@ async function getToken({ endpoint, formEncodedData, ignoreSsl }) {
 /**
  * @async
  * @param {RegisterTOTPConfig} totpResgistrationConfig
- * @returns {Promise<RNFetchBlobFetchRepsonse>}
+ * @returns {Promise<FetchBlobResponse>}
  */
 
 async function registerTotp({ endpoint, token, ignoreSsl }) {
@@ -111,7 +111,7 @@ async function registerTotp({ endpoint, token, ignoreSsl }) {
 /**
  * @async
  * @param {AuthenticationMethodRegistrationConfig} userPresenceRegistrationConfig
- * @returns {Promise<RNFetchBlobFetchRepsonse>}
+ * @returns {Promise<FetchBlobResponse>}
  */
 
 async function registerUserPresence({
@@ -142,7 +142,7 @@ async function registerUserPresence({
 /**
  * @async
  * @param {AuthenticationMethodRegistrationConfig} biometricsRegistrationConfig
- * @returns {Promise<RNFetchBlobFetchRepsonse>}
+ * @returns {Promise<FetchBlobResponse>}
  */
 
 async function registerBiometrics({ endpoint, token, ignoreSsl, requestBody }) {

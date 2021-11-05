@@ -27,6 +27,12 @@ async function getTransactionData({ endpoint, token, ignoreSsl }) {
     }
 }
 
+/**
+ * 
+ * @param {*} param0 
+ * @returns 
+ */
+
 async function respondTransaction({
     endpoint,
     token,
