@@ -1,6 +1,5 @@
 import CookieManager from '@react-native-cookies/cookies';
 
-import helpers from '../../../helpers';
 import getDetails from './getDetails';
 import getToken from './getToken';
 import createAccount from './createAccount';
@@ -10,15 +9,20 @@ import URL from 'url-parse';
 
 const result = { serviceName: '', accId: '', methods: [], type: '' };
 
+/**
+ * @namespace AddAccount.Services
+ * @property {module:API} API
+ */
+
 export default async function registerDevice(scanned) {
-    const isValidMmfaData = helpers.checkQrValidity(scanned);
+    const isValidMmfaData = checkQrValidity(scanned);
     if (isValidMmfaData) {
-        let ignoreSsl = helpers.getIgnoreSslOption(scanned?.options) || false;
+        const ignoreSsl = getIgnoreSslOption(scanned?.options) || false;
 
         try {
             const { hostname } = new URL(scanned['details_url']);
 
-            const cleared = await CookieManager.clearAll();
+            await CookieManager.clearAll();
 
             // Get details for the account
             const details = await getDetails({
@@ -27,7 +31,6 @@ export default async function registerDevice(scanned) {
             });
 
             // Fetch token
-
             const token = await getToken({
                 endpoint: details.endpoints.token,
                 ignoreSsl,
@@ -85,3 +88,28 @@ export default async function registerDevice(scanned) {
 export { isUnique } from './queries';
 export { default as createAccount } from './createAccount';
 export { default as parser } from './parser';
+
+//helpers
+/**
+ *
+ * @param {{*}} scanned
+ * @returns {boolean} - Scanned QR Code object contains required values
+ */
+function checkQrValidity(scanned) {
+    return scanned?.code && scanned.details_url;
+}
+
+/**
+ *
+ * @param {{*}} options
+ * @returns {boolean} - Boolean indicating to ignore SSL or not
+ */
+
+function getIgnoreSslOption(options) {
+    const splitted = options?.split('=');
+    return (
+        (splitted?.shift() === 'ignoreSslCerts' &&
+            splitted?.shift() == 'true') ??
+        false
+    );
+}

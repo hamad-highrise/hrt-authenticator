@@ -30,6 +30,10 @@ import {
 enableScreens();
 const Stack = createNativeStackNavigator();
 
+/*
+    NetInfo must fetch connected state at the begining of the application, 
+    as well as, register an event listener to get 
+ */
 NetInfo.fetch()
     .then((state) => {
         store.dispatch(utilsActions.newtorkStateUpdate(state.isConnected));

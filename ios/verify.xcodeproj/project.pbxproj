@@ -37,6 +37,7 @@
 		B67071EA26F205F100CE822C /* ExportManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = B67071E926F205F100CE822C /* ExportManager.swift */; };
 		B6931E1026F49F56008571D4 /* LaunchScreenBAFL.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */; };
 		B6A0BB8626F49A7800B09594 /* LaunchScreenFBG.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */; };
+		B6AD7CFF273A5AAE009C0E98 /* UIDevice+JailBroken.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6AD7CFE273A5AAE009C0E98 /* UIDevice+JailBroken.swift */; };
 		B6DEDB8526E8AE7F007D7BA1 /* RNCipher.swift in Sources */ = {isa = PBXBuildFile; fileRef = B62B679A26E8ABCD009A86A6 /* RNCipher.swift */; };
 /* End PBXBuildFile section */
 
@@ -111,6 +112,7 @@
 		B67071E926F205F100CE822C /* ExportManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExportManager.swift; sourceTree = "<group>"; };
 		B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenBAFL.storyboard; sourceTree = "<group>"; };
 		B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = LaunchScreenFBG.storyboard; sourceTree = "<group>"; };
+		B6AD7CFE273A5AAE009C0E98 /* UIDevice+JailBroken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIDevice+JailBroken.swift"; sourceTree = "<group>"; };
 		BBDDC3F62288518E925A66EB /* libPods-verify.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-verify.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify.debugalfa.xcconfig"; path = "Target Support Files/Pods-verify/Pods-verify.debugalfa.xcconfig"; sourceTree = "<group>"; };
 		C44A4E24E7E941A318D5FED6 /* Pods-verify-tvOS.debugfbg.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-verify-tvOS.debugfbg.xcconfig"; path = "Target Support Files/Pods-verify-tvOS/Pods-verify-tvOS.debugfbg.xcconfig"; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 				B6A0BB8526F49A7800B09594 /* LaunchScreenFBG.storyboard */,
 				B6931E0F26F49F56008571D4 /* LaunchScreenBAFL.storyboard */,
 				B67EA4DF271567D80037D7F2 /* RNPUSH */,
+				B6AD7CFE273A5AAE009C0E98 /* UIDevice+JailBroken.swift */,
 			);
 			name = verify;
 			sourceTree = "<group>";
@@ -751,6 +754,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6AD7CFF273A5AAE009C0E98 /* UIDevice+JailBroken.swift in Sources */,
 				B6148B9B26E9FF690008F06D /* GenericPasswordStore.swift in Sources */,
 				B61CF5A2270F113600DBF12B /* RNPush.m in Sources */,
 				B605BFC226EB3C97000312E6 /* KeyGenError.swift in Sources */,

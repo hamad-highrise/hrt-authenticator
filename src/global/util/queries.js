@@ -1,6 +1,14 @@
 import { Database } from '../../native-services';
 import { DatabaseError } from '../errors';
 
+/**@module DBQueries */
+
+/**
+ *
+ * @param {number} accId - Account ID Associted with Auhtenticator ID
+ * @returns {Promise<string>}  Authenticator ID of the given `accId`
+ */
+
 async function getAuthIdByAccount(accId) {
     const query = `SELECT authenticator_id FROM authenticatorData WHERE account_id = ?;`;
     const params = [accId];
@@ -16,6 +24,12 @@ async function getAuthIdByAccount(accId) {
         throw new DatabaseError({ message: 'AUTH_ID_FETCH_ERROR' });
     }
 }
+
+/**
+ *
+ * @param {number} accId - Account ID associated with Enrollment Endpoint
+ * @returns {Promise<string>} Method Enrollment endpoint of the given `accId`
+ */
 
 async function getEnrollmentEndpoint(accId) {
     const query = `SELECT enrollment_endpoint FROM accounts WHERE account_id = ?;`;
@@ -33,6 +47,11 @@ async function getEnrollmentEndpoint(accId) {
     }
 }
 
+/**
+ *
+ * @returns {Promise<string>} ID of the user's device that is generated during app installation
+ */
+
 async function getDeviceId() {
     const query = `SELECT id FROM app_meta`;
     const database = new Database();
@@ -48,6 +67,12 @@ async function getDeviceId() {
     }
 }
 
+/**
+ *
+ * @param {{accId:number, method:string, keyHandle:string}} methodProps
+ * @returns {Promise<void>}
+ */
+
 async function addMethod({ accId, method, keyHandle }) {
     const query = `INSERT INTO methods (method_name, account_id, key_handle) VALUES (?,?,?);`;
     const params = [method, accId, keyHandle];
@@ -59,6 +84,12 @@ async function addMethod({ accId, method, keyHandle }) {
         throw new DatabaseError({ message: 'ADD_METHOD_ERROR' });
     }
 }
+
+/**
+ *  Get the Ignore SSL option of the associated `accId`
+ * @param {number} accId - Account ID associated
+ * @returns {Promise<boolean>} - Boolean indicating whether to ignore SSL warnings or not
+ */
 
 async function getIgnoreSslOption(accId) {
     const query = `SELECT ignore_ssl AS ignoreSsl FROM accounts WHERE account_id = ?;`;

@@ -1,10 +1,12 @@
 import { Database } from '../../../native-services';
 import { DatabaseError } from '../../errors';
 
+/** @module DBQueries */
+
 /**
  * Gives transaction endpoint of an account.
- * @param {Number} accId - Account ID of which transaction endpoint is required.
- * @returns Transaction Endpoint
+ * @param {number} accId - Account ID of which transaction endpoint is required.
+ * @returns {Promise<string>} Transaction Endpoint
  */
 
 async function getTransactionEndpoint(accId) {
@@ -22,6 +24,12 @@ async function getTransactionEndpoint(accId) {
         throw new DatabaseError({ message: 'TRXN_ENDPOINT_ERROR' });
     }
 }
+
+/**
+ *
+ * @param {number} accId - Account ID associated with Methods
+ * @returns {Promise<Array<string>>} Array of methods
+ */
 
 async function getMethods(accId) {
     const query = `SELECT method_name FROM methods WHERE account_id = ?;`;

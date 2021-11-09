@@ -9,7 +9,8 @@
         "test": "jest",
         "lint": "eslint .",
         "alfalah": "react-native run-android --variant alfalahDebug --appIdSuffix alfa",
-        "fbg": "react-native run-android --variant fidelityDebug --appIdSuffix fbg"
+        "fbg": "react-native run-android --variant fidelityDebug --appIdSuffix fbg",
+        "docs": "jsdoc -c jsdoc.conf.json"
     },
     "dependencies": {
         "@react-native-community/cli": "^5.0.1",
@@ -42,8 +43,11 @@
         "@babel/runtime": "^7.13.10",
         "@react-native-community/eslint-config": "^1.1.0",
         "babel-jest": "^25.1.0",
+        "better-docs": "^2.3.2",
+        "docdash": "^1.2.0",
         "eslint": "^6.5.1",
         "jest": "^25.1.0",
+        "jsdoc": "^3.6.7",
         "metro-react-native-babel-preset": "^0.66.2",
         "react-test-renderer": "17.0.2"
     },

@@ -1,12 +1,5 @@
 import React, { useMemo, useState } from 'react';
-import {
-    View,
-    Text,
-    ScrollView,
-    SafeAreaView,
-    KeyboardAvoidingView,
-    Platform
-} from 'react-native';
+import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 

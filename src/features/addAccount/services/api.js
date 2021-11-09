@@ -1,9 +1,21 @@
 import Config from 'react-native-config';
+import {  FetchBlobResponse } from 'rn-fetch-blob';
 import { utils, errors } from '../../../global';
 import { CertsError } from '../../../global/errors';
 
 const { getFetchInstance } = utils;
 const { NetworkError } = errors;
+
+/**
+ * @module API
+ * @author Hamad Safdar <hamad@highrisetechnologies.com>
+ */
+
+/**
+ * @async
+ * @param {{endpoint:string, ignoreSsl:boolean}} options
+ * @returns {Promise<FetchBlobResponse>} -
+ */
 
 async function getDetails({ endpoint, ignoreSsl }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
@@ -21,6 +33,21 @@ async function getDetails({ endpoint, ignoreSsl }) {
             : new NetworkError({ message: 'DETAILS_FETCH' });
     }
 }
+
+/**
+ * @typedef TokenRequestOptions
+ * @property {string} endpoint - URL to send request
+ * @property {string} formEncodedData - Token request body encoded to form data
+ * @property {boolean} ignoreSsl - Boolean to indicate to ignore SSL or not
+ */
+
+/**
+ *  Get Token for the first time.
+ * @async
+ * @param {TokenRequestOptions} tokenRequestOptions
+ * @returns {Promise<FetchBlobResponse>}
+ * @throws {NetworkError}
+ */
 
 async function getToken({ endpoint, formEncodedData, ignoreSsl }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
@@ -43,6 +70,19 @@ async function getToken({ endpoint, formEncodedData, ignoreSsl }) {
     }
 }
 
+/**
+ * @typedef RegisterTOTPConfig
+ * @property {string} endpoint - Endpoint to request for TOTP
+ * @property {string} token - Access Token
+ * @property {boolean} ignoreSsl
+ */
+
+/**
+ * @async
+ * @param {RegisterTOTPConfig} totpResgistrationConfig
+ * @returns {Promise<FetchBlobResponse>}
+ */
+
 async function registerTotp({ endpoint, token, ignoreSsl }) {
     try {
         const rnFetch = getFetchInstance({ ignoreSsl });
@@ -59,6 +99,20 @@ async function registerTotp({ endpoint, token, ignoreSsl }) {
         });
     }
 }
+
+/**
+ * @typedef AuthenticationMethodRegistrationConfig
+ * @property {string} endpoint - URL to request for registration
+ * @property {string} token - Access Token
+ * @property {boolean} ignoreSsl
+ * @property {string} requestBody - Stringified JSON
+ */
+
+/**
+ * @async
+ * @param {AuthenticationMethodRegistrationConfig} userPresenceRegistrationConfig
+ * @returns {Promise<FetchBlobResponse>}
+ */
 
 async function registerUserPresence({
     endpoint,
@@ -84,6 +138,12 @@ async function registerUserPresence({
         });
     }
 }
+
+/**
+ * @async
+ * @param {AuthenticationMethodRegistrationConfig} biometricsRegistrationConfig
+ * @returns {Promise<FetchBlobResponse>}
+ */
 
 async function registerBiometrics({ endpoint, token, ignoreSsl, requestBody }) {
     const rnFetch = getFetchInstance({ ignoreSsl });
