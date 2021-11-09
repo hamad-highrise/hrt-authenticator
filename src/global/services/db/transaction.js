@@ -5,7 +5,7 @@ import { DatabaseError } from '../../errors';
 
 /**
  * Gives transaction endpoint of an account.
- * @param {Number} accId - Account ID of which transaction endpoint is required.
+ * @param {number} accId - Account ID of which transaction endpoint is required.
  * @returns {Promise<string>} Transaction Endpoint
  */
 
