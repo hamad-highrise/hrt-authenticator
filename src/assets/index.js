@@ -107,4 +107,9 @@ icons = {
     edit: require('./icons/edit.png')
 };
 
+images = {
+    ...images,
+    biometric: require('./images/bio2.png')
+}
+
 export default { images, icons };

@@ -5,7 +5,7 @@ export {
     TransactionErrorScreen
 } from './transaction';
 export { RootedDeviceScreen } from './onBoarding';
-export { AccessCode } from './selected';
+export { AccessCode, BiometricInfo } from './selected';
 export {
     AddAccount,
     RegisterBiometrics,

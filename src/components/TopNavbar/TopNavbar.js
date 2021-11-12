@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Image, Text, StyleSheet, SafeAreaView } from 'react-native';
 import PropTypes from 'prop-types';
 import { IconButton } from '../IconButton';
+import assets from '../../assets';
 
 const TopNavbar = ({
     imageUrlBack,
@@ -24,7 +25,7 @@ const TopNavbar = ({
                             <IconButton onPress={imageBackOnPress}>
                                 <Image
                                     // source={{ uri: {imageUrlRight} }}
-                                    source={require('../../assets/icons/settings2black.png')}
+                                    source={assets.icons.setting}
                                     style={styles.iconBtn}
                                 />
                             </IconButton>
@@ -39,7 +40,7 @@ const TopNavbar = ({
                         <IconButton onPress={imageBackOnPress}>
                             <Image
                                 // source={{ uri: imageUrlBack }}
-                                source={require('../../assets/icons/crossblack.png')}
+                                source={assets.icons.crossBlack}
                                 style={styles.iconBtn}
                             />
                         </IconButton>

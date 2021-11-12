@@ -6,9 +6,13 @@ import { constants } from '../../../../global';
 import { Button } from '../../../../components';
 import styles from '../../code.styles';
 import assets from '../../../../assets';
+import { useNavigation } from '@react-navigation/native';
+import screensIds from '../../../../navigation/screensId';
 
 const Settings = ({ removeAccount }) => {
     const selected = useSelector(({ selected }) => selected);
+    const navigation = useNavigation();
+    const onBiometricPress = () => navigation.navigate(screensIds.biometricInfo);
     const onRemovePress = () => {
         Alert.alert(
             'Delete Account',
@@ -31,7 +35,7 @@ const Settings = ({ removeAccount }) => {
     return (
         <View>
             {selected['type'] === constants.ACCOUNT_TYPES.SAM && (
-                <TouchableOpacity style={styles.listitem}>
+                <TouchableOpacity style={styles.listitem} onPress={onBiometricPress} >
                     <View style={styles.listitemView}>
                         <Text style={styles.listitemText}>Biometric</Text>
                         <Image source={assets.icons.edit} style={styles.img} />
