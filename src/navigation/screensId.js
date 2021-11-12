@@ -14,7 +14,8 @@ const screensIdentifiers = Object.freeze({
     success: 'authenticator.SuccessScreen',
     rooted: 'authenticator.RootedDeviceScreen',
     transactionResponse: 'authenticator.TransactionResponse',
-    transactionError: 'authenticator.TransactionError'
+    transactionError: 'authenticator.TransactionError',
+    biometricInfo: 'authenticator.BiometricInfo'
 });
 
 export default screensIdentifiers;

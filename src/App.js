@@ -24,7 +24,8 @@ import {
     AddAccount,
     SuccessScreen,
     CompletionScreen,
-    RegisterBiometrics
+    RegisterBiometrics,
+    BiometricInfo
 } from './features/screens';
 
 enableScreens();
@@ -100,6 +101,10 @@ const App = () => {
                     <Screen
                         name={screenIds.transactionError}
                         component={TransactionErrorScreen}
+                    />
+                    <Screen
+                        name={screenIds.biometricInfo}
+                        component={BiometricInfo}
                     />
                 </Navigator>
             </NavigationContainer>

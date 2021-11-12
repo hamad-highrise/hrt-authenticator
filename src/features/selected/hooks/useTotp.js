@@ -23,12 +23,14 @@ function useTotp(onError) {
         useCallback(() => {
             updateOtp();
             intervalRef.current = setInterval(timer, 1000);
-            AppState.addEventListener('change', onAppStateChange);
+            const subscription = AppState.addEventListener(
+                'change',
+                onAppStateChange
+            );
 
             return () => {
                 clearInterval(intervalRef.current);
-                // has been deprecated in rn-0.65. Wait for patch in next version
-                AppState.removeEventListener('change', onAppStateChange);
+                subscription.remove();
             };
         }, [])
     );
