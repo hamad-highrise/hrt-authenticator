@@ -1,6 +1,8 @@
 package com.highrise.verify.rnpush;
 
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 
@@ -26,7 +28,8 @@ public class PushTokenService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         CustomNotifications notifications = new CustomNotifications(getApplicationContext());
         sendEvent(String.valueOf(remoteMessage.getData()));
-        notifications.createNotification(Objects.requireNonNull(remoteMessage.getNotification()).getTitle(), remoteMessage.getNotification().getBody());
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("verify://"));
+        notifications.createNotification(Objects.requireNonNull(remoteMessage.getNotification()).getTitle(), remoteMessage.getNotification().getBody(), intent);
     }
 
     private void sendEvent(String body) {

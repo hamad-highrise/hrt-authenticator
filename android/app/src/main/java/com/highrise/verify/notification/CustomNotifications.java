@@ -37,10 +37,10 @@ public class CustomNotifications {
     }
 
 
-    public void createNotification(final String title, final String text) {
+    public void createNotification(final String title, final String text, final Intent linkIntent) {
         createDefaultNotificationChannel();
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent activityIntent = PendingIntent.getActivity(context, 0, intent, 0);
+        PendingIntent activityIntent = PendingIntent.getActivity(context, 0, linkIntent, 0);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this.context, CHANNEL_ID)
                 .setContentTitle(title)
                 .setContentText(text)

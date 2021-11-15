@@ -70,6 +70,12 @@ class RNPush: NSObject {
   }
   
   @objc
+  static func onNotification(_ result: NSDictionary) -> Void {
+    NSLog("Notification \(result.allValues.description)")
+  }
+  
+  
+  @objc
   static func requiresMainQueueSetup() -> Bool {
     return false;
   }
