@@ -1,4 +1,5 @@
 import * as React from 'react';
+import { NativeEventEmitter } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
@@ -27,6 +28,7 @@ import {
     RegisterBiometrics,
     BiometricInfo
 } from './features/screens';
+import { useEffect } from 'react';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -47,6 +49,16 @@ NetInfo.addEventListener((status) => {
 
 const App = () => {
     const { Navigator, Screen } = Stack;
+
+    useEffect(() => {
+        const event = new NativeEventEmitter();
+        const sub = event.addListener('transaction', (res) =>
+            console.warn(res)
+        );
+        return () => {
+            sub.remove();
+        };
+    }, []);
 
     return (
         <Provider store={store}>
