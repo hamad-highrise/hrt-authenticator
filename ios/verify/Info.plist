@@ -26,40 +26,10 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>verify</string>
+			<string>Verify URL</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>verify</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>hrt</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>hrtverify</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>bafl</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>baflverify</string>
-			</array>
-		</dict>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLName</key>
-			<string>fbg</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>fbgverify</string>
+				<string>$(APP_URL_SCHEME)</string>
 			</array>
 		</dict>
 	</array>
@@ -92,6 +62,7 @@
 	<string>$(PRODUCT_FLAVOR)</string>
 	<key>UIBackgroundModes</key>
 	<array>
+		<string>fetch</string>
 		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>

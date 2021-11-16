@@ -1,4 +1,4 @@
-import { getToken as getTokenFromDb, updateTokenDb } from './db';
+import { getToken as getTokenFromDb, updateTokenDb, getTenantId } from './db';
 import { getRefreshedToken } from './api';
 import { cipher } from '../../native-services';
 import {
@@ -33,7 +33,7 @@ async function getAccessToken(accId) {
         } else {
             // TODO: Convert to a local function.
             //token has been expired
-
+            const tenantId = await getTenantId(accId);
             const { refreshToken, endpoint } = token;
             const ignoreSsl = await getIgnoreSslOption(accId);
             const { decrypted: decryptedRefreshToken } = await cipher.decrypt({
@@ -42,7 +42,8 @@ async function getAccessToken(accId) {
             });
 
             const body = await getTokenRequestBody({
-                refreshToken: decryptedRefreshToken
+                refreshToken: decryptedRefreshToken,
+                tenantId
             });
 
             const result = await getRefreshedToken({

@@ -6,6 +6,7 @@ import createAccount from './createAccount';
 import registerMethods from './registerMethods';
 import { constants } from '../../../global';
 import URL from 'url-parse';
+import { utilities } from '../../../native-services';
 
 const result = { serviceName: '', accId: '', methods: [], type: '' };
 
@@ -29,12 +30,14 @@ export default async function registerDevice(scanned) {
                 endpoint: scanned?.['details_url'],
                 ignoreSsl
             });
-
+            //new tenant id for each new user
+            const tenantId = await (await utilities.getUUID()).uuid;
             // Fetch token
             const token = await getToken({
                 endpoint: details.endpoints.token,
                 ignoreSsl,
-                code: scanned.code
+                code: scanned.code,
+                tenantId
             });
 
             // register totp
@@ -54,7 +57,8 @@ export default async function registerDevice(scanned) {
                     ignoreSsl,
                     transactionEndpoint: details.endpoints.transaction,
                     enrollmentEndpoint: details.endpoints.enrollment,
-                    authId: token.authenticatorId
+                    authId: token.authenticatorId,
+                    tenantId
                 },
                 token: {
                     token: token.accessToken,
@@ -92,7 +96,7 @@ export { default as parser } from './parser';
 //helpers
 /**
  *
- * @param {{*}} scanned
+ * @param {*} scanned
  * @returns {boolean} - Scanned QR Code object contains required values
  */
 function checkQrValidity(scanned) {
@@ -101,7 +105,7 @@ function checkQrValidity(scanned) {
 
 /**
  *
- * @param {{*}} options
+ * @param {*}} options
  * @returns {boolean} - Boolean indicating to ignore SSL or not
  */
 

@@ -41,6 +41,7 @@ function getTokenExpiryInSeconds(expiresIn) {
  * @property {string} [code] - Client Code for requesting the token at initial
  * @property {string} [refreshToken] - Refresh Token for a new token
  * @property {string} [accountName] - Account name to send with token request
+ * @property {string} [tenantId] - Tenant Id for the account
  */
 
 /**

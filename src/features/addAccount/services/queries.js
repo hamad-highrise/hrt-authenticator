@@ -23,6 +23,7 @@ import { Database } from '../../../native-services';
 async function createAccountEntry({
     name,
     issuer,
+    tenantId,
     type = 'TOTP',
     transactionEndpoint = null,
     enrollmentEndpoint = null,
@@ -30,9 +31,9 @@ async function createAccountEntry({
 }) {
     const query = `INSERT INTO 
         accounts 
-            (account_name, issuer, type, ignore_ssl, transaction_endpoint, enrollment_endpoint)
+            (account_name, issuer, type, ignore_ssl, transaction_endpoint, enrollment_endpoint, tenant_id)
         VALUES
-            (?, ?, ?, ?, ?, ?);
+            (?, ?, ?, ?, ?, ?, ?);
         `;
     const params = [
         name,
@@ -40,7 +41,8 @@ async function createAccountEntry({
         type,
         ignoreSsl,
         transactionEndpoint,
-        enrollmentEndpoint
+        enrollmentEndpoint,
+        tenantId
     ];
     const database = new Database();
     try {
@@ -71,7 +73,7 @@ async function isUnique({ name, issuer }) {
 
 /**
  * Create the Account Secret entry in database
- * @param {{secret:string, accId:number}} param0 
+ * @param {{secret:string, accId:number}} param0
  * @returns {Promise<void>}
  */
 
@@ -95,8 +97,8 @@ async function addSecret({ secret, accId }) {
  */
 
 /**
- * 
- * @param {AuthMethod} param0 
+ *
+ * @param {AuthMethod} param0
  * @returns {Promise<void>}
  */
 
@@ -123,7 +125,7 @@ async function addMethod({ accId, method, keyHandle }) {
 
 /**
  * Create token entry in the database
- * @param {Token} param0 
+ * @param {Token} param0
  * @returns {Promise<void>}
  */
 
@@ -149,7 +151,7 @@ async function saveToken({
 
 /**
  * To save authenticator id in database
- * @param {{authId:string, accId:number}} param0 
+ * @param {{authId:string, accId:number}} param0
  * @returns {Promise<void>}
  */
 
@@ -174,7 +176,6 @@ export default {
     addMethod
 };
 
- 
 export {
     createAccountEntry,
     saveAuthId,
