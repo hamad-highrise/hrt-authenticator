@@ -30,6 +30,7 @@ import {
 } from './features/screens';
 import { useEffect } from 'react';
 import { LoadingIndicator } from './components';
+import Config from 'react-native-config';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -52,18 +53,16 @@ const App = () => {
     const { Navigator, Screen } = Stack;
 
     const linking = {
-        prefixes: ['verify://']
+        prefixes: [`${Config.URL_SCHEME}://`],
+        config: {
+            screens: {
+                [screenIds.main]: {
+                    path: 'transaction/:tenantId',
+                    // parse: { tenantId: (tenantId) => `${tenantId}}` }
+                }
+            }
+        }
     };
-
-    useEffect(() => {
-        // const event = new NativeEventEmitter();
-        // const sub = event.addListener('transaction', (res) =>
-        //     console.warn(res)
-        // );
-        // return () => {
-        //     sub.remove();
-        // };
-    }, []);
 
     return (
         <Provider store={store}>

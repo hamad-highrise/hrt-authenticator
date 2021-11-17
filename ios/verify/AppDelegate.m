@@ -117,6 +117,12 @@ static void InitializeFlipper(UIApplication *application) {
 -(void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler{
   NSDictionary *userInfo = response.notification.request.content.userInfo;
   NSLog(@"%@", userInfo);
+  NSString *tenantKey = @"com.ibm.security.access.mmfa.tenant";
+  NSString *tenantId = userInfo[tenantKey];
+  [RNPush onNotificationTap:userInfo];
+  NSLog(@"Tenant ID of the transaction %@", tenantId);
+  NSURL *url = [NSURL URLWithString:@"baflverify://transaction?tenantId="];
+  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
   completionHandler();
 }
 

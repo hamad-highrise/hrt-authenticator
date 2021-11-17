@@ -70,8 +70,15 @@ class RNPush: NSObject {
   }
   
   @objc
-  static func onNotification(_ result: NSDictionary) -> Void {
-    NSLog("Notification \(result.allValues.description)")
+  static func onNotificationTap(_ result: NSDictionary) -> Void {
+    let tenantKey = "com.ibm.security.access.mmfa.tenant";
+    guard let tenantId = result[tenantKey] else {
+      return;
+    }
+    let urlScheme = Bundle.main.object(forInfoDictionaryKey: "APP_URL") as! String;
+    let url = URL(string:"\(urlScheme)://transaction/\(tenantId)");
+    NSLog("urlTest \(String(describing: url))");
+    UIApplication.shared.open(url!, options: [:], completionHandler: nil);
   }
   
   
