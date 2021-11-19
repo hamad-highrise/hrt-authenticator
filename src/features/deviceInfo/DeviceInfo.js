@@ -5,14 +5,12 @@ import {
     StyleSheet,
     TouchableOpacity,
     Image,
-    Modal,
     SafeAreaView,
-    ScrollView,
     Dimensions
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { TopNavbar } from '../../components';
+import { Topbar } from '../../components';
 import screensIdentifiers from '../../navigation/screensId';
 import assets from '../../assets';
 
@@ -26,10 +24,19 @@ const DeviceInfo = (props) => {
         navigation.navigate(screensIdentifiers.securityassessment);
     }, [props.componentId]);
     return (
-        <View style={styles.container}>
-            <TopNavbar
-                title="Utilities"
-                imageBackOnPress={navigation.goBack}></TopNavbar>
+        <SafeAreaView style={styles.container}>
+            <Topbar
+                title=""
+                topbarLeft={{
+                    visible: true,
+                    onPress: navigation.goBack,
+                    image: {
+                        source: assets.icons.backArrow,
+                        width: '60%',
+                        height: '60%'
+                    }
+                }}
+            />
 
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
@@ -49,123 +56,9 @@ const DeviceInfo = (props) => {
                         <Text style={styles.listitemText}>1.0.0</Text>
                     </View>
                 </View>
-                <TouchableOpacity style={styles.listitem}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Terms and Conditions
-                        </Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>Privacy Policy</Text>
-                        <Image
-                            source={assets.icons.angleBlack}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.listitem}>
-                    <View style={styles.listitemView}>
-                        <Text style={styles.listitemText}>
-                            Third Party Notices
-                        </Text>
-                        <Image
-                            source={assets.icons.angleBlack}
-                            style={styles.img}
-                        />
-                    </View>
-                </TouchableOpacity>
 
                 {/* test case modal */}
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={privacypolicymodalVisible}
-                    onRequestClose={() => {
-                        privacypolicysetModalVisible(
-                            !privacypolicymodalVisible
-                        );
-                    }}>
-                    <View style={{ backgroundColor: 'white' }}>
-                        <View>
-                            <Text
-                                style={{
-                                    alignSelf: 'center',
-                                    fontSize: 18,
-                                    marginTop: 15,
-                                    marginVertical: 10,
-                                    fontWeight: 'bold',
-                                    color: '#424c58'
-                                }}>
-                                Privacy Policy
-                            </Text>
-                        </View>
-                        <View style={styles.containerr}>
-                            <SafeAreaView>
-                                <ScrollView
-                                    style={{
-                                        height:
-                                            Dimensions.get('window').height *
-                                            0.76
-                                    }}>
-                                    <Text style={styles.content}>
-                                        This IBM Mobile Application Privacy
-                                        Statement ("Mobile Privacy Statement")
-                                        explains the data IBM may collect on
-                                        behalf of the entity that entitles you
-                                        to use this IBM product offering. This
-                                        Mobile Privacy Statement only applies to
-                                        the information IBM may collect on
-                                        behalf of that entity. It does not apply
-                                        to the information that entity may
-                                        collect for its own use.
-                                    </Text>
 
-                                    <Text style={styles.content}>
-                                        Downloading, accessing, or otherwise
-                                        using the App indicates that you have
-                                        read this Mobile Privacy Statement and
-                                        consent to its terms. If you do not
-                                        consent to the terms of this Mobile
-                                        Privacy Statement, do not proceed to
-                                        download, access, or otherwise use the
-                                        App.
-                                    </Text>
-                                    <Text style={styles.content}>
-                                        IBM may collect the following
-                                        information through the App:
-                                        {'\n'}
-                                        <Text>{'\u2022'}</Text> Personal
-                                        information you may provide to download
-                                        and use the App, including your email
-                                        address, name, and password{'\n'}
-                                        <Text>{'\u2022'}</Text> Information
-                                        about your usage of the App, including
-                                        crash logs and usage statistics
-                                        <Text>{'\u2022'}</Text> Information
-                                        about your device and its interaction
-                                        with the App. including the type of
-                                        mobile device you use with the App, its
-                                        unique user ID, IP address, and
-                                        operating system, and the type of mobile
-                                        Internet browsers in use
-                                    </Text>
-                                </ScrollView>
-                            </SafeAreaView>
-                            <View style={{ margin: 10 }} />
-                            <TouchableOpacity
-                                onPress={() =>
-                                    privacypolicysetModalVisible(
-                                        !privacypolicymodalVisible
-                                    )
-                                }
-                                style={styles.btnInvert}>
-                                <Text style={styles.label}>Close</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </Modal>
                 {/* end test case modal */}
                 <TouchableOpacity
                     style={styles.listitem}
@@ -183,7 +76,7 @@ const DeviceInfo = (props) => {
 
                 {/* end REMOVE BELOW RECORDs */}
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -243,3 +136,78 @@ const styles = StyleSheet.create({
 });
 
 export default DeviceInfo;
+{
+    /* <Modal
+    animationType="slide"
+    transparent={true}
+    visible={privacypolicymodalVisible}
+    onRequestClose={() => {
+        privacypolicysetModalVisible(!privacypolicymodalVisible);
+    }}>
+    <View style={{ backgroundColor: 'white' }}>
+        <View>
+            <Text
+                style={{
+                    alignSelf: 'center',
+                    fontSize: 18,
+                    marginTop: 15,
+                    marginVertical: 10,
+                    fontWeight: 'bold',
+                    color: '#424c58'
+                }}>
+                Privacy Policy
+            </Text>
+        </View>
+        <View style={styles.containerr}>
+            <SafeAreaView>
+                <ScrollView
+                    style={{
+                        height: Dimensions.get('window').height * 0.76
+                    }}>
+                    <Text style={styles.content}>
+                        This IBM Mobile Application Privacy Statement ("Mobile
+                        Privacy Statement") explains the data IBM may collect on
+                        behalf of the entity that entitles you to use this IBM
+                        product offering. This Mobile Privacy Statement only
+                        applies to the information IBM may collect on behalf of
+                        that entity. It does not apply to the information that
+                        entity may collect for its own use.
+                    </Text>
+
+                    <Text style={styles.content}>
+                        Downloading, accessing, or otherwise using the App
+                        indicates that you have read this Mobile Privacy
+                        Statement and consent to its terms. If you do not
+                        consent to the terms of this Mobile Privacy Statement,
+                        do not proceed to download, access, or otherwise use the
+                        App.
+                    </Text>
+                    <Text style={styles.content}>
+                        IBM may collect the following information through the
+                        App:
+                        {'\n'}
+                        <Text>{'\u2022'}</Text> Personal information you may
+                        provide to download and use the App, including your
+                        email address, name, and password{'\n'}
+                        <Text>{'\u2022'}</Text> Information about your usage of
+                        the App, including crash logs and usage statistics
+                        <Text>{'\u2022'}</Text> Information about your device
+                        and its interaction with the App. including the type of
+                        mobile device you use with the App, its unique user ID,
+                        IP address, and operating system, and the type of mobile
+                        Internet browsers in use
+                    </Text>
+                </ScrollView>
+            </SafeAreaView>
+            <View style={{ margin: 10 }} />
+            <TouchableOpacity
+                onPress={() =>
+                    privacypolicysetModalVisible(!privacypolicymodalVisible)
+                }
+                style={styles.btnInvert}>
+                <Text style={styles.label}>Close</Text>
+            </TouchableOpacity>
+        </View>
+    </View>
+</Modal>; */
+}

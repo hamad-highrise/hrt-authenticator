@@ -6,9 +6,11 @@ import assets from '../../assets';
 import { useNavigation } from '@react-navigation/native';
 import Config from 'react-native-config';
 import { colors } from '../../theme';
+import { useSelected } from '../../global/hooks';
 
 export default function BiometricInfo() {
     const navigation = useNavigation();
+    const { issuer } = useSelected();
     return (
         <SafeAreaView style={styles.container}>
             <Topbar
@@ -25,11 +27,11 @@ export default function BiometricInfo() {
             />
             <View style={styles.content}>
                 <Image style={styles.img} source={assets.images.biometric} />
-                <View style={styles.textContainer} >
+                <View style={styles.textContainer}>
                     <Text style={[styles.heading]}>Biometrics</Text>
-                    <Text style={styles.textInstruction} >
-                        {'Test Account'} uses biometrics as a verification
-                        method to keep your account safe.
+                    <Text style={styles.textInstruction}>
+                        {issuer} uses biometrics as a verification method to
+                        keep your account safe.
                     </Text>
                 </View>
             </View>

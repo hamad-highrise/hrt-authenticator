@@ -1,8 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, Switch, Dimensions, Platform } from 'react-native';
+import {
+    View,
+    Text,
+    Image,
+    Switch,
+    Dimensions,
+    Platform,
+    SafeAreaView
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
-import { TopNavbar } from '../../../components';
+import { Topbar } from '../../../components';
 import { values } from '../../../global';
 import { biometrics, utilities } from '../../../native-services';
 
@@ -35,8 +43,19 @@ const SecurityAssessment = (props) => {
         setIsEnabled((isEnabled) => !isEnabled);
     };
     return (
-        <View style={styles.container}>
-            <TopNavbar title="" imageBackOnPress={() => navigation.goBack()} />
+        <SafeAreaView style={styles.container}>
+            <Topbar
+                title=""
+                topbarLeft={{
+                    visible: true,
+                    onPress: navigation.goBack,
+                    image: {
+                        source: assets.icons.backArrow,
+                        width: '60%',
+                        height: '60%'
+                    }
+                }}
+            />
             <View style={{ margin: 25 }} />
             <Text style={{ marginLeft: 20, marginBottom: 10, fontSize: 15 }}>
                 Status
@@ -137,7 +156,7 @@ const SecurityAssessment = (props) => {
                     </View>
                 </View>
             )}
-        </View>
+        </SafeAreaView>
     );
 };
 

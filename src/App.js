@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NativeEventEmitter, Text } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
@@ -28,8 +27,6 @@ import {
     RegisterBiometrics,
     BiometricInfo
 } from './features/screens';
-import { useEffect } from 'react';
-import { LoadingIndicator } from './components';
 import Config from 'react-native-config';
 
 enableScreens();
@@ -57,7 +54,7 @@ const App = () => {
         config: {
             screens: {
                 [screenIds.main]: {
-                    path: 'transaction/:tenantId',
+                    path: 'transaction/:tenantId'
                     // parse: { tenantId: (tenantId) => `${tenantId}}` }
                 }
             }
@@ -66,9 +63,7 @@ const App = () => {
 
     return (
         <Provider store={store}>
-            <NavigationContainer
-                linking={linking}
-                fallback={<LoadingIndicator show={true} />}>
+            <NavigationContainer linking={linking}>
                 <Navigator
                     screenOptions={{ headerShown: false }}
                     initialRouteName={screenIds.splash}>

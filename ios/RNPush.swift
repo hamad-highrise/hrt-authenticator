@@ -22,7 +22,6 @@ class RNPush: NSObject {
       if error != nil {
         reject("",error?.localizedDescription,error);
       } else if let token = token {
-        
         resolve(["pushToken": token]);
       }
     })
@@ -77,7 +76,6 @@ class RNPush: NSObject {
     }
     let urlScheme = Bundle.main.object(forInfoDictionaryKey: "APP_URL") as! String;
     let url = URL(string:"\(urlScheme)://transaction/\(tenantId)");
-    NSLog("urlTest \(String(describing: url))");
     UIApplication.shared.open(url!, options: [:], completionHandler: nil);
   }
   
