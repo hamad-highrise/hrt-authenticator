@@ -1,6 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BackHandler } from 'react-native';
+import { BackHandler, Linking } from 'react-native';
 import {
     CommonActions,
     useNavigation,

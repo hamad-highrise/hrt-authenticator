@@ -28,6 +28,8 @@ import {
     BiometricInfo
 } from './features/screens';
 import Config from 'react-native-config';
+import { Linking, Text } from 'react-native';
+import { LoadingIndicator } from './components';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -57,6 +59,12 @@ const App = () => {
                     path: 'transaction/:tenantId'
                     // parse: { tenantId: (tenantId) => `${tenantId}}` }
                 }
+            }
+        },
+        async getInitialURL() {
+            const url = await Linking.getInitialURL();
+            if (url != null) {
+                return url;
             }
         }
     };

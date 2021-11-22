@@ -3,6 +3,7 @@ package com.highrise.verify.rnpush;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -24,6 +25,7 @@ public class PushTokenService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         CustomNotifications notifications = new CustomNotifications(getApplicationContext());
         String linkUrl = BuildConfig.URL_SCHEME + "://transaction/" + remoteMessage.getData().get("com.ibm.security.access.mmfa.tenant");
+        Log.d("TEST4", linkUrl);
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setData(Uri.parse(linkUrl));
         notifications.createNotification(Objects.requireNonNull(remoteMessage.getNotification()).getTitle(), remoteMessage.getNotification().getBody(), intent);
