@@ -21,7 +21,7 @@ const Splash = (props) => {
     const dispatch = useDispatch();
     const accounts = useSelector(({ accounts }) => accounts);
     useEffect(() => {
-        SplashScreen.hide()
+        SplashScreen.hide();
         init();
     }, []);
 
@@ -34,7 +34,6 @@ const Splash = (props) => {
                     await initiateDb();
                     await setInitiated();
                 } catch (error) {
-                   
                     alert('Error while initiating application.');
                 }
                 setTimeout(() => {
@@ -49,11 +48,14 @@ const Splash = (props) => {
     };
 
     useEffect(() => {
-        setTimeout(() => {
+        const timer = setTimeout(() => {
             if (accounts !== null) {
                 navigation.navigate(screensIdentifiers.main);
             }
         }, SET_ROOT_DELAY);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [JSON.stringify(accounts)]);
 
     return (

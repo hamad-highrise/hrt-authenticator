@@ -1,12 +1,17 @@
 import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { BackHandler } from 'react-native';
-import { CommonActions, useNavigation } from '@react-navigation/native';
+import { BackHandler, Linking } from 'react-native';
+import {
+    CommonActions,
+    useNavigation,
+    useRoute
+} from '@react-navigation/native';
 
 import { accountActions } from '../ducks';
-import { transactionActions } from '../../actions.public';
+import { selectActions, transactionActions } from '../../actions.public';
 import constants from '../../../global/constants';
 import screensIdentifiers from '../../../navigation/screensId';
+import { getAccIdFromTenantId } from '../../../global/services';
 
 function useAccounts() {
     const accounts = useSelector(({ accounts }) => accounts);
@@ -14,6 +19,7 @@ function useAccounts() {
     const dispatch = useDispatch();
     const navigation = useNavigation();
     const intervalRef = useRef();
+    const { params } = useRoute();
 
     useEffect(() => {
         loadAccounts();
@@ -50,6 +56,16 @@ function useAccounts() {
             intervalRef.current = setInterval(transactionChecker, 1000 * 5);
         }
     }, [JSON.stringify(accounts)]);
+
+    useEffect(() => {
+        if (params?.tenantId) {
+            (async () => {
+                const accId = await getAccIdFromTenantId(params.tenantId);
+                dispatch(selectActions.select(accId));
+                navigation.navigate(screensIdentifiers.accessCode);
+            })();
+        }
+    }, [params?.tenantId]);
 
     const transactionChecker = () => {
         accounts.forEach((account) => {

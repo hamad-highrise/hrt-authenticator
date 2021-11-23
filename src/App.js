@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { NativeEventEmitter } from 'react-native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import NetInfo from '@react-native-community/netinfo';
@@ -28,7 +27,9 @@ import {
     RegisterBiometrics,
     BiometricInfo
 } from './features/screens';
-import { useEffect } from 'react';
+import Config from 'react-native-config';
+import { Linking, Text } from 'react-native';
+import { LoadingIndicator } from './components';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -50,19 +51,27 @@ NetInfo.addEventListener((status) => {
 const App = () => {
     const { Navigator, Screen } = Stack;
 
-    useEffect(() => {
-        const event = new NativeEventEmitter();
-        const sub = event.addListener('transaction', (res) =>
-            console.warn(res)
-        );
-        return () => {
-            sub.remove();
-        };
-    }, []);
+    const linking = {
+        prefixes: [`${Config.URL_SCHEME}://`],
+        config: {
+            screens: {
+                [screenIds.main]: {
+                    path: 'transaction/:tenantId'
+                    // parse: { tenantId: (tenantId) => `${tenantId}}` }
+                }
+            }
+        },
+        async getInitialURL() {
+            const url = await Linking.getInitialURL();
+            if (url != null) {
+                return url;
+            }
+        }
+    };
 
     return (
         <Provider store={store}>
-            <NavigationContainer>
+            <NavigationContainer linking={linking}>
                 <Navigator
                     screenOptions={{ headerShown: false }}
                     initialRouteName={screenIds.splash}>

@@ -658,7 +658,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_HRT=${PROJECT_DIR}/${TARGET_NAME}/Firebase/HRT/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_FBG=${PROJECT_DIR}/${TARGET_NAME}/Firebase/FBG/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_ALFA=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Alfa/${GOOGLESERVICE_INFO_PLIST}\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"ReleaseFBG\" ] || [\"${CONFIGURATION}\" == \"DebugFBG\"]\nthen\n    echo \"Using ${GOOGLESERVICE_INFO_FBG}\"\n    cp \"${GOOGLESERVICE_INFO_FBG}\" \"${PLIST_DESTINATION}\"\nelif [\"${CONFIGURATION}\" == \"ReleaseAlfa\"] || [\"${CONFIGURATION}\" == \"DebugAlfa\"]\nthen\n     echo \"Using ${GOOGLESERVICE_INFO_ALFA}\"\n    cp \"${GOOGLESERVICE_INFO_ALFA}\" \"${PLIST_DESTINATION}\"\nelse\n    echo \"Using ${GOOGLESERVICE_INFO_HRT}\"\n    cp \"${GOOGLESERVICE_INFO_HRT}\" \"${PLIST_DESTINATION}\"\nfi\n";
+			shellScript = "#!/bin/bash\n# Name of the resource we're selectively copying\nGOOGLESERVICE_INFO_PLIST=GoogleService-Info.plist\n\n# Get references to dev and prod versions of the GoogleService-Info.plist\n# NOTE: These should only live on the file system and should NOT be part of the target (since we'll be adding them to the target manually)\nGOOGLESERVICE_INFO_HRT=${PROJECT_DIR}/${TARGET_NAME}/Firebase/HRT/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_FBG=${PROJECT_DIR}/${TARGET_NAME}/Firebase/FBG/${GOOGLESERVICE_INFO_PLIST}\nGOOGLESERVICE_INFO_ALFA=${PROJECT_DIR}/${TARGET_NAME}/Firebase/Alfa/${GOOGLESERVICE_INFO_PLIST}\n\n# Get a reference to the destination location for the GoogleService-Info.plist\nPLIST_DESTINATION=${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.app\necho \"Will copy ${GOOGLESERVICE_INFO_PLIST} to final destination: ${PLIST_DESTINATION}\"\n\necho \"Configuration Name: ${CONFIGURATION}\"\n\n# Copy over the prod GoogleService-Info.plist for Release builds\nif [ \"${CONFIGURATION}\" == \"ReleaseFBG\" ] || [ \"${CONFIGURATION}\" == \"DebugFBG\" ];\nthen\n    echo \"Using ${GOOGLESERVICE_INFO_FBG}\"\n    cp \"${GOOGLESERVICE_INFO_FBG}\" \"${PLIST_DESTINATION}\"\nelif [ \"${CONFIGURATION}\" == \"ReleaseAlfa\" ] || [ \"${CONFIGURATION}\" == \"DebugAlfa\" ];\nthen\n     echo \"Using ${GOOGLESERVICE_INFO_ALFA}\"\n    cp \"${GOOGLESERVICE_INFO_ALFA}\" \"${PLIST_DESTINATION}\"\nelse\n    echo \"Using ${GOOGLESERVICE_INFO_HRT}\"\n    cp \"${GOOGLESERVICE_INFO_HRT}\" \"${PLIST_DESTINATION}\"\nfi\n";
 		};
 		CBC3D4DC6AE65F87A61C1419 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -876,6 +876,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = DEB5A1C96B57DEF3F52D3531 /* Pods-verify.debug.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = hrt;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
@@ -904,6 +906,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 93CAB161E0D4AEE3B982C22F /* Pods-verify.release.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = hrt;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
@@ -1229,6 +1233,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4E07064DD2638352297DC0E2 /* Pods-verify.debugfbg.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = fbg;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
@@ -1401,6 +1407,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BC20554A4B190304CEB1354F /* Pods-verify.debugalfa.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = bafl;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
@@ -1567,6 +1575,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 00F39A729F76B9E193C5C39F /* Pods-verify.releasealfa.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = bafl;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconBAFL;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;
@@ -1728,6 +1738,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 33CCC7F46F7EAE7A379651BF /* Pods-verify.releasefbg.xcconfig */;
 			buildSettings = {
+				APP_URL_SCHEME = "";
+				"APP_URL_SCHEME[arch=*]" = fbg;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIconFBG;
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_ENTITLEMENTS = verify/verify.entitlements;

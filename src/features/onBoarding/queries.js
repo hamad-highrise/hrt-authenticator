@@ -19,7 +19,8 @@ CREATE TABLE IF NOT EXISTS "accounts"(
     "transaction_endpoint" TEXT,
     "enrollment_endpoint" TEXT,
     "ignore_ssl" INTEGER DEFAULT 0,
-    "suspected" INTEGER DEFAULT 0
+    "suspected" INTEGER DEFAULT 0,
+    "tenant_id" TEXT UNIQUE
     );
 `;
 

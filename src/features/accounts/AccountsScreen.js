@@ -1,6 +1,6 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { SafeAreaView, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import { useNavigation, useRoute } from '@react-navigation/native';
 
 import { Topbar, NetworkIndicator } from '../../components';
 import assets from '../../assets';
@@ -11,8 +11,9 @@ import screensIdentifiers from '../../navigation/screensId';
 import styles from './accounts.styles';
 import { values } from '../../global';
 
-const Main = () => {
+const Main = (props) => {
     const navigation = useNavigation();
+
     const { accounts, isConnected } = useAccounts();
 
     const onAddAccount = useCallback(() => {

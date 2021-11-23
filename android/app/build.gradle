@@ -137,8 +137,8 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         missingDimensionStrategy 'react-native-camera', 'general'
-        versionCode 150
-        versionName "1.1.0"
+        versionCode 250
+        versionName "1.2.1"
         multiDexEnabled true
         resValue "string", "build_config_package", "com.highrise.verify"
     }
@@ -182,14 +182,17 @@ android {
         alfalah {
             applicationIdSuffix ".alfa"
             resValue "string", "app_name_alfalah", "Alfalah Verify"
+//            manifestPlaceHolders = [appUrlScheme: "bafl"]
 
         }
         fidelity {
             applicationIdSuffix ".fbg"
             resValue "string", "app_name_fidelity", "Fidelity Verify"
+//            manifestPlaceHolders = [appUrlScheme: "fbg"]
         }
         highrise {
             resValue "string", "app_name_highrise", "HRT Verify"
+//            manifestPlaceHolders = [appUrlScheme: "hrt"]
         }
     }
 

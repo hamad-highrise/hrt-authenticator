@@ -5,9 +5,9 @@ import helpers from '../../../helpers';
 
 const { SAMError } = errors;
 
-async function getToken({ endpoint, code, ignoreSsl }) {
+async function getToken({ endpoint, code, ignoreSsl, tenantId }) {
     try {
-        const body = await utils.getTokenRequestBody({ code });
+        const body = await utils.getTokenRequestBody({ code, tenantId });
         const result = await api.getToken({
             endpoint,
             formEncodedData: body,

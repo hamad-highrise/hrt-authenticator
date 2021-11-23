@@ -21,9 +21,9 @@ const { SAMError } = errors;
  */
 
 /**
- *
+ * @async
  * @param {{endpoint:string, ignoreSsl:boolean}} param0
- * @returns {Details} Details required for MMFA
+ * @returns {Promise<Details>} Details required for MMFA
  */
 
 async function getDetails({ endpoint, ignoreSsl }) {

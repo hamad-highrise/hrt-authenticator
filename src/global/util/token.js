@@ -41,6 +41,7 @@ function getTokenExpiryInSeconds(expiresIn) {
  * @property {string} [code] - Client Code for requesting the token at initial
  * @property {string} [refreshToken] - Refresh Token for a new token
  * @property {string} [accountName] - Account name to send with token request
+ * @property {string} [tenantId] - Tenant Id for the account
  */
 
 /**
@@ -53,12 +54,12 @@ function getTokenExpiryInSeconds(expiresIn) {
 async function getTokenRequestBody({
     refreshToken = '',
     code = '',
-    accountName = ''
+    accountName = '',
+    tenantId = ''
 }) {
-    let deviceData, uuid;
+    let deviceData;
     try {
         deviceData = await utilities.getDeviceInfo();
-        uuid = await (await utilities.getUUID()).uuid;
 
         const isFingerprintSupported = await (
             await biometrics.isSensorAvailable()
@@ -81,7 +82,7 @@ async function getTokenRequestBody({
         client_id: 'AuthenticatorClient',
         scope: 'mmfaAuthn',
         front_camera_support: deviceData.frontCameraAvailable,
-        tenant_id: uuid,
+        tenant_id: tenantId || null, // will remove tenantId if not given
         device_id: deviceData.deviceId,
         os_version: deviceData.osVersion,
         device_type: Platform.OS === 'android' ? 'Android' : 'iPhone',
@@ -99,12 +100,17 @@ async function getTokenRequestBody({
     };
 
     //for initially requesting a token
-    code && ((raw['grant_type'] = 'authorization_code'), (raw['code'] = code));
-
+    if (code) {
+        raw['grant_type'] = 'authorization_code';
+        raw['code'] = code;
+    }
     //for refreshing the token
-    refreshToken &&
-        ((raw['grant_type'] = 'refresh_token'),
-        (raw['refresh_token'] = refreshToken));
+    else if (refreshToken) {
+        raw['grant_type'] = 'refresh_token';
+        raw['refresh_token'] = refreshToken;
+    } else {
+        throw new Error('Unknown params given for token request body!');
+    }
 
     return encodeToFormData(raw);
 }

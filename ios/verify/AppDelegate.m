@@ -4,6 +4,7 @@
 #import <React/RCTBundleURLProvider.h>
 #import <React/RCTRootView.h>
 #import "RNSplashScreen.h"
+#import <React/RCTLinkingManager.h>
 @import Firebase;
 
 
@@ -52,7 +53,7 @@ static void InitializeFlipper(UIApplication *application) {
   RCTRootView *rootView = [[RCTRootView alloc] initWithBridge:bridge
                                                    moduleName:@"verify"
                                             initialProperties:nil];
-//  [FIRMessaging messaging].delegate = self;
+  [UNUserNotificationCenter currentNotificationCenter].delegate = self;
 
 #if RCT_DEV
   [bridge moduleForClass:[RCTDevLoadingView class]];
@@ -71,14 +72,14 @@ static void InitializeFlipper(UIApplication *application) {
   rootViewController.view = rootView;
   self.window.rootViewController = rootViewController;
   [self.window makeKeyAndVisible];
-  [RNSplashScreen show]; 
+  [RNSplashScreen show];
   [RNPush requestPushAuthorization];
   [FIRApp configure];
   return YES;
 }
 
 - (void) application: (UIApplication *) app didRegisterForRemoteNotificationsWithDeviceToken:(nonnull NSData *)deviceToken {
-  NSLog(@"TEST HELLO FCM");
+  
 
 }
 
@@ -86,6 +87,11 @@ static void InitializeFlipper(UIApplication *application) {
   
 }
 
+- (void) application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+//  [RNPush onNotification:userInfo];
+  NSLog(@"Hello notification");
+  completionHandler(UIBackgroundFetchResultNoData);
+}
 
 
 
@@ -96,6 +102,28 @@ static void InitializeFlipper(UIApplication *application) {
 #else
   return [[NSBundle mainBundle] URLForResource:@"main" withExtension:@"jsbundle"];
 #endif
+}
+
+-(BOOL) application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options {
+  return [RCTLinkingManager application:app openURL:url options:options];
+}
+
+-(void) userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+  NSDictionary *userInfo = notification.request.content.userInfo;
+  NSLog(@"%@", userInfo);
+  completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert);
+}
+
+-(void) userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler{
+  NSDictionary *userInfo = response.notification.request.content.userInfo;
+  NSLog(@"%@", userInfo);
+  NSString *tenantKey = @"com.ibm.security.access.mmfa.tenant";
+  NSString *tenantId = userInfo[tenantKey];
+  [RNPush onNotificationTap:userInfo];
+  NSLog(@"Tenant ID of the transaction %@", tenantId);
+  NSURL *url = [NSURL URLWithString:@"baflverify://transaction?tenantId="];
+  [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+  completionHandler();
 }
 
 

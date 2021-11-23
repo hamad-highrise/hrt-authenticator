@@ -22,7 +22,6 @@ class RNPush: NSObject {
       if error != nil {
         reject("",error?.localizedDescription,error);
       } else if let token = token {
-        
         resolve(["pushToken": token]);
       }
     })
@@ -68,6 +67,18 @@ class RNPush: NSObject {
     let token = tokenParts.joined();
     UserDefaults.standard.set(token, forKey: KEY_NAME);
   }
+  
+  @objc
+  static func onNotificationTap(_ result: NSDictionary) -> Void {
+    let tenantKey = "com.ibm.security.access.mmfa.tenant";
+    guard let tenantId = result[tenantKey] else {
+      return;
+    }
+    let urlScheme = Bundle.main.object(forInfoDictionaryKey: "APP_URL") as! String;
+    let url = URL(string:"\(urlScheme)://transaction/\(tenantId)");
+    UIApplication.shared.open(url!, options: [:], completionHandler: nil);
+  }
+  
   
   @objc
   static func requiresMainQueueSetup() -> Bool {
