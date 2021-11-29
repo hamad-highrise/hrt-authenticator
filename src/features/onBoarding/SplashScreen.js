@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { StyleSheet, View, Image, Platform } from 'react-native';
+import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -13,6 +13,7 @@ import { Typography } from '../../theme';
 import { values } from '../../global';
 import assets from '../../assets';
 import SplashScreen from 'react-native-splash-screen';
+import styles from './styles';
 
 const SET_ROOT_DELAY = 2 * 1000;
 
@@ -69,48 +70,3 @@ const Splash = (props) => {
 };
 
 export default Splash;
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: 'white'
-    },
-    welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        fontWeight: 'bold',
-        color: '#424c58',
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
-    },
-    instructions: {
-        textAlign: 'center',
-        color: '#0f62fe',
-        marginBottom: -2,
-        fontSize: 14,
-        fontWeight: 'bold',
-        textTransform: 'uppercase',
-        letterSpacing: 6,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
-    },
-    Subinstructions: {
-        textAlign: 'center',
-        color: '#0f62fe',
-        marginBottom: 10,
-        fontSize: 12,
-        letterSpacing: 2,
-        fontFamily: Platform.OS === 'android' ? 'sans-serif-condensed' : null
-    },
-    image: {
-        width: 250,
-        height: 250
-    },
-    contentContainer: {
-        alignItems: 'center',
-        width: 250,
-        height: 250,
-        justifyContent: 'center'
-    }
-});
