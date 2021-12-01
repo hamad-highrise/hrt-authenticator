@@ -3,16 +3,15 @@ import React, { useEffect } from 'react';
 import { View, Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { useDispatch, useSelector } from 'react-redux';
+import SplashScreen from 'react-native-splash-screen';
 
 import { accountActions } from '../actions.public';
 import { initiateDb } from './init-db';
-import { setInitiated } from '../../native-services/utilities';
 import { utilities } from '../../native-services';
 import screensIdentifiers from '../../navigation/screensId';
 import { Typography } from '../../theme';
 import { values } from '../../global';
 import assets from '../../assets';
-import SplashScreen from 'react-native-splash-screen';
 import styles from './styles';
 
 const SET_ROOT_DELAY = 2 * 1000;
@@ -33,7 +32,8 @@ const Splash = (props) => {
             } else {
                 try {
                     await initiateDb();
-                    await setInitiated();
+                    await utilities.setInitiated();
+                    
                 } catch (error) {
                     alert('Error while initiating application.');
                 }

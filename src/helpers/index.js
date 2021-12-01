@@ -7,13 +7,13 @@
  */
 
 function checkQrValidity(scannedQRData) {
-    return data?.code && data?.details_url;
+    return scannedQRData?.code && scannedQRData?.details_url;
 }
 
 /**
- * 
- * @param {*} options 
- * @returns 
+ *
+ * @param {*} options
+ * @returns
  */
 
 function getIgnoreSslOption(options) {

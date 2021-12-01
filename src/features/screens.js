@@ -13,3 +13,5 @@ export {
     CompletionScreen,
     ManualAccount
 } from './addAccount';
+export { DeviceInfoScreen, SecurityAssessmentScreen } from './deviceInfo';
+export { SplashScreen } from './onBoarding';

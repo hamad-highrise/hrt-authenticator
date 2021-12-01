@@ -49,9 +49,14 @@ function useQR() {
                                   screensIdentifiers.success,
                                   result
                               )
-                            : alert('Invalid QR');
+                            : alert(
+                                  'Invalid QR Code! Does not contains required data for account registration.'
+                              );
                     } catch (error) {
-                        alert(error.displayMessage);
+                        alert(
+                            error?.displayMessage ||
+                                'Unable to perform operation'
+                        );
                         setLoading(false);
                         navigation.navigate(screensIdentifiers.main);
                     }
@@ -67,8 +72,8 @@ function useQR() {
                     const account = {
                         name: parsedData.label.account,
                         issuer:
-                            parsedData.label.issuer ||
-                            parsedData.query.issuer ||
+                            parsedData.label?.issuer ||
+                            parsedData.query?.issuer ||
                             'N/A',
                         secret: parsedData.query.secret,
                         type: constants.ACCOUNT_TYPES.TOTP

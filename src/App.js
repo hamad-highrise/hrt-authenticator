@@ -9,11 +9,6 @@ import screenIds from './navigation/screensId';
 import store from './redux';
 import { utilsActions } from './features/actions.public';
 import {
-    DeviceInfoScreen,
-    SplashScreen,
-    SecurityAssessmentScreen
-} from './features';
-import {
     AccountsScreen,
     TransactionScreen,
     RootedDeviceScreen,
@@ -25,11 +20,13 @@ import {
     SuccessScreen,
     CompletionScreen,
     RegisterBiometrics,
-    BiometricInfo
+    BiometricInfo,
+    SplashScreen,
+    DeviceInfoScreen,
+    SecurityAssessmentScreen
 } from './features/screens';
 import Config from 'react-native-config';
-import { Linking, Text } from 'react-native';
-import { LoadingIndicator } from './components';
+import { Linking } from 'react-native';
 
 enableScreens();
 const Stack = createNativeStackNavigator();

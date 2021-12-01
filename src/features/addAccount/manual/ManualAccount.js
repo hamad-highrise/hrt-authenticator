@@ -3,7 +3,7 @@ import { View, Text, ScrollView, SafeAreaView } from 'react-native';
 import { useDispatch } from 'react-redux';
 import { useNavigation } from '@react-navigation/native';
 
-import { Button, TextInput, TopNavbar, Topbar } from '../../../components';
+import { Button, TextInput, Topbar } from '../../../components';
 import assets from '../../../assets';
 import screensIdentifiers from '../../../navigation/screensId';
 import { createAccount } from '../services';
